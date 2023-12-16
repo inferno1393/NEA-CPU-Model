@@ -106,7 +106,7 @@ namespace NEA_CPU_Model
                         format = "Rd, <memory ref>";
                         break;
                     case 2:
-                        format = "Rd, Rn, <operand>";
+                        format = "Rd, Rn, <memory ref>";
                         break;
                     default:
                         format = "invalid";
@@ -126,22 +126,21 @@ namespace NEA_CPU_Model
             {
                 { "LDR", "Rd, <memory ref>" },
                 { "STR", "Rd, <memory ref>" },
-                { "ADD", "Rd, Rn, <operand>" },
-                { "SUB", "Rd, Rn, <operand>" },
+                { "ADD", "Rd, Rn, <memory ref>" },
+                { "SUB", "Rd, Rn, <memory ref>" },
                 { "MOV", "Rd, <memory ref>" },
-                { "CMP", "Rd, <operand> " },
+                { "CMP", "Rd, <memory ref> " },
                 { "B", "<label>"},
                 { "B<EQ>", "<label>" },
                 { "B<NE>", "<label>" },
                 { "B<GT>", "<label>" },
                 { "B<LT>", "<label>" },
-                { "AND", "Rd, Rn, <operand>" },
-                { "ORR", "Rd, Rn, <operand>" },
-                { "EOR", "Rd, Rn, <operand>" },
-                { "MVN", "Rd, <operand>" },
-                { "LSL", "Rd, Rn, <operand>" },
-                { "LSR", "Rd, Rn, <operand>" },
-                { "HALT", " " }
+                { "AND", "Rd, Rn, <memory ref>" },
+                { "ORR", "Rd, Rn, <memory ref>" },
+                { "EOR", "Rd, Rn, <memory ref>" },
+                { "MVN", "Rd, <memory ref>" },
+                { "LSL", "Rd, Rn, <memory ref>" },
+                { "LSR", "Rd, Rn, <memory ref>" },
             };
 
             if (instructionSet.ContainsKey(Opcode))
