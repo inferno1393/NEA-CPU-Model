@@ -141,6 +141,7 @@ namespace NEA_CPU_Model
                 { "MVN", "Rd, <memory ref>" },
                 { "LSL", "Rd, Rn, <memory ref>" },
                 { "LSR", "Rd, Rn, <memory ref>" },
+                {"HALT", " " }
             };
 
             if (instructionSet.ContainsKey(Opcode))
