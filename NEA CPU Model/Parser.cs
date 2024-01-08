@@ -14,52 +14,51 @@ namespace NEA_CPU_Model
     {
         // Attributes
         private StackArray<string> splitInstructions;
-        private QueueArray<string> instructions;
+        private List<string> instructions;
+
         // creates a dictionary of the valid Opcodes and the format their Operand should be in
-        private Dictionary<string, string> instructionSet = new()
-            {
-                { "LDR", "Rd, <memory ref>" },
-                { "STR", "Rd, <memory ref>" },
-                { "ADD", "Rd, Rn, <memory ref>" },
-                { "SUB", "Rd, Rn, <memory ref>" },
-                { "MOV", "Rd, <memory ref>" },
-                { "CMP", "Rd, <memory ref> " },
-                { "B", "<label>"},
-                { "B<EQ>", "<label>" },
-                { "B<NE>", "<label>" },
-                { "B<GT>", "<label>" },
-                { "B<LT>", "<label>" },
-                { "AND", "Rd, Rn, <memory ref>" },
-                { "ORR", "Rd, Rn, <memory ref>" },
-                { "EOR", "Rd, Rn, <memory ref>" },
-                { "MVN", "Rd, <memory ref>" },
-                { "LSL", "Rd, Rn, <memory ref>" },
-                { "LSR", "Rd, Rn, <memory ref>" },
-                {"HALT", " " }
-            };
+        static Dictionary<string, string> instructionSet = new()
+        {
+            { "LDR", "Rd, <memory ref>" },
+            { "STR", "Rd, <memory ref>" },
+            { "ADD", "Rd, Rn, <memory ref>" },
+            { "SUB", "Rd, Rn, <memory ref>" },
+            { "MOV", "Rd, <memory ref>" },
+            { "CMP", "Rd, <memory ref> " },
+            { "B", "<label>"},
+            { "B<EQ>", "<label>" },
+            { "B<NE>", "<label>" },
+            { "B<GT>", "<label>" },
+            { "B<LT>", "<label>" },
+            { "AND", "Rd, Rn, <memory ref>" },
+            { "ORR", "Rd, Rn, <memory ref>" },
+            { "EOR", "Rd, Rn, <memory ref>" },
+            { "MVN", "Rd, <memory ref>" },
+            { "LSL", "Rd, Rn, <memory ref>" },
+            { "LSR", "Rd, Rn, <memory ref>" },
+            { "HALT", " " }
+        };
 
 
         // constructor
-        public Parser(QueueArray<string> instructions, StackArray<string> splitInstructions)
+        public Parser(List<string> instructions, StackArray<string> splitInstructions)
         {
             this.splitInstructions = splitInstructions;
             this.instructions = instructions;
         }
 
         // returns a string showing the validity of the instructions
-        private string ParseInstructions(QueueArray<string> instructions, StackArray<string> splitInstructions, Dictionary<string,string> instructionSet)
+        public string ParseInstructions(List<string> instructions, StackArray<string> splitInstructions)
         {
             // splits the instructions in the queue into Opcode and Operand
             for (int i = 0; i < instructions.Count; i++)
             {
-                string instruction = instructions.Dequeue();
+                string instruction = instructions[i];
 
                 instruction = instruction.Replace(" ", ""); // removes white space from the instruction
 
                 splitInstructions.Push(GetOpcode(instruction));
                 splitInstructions.Push(GetOperand(instruction));
-
-                instructions.Enqueue(instruction);
             }   
 
             splitInstructions.Pop(); // pops of the operand of the HALT instruction
@@ -73,7 +72,7 @@ namespace NEA_CPU_Model
             // checks instructions are valid
             for (int i = 0; i < splitInstructions.Count; i++)
             {
-                if (!CheckInstruction(splitInstructions.Pop(), splitInstructions.Pop(), instructionSet))
+                if (!CheckInstruction(splitInstructions.Pop(), splitInstructions.Pop()))
                 {
                     return "Invalid, incorrect instruction";
                 }
@@ -83,10 +82,10 @@ namespace NEA_CPU_Model
             return "Valid";
         }
 
-        static bool CheckInstruction(string Operand, string Opcode, Dictionary<string,string> instructionSet)
+        static bool CheckInstruction(string Operand, string Opcode)
         {
             // if the Opcode is invalid, the instruction is invalid
-            if (OpcodeFormat(Opcode, instructionSet) == "invalid")
+            if (OpcodeFormat(Opcode) == "invalid")
             {
                 return false;
             }
@@ -96,7 +95,7 @@ namespace NEA_CPU_Model
 
             }
             // if the Operand is not in the correct format for the Opcode, the instruction is invalid
-            else if (OpcodeFormat(Opcode, instructionSet) != OperandFormat(Operand))
+            else if (OpcodeFormat(Opcode) != OperandFormat(Operand))
             {
                 return false;
             }
@@ -143,7 +142,7 @@ namespace NEA_CPU_Model
         }
 
         // uses a dictionary to return the format the operand should be in
-        static string OpcodeFormat(string Opcode, Dictionary<string,string> instructionSet)
+        static string OpcodeFormat(string Opcode)
         {
             // if the Opcode is a valid key
             // return the matching value
