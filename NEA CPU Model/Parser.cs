@@ -5,6 +5,8 @@ using System.Reflection.Emit;
 using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using static System.Windows.Forms.DataFormats;
 
 namespace NEA_CPU_Model
 {
@@ -13,6 +15,7 @@ namespace NEA_CPU_Model
         // Attributes
         private StackArray<string> splitInstructions;
         private QueueArray<string> instructions;
+        // creates a dictionary of the valid Opcodes and the format their Operand should be in
         private Dictionary<string, string> instructionSet = new()
             {
                 { "LDR", "Rd, <memory ref>" },
@@ -44,7 +47,7 @@ namespace NEA_CPU_Model
         }
 
         // returns a string showing the validity of the instructions
-        public string ParseInstructions(QueueArray<string> instructions, StackArray<string> splitInstructions, Dictionary<string,string> instructionSet)
+        private string ParseInstructions(QueueArray<string> instructions, StackArray<string> splitInstructions, Dictionary<string,string> instructionSet)
         {
             // splits the instructions in the queue into Opcode and Operand
             for (int i = 0; i < instructions.Count; i++)
@@ -102,11 +105,12 @@ namespace NEA_CPU_Model
             return true;
         }
 
+        // returns the format the Operand is in by counting the commans present
         static string OperandFormat(string Operand)
         {
-            // returns the format the Operand is in by counting the commans present
             int count = 0;
 
+            // counts commas in the string
             for (int i = 0; i < Operand.Length; i++)
             {
                 if (Operand[i] == ',')
@@ -115,10 +119,13 @@ namespace NEA_CPU_Model
                 }
             }
 
+            
+            // if the Operand is blank then the format is blank and that is returned instead
             if (Operand == " ")
             {
                 return " ";
             }
+            // returns the Operand format based on the number of commas counted
             else
             {
                 switch (count)
@@ -135,30 +142,35 @@ namespace NEA_CPU_Model
             }
         }
 
+        // uses a dictionary to return the format the operand should be in
         static string OpcodeFormat(string Opcode, Dictionary<string,string> instructionSet)
         {
-            // uses a dictionary to return the format the operand should be in
-
+            // if the Opcode is a valid key
+            // return the matching value
             if (instructionSet.ContainsKey(Opcode))
             {
                 return instructionSet[Opcode];
             }
+            // else return invalid Opcode
             else
             {
                 return "invalid";
             }
         }
 
+        // splits the operand from the instruction
         static string GetOperand(string instruction)
         {
             string operand = string.Empty;
-            // splits the operand from the instruction
+            // if the Opcode is HALT, the operand will be blank
             if (GetOpcode(instruction) == "HALT")
             {
                 return " ";
             }
+            // if the Opcode starts with B, it is a branch instruction
             else if (GetOpcode(instruction)[0] == 'B')
             {
+                // checks if the branch has a condition or not
                 if (instruction[1] == ' ')
                 {
                     for (int i = 0; i < instruction.Length - 3; i++)
@@ -174,6 +186,7 @@ namespace NEA_CPU_Model
                     }
                 }
             }
+            // else the instruction is standard 3 long Opcode and it can be handled as standard
             else
             {
                 for (int i = 0; i < instruction.Length - 3; i++)
@@ -185,29 +198,32 @@ namespace NEA_CPU_Model
             return operand;
         }
 
+        // splits the opcode from the operand (but doesn't verify valid opcode)
         static string GetOpcode(string instruction)
         {
-            // splits the opcode from the operand (but doesn't verify valid opcode)
+            // if the instruction is just HALT, then the opcode is just HALT
             if (instruction == "HALT")
             {
                 return "HALT";
             }
+            // if the Opcode starts with B, it is a branch instruction
             else if (instruction[0] == 'B')
             {
+                // checks if the branch has a condition or not
                 if (instruction[1] == ' ')
                 {
                     return "B";
                 }
                 else
                 {
-                   return String.Concat(instruction[0], instruction[1], instruction[2], instruction[3], instruction[4]);
+                    return string.Concat(instruction[0], instruction[1], instruction[2], instruction[3], instruction[4]);
                 }
             }
+            // else the instruction is standard 3 long Opcode and it can be handled as standard
             else
             {
-                return String.Concat(instruction[0], instruction[1], instruction[2]);
+                return string.Concat(instruction[0], instruction[1], instruction[2]);
             }
         }
-
     }
 }
