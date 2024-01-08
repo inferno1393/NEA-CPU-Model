@@ -59,9 +59,10 @@ namespace NEA_CPU_Model
 
                 splitInstructions.Push(GetOpcode(instruction));
                 splitInstructions.Push(GetOperand(instruction));
-            }   
+            }
 
             splitInstructions.Pop(); // pops of the operand of the HALT instruction
+
 
             // checks last instruction is a HALT (since program must halt)
             if (splitInstructions.Pop() != "HALT")
