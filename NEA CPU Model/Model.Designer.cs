@@ -28,43 +28,45 @@
         /// </summary>
         private void InitializeComponent()
         {
-            button1 = new Button();
-            textBox1 = new TextBox();
+            instructionsTextBox = new TextBox();
+            executeBtn = new Button();
             SuspendLayout();
             // 
-            // button1
+            // instructionsTextBox
             // 
-            button1.Location = new Point(110, 297);
-            button1.Name = "button1";
-            button1.Size = new Size(112, 34);
-            button1.TabIndex = 0;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+            instructionsTextBox.Location = new Point(157, 100);
+            instructionsTextBox.Name = "instructionsTextBox";
+            instructionsTextBox.Size = new Size(150, 31);
+            instructionsTextBox.TabIndex = 1;
+            instructionsTextBox.Text = "ADD 1,0,3";
             // 
-            // textBox1
+            // executeBtn
             // 
-            textBox1.Location = new Point(157, 100);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(150, 31);
-            textBox1.TabIndex = 1;
+            executeBtn.Location = new Point(139, 271);
+            executeBtn.Name = "executeBtn";
+            executeBtn.Size = new Size(112, 34);
+            executeBtn.TabIndex = 2;
+            executeBtn.Text = "Execute";
+            executeBtn.UseVisualStyleBackColor = true;
+            executeBtn.Click += executeBtn_Click;
             // 
             // Model
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(textBox1);
-            Controls.Add(button1);
+            Controls.Add(executeBtn);
+            Controls.Add(instructionsTextBox);
             Name = "Model";
-            Text = "Form1";
+            Text = "Model";
             ResumeLayout(false);
             PerformLayout();
         }
 
-        #endregion
 
-        private Button button1;
+        #endregion
         private TextBox textBox1;
+        private Button executeBtn;
+        private TextBox instructionsTextBox;
     }
 }
