@@ -34,11 +34,12 @@
             // 
             // instructionsTextBox
             // 
-            instructionsTextBox.Location = new Point(157, 100);
+            instructionsTextBox.Location = new Point(125, 120);
+            instructionsTextBox.Multiline = true;
             instructionsTextBox.Name = "instructionsTextBox";
-            instructionsTextBox.Size = new Size(150, 31);
+            instructionsTextBox.Size = new Size(150, 117);
             instructionsTextBox.TabIndex = 1;
-            instructionsTextBox.Text = "ADD 1,0,3";
+            instructionsTextBox.Text = "ADD 1,0,3\r\nSUB 1,0,3\r\nHALT";
             // 
             // executeBtn
             // 
