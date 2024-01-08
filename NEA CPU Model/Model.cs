@@ -18,7 +18,6 @@ namespace NEA_CPU_Model
             List<string> instructions = new List<string>();
             StackArray<string> splitInstructions = new StackArray<string>();
 
-
             string text = textBox1.Text;
             instructions.Append(text);
 
