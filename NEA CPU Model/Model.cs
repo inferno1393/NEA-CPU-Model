@@ -27,6 +27,8 @@ namespace NEA_CPU_Model
             Parser parser = new Parser(instructions, splitInstructions);
             string parsingOutput = parser.ParseInstructions(instructions, splitInstructions);
 
+            // takes the output of the parsing and either shows the error to the user 
+            // or sends the instructions to be executed
             if(parsingOutput == "Valid")
             {
                 
