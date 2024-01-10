@@ -75,7 +75,7 @@ namespace NEA_CPU_Model
             {
                 if (!CheckInstruction(splitInstructions.Pop(), splitInstructions.Pop()))
                 {
-                    return "Invalid, incorrect instruction";
+                    return $"Invalid, incorrect instruction at line {i/2}";
                 }
             }
 
@@ -93,7 +93,7 @@ namespace NEA_CPU_Model
             // if the Operand is invalid, the instruction is invalid
             else if (OperandFormat(Operand) == "invalid")
             {
-
+                return false;
             }
             // if the Operand is not in the correct format for the Opcode, the instruction is invalid
             else if (OpcodeFormat(Opcode) != OperandFormat(Operand))
