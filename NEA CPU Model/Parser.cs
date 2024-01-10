@@ -70,13 +70,13 @@ namespace NEA_CPU_Model
                 return "Invalid, no HALT command";
             }
 
-            int count = splitInstructions.Count;
+            int count = instructions.Count-1;
             // checks instructions are valid
             for (int i = count; i > 0; i--)
             {
                 if (!CheckInstruction(splitInstructions.Pop(), splitInstructions.Pop()))
                 {
-                    return $"Invalid, incorrect instruction at line {i/2}";
+                    return $"Invalid, incorrect instruction at line {i}";
                 }
             }
 
