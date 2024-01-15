@@ -48,8 +48,9 @@ namespace NEA_CPU_Model
         }
 
         // returns a string showing the validity of the instructions
-        public string ParseInstructions(List<string> instructions, StackArray<string> splitInstructions)
+        public List<string> ParseInstructions(List<string> instructions, StackArray<string> splitInstructions)
         {
+            List<string> compiledInstructions = new List<string>();
             // splits the instructions in the queue into Opcode and Operand
             for (int i = 0; i < instructions.Count; i++)
             {
@@ -67,7 +68,9 @@ namespace NEA_CPU_Model
             // checks last instruction is a HALT (since program must halt)
             if (splitInstructions.Pop() != "HALT")
             {
-                return "Invalid, no HALT command";
+                MessageBox.Show("Invalid, no HALT command");
+                //returns instructions that were passed in
+                return instructions;
             }
 
             int count = instructions.Count-1;
@@ -76,12 +79,15 @@ namespace NEA_CPU_Model
             {
                 if (!CheckInstruction(splitInstructions.Pop(), splitInstructions.Pop()))
                 {
-                    return $"Invalid, incorrect instruction at line {i}";
+                    MessageBox.Show($"Invalid, incorrect instruction at line {i}");
+                    //returns instructions that were passed in
+                    return instructions;
                 }
             }
 
-            // else the instructions are valid
-            return "Valid";
+            // else the instructions are valid so
+            // return compiled code
+            return compiledInstructions;
         }
 
         static bool CheckInstruction(string Operand, string Opcode)
