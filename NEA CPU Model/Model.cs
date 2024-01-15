@@ -16,8 +16,8 @@ namespace NEA_CPU_Model
         {
             // creates the List (and puts the values in the text box into it) and Stack necessary for parsing
             List<string> instructions = instructionsTextBox.Text.Split('\n').ToList<string>();
-            StackArray<string> splitInstructions = new StackArray<string>();            
-            
+            StackArray<string> splitInstructions = new StackArray<string>();
+
             // creates an instance of the Parser class and uses it to check the instructions are valid
             Parser parser = new Parser(instructions, splitInstructions);
             List<string> parsingOutput = parser.ParseInstructions(instructions, splitInstructions);
