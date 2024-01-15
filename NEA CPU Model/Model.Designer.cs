@@ -43,13 +43,13 @@
             instructionsTextBox.Location = new Point(12, 92);
             instructionsTextBox.Multiline = true;
             instructionsTextBox.Name = "instructionsTextBox";
-            instructionsTextBox.Size = new Size(150, 117);
+            instructionsTextBox.Size = new Size(150, 256);
             instructionsTextBox.TabIndex = 1;
             instructionsTextBox.Text = "ADD 1,0,3\r\nSUB 1,0,3\r\nHALT";
             // 
             // executeBtn
             // 
-            executeBtn.Location = new Point(12, 227);
+            executeBtn.Location = new Point(12, 354);
             executeBtn.Name = "executeBtn";
             executeBtn.Size = new Size(79, 34);
             executeBtn.TabIndex = 2;
@@ -86,7 +86,7 @@
             // 
             // loadBtn
             // 
-            loadBtn.Location = new Point(92, 227);
+            loadBtn.Location = new Point(92, 354);
             loadBtn.Name = "loadBtn";
             loadBtn.Size = new Size(70, 34);
             loadBtn.TabIndex = 6;
@@ -95,7 +95,7 @@
             // 
             // stepBtn
             // 
-            stepBtn.Location = new Point(12, 267);
+            stepBtn.Location = new Point(12, 394);
             stepBtn.Name = "stepBtn";
             stepBtn.Size = new Size(79, 34);
             stepBtn.TabIndex = 7;
@@ -104,7 +104,7 @@
             // 
             // pauseBtn
             // 
-            pauseBtn.Location = new Point(92, 267);
+            pauseBtn.Location = new Point(92, 394);
             pauseBtn.Name = "pauseBtn";
             pauseBtn.Size = new Size(70, 34);
             pauseBtn.TabIndex = 8;
