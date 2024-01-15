@@ -43,15 +43,15 @@
             instructionsTextBox.Location = new Point(12, 92);
             instructionsTextBox.Multiline = true;
             instructionsTextBox.Name = "instructionsTextBox";
-            instructionsTextBox.Size = new Size(150, 256);
+            instructionsTextBox.Size = new Size(269, 446);
             instructionsTextBox.TabIndex = 1;
             instructionsTextBox.Text = "ADD 1,0,3\r\nSUB 1,0,3\r\nHALT";
             // 
             // executeBtn
             // 
-            executeBtn.Location = new Point(12, 354);
+            executeBtn.Location = new Point(12, 554);
             executeBtn.Name = "executeBtn";
-            executeBtn.Size = new Size(79, 34);
+            executeBtn.Size = new Size(125, 73);
             executeBtn.TabIndex = 2;
             executeBtn.Text = "Execute";
             executeBtn.UseVisualStyleBackColor = true;
@@ -60,7 +60,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(12, 49);
+            label1.Location = new Point(71, 49);
             label1.Name = "label1";
             label1.Size = new Size(79, 25);
             label1.TabIndex = 3;
@@ -69,7 +69,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(186, 49);
+            label2.Location = new Point(591, 49);
             label2.Name = "label2";
             label2.Size = new Size(45, 25);
             label2.TabIndex = 4;
@@ -78,7 +78,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(572, 49);
+            label3.Location = new Point(1066, 49);
             label3.Name = "label3";
             label3.Size = new Size(51, 25);
             label3.TabIndex = 5;
@@ -86,27 +86,27 @@
             // 
             // loadBtn
             // 
-            loadBtn.Location = new Point(92, 354);
+            loadBtn.Location = new Point(156, 554);
             loadBtn.Name = "loadBtn";
-            loadBtn.Size = new Size(70, 34);
+            loadBtn.Size = new Size(125, 73);
             loadBtn.TabIndex = 6;
             loadBtn.Text = "Load";
             loadBtn.UseVisualStyleBackColor = true;
             // 
             // stepBtn
             // 
-            stepBtn.Location = new Point(12, 394);
+            stepBtn.Location = new Point(12, 642);
             stepBtn.Name = "stepBtn";
-            stepBtn.Size = new Size(79, 34);
+            stepBtn.Size = new Size(125, 73);
             stepBtn.TabIndex = 7;
             stepBtn.Text = "Step";
             stepBtn.UseVisualStyleBackColor = true;
             // 
             // pauseBtn
             // 
-            pauseBtn.Location = new Point(92, 394);
+            pauseBtn.Location = new Point(156, 642);
             pauseBtn.Name = "pauseBtn";
-            pauseBtn.Size = new Size(70, 34);
+            pauseBtn.Size = new Size(125, 73);
             pauseBtn.TabIndex = 8;
             pauseBtn.Text = "Pause";
             pauseBtn.UseVisualStyleBackColor = true;
@@ -115,7 +115,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1293, 773);
             Controls.Add(pauseBtn);
             Controls.Add(stepBtn);
             Controls.Add(loadBtn);
