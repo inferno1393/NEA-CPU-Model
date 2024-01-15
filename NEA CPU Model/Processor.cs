@@ -16,9 +16,10 @@ namespace NEA_CPU_Model
 
         public void Execute(List<string> instructions)
         {
+            MessageBox.Show("COMPILER WORKING");
             for (int i = 0; i < instructions.Count; i++)
             {
-
+                
             }
         }
     }

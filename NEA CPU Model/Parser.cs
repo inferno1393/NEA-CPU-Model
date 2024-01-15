@@ -39,6 +39,29 @@ namespace NEA_CPU_Model
             { "HALT", " " }
         };
 
+        // creates a dictionary of the valid Opcodes and their equivalent machine code instructions
+        static Dictionary<string, string> machineCode = new()
+        {
+            { "LDR", "10001" },
+            { "STR", "10000" },
+            { "ADD", "01111" },
+            { "SUB", "01110"},
+            { "MOV", "01101" },
+            { "CMP", "01100" },
+            { "B", "01011" },
+            { "B<EQ>", "01010" },
+            { "B<NE>", "01001" },
+            { "B<GT>", "01000" },
+            { "B<LT>", "00111" },
+            { "AND", "00110" },
+            { "ORR", "00101" },
+            { "EOR", "00100" },
+            { "MVN", "00011" },
+            { "LSL", "00010" },
+            { "LSR", "00001" },
+            { "HALT","00000" },
+        };
+
 
         // constructor
         public Parser(List<string> instructions, StackArray<string> splitInstructions)
@@ -86,7 +109,12 @@ namespace NEA_CPU_Model
             }
 
             // else the instructions are valid so
-            // return compiled code
+            // create and return compiled code
+            for (int i = 0; i < count; i++)
+            {
+                compiledInstructions.Add(machineCode[GetOpcode(instructions[i])]);
+            }
+
             return compiledInstructions;
         }
 
