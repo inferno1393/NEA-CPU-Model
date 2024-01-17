@@ -9,9 +9,15 @@ namespace NEA_CPU_Model
     internal class Processor
     {
         
-        public Processor(string instruction)
+        public Processor()
         {
             
         }
+
+        public void CarryOut(string opcode, string operand)
+        {
+
+        }
+
     }
 }
