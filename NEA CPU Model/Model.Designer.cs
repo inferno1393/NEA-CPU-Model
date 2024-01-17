@@ -33,9 +33,7 @@
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
-            loadBtn = new Button();
             stepBtn = new Button();
-            pauseBtn = new Button();
             SuspendLayout();
             // 
             // instructionsTextBox
@@ -84,41 +82,21 @@
             label3.TabIndex = 5;
             label3.Text = "RAM";
             // 
-            // loadBtn
-            // 
-            loadBtn.Location = new Point(156, 554);
-            loadBtn.Name = "loadBtn";
-            loadBtn.Size = new Size(125, 73);
-            loadBtn.TabIndex = 6;
-            loadBtn.Text = "Load";
-            loadBtn.UseVisualStyleBackColor = true;
-            // 
             // stepBtn
             // 
-            stepBtn.Location = new Point(12, 642);
+            stepBtn.Location = new Point(156, 554);
             stepBtn.Name = "stepBtn";
             stepBtn.Size = new Size(125, 73);
             stepBtn.TabIndex = 7;
             stepBtn.Text = "Step";
             stepBtn.UseVisualStyleBackColor = true;
             // 
-            // pauseBtn
-            // 
-            pauseBtn.Location = new Point(156, 642);
-            pauseBtn.Name = "pauseBtn";
-            pauseBtn.Size = new Size(125, 73);
-            pauseBtn.TabIndex = 8;
-            pauseBtn.Text = "Pause";
-            pauseBtn.UseVisualStyleBackColor = true;
-            // 
             // Model
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1293, 773);
-            Controls.Add(pauseBtn);
             Controls.Add(stepBtn);
-            Controls.Add(loadBtn);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
@@ -138,8 +116,6 @@
         private Label label1;
         private Label label2;
         private Label label3;
-        private Button loadBtn;
         private Button stepBtn;
-        private Button pauseBtn;
     }
 }
