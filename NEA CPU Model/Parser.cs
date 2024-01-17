@@ -159,7 +159,7 @@ namespace NEA_CPU_Model
         }
 
         // splits the operand from the instruction
-        static string GetOperand(string instruction)
+        public static string GetOperand(string instruction)
         {
             string operand = string.Empty;
             // if the Opcode is HALT, the operand will be blank
@@ -199,7 +199,7 @@ namespace NEA_CPU_Model
         }
 
         // splits the opcode from the operand (but doesn't verify valid opcode)
-        static string GetOpcode(string instruction)
+        public static string GetOpcode(string instruction)
         {
             // if the instruction is just HALT, then the opcode is just HALT
             if (instruction == "HALT")

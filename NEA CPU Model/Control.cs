@@ -20,9 +20,9 @@ namespace NEA_CPU_Model
             Processor processor = new Processor();
             foreach (var instruction in instructions)
             {
-                string opcode = String.Concat(instruction[0] + instruction[1] + instruction[2] + instruction[3] + instruction[4]);
+                string opcode = Parser.GetOpcode(instruction);
                 
-                if(opcode == "00000")
+                if(opcode == "HALT")
                 {
                     goto Exit;
                 }
