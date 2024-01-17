@@ -27,8 +27,8 @@ namespace NEA_CPU_Model
             if (parsingOutput != instructions)
             {
                 // code has compiled correctly, execute
-                Processor processor = new Processor(instructions);
-                processor.Execute(instructions);
+                Control control = new Control(instructions);
+                control.Execute(instructions);
             }
             else
             {
