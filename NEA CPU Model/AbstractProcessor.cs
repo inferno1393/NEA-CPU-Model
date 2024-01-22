@@ -16,7 +16,7 @@ namespace NEA_CPU_Model
         }
 
         // fetches data from the address given
-        protected virtual int Fetch(string address)
+        protected virtual int Fetch(int address)
         {
             return 0;
             // is overriden by the child class

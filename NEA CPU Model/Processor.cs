@@ -31,7 +31,7 @@ namespace NEA_CPU_Model
         }
 
         // fetches data from the address given
-        protected override int Fetch(string address)
+        protected override int Fetch(int address)
         {
             // cant implement until RAM class exists
             return 0;
