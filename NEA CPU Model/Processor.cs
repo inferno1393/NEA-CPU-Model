@@ -16,7 +16,8 @@ namespace NEA_CPU_Model
             instructions = this.instructions;
         }
 
-        // 
+        // splits the instructions into each instruction and then into opcode and operand
+        // then controls the CPU components in executing the instruction
         public override void Flow(List<string> instructions, RAM RAM)
         {
             WriteToMemory(0, 3, RAM);

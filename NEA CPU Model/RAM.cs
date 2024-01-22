@@ -24,11 +24,7 @@ namespace NEA_CPU_Model
         // returns the data of the address being accessed
         public override int ReturnData(int address)
         {
-            if (!IsAddressNull(address))
-            {
-                return memory[address];
-            }
-            return -1;
+            return memory[address]; // if the value is null a -1 will be returned and this can be handled
         }
 
 
@@ -38,13 +34,5 @@ namespace NEA_CPU_Model
             memory[address] = data;
         }
 
-        protected override bool IsAddressNull(int address)
-        {
-            if (memory[address] == -1)
-            {
-                return true;
-            }
-            return false;
-        }
     }
 }

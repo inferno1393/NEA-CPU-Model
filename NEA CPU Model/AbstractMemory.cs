@@ -20,13 +20,5 @@ namespace NEA_CPU_Model
         {
             // is overriden by the child class
         }
-
-        // checks the given address is null
-        protected virtual bool IsAddressNull(int address)
-        {
-            return true;
-
-            // is overriden by the child class
-        }
     }
 }
