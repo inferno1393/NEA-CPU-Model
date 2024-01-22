@@ -2,9 +2,6 @@ namespace NEA_CPU_Model
 {
     public partial class Model : Form
     {
-        // Attributes
-
-
         // constructor
         public Model()
         {

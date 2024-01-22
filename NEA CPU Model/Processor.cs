@@ -9,7 +9,8 @@ namespace NEA_CPU_Model
     internal class Processor: AbstractProcessor
     {
         List<string> instructions = new List<string>();
-        
+
+        // constructor
         public Processor(List<string> instructions)                                             
         {
             instructions = this.instructions;
