@@ -15,11 +15,18 @@ namespace NEA_CPU_Model
             // is overriden by the child class
         }
 
-        // fetches data needed from appropriate location
+        // fetches data from the address given
         protected virtual int Fetch(string address)
         {
             return 0;
             // is overriden by the child class
+        }
+
+
+        // writes the data given into the address given
+        protected virtual void WriteToMemory(string address, int data)
+        {
+            // is oveerriden by the child class
         }
     }
 

@@ -30,9 +30,16 @@ namespace NEA_CPU_Model
             ; // HALT instruction found, end of execution so will return back to call point
         }
 
+        // fetches data from the address given
         protected override int Fetch(string address)
         {
             return 0;
+        }
+
+        // writes the data given into the address given
+        protected override void WriteToMemory(string address, int data)
+        {
+            
         }
     }
 }
