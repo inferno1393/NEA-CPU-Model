@@ -33,13 +33,14 @@ namespace NEA_CPU_Model
         // fetches data from the address given
         protected override int Fetch(string address)
         {
+            // cant implement until RAM class exists
             return 0;
         }
 
         // writes the data given into the address given
         protected override void WriteToMemory(string address, int data)
         {
-            
+            // cant implement until RAM class exists
         }
     }
 }
