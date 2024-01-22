@@ -10,7 +10,7 @@ namespace NEA_CPU_Model
     {
         List<string> instructions = new List<string>();
         
-        public Processor(List<string> instructions)
+        public Processor(List<string> instructions)                                             
         {
             instructions = this.instructions;
         }
@@ -30,9 +30,9 @@ namespace NEA_CPU_Model
             ; // HALT instruction found, end of execution so will return back to call point
         }
 
-        private void Fetch()
+        protected override int Fetch(string address)
         {
-
+            return 0;
         }
     }
 }

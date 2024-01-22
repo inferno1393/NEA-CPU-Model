@@ -12,13 +12,14 @@ namespace NEA_CPU_Model
         // controls the flow of instructions/data around the CPU
         public virtual void Flow(List<string> instructions)
         {
-            // is overriden by the processor since 
+            // is overriden by the child class
         }
 
         // fetches data needed from appropriate location
-        protected virtual void Fetch()
+        protected virtual int Fetch(string address)
         {
-
+            return 0;
+            // is overriden by the child class
         }
     }
 
