@@ -10,10 +10,10 @@ namespace NEA_CPU_Model
     {
         // uses a dictionary to implement an associative array to store the RAM values
         private Dictionary<int, int> memory = new Dictionary<int, int> {
-            { 0, -1},
-            {1 ,-1 },
-
-            };
+            {0 ,-1},
+            {1 ,-1},
+            {2 ,-1},
+        };
 
         // constructor
         public RAM()
@@ -24,7 +24,7 @@ namespace NEA_CPU_Model
         // returns the data of the address being accessed
         public override int ReturnData(int address)
         {
-            if (IsAddressNull(address))
+            if (!IsAddressNull(address))
             {
                 return memory[address];
             }
