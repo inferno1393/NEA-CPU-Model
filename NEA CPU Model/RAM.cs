@@ -9,7 +9,11 @@ namespace NEA_CPU_Model
     internal class RAM: AbstractMemory
     {
         // uses a dictionary to implement an associative array to store the RAM values
-        private Dictionary<int, int> memory = new Dictionary<int, int> { };
+        private Dictionary<int, int> memory = new Dictionary<int, int> {
+            { 0, -1},
+            {1 ,-1 },
+
+            };
 
         // constructor
         public RAM()
@@ -36,7 +40,7 @@ namespace NEA_CPU_Model
 
         protected override bool IsAddressNull(int address)
         {
-            if (memory[address] == null)
+            if (memory[address] == -1)
             {
                 return true;
             }

@@ -16,7 +16,7 @@ namespace NEA_CPU_Model
         }
 
         // fetches data from the address given
-        protected virtual int Fetch(int address)
+        protected virtual int Fetch(int address, RAM RAM)
         {
             return 0;
             // is overriden by the child class
@@ -24,7 +24,7 @@ namespace NEA_CPU_Model
 
 
         // writes the data given into the address given
-        protected virtual void WriteToMemory(string address, int data)
+        protected virtual void WriteToMemory(int address, int data, RAM RAM)
         {
             // is oveerriden by the child class
         }
