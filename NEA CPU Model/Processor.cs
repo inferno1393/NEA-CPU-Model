@@ -6,18 +6,33 @@ using System.Threading.Tasks;
 
 namespace NEA_CPU_Model
 {
-    internal class Processor
+    internal class Processor: AbstractProcessor
     {
+        List<string> instructions = new List<string>();
         
-        public Processor()
+        public Processor(List<string> instructions)
         {
-            
+            instructions = this.instructions;
         }
 
-        public void CarryOut(string opcode, string operand)
+        public override void Flow(List<string> instructions)
+        {
+            foreach (var instruction in instructions)
+            {
+                string opcode = Parser.GetOpcode(instruction);
+
+                if (opcode == "HALT")
+                {
+                    goto Exit;
+                }
+            }
+        Exit:
+            ; // HALT instruction found, end of execution so will return back to call point
+        }
+
+        private void Fetch()
         {
 
         }
-
     }
 }

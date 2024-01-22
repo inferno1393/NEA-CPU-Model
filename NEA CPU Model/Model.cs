@@ -27,13 +27,28 @@ namespace NEA_CPU_Model
             if (parsingOutput == "Valid")
             {
                 // code has compiled correctly, execute
-                Control control = new Control(instructions);
-                control.Flow(instructions);
+                Processor processor = new Processor(instructions);
+                processor.Flow(instructions);
+                MessageBox.Show("DD");
             }
             else
             {
                 MessageBox.Show(parsingOutput);
             }
+        }
+
+        // allows the user to step through the code instruction by instruction
+        private void stepBtn_Click(object sender, EventArgs e)
+        {
+            // yeah its not complete though
+            MessageBox.Show("This button does nothing");
+        }
+
+        // allows the user to load instructions from a text file
+        private void loadBtn_Click(object sender, EventArgs e)
+        {
+            // yeah its not complete though
+            MessageBox.Show("This button does nothing");
         }
     }
 }

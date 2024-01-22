@@ -34,6 +34,7 @@
             label2 = new Label();
             label3 = new Label();
             stepBtn = new Button();
+            loadBtn = new Button();
             SuspendLayout();
             // 
             // instructionsTextBox
@@ -67,7 +68,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(591, 49);
+            label2.Location = new Point(905, 49);
             label2.Name = "label2";
             label2.Size = new Size(45, 25);
             label2.TabIndex = 4;
@@ -76,7 +77,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(1066, 49);
+            label3.Location = new Point(1581, 49);
             label3.Name = "label3";
             label3.Size = new Size(51, 25);
             label3.TabIndex = 5;
@@ -90,12 +91,24 @@
             stepBtn.TabIndex = 7;
             stepBtn.Text = "Step";
             stepBtn.UseVisualStyleBackColor = true;
+            stepBtn.Click += stepBtn_Click;
+            // 
+            // loadBtn
+            // 
+            loadBtn.Location = new Point(87, 646);
+            loadBtn.Name = "loadBtn";
+            loadBtn.Size = new Size(127, 73);
+            loadBtn.TabIndex = 8;
+            loadBtn.Text = "Load";
+            loadBtn.UseVisualStyleBackColor = true;
+            loadBtn.Click += loadBtn_Click;
             // 
             // Model
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1293, 773);
+            ClientSize = new Size(1898, 1144);
+            Controls.Add(loadBtn);
             Controls.Add(stepBtn);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -117,5 +130,6 @@
         private Label label2;
         private Label label3;
         private Button stepBtn;
+        private Button loadBtn;
     }
 }
