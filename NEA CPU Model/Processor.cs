@@ -16,7 +16,7 @@ namespace NEA_CPU_Model
             instructions = this.instructions;
         }
 
-        public override void Flow(List<string> instructions)
+        public override void Flow(List<string> instructions, RAM RAM)
         {
             foreach (var instruction in instructions)
             {

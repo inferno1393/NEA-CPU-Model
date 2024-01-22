@@ -25,8 +25,10 @@ namespace NEA_CPU_Model
             {
                 // code has compiled correctly, execute
                 Processor processor = new Processor(instructions);
-                processor.Flow(instructions);
-                MessageBox.Show("DD");
+                RAM RAM = new RAM();
+                processor.Flow(instructions, RAM);
+
+                MessageBox.Show("Execution Complete");
             }
             else
             {
