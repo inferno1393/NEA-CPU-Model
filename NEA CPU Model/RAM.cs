@@ -38,6 +38,7 @@ namespace NEA_CPU_Model
             {
                 memory[address] = data;
             }
+            UpdateInterface(address, data);
         }
 
         protected override bool IsAddressEmpty(int address)
@@ -51,7 +52,8 @@ namespace NEA_CPU_Model
 
         private void UpdateInterface(int address, int data)
         {
-            
+            Program.model.RAM_Address.Text = address.ToString();
+            Program.model.RAM_Data.Text = data.ToString();
         }
     }
 }

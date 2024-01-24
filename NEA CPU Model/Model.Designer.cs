@@ -127,10 +127,11 @@
             // 
             // RAM_Address
             // 
+            RAM_Address.AccessibleRole = AccessibleRole.None;
             RAM_Address.Location = new Point(1427, 149);
             RAM_Address.Multiline = true;
             RAM_Address.Name = "RAM_Address";
-            RAM_Address.Size = new Size(150, 508);
+            RAM_Address.Size = new Size(150, 686);
             RAM_Address.TabIndex = 11;
             // 
             // RAM_Data
@@ -138,7 +139,7 @@
             RAM_Data.Location = new Point(1648, 149);
             RAM_Data.Multiline = true;
             RAM_Data.Name = "RAM_Data";
-            RAM_Data.Size = new Size(150, 508);
+            RAM_Data.Size = new Size(150, 686);
             RAM_Data.TabIndex = 12;
             // 
             // Model
@@ -175,7 +176,7 @@
         private Button loadBtn;
         private Label label4;
         private Label label5;
-        private TextBox RAM_Address;
-        private TextBox RAM_Data;
+        public TextBox RAM_Address;
+        public TextBox RAM_Data;
     }
 }
