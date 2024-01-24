@@ -35,6 +35,10 @@
             label3 = new Label();
             stepBtn = new Button();
             loadBtn = new Button();
+            label4 = new Label();
+            label5 = new Label();
+            RAM_Address = new TextBox();
+            RAM_Data = new TextBox();
             SuspendLayout();
             // 
             // instructionsTextBox
@@ -103,11 +107,49 @@
             loadBtn.UseVisualStyleBackColor = true;
             loadBtn.Click += loadBtn_Click;
             // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(1457, 105);
+            label4.Name = "label4";
+            label4.Size = new Size(77, 25);
+            label4.TabIndex = 9;
+            label4.Text = "Address";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(1682, 105);
+            label5.Name = "label5";
+            label5.Size = new Size(49, 25);
+            label5.TabIndex = 10;
+            label5.Text = "Data";
+            // 
+            // RAM_Address
+            // 
+            RAM_Address.Location = new Point(1427, 149);
+            RAM_Address.Multiline = true;
+            RAM_Address.Name = "RAM_Address";
+            RAM_Address.Size = new Size(150, 508);
+            RAM_Address.TabIndex = 11;
+            // 
+            // RAM_Data
+            // 
+            RAM_Data.Location = new Point(1648, 149);
+            RAM_Data.Multiline = true;
+            RAM_Data.Name = "RAM_Data";
+            RAM_Data.Size = new Size(150, 508);
+            RAM_Data.TabIndex = 12;
+            // 
             // Model
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1898, 1144);
+            Controls.Add(RAM_Data);
+            Controls.Add(RAM_Address);
+            Controls.Add(label5);
+            Controls.Add(label4);
             Controls.Add(loadBtn);
             Controls.Add(stepBtn);
             Controls.Add(label3);
@@ -131,5 +173,9 @@
         private Label label3;
         private Button stepBtn;
         private Button loadBtn;
+        private Label label4;
+        private Label label5;
+        private TextBox RAM_Address;
+        private TextBox RAM_Data;
     }
 }

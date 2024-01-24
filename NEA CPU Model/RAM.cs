@@ -49,5 +49,9 @@ namespace NEA_CPU_Model
             return true;
         }
 
+        private void UpdateInterface(int address, int data)
+        {
+            
+        }
     }
 }
