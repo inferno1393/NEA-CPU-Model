@@ -50,10 +50,20 @@ namespace NEA_CPU_Model
             return true;
         }
 
+        // adds the address/data that just got changed to the interface
         private void UpdateInterface(int address, int data)
         {
-            Program.model.RAM_Address.Text = address.ToString();
-            Program.model.RAM_Data.Text = data.ToString();
+            // checks if the address being accessed is already present in the interface
+            if (Program.model.RAM_Address.Text == address.ToString())
+            {
+
+                Program.model.RAM_Data.Text = data.ToString();
+            }
+            else
+            {
+                Program.model.RAM_Address.Text = address.ToString();
+                Program.model.RAM_Data.Text = data.ToString();
+            }
         }
     }
 }

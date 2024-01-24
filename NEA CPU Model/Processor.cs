@@ -22,21 +22,24 @@ namespace NEA_CPU_Model
         {
             WriteToMemory(0, 3, RAM);
             int i = Fetch(0, RAM);
+            WriteToMemory(0, 4, RAM);
+
             if (i == -1)
             {
                 MessageBox.Show("The RAM address attempted to access is empty");
-                // goto Exit;
+                goto Exit;
             }
 
             // splits the instruction into opcode and operand
             string opcode = Parser.GetOpcode(instruction);
             string operand = Parser.GetOperand(instruction);
 
-
+            // if instruction is HALT stop execution
             if (opcode == "HALT")
             {
                 goto Exit;
             }
+
         Exit:
             ; // HALT instruction found or error found, end of execution so will return back to call point
         }
