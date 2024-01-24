@@ -26,7 +26,12 @@ namespace NEA_CPU_Model
                 // code has compiled correctly, execute
                 Processor processor = new Processor(instructions);
                 RAM RAM = new RAM();
-                processor.Flow(instructions, RAM);
+                
+                // passes each instruction into the processor, 1 by 1
+                foreach(string instruction in instructions)
+                {
+                    processor.Flow(instruction, RAM);
+                }
 
                 MessageBox.Show("Execution Complete");
             }

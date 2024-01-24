@@ -20,5 +20,12 @@ namespace NEA_CPU_Model
         {
             // is overriden by the child class
         }
+
+        // returns if an address is empty
+        protected virtual bool IsAddressEmpty(int address)
+        {
+            return false;
+            // is overriden by the child class
+        }
     }
 }

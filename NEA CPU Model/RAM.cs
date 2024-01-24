@@ -9,11 +9,7 @@ namespace NEA_CPU_Model
     internal class RAM: AbstractMemory
     {
         // uses a dictionary to implement an associative array to store the RAM values
-        private Dictionary<int, int> memory = new Dictionary<int, int> {
-            {0 ,-1},
-            {1 ,-1},
-            {2 ,-1},
-        };
+        private Dictionary<int, int> memory = new Dictionary<int, int> { };
 
         // constructor
         public RAM()
@@ -24,14 +20,33 @@ namespace NEA_CPU_Model
         // returns the data of the address being accessed
         public override int ReturnData(int address)
         {
-            return memory[address]; // if the value is null a -1 will be returned and this can be handled
+            if (IsAddressEmpty(address))
+            {
+                return -1;
+            }
+            return memory[address];
         }
-
 
         // stores the data given in the given address
         public override void StoreData(int address, int data)
         {
-            memory[address] = data;
+            if (IsAddressEmpty(address))
+            {
+                memory.Add(address, data);
+            }
+            else
+            {
+                memory[address] = data;
+            }
+        }
+
+        protected override bool IsAddressEmpty(int address)
+        {
+            if (memory.ContainsKey(address))
+            {
+                return false;
+            }
+            return true;
         }
 
     }

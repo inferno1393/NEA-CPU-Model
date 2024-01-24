@@ -18,13 +18,12 @@ namespace NEA_CPU_Model
 
         // splits the instructions into each instruction and then into opcode and operand
         // then controls the CPU components in executing the instruction
-        public override void Flow(List<string> instructions, RAM RAM)
+        public override void Flow(string instructions, RAM RAM)
         {
             WriteToMemory(0, 3, RAM);
             int i = Fetch(0, RAM);
-            /*foreach (var instruction in instructions)
-            {
-                // splits the instruction into opcode and operand
+            /*    
+            // splits the instruction into opcode and operand
                 string opcode = Parser.GetOpcode(instruction);
                 string operand = Parser.GetOperand(instruction);
 
@@ -42,14 +41,12 @@ namespace NEA_CPU_Model
         // fetches data from the address given
         protected override int Fetch(int address, RAM RAM)
         {
-            MessageBox.Show($"{RAM.ReturnData(address)}"); // just some error checking
             return RAM.ReturnData(address);
         }
 
         // writes the data given into the address given
         protected override void WriteToMemory(int address, int data, RAM RAM)
         {
-            MessageBox.Show($"{RAM.ReturnData(address)}"); // just some error checking
             RAM.StoreData(address, data);
         }
     }
