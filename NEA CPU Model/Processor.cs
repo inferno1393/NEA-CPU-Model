@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -32,7 +33,8 @@ namespace NEA_CPU_Model
             switch (opcode)
             {
                 case "LDR":
-                    registers[operand[0]] = RAM.ReturnData(operand[1]);
+                    registers[Convert.ToInt32(values[0])] = RAM.ReturnData(Convert.ToInt32(values[1]));
+                    UpdateInterface(Convert.ToInt32(values[0]), Convert.ToInt32(values[1]));
                     break;
                 case "STR":
                     break;
@@ -65,17 +67,23 @@ namespace NEA_CPU_Model
         Exit:
             ; // HALT instruction found or error found, end of execution so will return back to call point
         }
-
-        // fetches data from the address given
-        protected override int Fetch(int address, RAM RAM)
+        private void UpdateInterface(int register, int data)
         {
-            return RAM.ReturnData(address);
-        }
-
-        // writes the data given into the address given
-        protected override void WriteToMemory(int address, int data, RAM RAM)
-        {
-            RAM.StoreData(address, data);
+            switch (register)
+            {
+                case 0:
+                    Program.model.RData0.Text = data.ToString();
+                    break;
+                case 1:
+                    Program.model.RData1.Text = data.ToString();
+                    break;
+                case 2:
+                    Program.model.RData2.Text = data.ToString();
+                    break;
+                case 3:
+                    Program.model.RData3.Text = data.ToString();
+                    break;
+            }
         }
     }
 }

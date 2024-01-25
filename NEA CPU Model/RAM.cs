@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NEA_CPU_Model
 {
-    internal class RAM: AbstractMemory
+    internal class RAM : AbstractMemory
     {
         // uses a dictionary to implement an associative array to store the RAM values
         private Dictionary<int, int> memory = new Dictionary<int, int> { };
@@ -14,7 +14,7 @@ namespace NEA_CPU_Model
         // constructor
         public RAM()
         {
-            
+
         }
 
         // returns the data of the address being accessed
@@ -53,93 +53,32 @@ namespace NEA_CPU_Model
         // adds the address/data that just got changed to the interface
         private void UpdateInterface(int address, int data)
         {
-            // checks if the address already exists (BUT ITS NOT WORKING)
-            if (!memory.ContainsKey(address))
+            switch (address)
             {
-                switch (address)
-                {
-                    case 0:
-                        Program.model.Data0.Text = data.ToString();
-                        break;
-                    case 1:
-                        Program.model.Data1.Text = data.ToString();
-                        break;
-                    case 2:
-                        Program.model.Data2.Text = data.ToString();
-                        break;
-                    case 3:
-                        Program.model.Data3.Text = data.ToString();
-                        break;
-                    case 4:
-                        Program.model.Data4.Text = data.ToString();
-                        break;
-                    case 5:
-                        Program.model.Data5.Text = data.ToString();
-                        break;
-                    case 6:
-                        Program.model.Data6.Text = data.ToString();
-                        break;
-                    case 7:
-                        Program.model.Data7.Text = data.ToString();
-                        break;
-                }
-            }
-            else
-            {
-                switch (address)
-                {
-                    case 0:
-                        Program.model.Address0.Text = address.ToString();
-                        break;
-                    case 1:
-                        Program.model.Address1.Text = address.ToString();
-                        break;
-                    case 2:
-                        Program.model.Address2.Text = address.ToString();
-                        break;
-                    case 3:
-                        Program.model.Address3.Text = address.ToString();
-                        break;
-                    case 4:
-                        Program.model.Address4.Text = address.ToString();
-                        break;
-                    case 5:
-                        Program.model.Address5.Text = address.ToString();
-                        break;
-                    case 6:
-                        Program.model.Address6.Text = address.ToString();
-                        break;
-                    case 7:
-                        Program.model.Address7.Text = address.ToString();
-                        break;
-                }
-                switch (address)
-                {
-                    case 0:
-                        Program.model.Data0.Text = data.ToString();
-                        break;
-                    case 1:
-                        Program.model.Data1.Text = data.ToString();
-                        break;
-                    case 2:
-                        Program.model.Data2.Text = data.ToString();
-                        break;
-                    case 3:
-                        Program.model.Data3.Text = data.ToString();
-                        break;
-                    case 4:
-                        Program.model.Data4.Text = data.ToString();
-                        break;
-                    case 5:
-                        Program.model.Data5.Text = data.ToString();
-                        break;
-                    case 6:
-                        Program.model.Data6.Text = data.ToString();
-                        break;
-                    case 7:
-                        Program.model.Data7.Text = data.ToString();
-                        break;
-                }
+                case 0:
+                    Program.model.Data0.Text = data.ToString();
+                    break;
+                case 1:
+                    Program.model.Data1.Text = data.ToString();
+                    break;
+                case 2:
+                    Program.model.Data2.Text = data.ToString();
+                    break;
+                case 3:
+                    Program.model.Data3.Text = data.ToString();
+                    break;
+                case 4:
+                    Program.model.Data4.Text = data.ToString();
+                    break;
+                case 5:
+                    Program.model.Data5.Text = data.ToString();
+                    break;
+                case 6:
+                    Program.model.Data6.Text = data.ToString();
+                    break;
+                case 7:
+                    Program.model.Data7.Text = data.ToString();
+                    break;
             }
         }
     }

@@ -37,14 +37,6 @@
             loadBtn = new Button();
             label4 = new Label();
             label5 = new Label();
-            Address0 = new TextBox();
-            Address1 = new TextBox();
-            Address2 = new TextBox();
-            Address3 = new TextBox();
-            Address4 = new TextBox();
-            Address5 = new TextBox();
-            Address6 = new TextBox();
-            Address7 = new TextBox();
             Data0 = new TextBox();
             Data1 = new TextBox();
             Data2 = new TextBox();
@@ -53,6 +45,34 @@
             Data5 = new TextBox();
             Data6 = new TextBox();
             Data7 = new TextBox();
+            label6 = new Label();
+            label7 = new Label();
+            label8 = new Label();
+            label9 = new Label();
+            label10 = new Label();
+            label12 = new Label();
+            label13 = new Label();
+            label14 = new Label();
+            textBox1 = new TextBox();
+            textBox2 = new TextBox();
+            textBox3 = new TextBox();
+            textBox4 = new TextBox();
+            RData0 = new TextBox();
+            RData1 = new TextBox();
+            RData2 = new TextBox();
+            RData3 = new TextBox();
+            label11 = new Label();
+            label15 = new Label();
+            label16 = new Label();
+            label17 = new Label();
+            label18 = new Label();
+            label19 = new Label();
+            label20 = new Label();
+            label21 = new Label();
+            label22 = new Label();
+            label23 = new Label();
+            label24 = new Label();
+            label25 = new Label();
             SuspendLayout();
             // 
             // instructionsTextBox
@@ -124,7 +144,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(1457, 105);
+            label4.Location = new Point(1486, 105);
             label4.Name = "label4";
             label4.Size = new Size(77, 25);
             label4.TabIndex = 9;
@@ -138,62 +158,6 @@
             label5.Size = new Size(49, 25);
             label5.TabIndex = 10;
             label5.Text = "Data";
-            // 
-            // Address0
-            // 
-            Address0.Location = new Point(1422, 133);
-            Address0.Name = "Address0";
-            Address0.Size = new Size(150, 31);
-            Address0.TabIndex = 11;
-            // 
-            // Address1
-            // 
-            Address1.Location = new Point(1422, 187);
-            Address1.Name = "Address1";
-            Address1.Size = new Size(150, 31);
-            Address1.TabIndex = 12;
-            // 
-            // Address2
-            // 
-            Address2.Location = new Point(1422, 245);
-            Address2.Name = "Address2";
-            Address2.Size = new Size(150, 31);
-            Address2.TabIndex = 13;
-            // 
-            // Address3
-            // 
-            Address3.Location = new Point(1422, 298);
-            Address3.Name = "Address3";
-            Address3.Size = new Size(150, 31);
-            Address3.TabIndex = 14;
-            // 
-            // Address4
-            // 
-            Address4.Location = new Point(1422, 354);
-            Address4.Name = "Address4";
-            Address4.Size = new Size(150, 31);
-            Address4.TabIndex = 15;
-            // 
-            // Address5
-            // 
-            Address5.Location = new Point(1422, 410);
-            Address5.Name = "Address5";
-            Address5.Size = new Size(150, 31);
-            Address5.TabIndex = 16;
-            // 
-            // Address6
-            // 
-            Address6.Location = new Point(1422, 461);
-            Address6.Name = "Address6";
-            Address6.Size = new Size(150, 31);
-            Address6.TabIndex = 17;
-            // 
-            // Address7
-            // 
-            Address7.Location = new Point(1422, 507);
-            Address7.Name = "Address7";
-            Address7.Size = new Size(150, 31);
-            Address7.TabIndex = 18;
             // 
             // Data0
             // 
@@ -251,11 +215,276 @@
             Data7.Size = new Size(150, 31);
             Data7.TabIndex = 26;
             // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(710, 285);
+            label6.Name = "label6";
+            label6.Size = new Size(83, 25);
+            label6.TabIndex = 27;
+            label6.Text = "Registers";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(710, 187);
+            label7.Name = "label7";
+            label7.Size = new Size(112, 25);
+            label7.TabIndex = 28;
+            label7.Text = "Accumulator";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(888, 190);
+            label8.Name = "label8";
+            label8.Size = new Size(44, 25);
+            label8.TabIndex = 29;
+            label8.Text = "ALU";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(1068, 193);
+            label9.Name = "label9";
+            label9.Size = new Size(39, 25);
+            label9.TabIndex = 30;
+            label9.Text = "CIR";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(1068, 124);
+            label10.Name = "label10";
+            label10.Size = new Size(35, 25);
+            label10.TabIndex = 31;
+            label10.Text = "CU";
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(1161, 389);
+            label12.Name = "label12";
+            label12.Size = new Size(59, 25);
+            label12.TabIndex = 33;
+            label12.Text = "Cache";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(1214, 298);
+            label13.Name = "label13";
+            label13.Size = new Size(51, 25);
+            label13.TabIndex = 34;
+            label13.Text = "MAR";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(1216, 193);
+            label14.Name = "label14";
+            label14.Size = new Size(49, 25);
+            label14.TabIndex = 35;
+            label14.Text = "MBR";
+            // 
+            // textBox1
+            // 
+            textBox1.Location = new Point(1207, 236);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(150, 31);
+            textBox1.TabIndex = 36;
+            // 
+            // textBox2
+            // 
+            textBox2.Location = new Point(1207, 334);
+            textBox2.Name = "textBox2";
+            textBox2.Size = new Size(150, 31);
+            textBox2.TabIndex = 37;
+            // 
+            // textBox3
+            // 
+            textBox3.Location = new Point(1023, 236);
+            textBox3.Name = "textBox3";
+            textBox3.Size = new Size(150, 31);
+            textBox3.TabIndex = 38;
+            // 
+            // textBox4
+            // 
+            textBox4.Location = new Point(689, 215);
+            textBox4.Name = "textBox4";
+            textBox4.Size = new Size(150, 31);
+            textBox4.TabIndex = 39;
+            // 
+            // RData0
+            // 
+            RData0.Location = new Point(753, 323);
+            RData0.Name = "RData0";
+            RData0.Size = new Size(150, 31);
+            RData0.TabIndex = 44;
+            // 
+            // RData1
+            // 
+            RData1.Location = new Point(753, 383);
+            RData1.Name = "RData1";
+            RData1.Size = new Size(150, 31);
+            RData1.TabIndex = 45;
+            // 
+            // RData2
+            // 
+            RData2.Location = new Point(753, 444);
+            RData2.Name = "RData2";
+            RData2.Size = new Size(150, 31);
+            RData2.TabIndex = 46;
+            // 
+            // RData3
+            // 
+            RData3.Location = new Point(753, 507);
+            RData3.Name = "RData3";
+            RData3.Size = new Size(150, 31);
+            RData3.TabIndex = 47;
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(689, 337);
+            label11.Name = "label11";
+            label11.Size = new Size(22, 25);
+            label11.TabIndex = 48;
+            label11.Text = "0";
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(689, 383);
+            label15.Name = "label15";
+            label15.RightToLeft = RightToLeft.No;
+            label15.Size = new Size(22, 25);
+            label15.TabIndex = 49;
+            label15.Text = "1";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Location = new Point(689, 444);
+            label16.Name = "label16";
+            label16.Size = new Size(22, 25);
+            label16.TabIndex = 50;
+            label16.Text = "2";
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Location = new Point(689, 510);
+            label17.Name = "label17";
+            label17.Size = new Size(22, 25);
+            label17.TabIndex = 51;
+            label17.Text = "3";
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Location = new Point(1494, 139);
+            label18.Name = "label18";
+            label18.Size = new Size(22, 25);
+            label18.TabIndex = 52;
+            label18.Text = "0";
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Location = new Point(1494, 190);
+            label19.Name = "label19";
+            label19.Size = new Size(22, 25);
+            label19.TabIndex = 53;
+            label19.Text = "1";
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Location = new Point(1494, 251);
+            label20.Name = "label20";
+            label20.Size = new Size(22, 25);
+            label20.TabIndex = 54;
+            label20.Text = "2";
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Location = new Point(1494, 301);
+            label21.Name = "label21";
+            label21.Size = new Size(22, 25);
+            label21.TabIndex = 55;
+            label21.Text = "3";
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Location = new Point(1494, 357);
+            label22.Name = "label22";
+            label22.Size = new Size(22, 25);
+            label22.TabIndex = 56;
+            label22.Text = "4";
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Location = new Point(1494, 416);
+            label23.Name = "label23";
+            label23.Size = new Size(22, 25);
+            label23.TabIndex = 57;
+            label23.Text = "5";
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Location = new Point(1494, 461);
+            label24.Name = "label24";
+            label24.Size = new Size(22, 25);
+            label24.TabIndex = 58;
+            label24.Text = "6";
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Location = new Point(1494, 507);
+            label25.Name = "label25";
+            label25.Size = new Size(22, 25);
+            label25.TabIndex = 59;
+            label25.Text = "7";
+            // 
             // Model
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1898, 1144);
+            Controls.Add(label25);
+            Controls.Add(label24);
+            Controls.Add(label23);
+            Controls.Add(label22);
+            Controls.Add(label21);
+            Controls.Add(label20);
+            Controls.Add(label19);
+            Controls.Add(label18);
+            Controls.Add(label17);
+            Controls.Add(label16);
+            Controls.Add(label15);
+            Controls.Add(label11);
+            Controls.Add(RData3);
+            Controls.Add(RData2);
+            Controls.Add(RData1);
+            Controls.Add(RData0);
+            Controls.Add(textBox4);
+            Controls.Add(textBox3);
+            Controls.Add(textBox2);
+            Controls.Add(textBox1);
+            Controls.Add(label14);
+            Controls.Add(label13);
+            Controls.Add(label12);
+            Controls.Add(label10);
+            Controls.Add(label9);
+            Controls.Add(label8);
+            Controls.Add(label7);
+            Controls.Add(label6);
             Controls.Add(Data7);
             Controls.Add(Data6);
             Controls.Add(Data5);
@@ -264,14 +493,6 @@
             Controls.Add(Data2);
             Controls.Add(Data1);
             Controls.Add(Data0);
-            Controls.Add(Address7);
-            Controls.Add(Address6);
-            Controls.Add(Address5);
-            Controls.Add(Address4);
-            Controls.Add(Address3);
-            Controls.Add(Address2);
-            Controls.Add(Address1);
-            Controls.Add(Address0);
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(loadBtn);
@@ -297,16 +518,6 @@
         private Button loadBtn;
         private Label label4;
         private Label label5;
-        private TextBox textBox7;
-        private TextBox textBox9;
-        public TextBox Address0;
-        public TextBox Address1;
-        public TextBox Address2;
-        public TextBox Address3;
-        public TextBox Address4;
-        public TextBox Address5;
-        public TextBox Address6;
-        public TextBox Address7;
         public TextBox Data0;
         public TextBox Data1;
         public TextBox Data2;
@@ -315,5 +526,37 @@
         public TextBox Data5;
         public TextBox Data6;
         public TextBox Data7;
+        private Label label6;
+        private Label label7;
+        private Label label8;
+        private Label label9;
+        private Label label10;
+        private Label label12;
+        private Label label13;
+        private Label label14;
+        private TextBox textBox1;
+        private TextBox textBox2;
+        private TextBox textBox3;
+        private TextBox textBox4;
+        private TextBox textBox6;
+        private TextBox textBox8;
+        private TextBox textBox10;
+        private TextBox textBox12;
+        public TextBox RData0;
+        public TextBox RData1;
+        public TextBox RData2;
+        public TextBox RData3;
+        private Label label11;
+        private Label label15;
+        private Label label16;
+        private Label label17;
+        private Label label18;
+        private Label label19;
+        private Label label20;
+        private Label label21;
+        private Label label22;
+        private Label label23;
+        private Label label24;
+        private Label label25;
     }
 }
