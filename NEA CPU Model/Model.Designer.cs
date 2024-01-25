@@ -163,6 +163,7 @@
             // 
             Data0.Location = new Point(1635, 133);
             Data0.Name = "Data0";
+            Data0.ReadOnly = true;
             Data0.Size = new Size(150, 31);
             Data0.TabIndex = 19;
             // 
@@ -170,6 +171,7 @@
             // 
             Data1.Location = new Point(1635, 187);
             Data1.Name = "Data1";
+            Data1.ReadOnly = true;
             Data1.Size = new Size(150, 31);
             Data1.TabIndex = 20;
             // 
@@ -177,6 +179,7 @@
             // 
             Data2.Location = new Point(1635, 245);
             Data2.Name = "Data2";
+            Data2.ReadOnly = true;
             Data2.Size = new Size(150, 31);
             Data2.TabIndex = 21;
             // 
@@ -184,6 +187,7 @@
             // 
             Data3.Location = new Point(1635, 298);
             Data3.Name = "Data3";
+            Data3.ReadOnly = true;
             Data3.Size = new Size(150, 31);
             Data3.TabIndex = 22;
             // 
@@ -191,6 +195,7 @@
             // 
             Data4.Location = new Point(1635, 354);
             Data4.Name = "Data4";
+            Data4.ReadOnly = true;
             Data4.Size = new Size(150, 31);
             Data4.TabIndex = 23;
             // 
@@ -198,6 +203,7 @@
             // 
             Data5.Location = new Point(1635, 410);
             Data5.Name = "Data5";
+            Data5.ReadOnly = true;
             Data5.Size = new Size(150, 31);
             Data5.TabIndex = 24;
             // 
@@ -205,6 +211,7 @@
             // 
             Data6.Location = new Point(1635, 461);
             Data6.Name = "Data6";
+            Data6.ReadOnly = true;
             Data6.Size = new Size(150, 31);
             Data6.TabIndex = 25;
             // 
@@ -212,6 +219,7 @@
             // 
             Data7.Location = new Point(1635, 507);
             Data7.Name = "Data7";
+            Data7.ReadOnly = true;
             Data7.Size = new Size(150, 31);
             Data7.TabIndex = 26;
             // 
@@ -291,6 +299,7 @@
             // 
             textBox1.Location = new Point(1207, 236);
             textBox1.Name = "textBox1";
+            textBox1.ReadOnly = true;
             textBox1.Size = new Size(150, 31);
             textBox1.TabIndex = 36;
             // 
@@ -298,6 +307,7 @@
             // 
             textBox2.Location = new Point(1207, 334);
             textBox2.Name = "textBox2";
+            textBox2.ReadOnly = true;
             textBox2.Size = new Size(150, 31);
             textBox2.TabIndex = 37;
             // 
@@ -305,6 +315,7 @@
             // 
             textBox3.Location = new Point(1023, 236);
             textBox3.Name = "textBox3";
+            textBox3.ReadOnly = true;
             textBox3.Size = new Size(150, 31);
             textBox3.TabIndex = 38;
             // 
@@ -312,6 +323,7 @@
             // 
             textBox4.Location = new Point(689, 215);
             textBox4.Name = "textBox4";
+            textBox4.ReadOnly = true;
             textBox4.Size = new Size(150, 31);
             textBox4.TabIndex = 39;
             // 
@@ -319,6 +331,7 @@
             // 
             RData0.Location = new Point(753, 323);
             RData0.Name = "RData0";
+            RData0.ReadOnly = true;
             RData0.Size = new Size(150, 31);
             RData0.TabIndex = 44;
             // 
@@ -326,6 +339,7 @@
             // 
             RData1.Location = new Point(753, 383);
             RData1.Name = "RData1";
+            RData1.ReadOnly = true;
             RData1.Size = new Size(150, 31);
             RData1.TabIndex = 45;
             // 
@@ -333,6 +347,7 @@
             // 
             RData2.Location = new Point(753, 444);
             RData2.Name = "RData2";
+            RData2.ReadOnly = true;
             RData2.Size = new Size(150, 31);
             RData2.TabIndex = 46;
             // 
@@ -340,6 +355,7 @@
             // 
             RData3.Location = new Point(753, 507);
             RData3.Name = "RData3";
+            RData3.ReadOnly = true;
             RData3.Size = new Size(150, 31);
             RData3.TabIndex = 47;
             // 
