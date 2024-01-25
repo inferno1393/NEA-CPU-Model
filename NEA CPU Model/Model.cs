@@ -24,7 +24,7 @@ namespace NEA_CPU_Model
             if (parsingOutput == "Valid")
             {
                 // code has compiled correctly, execute
-                Processor processor = new Processor(instructions);
+                Processor processor = new Processor();
                 RAM RAM = new RAM();
 
                 // passes each instruction into the processor, 1 by 1

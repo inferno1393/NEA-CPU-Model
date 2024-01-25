@@ -8,12 +8,14 @@ namespace NEA_CPU_Model
 {
     internal class Processor: AbstractProcessor
     {
-        List<string> instructions = new List<string>();
+        // uses a dictionary to implement an associative array to store the register values
+        private Dictionary<int, int> registers = new Dictionary<int, int> { };
+
 
         // constructor
-        public Processor(List<string> instructions)                                             
+        public Processor()                                             
         {
-            instructions = this.instructions;
+            
         }
 
         // splits the instructions into each instruction and then into opcode and operand
@@ -21,13 +23,16 @@ namespace NEA_CPU_Model
         public override void Flow(string instruction, RAM RAM)
         {
             // splits the instruction into opcode and operand
+            // then splits the operand into each value
             string opcode = Parser.GetOpcode(instruction);
             string operand = Parser.GetOperand(instruction);
+            string[] values = operand.Split(',');
 
             // if instruction is HALT stop execution
             switch (opcode)
             {
                 case "LDR":
+                    registers[operand[0]] = RAM.ReturnData(operand[1]);
                     break;
                 case "STR":
                     break;
