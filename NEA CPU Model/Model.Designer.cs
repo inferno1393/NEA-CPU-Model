@@ -82,7 +82,7 @@
             instructionsTextBox.Name = "instructionsTextBox";
             instructionsTextBox.Size = new Size(269, 446);
             instructionsTextBox.TabIndex = 1;
-            instructionsTextBox.Text = "ADD 1,0,3\r\nSUB 1,0,3\r\nHALT";
+            instructionsTextBox.Text = "LDR 0,3\r\nHALT";
             // 
             // executeBtn
             // 

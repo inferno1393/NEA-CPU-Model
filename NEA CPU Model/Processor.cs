@@ -33,7 +33,7 @@ namespace NEA_CPU_Model
             switch (opcode)
             {
                 case "LDR":
-                    registers[Convert.ToInt32(values[0])] = RAM.ReturnData(Convert.ToInt32(values[1]));
+                    registers[Convert.ToInt32(values[0])] = RAM.ReturnData(Convert.ToInt32(values[1])); //ofc it doesnt work bc why would it
                     UpdateInterface(Convert.ToInt32(values[0]), Convert.ToInt32(values[1]));
                     break;
                 case "STR":

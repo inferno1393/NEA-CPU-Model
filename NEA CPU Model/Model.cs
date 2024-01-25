@@ -33,7 +33,7 @@ namespace NEA_CPU_Model
                     processor.Flow(instruction, RAM);
                 }
 
-                MessageBox.Show("Execution Complete");
+                MessageBox.Show("Execution Complete"); // REMOVE AFTER IT WORKS PLEASE THANKS
             }
             else
             {
