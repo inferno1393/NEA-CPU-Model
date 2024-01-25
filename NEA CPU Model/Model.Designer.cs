@@ -37,8 +37,14 @@
             loadBtn = new Button();
             label4 = new Label();
             label5 = new Label();
-            RAM_Address = new TextBox();
-            RAM_Data = new TextBox();
+            Address0 = new TextBox();
+            Address1 = new TextBox();
+            Address2 = new TextBox();
+            Address3 = new TextBox();
+            Address4 = new TextBox();
+            Address5 = new TextBox();
+            Address6 = new TextBox();
+            Address7 = new TextBox();
             SuspendLayout();
             // 
             // instructionsTextBox
@@ -125,30 +131,75 @@
             label5.TabIndex = 10;
             label5.Text = "Data";
             // 
-            // RAM_Address
+            // Address0
             // 
-            RAM_Address.AccessibleRole = AccessibleRole.None;
-            RAM_Address.Location = new Point(1427, 149);
-            RAM_Address.Multiline = true;
-            RAM_Address.Name = "RAM_Address";
-            RAM_Address.Size = new Size(150, 686);
-            RAM_Address.TabIndex = 11;
+            Address0.Location = new Point(1422, 133);
+            Address0.Name = "Address0";
+            Address0.Size = new Size(150, 31);
+            Address0.TabIndex = 11;
             // 
-            // RAM_Data
+            // Address1
             // 
-            RAM_Data.Location = new Point(1648, 149);
-            RAM_Data.Multiline = true;
-            RAM_Data.Name = "RAM_Data";
-            RAM_Data.Size = new Size(150, 686);
-            RAM_Data.TabIndex = 12;
+            Address1.Location = new Point(1422, 187);
+            Address1.Name = "Address1";
+            Address1.Size = new Size(150, 31);
+            Address1.TabIndex = 12;
+            // 
+            // Address2
+            // 
+            Address2.Location = new Point(1422, 245);
+            Address2.Name = "Address2";
+            Address2.Size = new Size(150, 31);
+            Address2.TabIndex = 13;
+            // 
+            // Address3
+            // 
+            Address3.Location = new Point(1422, 298);
+            Address3.Name = "Address3";
+            Address3.Size = new Size(150, 31);
+            Address3.TabIndex = 14;
+            // 
+            // Address4
+            // 
+            Address4.Location = new Point(1422, 354);
+            Address4.Name = "Address4";
+            Address4.Size = new Size(150, 31);
+            Address4.TabIndex = 15;
+            // 
+            // Address5
+            // 
+            Address5.Location = new Point(1422, 410);
+            Address5.Name = "Address5";
+            Address5.Size = new Size(150, 31);
+            Address5.TabIndex = 16;
+            // 
+            // Address6
+            // 
+            Address6.Location = new Point(1422, 461);
+            Address6.Name = "Address6";
+            Address6.Size = new Size(150, 31);
+            Address6.TabIndex = 17;
+            // 
+            // Address7
+            // 
+            Address7.Location = new Point(1422, 507);
+            Address7.Name = "Address7";
+            Address7.Size = new Size(150, 31);
+            Address7.TabIndex = 18;
             // 
             // Model
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1898, 1144);
-            Controls.Add(RAM_Data);
-            Controls.Add(RAM_Address);
+            Controls.Add(Address7);
+            Controls.Add(Address6);
+            Controls.Add(Address5);
+            Controls.Add(Address4);
+            Controls.Add(Address3);
+            Controls.Add(Address2);
+            Controls.Add(Address1);
+            Controls.Add(Address0);
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(loadBtn);
@@ -164,9 +215,7 @@
             PerformLayout();
         }
 
-
         #endregion
-        private TextBox textBox1;
         private Button executeBtn;
         private TextBox instructionsTextBox;
         private Label label1;
@@ -176,7 +225,15 @@
         private Button loadBtn;
         private Label label4;
         private Label label5;
-        public TextBox RAM_Address;
-        public TextBox RAM_Data;
+        private TextBox textBox7;
+        private TextBox textBox9;
+        public TextBox Address0;
+        public TextBox Address1;
+        public TextBox Address2;
+        public TextBox Address3;
+        public TextBox Address4;
+        public TextBox Address5;
+        public TextBox Address6;
+        public TextBox Address7;
     }
 }

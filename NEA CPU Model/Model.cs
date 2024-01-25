@@ -26,9 +26,9 @@ namespace NEA_CPU_Model
                 // code has compiled correctly, execute
                 Processor processor = new Processor(instructions);
                 RAM RAM = new RAM();
-                
+
                 // passes each instruction into the processor, 1 by 1
-                foreach(string instruction in instructions)
+                foreach (string instruction in instructions)
                 {
                     processor.Flow(instruction, RAM);
                 }
@@ -53,6 +53,11 @@ namespace NEA_CPU_Model
         {
             // yeah its not complete though
             MessageBox.Show("This button does nothing");
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

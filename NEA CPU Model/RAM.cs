@@ -53,16 +53,66 @@ namespace NEA_CPU_Model
         // adds the address/data that just got changed to the interface
         private void UpdateInterface(int address, int data)
         {
-            // checks if the address being accessed is already present in the interface
-            if (Program.model.RAM_Address.Text == address.ToString())
+            // checks if the address already exists (BUT ITS NOT WORKING)
+            if (memory.ContainsKey(address))
             {
-
-                Program.model.RAM_Data.Text = data.ToString();
+                switch (address)
+                {
+                    case 0:
+                        Program.model.Address0.Text = address.ToString();
+                        break;
+                    case 1:
+                        Program.model.Address1.Text = address.ToString();
+                        break;
+                    case 2:
+                        Program.model.Address2.Text = address.ToString();
+                        break;
+                    case 3:
+                        Program.model.Address3.Text = address.ToString();
+                        break;
+                    case 4:
+                        Program.model.Address4.Text = address.ToString();
+                        break;
+                    case 5:
+                        Program.model.Address5.Text = address.ToString();
+                        break;
+                    case 6:
+                        Program.model.Address6.Text = address.ToString();
+                        break;
+                    case 7:
+                        Program.model.Address7.Text = address.ToString();
+                        break;
+                }
             }
             else
             {
-                Program.model.RAM_Address.Text = address.ToString();
-                Program.model.RAM_Data.Text = data.ToString();
+                switch (address)
+                {
+                    case 0:
+                        Program.model.Address0.Text = address.ToString();
+                        break;
+                    case 1:
+                        Program.model.Address1.Text = address.ToString();
+                        break;
+                    case 2:
+                        Program.model.Address2.Text = address.ToString();
+                        break;
+                    case 3:
+                        Program.model.Address3.Text = address.ToString();
+                        break;
+                    case 4:
+                        Program.model.Address4.Text = address.ToString();
+                        break;
+                    case 5:
+                        Program.model.Address5.Text = address.ToString();
+                        break;
+                    case 6:
+                        Program.model.Address6.Text = address.ToString();
+                        break;
+                    case 7:
+                        Program.model.Address7.Text = address.ToString();
+                        break;
+                }
             }
         }
     }
