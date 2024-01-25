@@ -22,7 +22,7 @@ namespace NEA_CPU_Model
         {
             WriteToMemory(0, 3, RAM);
             int i = Fetch(0, RAM);
-            WriteToMemory(0, 4, RAM);
+            WriteToMemory(1, 4, RAM);
 
             if (i == -1)
             {

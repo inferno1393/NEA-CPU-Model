@@ -45,6 +45,14 @@
             Address5 = new TextBox();
             Address6 = new TextBox();
             Address7 = new TextBox();
+            Data0 = new TextBox();
+            Data1 = new TextBox();
+            Data2 = new TextBox();
+            Data3 = new TextBox();
+            Data4 = new TextBox();
+            Data5 = new TextBox();
+            Data6 = new TextBox();
+            Data7 = new TextBox();
             SuspendLayout();
             // 
             // instructionsTextBox
@@ -187,11 +195,75 @@
             Address7.Size = new Size(150, 31);
             Address7.TabIndex = 18;
             // 
+            // Data0
+            // 
+            Data0.Location = new Point(1635, 133);
+            Data0.Name = "Data0";
+            Data0.Size = new Size(150, 31);
+            Data0.TabIndex = 19;
+            // 
+            // Data1
+            // 
+            Data1.Location = new Point(1635, 187);
+            Data1.Name = "Data1";
+            Data1.Size = new Size(150, 31);
+            Data1.TabIndex = 20;
+            // 
+            // Data2
+            // 
+            Data2.Location = new Point(1635, 245);
+            Data2.Name = "Data2";
+            Data2.Size = new Size(150, 31);
+            Data2.TabIndex = 21;
+            // 
+            // Data3
+            // 
+            Data3.Location = new Point(1635, 298);
+            Data3.Name = "Data3";
+            Data3.Size = new Size(150, 31);
+            Data3.TabIndex = 22;
+            // 
+            // Data4
+            // 
+            Data4.Location = new Point(1635, 354);
+            Data4.Name = "Data4";
+            Data4.Size = new Size(150, 31);
+            Data4.TabIndex = 23;
+            // 
+            // Data5
+            // 
+            Data5.Location = new Point(1635, 410);
+            Data5.Name = "Data5";
+            Data5.Size = new Size(150, 31);
+            Data5.TabIndex = 24;
+            // 
+            // Data6
+            // 
+            Data6.Location = new Point(1635, 461);
+            Data6.Name = "Data6";
+            Data6.Size = new Size(150, 31);
+            Data6.TabIndex = 25;
+            // 
+            // Data7
+            // 
+            Data7.Location = new Point(1635, 507);
+            Data7.Name = "Data7";
+            Data7.Size = new Size(150, 31);
+            Data7.TabIndex = 26;
+            // 
             // Model
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1898, 1144);
+            Controls.Add(Data7);
+            Controls.Add(Data6);
+            Controls.Add(Data5);
+            Controls.Add(Data4);
+            Controls.Add(Data3);
+            Controls.Add(Data2);
+            Controls.Add(Data1);
+            Controls.Add(Data0);
             Controls.Add(Address7);
             Controls.Add(Address6);
             Controls.Add(Address5);
@@ -235,5 +307,13 @@
         public TextBox Address5;
         public TextBox Address6;
         public TextBox Address7;
+        public TextBox Data0;
+        public TextBox Data1;
+        public TextBox Data2;
+        public TextBox Data3;
+        public TextBox Data4;
+        public TextBox Data5;
+        public TextBox Data6;
+        public TextBox Data7;
     }
 }

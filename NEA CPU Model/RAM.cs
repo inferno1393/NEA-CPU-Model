@@ -54,33 +54,33 @@ namespace NEA_CPU_Model
         private void UpdateInterface(int address, int data)
         {
             // checks if the address already exists (BUT ITS NOT WORKING)
-            if (memory.ContainsKey(address))
+            if (!memory.ContainsKey(address))
             {
                 switch (address)
                 {
                     case 0:
-                        Program.model.Address0.Text = address.ToString();
+                        Program.model.Data0.Text = data.ToString();
                         break;
                     case 1:
-                        Program.model.Address1.Text = address.ToString();
+                        Program.model.Data1.Text = data.ToString();
                         break;
                     case 2:
-                        Program.model.Address2.Text = address.ToString();
+                        Program.model.Data2.Text = data.ToString();
                         break;
                     case 3:
-                        Program.model.Address3.Text = address.ToString();
+                        Program.model.Data3.Text = data.ToString();
                         break;
                     case 4:
-                        Program.model.Address4.Text = address.ToString();
+                        Program.model.Data4.Text = data.ToString();
                         break;
                     case 5:
-                        Program.model.Address5.Text = address.ToString();
+                        Program.model.Data5.Text = data.ToString();
                         break;
                     case 6:
-                        Program.model.Address6.Text = address.ToString();
+                        Program.model.Data6.Text = data.ToString();
                         break;
                     case 7:
-                        Program.model.Address7.Text = address.ToString();
+                        Program.model.Data7.Text = data.ToString();
                         break;
                 }
             }
@@ -111,6 +111,33 @@ namespace NEA_CPU_Model
                         break;
                     case 7:
                         Program.model.Address7.Text = address.ToString();
+                        break;
+                }
+                switch (address)
+                {
+                    case 0:
+                        Program.model.Data0.Text = data.ToString();
+                        break;
+                    case 1:
+                        Program.model.Data1.Text = data.ToString();
+                        break;
+                    case 2:
+                        Program.model.Data2.Text = data.ToString();
+                        break;
+                    case 3:
+                        Program.model.Data3.Text = data.ToString();
+                        break;
+                    case 4:
+                        Program.model.Data4.Text = data.ToString();
+                        break;
+                    case 5:
+                        Program.model.Data5.Text = data.ToString();
+                        break;
+                    case 6:
+                        Program.model.Data6.Text = data.ToString();
+                        break;
+                    case 7:
+                        Program.model.Data7.Text = data.ToString();
                         break;
                 }
             }
