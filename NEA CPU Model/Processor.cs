@@ -20,25 +20,42 @@ namespace NEA_CPU_Model
         // then controls the CPU components in executing the instruction
         public override void Flow(string instruction, RAM RAM)
         {
-            WriteToMemory(0, 3, RAM);
-            int i = Fetch(0, RAM);
-            WriteToMemory(1, 4, RAM);
-
-            if (i == -1)
-            {
-                MessageBox.Show("The RAM address attempted to access is empty");
-                goto Exit;
-            }
-
             // splits the instruction into opcode and operand
             string opcode = Parser.GetOpcode(instruction);
             string operand = Parser.GetOperand(instruction);
 
             // if instruction is HALT stop execution
-            if (opcode == "HALT")
+            switch (opcode)
             {
-                goto Exit;
-            }
+                case "LDR":
+                    break;
+                case "STR":
+                    break;
+                case "ADD":
+                    break;
+                case "SUB":
+                    break;
+                case "MOV":
+                    break;
+                case "CMP":
+                    break;
+                case "B":
+                    break;
+                case "AND":
+                    break;
+                case "ORR":
+                    break;
+                case "EOR":
+                    break;
+                case "MVN":
+                    break;
+                case "LSL":
+                    break;
+                case "LSR":
+                    break;
+                case "HALT":
+                    goto Exit;
+            } 
 
         Exit:
             ; // HALT instruction found or error found, end of execution so will return back to call point
