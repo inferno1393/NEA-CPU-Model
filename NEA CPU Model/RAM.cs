@@ -79,6 +79,8 @@ namespace NEA_CPU_Model
                 case 7:
                     Program.model.Data7.Text = data.ToString();
                     break;
+                default:
+                    break;
             }
         }
     }
