@@ -179,14 +179,14 @@ namespace NEA_CPU_Model
                 // checks if the branch has a condition or not
                 if (instruction[1] != '<')
                 {
-                    for (int i = 0; i < instruction.Length - 3; i++)
+                    for (int i = 0; i < instruction.Length-1; i++)
                     {
                         operand += instruction[i + 1];
                     }
                 }
                 else
                 {
-                    for (int i = 0; i < instruction.Length - 3; i++)
+                    for (int i = 0; i < instruction.Length-5; i++)
                     {
                         operand += instruction[i + 5];
                     }

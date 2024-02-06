@@ -362,16 +362,16 @@ namespace NEA_CPU_Model
 
                 // always branches to the label given by the operand
                 case "B":
+                    string inst = string.Empty;
                     for (int i = 0; i < instructions.Count; i++)
                     {
-                        string inst = instructions[i].Replace(":","");
-                        if (Parser.GetOperand(inst) == values[0])
+                        inst = Parser.GetOperand(instructions[i]).Replace(":", "");
+                        if (inst == values[0])
                         {
                             programCounter = i;
-                            break;
                         }                        
                     }
-                    break;
+                        break;
 
                 // branches to the label given by the operand if the last comparison was EQ
                 case "B<EQ>":
@@ -379,8 +379,7 @@ namespace NEA_CPU_Model
                     {
                         for (int i = 0; i < instructions.Count; i++)
                         {
-                            string inst = instructions[i].Replace(":", "");
-                            if (Parser.GetOperand(inst) == values[0])
+                            if (Parser.GetOperand(instructions[i]) == values[0])
                             {
                                 programCounter = i;
                                 break;
@@ -395,8 +394,7 @@ namespace NEA_CPU_Model
                     {
                         for (int i = 0; i < instructions.Count; i++)
                         {
-                            string inst = instructions[i].Replace(":", "");
-                            if (Parser.GetOperand(inst) == values[0])
+                            if (Parser.GetOperand(instructions[i]) == values[0])
                             {
                                 programCounter = i;
                                 break;
@@ -411,8 +409,7 @@ namespace NEA_CPU_Model
                     {
                         for (int i = 0; i < instructions.Count; i++)
                         {
-                            string inst = instructions[i].Replace(":", "");
-                            if (Parser.GetOpcode(inst) == values[0])
+                            if (Parser.GetOperand(instructions[i]) == values[0])
                             {
                                 programCounter = i;
                                 break;
@@ -427,8 +424,7 @@ namespace NEA_CPU_Model
                     {
                         for (int i = 0; i < instructions.Count; i++)
                         {
-                            string inst = instructions[i].Replace(":", "");
-                            if (Parser.GetOpcode(inst) == values[0])
+                            if (Parser.GetOperand(instructions[i]) == values[0])
                             {
                                 programCounter = i;
                                 break;

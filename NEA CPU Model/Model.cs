@@ -15,6 +15,8 @@ namespace NEA_CPU_Model
         // parses the instructions and then executes them
         private void executeBtn_Click(object sender, EventArgs e)
         {
+            executeBtn.Enabled = false; // disables the button to prevent spamming
+
             // creates the List (and puts the values in the text box into it) and Stack necessary for parsing
             List<string> instructions = instructionsTextBox.Text.Split('\n').ToList<string>();
             StackArray<string> splitInstructions = new StackArray<string>();
@@ -42,11 +44,15 @@ namespace NEA_CPU_Model
             {
                 MessageBox.Show(parsingOutput);
             }
+
+            executeBtn.Enabled = true; // renables the button ready for next use
         }
 
         // allows the user to step through the code instruction by instruction
         private void stepBtn_Click(object sender, EventArgs e)
         {
+            stepBtn.Enabled = false; // disables the button to prevent spamming
+
             List<string> instructions = instructionsTextBox.Text.Split('\r').ToList<string>();
             StackArray<string> splitInstructions = new StackArray<string>();
 
@@ -73,13 +79,19 @@ namespace NEA_CPU_Model
             {
                 MessageBox.Show(parsingOutput);
             }
+
+            stepBtn.Enabled = true; // renables the button ready for next use
         }
 
         // allows the user to load instructions from a text file
         private void loadBtn_Click(object sender, EventArgs e)
         {
+            loadBtn.Enabled = false; // disables the button to prevent spamming
+
             // yeah its not complete though
             MessageBox.Show("This button does nothing");
+
+            loadBtn.Enabled = true; // renables the button ready for next use
         }
     }
 }
