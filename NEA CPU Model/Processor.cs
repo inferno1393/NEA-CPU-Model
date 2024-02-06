@@ -99,7 +99,7 @@ namespace NEA_CPU_Model
                     break;
                 case "ADD":
                     int result = 0;
-                    if (registers.ContainsKey(values[0]) && RAM.ReturnData(values[1]) != -1)
+                    if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
                     {
                         result = registers[values[1]] + RAM.ReturnData(values[2]);
                         registers[values[0]] = result;
