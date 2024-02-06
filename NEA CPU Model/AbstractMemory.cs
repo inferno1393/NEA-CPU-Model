@@ -9,20 +9,20 @@ namespace NEA_CPU_Model
     internal class AbstractMemory
     {
         // returns the data of the address being accessed
-        public virtual int ReturnData(int address)
+        public virtual int ReturnData(string address)
         {
             return 0;
             // is overriden by the child class
         }
 
         // stores the data given in the given address
-        public virtual void StoreData(int address, int data)
+        public virtual void StoreData(string address, int data)
         {
             // is overriden by the child class
         }
 
         // returns if an address is empty
-        protected virtual bool IsAddressEmpty(int address)
+        protected virtual bool IsAddressEmpty(string address)
         {
             return false;
             // is overriden by the child class

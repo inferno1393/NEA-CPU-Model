@@ -9,7 +9,7 @@ namespace NEA_CPU_Model
     internal class RAM : AbstractMemory
     {
         // uses a dictionary to implement an associative array to store the RAM values
-        private Dictionary<int, int> memory = new Dictionary<int, int> { };
+        private Dictionary<string, int> memory = new Dictionary<string, int> { };
 
         // constructor
         public RAM()
@@ -18,7 +18,7 @@ namespace NEA_CPU_Model
         }
 
         // returns the data of the address being accessed
-        public override int ReturnData(int address)
+        public override int ReturnData(string address)
         {
             if (IsAddressEmpty(address))
             {
@@ -28,7 +28,7 @@ namespace NEA_CPU_Model
         }
 
         // stores the data given in the given address
-        public override void StoreData(int address, int data)
+        public override void StoreData(string address, int data)
         {
             if (IsAddressEmpty(address))
             {
@@ -41,7 +41,7 @@ namespace NEA_CPU_Model
             UpdateInterface(address, data);
         }
 
-        protected override bool IsAddressEmpty(int address)
+        protected override bool IsAddressEmpty(string address)
         {
             if (memory.ContainsKey(address))
             {
@@ -51,32 +51,32 @@ namespace NEA_CPU_Model
         }
 
         // adds the address/data that just got changed to the interface
-        private void UpdateInterface(int address, int data)
+        private void UpdateInterface(string address, int data)
         {
             switch (address)
             {
-                case 0:
+                case "0":
                     Program.model.Data0.Text = data.ToString();
                     break;
-                case 1:
+                case "1":
                     Program.model.Data1.Text = data.ToString();
                     break;
-                case 2:
+                case "2":
                     Program.model.Data2.Text = data.ToString();
                     break;
-                case 3:
+                case "3":
                     Program.model.Data3.Text = data.ToString();
                     break;
-                case 4:
+                case "4":
                     Program.model.Data4.Text = data.ToString();
                     break;
-                case 5:
+                case "5":
                     Program.model.Data5.Text = data.ToString();
                     break;
-                case 6:
+                case "6":
                     Program.model.Data6.Text = data.ToString();
                     break;
-                case 7:
+                case "7":
                     Program.model.Data7.Text = data.ToString();
                     break;
                 default:
