@@ -45,7 +45,7 @@ namespace NEA_CPU_Model
                         string operand = Parser.GetOperand(instruction);
                         string[] values = operand.Split(',');
 
-                        Decode(opcode, values, RAM);
+                        Decode(opcode, values, RAM, instructions);
                         Program.model.programCounterText.Text = programCounter.ToString();
                     }
                 }
@@ -66,7 +66,7 @@ namespace NEA_CPU_Model
                     string operand = Parser.GetOperand(instruction);
                     string[] values = operand.Split(',');
 
-                    Decode(opcode, values, RAM);
+                    Decode(opcode, values, RAM, instructions);
                     Program.model.programCounterText.Text = programCounter.ToString();
                 }
             }
@@ -74,8 +74,10 @@ namespace NEA_CPU_Model
         
 
 
-        private void Decode(string opcode, string[] values, RAM RAM)
+        private void Decode(string opcode, string[] values, RAM RAM, List<string> instructions)
         {
+            int result = 0;
+            string temp = string.Empty;
             // follow appropriate steps based on opcode
             switch (opcode)
             {
@@ -116,7 +118,6 @@ namespace NEA_CPU_Model
 
                 // adds the value in the 3rd operand with the 2nd operand and stores it in the 1st operand
                 case "ADD":
-                    int result = 0;
                     if (values[2].Contains('#'))
                     {
                         values[2] = values[2].Replace("#", "");
@@ -268,7 +269,6 @@ namespace NEA_CPU_Model
 
                 // compares the value in the 1st operand with the 2nd operand
                 case "CMP":
-                    string temp = string.Empty;
                     if (values[1].Contains('#'))
                     {
                         values[1] = values[1].Replace("#", "");
@@ -356,27 +356,79 @@ namespace NEA_CPU_Model
 
                 // always branches to the label given by the operand
                 case "B":
-                    programCounter = 0;
+                    for (int i = 0; i < instructions.Count; i++)
+                    {
+                        string inst = instructions[i].Replace(":","");
+                        if (instructions[i] == values[0])
+                        {
+                            programCounter = i;
+                            break;
+                        }                        
+                    }
                     break;
 
                 // branches to the label given by the operand if the last comparison was EQ
                 case "B<EQ>":
-                    programCounter = 0;
+                    if (temp == "EQ")
+                    {
+                        for (int i = 0; i < instructions.Count; i++)
+                        {
+                            string inst = instructions[i].Replace(":", "");
+                            if (instructions[i] == values[0])
+                            {
+                                programCounter = i;
+                                break;
+                            }
+                        }
+                    }
                     break;
 
                 // branches to the label given by the operand if the last comparison was NE
                 case "B<NE>":
-                    programCounter = 0;
+                    if (temp == "NE")
+                    {
+                        for (int i = 0; i < instructions.Count; i++)
+                        {
+                            string inst = instructions[i].Replace(":", "");
+                            if (instructions[i] == values[0])
+                            {
+                                programCounter = i;
+                                break;
+                            }
+                        }
+                    }
                     break;
 
                 // branches to the label given by the operand if the last comparison was GT
                 case "B<GT>":
-                    programCounter = 0;
+                    if (temp == "GT")
+                    {
+                        for (int i = 0; i < instructions.Count; i++)
+                        {
+                            string inst = instructions[i].Replace(":", "");
+                            if (instructions[i] == values[0])
+                            {
+                                programCounter = i;
+                                break;
+                            }
+                        }
+                    }
                     break;
 
                 // branches to the label given by the operand if the last comparison was LT
                 case "B<LT>":
-                    programCounter = 0;
+                    if (temp == "LT")
+                    {
+                        for (int i = 0; i < instructions.Count; i++)
+                        {
+                            string inst = instructions[i].Replace(":", "");
+                            if (instructions[i] == values[0])
+                            {
+                                programCounter = i;
+                                break;
+                            }
+                        }
+                    }
                     break;
 
                 // Bitwise and the value in the 3rd operand with the 2nd operand and stores it in the 1st operand

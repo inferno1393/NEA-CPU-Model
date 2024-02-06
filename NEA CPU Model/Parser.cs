@@ -178,7 +178,7 @@ namespace NEA_CPU_Model
             else if (GetOpcode(instruction)[0] == 'B')
             {
                 // checks if the branch has a condition or not
-                if (instruction[1] == ' ')
+                if (instruction[1] != '<')
                 {
                     for (int i = 0; i < instruction.Length - 3; i++)
                     {
@@ -217,7 +217,7 @@ namespace NEA_CPU_Model
             else if (instruction[0] == 'B')
             {
                 // checks if the branch has a condition or not
-                if (instruction[1] == ' ')
+                if (instruction[1] != '<')
                 {
                     return "B";
                 }
