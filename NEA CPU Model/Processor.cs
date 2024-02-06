@@ -199,21 +199,28 @@ namespace NEA_CPU_Model
                     break;
                 case "MOV":
                     // uses the raw data if a hashtag is present
-                    if (values[0].Contains('#'))
+                    if (values[1].Contains('#'))
                     {
-                        values[0] = values[0].Replace("#", "");
-                        RAM.StoreData(values[1], Convert.ToInt32(values[0]));
-                    }
-                    else if (values[0].Contains('R'))
-                    {
-                        values[0] = values[0].Replace("R", "");
-                        RAM.StoreData(values[1], registers[values[0]]);
-                    }
-                    else
-                    {
+                        values[1] = values[1].Replace("#", "");
                         if (registers.ContainsKey(values[0]))
                         {
-                            RAM.StoreData(values[1], registers[values[0]]);
+                            registers[values[0]] = Convert.ToInt32(values[1]);
+                        }
+                        else
+                        {
+                            registers.Add(values[0], Convert.ToInt32(values[1]));
+                        }
+                    }
+                    else if (values[1].Contains('R'))
+                    {
+                        values[1] = values[1].Replace("R", "");
+                        if (registers.ContainsKey(values[0]) && registers.ContainsKey(values[1]))
+                        {
+                            registers[values[0]] = Convert.ToInt32(values[1]);
+                        }
+                        else if (registers.ContainsKey(values[1]))
+                        {
+                            registers.Add(values[0], Convert.ToInt32(values[1]));
                         }
                         else
                         {
@@ -221,9 +228,39 @@ namespace NEA_CPU_Model
                             goto Exit;
                         }
                     }
+                    else
+                    {
+                        if (registers.ContainsKey(values[0]) && RAM.ReturnData(values[1]) != -1)
+                        {
+                            registers[values[0]] = RAM.ReturnData(values[1]);
+                        }
+                        else if(RAM.ReturnData(values[1]) != -1)
+                        {
+                            registers.Add(values[0], RAM.ReturnData(values[1]));
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Attempted to access empty RAM address in line {programCounter}");
+                            goto Exit;
+                        }
+                    }
                     break;
                 case "CMP":
+                    string temp = string.Empty;
+                    if (values[1].Contains('#'))
+                    {
+                        values[1] = values[1].Replace("#", "");
+                        
+                    }
+                    else if (values[1].Contains('R'))
+                    {
+                        values[1] = values[1].Replace("R", "");
+                        
+                    }
+                    else
+                    {
 
+                    }
                     break;
                 case "B":
                     programCounter = 0;
