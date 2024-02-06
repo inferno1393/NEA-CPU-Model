@@ -113,6 +113,19 @@ namespace NEA_CPU_Model
                     }
                     break;
                 case "SUB":
+                    result = 0;
+                    if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
+                    {
+                        result = RAM.ReturnData(values[2]) - registers[values[1]];
+                        registers[values[0]] = result;
+                        UpdateInterface(values[0], registers[values[0]]);
+                        Program.model.accumulatorText.Text = result.ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
+                        goto Exit;
+                    }
                     break;
                 case "MOV":
                     break;
