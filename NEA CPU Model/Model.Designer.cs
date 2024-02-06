@@ -48,15 +48,13 @@
             label6 = new Label();
             label7 = new Label();
             label8 = new Label();
-            label9 = new Label();
             label10 = new Label();
             label12 = new Label();
             label13 = new Label();
             label14 = new Label();
-            textBox1 = new TextBox();
-            textBox2 = new TextBox();
-            textBox3 = new TextBox();
-            textBox4 = new TextBox();
+            mbrText = new TextBox();
+            marText = new TextBox();
+            accumulatorText = new TextBox();
             RData0 = new TextBox();
             RData1 = new TextBox();
             RData2 = new TextBox();
@@ -75,6 +73,8 @@
             label25 = new Label();
             programCounterText = new TextBox();
             label26 = new Label();
+            cirText = new TextBox();
+            label9 = new Label();
             SuspendLayout();
             // 
             // instructionsTextBox
@@ -84,7 +84,7 @@
             instructionsTextBox.Name = "instructionsTextBox";
             instructionsTextBox.Size = new Size(269, 446);
             instructionsTextBox.TabIndex = 1;
-            instructionsTextBox.Text = "STR #1, 3\r\nLDR 0,3\r\nHALT";
+            instructionsTextBox.Text = "STR #1, 3\r\nLDR 0, 3\r\nADD 1, 0, 3\r\nHALT";
             // 
             // executeBtn
             // 
@@ -252,15 +252,6 @@
             label8.TabIndex = 29;
             label8.Text = "ALU";
             // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Location = new Point(1068, 193);
-            label9.Name = "label9";
-            label9.Size = new Size(39, 25);
-            label9.TabIndex = 30;
-            label9.Text = "CIR";
-            // 
             // label10
             // 
             label10.AutoSize = true;
@@ -297,37 +288,29 @@
             label14.TabIndex = 35;
             label14.Text = "MBR";
             // 
-            // textBox1
+            // mbrText
             // 
-            textBox1.Location = new Point(1207, 236);
-            textBox1.Name = "textBox1";
-            textBox1.ReadOnly = true;
-            textBox1.Size = new Size(150, 31);
-            textBox1.TabIndex = 36;
+            mbrText.Location = new Point(1207, 236);
+            mbrText.Name = "mbrText";
+            mbrText.ReadOnly = true;
+            mbrText.Size = new Size(150, 31);
+            mbrText.TabIndex = 36;
             // 
-            // textBox2
+            // marText
             // 
-            textBox2.Location = new Point(1207, 334);
-            textBox2.Name = "textBox2";
-            textBox2.ReadOnly = true;
-            textBox2.Size = new Size(150, 31);
-            textBox2.TabIndex = 37;
+            marText.Location = new Point(1207, 334);
+            marText.Name = "marText";
+            marText.ReadOnly = true;
+            marText.Size = new Size(150, 31);
+            marText.TabIndex = 37;
             // 
-            // textBox3
+            // accumulatorText
             // 
-            textBox3.Location = new Point(1023, 236);
-            textBox3.Name = "textBox3";
-            textBox3.ReadOnly = true;
-            textBox3.Size = new Size(150, 31);
-            textBox3.TabIndex = 38;
-            // 
-            // textBox4
-            // 
-            textBox4.Location = new Point(689, 215);
-            textBox4.Name = "textBox4";
-            textBox4.ReadOnly = true;
-            textBox4.Size = new Size(150, 31);
-            textBox4.TabIndex = 39;
+            accumulatorText.Location = new Point(689, 215);
+            accumulatorText.Name = "accumulatorText";
+            accumulatorText.ReadOnly = true;
+            accumulatorText.Size = new Size(150, 31);
+            accumulatorText.TabIndex = 39;
             // 
             // RData0
             // 
@@ -487,6 +470,23 @@
             label26.TabIndex = 61;
             label26.Text = "Program Counter";
             // 
+            // cirText
+            // 
+            cirText.Location = new Point(1023, 236);
+            cirText.Name = "cirText";
+            cirText.ReadOnly = true;
+            cirText.Size = new Size(150, 31);
+            cirText.TabIndex = 38;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(1068, 193);
+            label9.Name = "label9";
+            label9.Size = new Size(39, 25);
+            label9.TabIndex = 30;
+            label9.Text = "CIR";
+            // 
             // Model
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
@@ -510,10 +510,10 @@
             Controls.Add(RData2);
             Controls.Add(RData1);
             Controls.Add(RData0);
-            Controls.Add(textBox4);
-            Controls.Add(textBox3);
-            Controls.Add(textBox2);
-            Controls.Add(textBox1);
+            Controls.Add(accumulatorText);
+            Controls.Add(cirText);
+            Controls.Add(marText);
+            Controls.Add(mbrText);
             Controls.Add(label14);
             Controls.Add(label13);
             Controls.Add(label12);
@@ -566,15 +566,10 @@
         private Label label6;
         private Label label7;
         private Label label8;
-        private Label label9;
         private Label label10;
         private Label label12;
         private Label label13;
         private Label label14;
-        private TextBox textBox1;
-        private TextBox textBox2;
-        private TextBox textBox3;
-        private TextBox textBox4;
         private TextBox textBox6;
         private TextBox textBox8;
         private TextBox textBox10;
@@ -597,5 +592,10 @@
         private Label label25;
         private Label label26;
         public TextBox programCounterText;
+        public TextBox accumulatorText;
+        public TextBox cirText;
+        private Label label9;
+        public TextBox mbrText;
+        public TextBox marText;
     }
 }
