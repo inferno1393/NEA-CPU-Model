@@ -250,16 +250,85 @@ namespace NEA_CPU_Model
                     if (values[1].Contains('#'))
                     {
                         values[1] = values[1].Replace("#", "");
-                        
+                        if (registers.ContainsKey(values[0]))
+                        {
+                            if (registers[values[0]] == Convert.ToInt32(values[1]))
+                            {
+                                temp = "EQ";
+                            }
+                            if (registers[values[0]] != Convert.ToInt32(values[1]))
+                            {
+                                temp = "NE";
+                            }
+                            else if (registers[values[0]] > Convert.ToInt32(values[1]))
+                            {
+                                temp = "GT";
+                            }
+                            else if (registers[values[0]] < Convert.ToInt32(values[1]))
+                            {
+                                temp = "LT";
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                            goto Exit;
+                        }
                     }
                     else if (values[1].Contains('R'))
                     {
                         values[1] = values[1].Replace("R", "");
-                        
+                        if (registers.ContainsKey(values[0]) && registers.ContainsKey(values[1]))
+                        {
+                            if(registers[values[0]] == registers[values[1]])
+                            {
+                                temp = "EQ";
+                            }
+                            if(registers[values[0]] != registers[values[1]])
+                            {
+                                temp = "NE";
+                            }
+                            else if (registers[values[0]] > registers[values[1]])
+                            {
+                                temp = "GT";
+                            }
+                            else if(registers[values[0]] < registers[values[1]])
+                            {
+                                temp = "LT";
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                            goto Exit;
+                        }
                     }
                     else
                     {
-
+                        if (registers.ContainsKey(values[0]) && RAM.ReturnData(values[1]) != -1)
+                        {
+                            if (registers[values[0]] == RAM.ReturnData(values[1]))
+                            {
+                                temp = "EQ";
+                            }
+                            if (registers[values[0]] != RAM.ReturnData(values[1]))
+                            {
+                                temp = "NE";
+                            }
+                            else if (registers[values[0]] > RAM.ReturnData(values[1]))
+                            {
+                                temp = "GT";
+                            }
+                            else if (registers[values[0]] < RAM.ReturnData(values[1]))
+                            {
+                                temp = "LT";
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Attempted to access empty register/ RAM address in line {programCounter}");
+                            goto Exit;
+                        }
                     }
                     break;
                 case "B":
