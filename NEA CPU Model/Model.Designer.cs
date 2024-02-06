@@ -73,6 +73,8 @@
             label23 = new Label();
             label24 = new Label();
             label25 = new Label();
+            programCounterText = new TextBox();
+            label26 = new Label();
             SuspendLayout();
             // 
             // instructionsTextBox
@@ -82,7 +84,7 @@
             instructionsTextBox.Name = "instructionsTextBox";
             instructionsTextBox.Size = new Size(269, 446);
             instructionsTextBox.TabIndex = 1;
-            instructionsTextBox.Text = "LDR 0,3\r\nHALT";
+            instructionsTextBox.Text = "STR #1, 3\r\nLDR 0,3\r\nHALT";
             // 
             // executeBtn
             // 
@@ -468,11 +470,30 @@
             label25.TabIndex = 59;
             label25.Text = "7";
             // 
+            // programCounterText
+            // 
+            programCounterText.Location = new Point(689, 124);
+            programCounterText.Name = "programCounterText";
+            programCounterText.ReadOnly = true;
+            programCounterText.Size = new Size(150, 31);
+            programCounterText.TabIndex = 60;
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Location = new Point(689, 82);
+            label26.Name = "label26";
+            label26.Size = new Size(149, 25);
+            label26.TabIndex = 61;
+            label26.Text = "Program Counter";
+            // 
             // Model
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1898, 1144);
+            Controls.Add(label26);
+            Controls.Add(programCounterText);
             Controls.Add(label25);
             Controls.Add(label24);
             Controls.Add(label23);
@@ -574,5 +595,7 @@
         private Label label23;
         private Label label24;
         private Label label25;
+        private Label label26;
+        public TextBox programCounterText;
     }
 }

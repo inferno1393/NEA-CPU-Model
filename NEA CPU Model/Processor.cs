@@ -39,6 +39,7 @@ namespace NEA_CPU_Model
                     string[] values = operand.Split(',');
 
                     Decode(opcode, values, RAM);
+                    Program.model.programCounterText.Text = programCounter.ToString();
                 }
             }
             // execute only the next instruction
@@ -51,6 +52,7 @@ namespace NEA_CPU_Model
                 string[] values = operand.Split(',');
 
                 Decode(opcode, values, RAM);
+                Program.model.programCounterText.Text = programCounter.ToString();
             }
 
         }
@@ -68,11 +70,22 @@ namespace NEA_CPU_Model
                     }
                     else
                     {
-                        MessageBox.Show($"Attempted to access empty RAM address in line {programCounter}");
+                        MessageBox.Show($"Attempted to access empty RAM address in line {programCounter}"); // not showing the message box
                         goto Exit;
                     }
                     break;
                 case "STR":
+                    // uses the raw data if a hashtag is present
+                    if (values[0].Contains('#'))
+                    {
+                        values[0] = values[0].Replace('#' , ' ');
+                        RAM.StoreData(values[1], Convert.ToInt32(values[0]));
+                    }
+                    else
+                    {
+                        RAM.StoreData(values[1], registers[values[0]]);
+                    }
+                    
                     break;
                 case "ADD":
                     break;
