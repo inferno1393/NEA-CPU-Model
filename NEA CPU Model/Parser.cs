@@ -36,7 +36,7 @@ namespace NEA_CPU_Model
             { "MVN", "Rd, <memory ref>" },
             { "LSL", "Rd, Rn, <memory ref>" },
             { "LSR", "Rd, Rn, <memory ref>" },
-            { "HALT", " " }
+            { "HALT", "" }
         };
 
         // constructor
@@ -58,7 +58,6 @@ namespace NEA_CPU_Model
                 if (instruction.Contains(':'))
                 {
                     // instruction is a label so should be ignored
-                    MessageBox.Show("Label ignored");
                     count--;
                 }
                 else
@@ -128,9 +127,9 @@ namespace NEA_CPU_Model
 
             
             // if the Operand is blank then the format is blank and that is returned instead
-            if (Operand == " ")
+            if (Operand == "")
             {
-                return " ";
+                return "";
             }
             // returns the Operand format based on the number of commas counted
             else
@@ -172,7 +171,7 @@ namespace NEA_CPU_Model
             // if the Opcode is HALT, the operand will be blank
             if (GetOpcode(instruction) == "HALT")
             {
-                return " ";
+                return "";
             }
             // if the Opcode starts with B, it is a branch instruction
             else if (GetOpcode(instruction)[0] == 'B')

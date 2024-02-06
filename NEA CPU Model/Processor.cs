@@ -13,6 +13,7 @@ namespace NEA_CPU_Model
         // uses a dictionary to implement an associative array to store the register values
         private Dictionary<string, int> registers = new Dictionary<string, int> { };
         public int programCounter = 0;
+        public bool repeat = true;
 
         // constructor
         public Processor()
@@ -24,22 +25,20 @@ namespace NEA_CPU_Model
         // then controls the CPU components in executing the instruction
         public override void Flow(List<string> instructions, RAM RAM, bool loop)
         {
-            // splits the instruction into opcode and operand
-            // then splits the operand into each value
-
             // code needs to execute all instructions at once
             if (loop)
             {
-                while (programCounter < instructions.Count)
+                programCounter = 0;
+                while (programCounter < instructions.Count && repeat)
                 {
                     string instruction = instructions[programCounter];
+                    programCounter++;
                     if (instruction.Contains(':'))
                     {
                         // instruction is a label so should be ignored
                     }
                     else
                     {
-                        programCounter++;
                         string opcode = Parser.GetOpcode(instruction);
                         Program.model.cirText.Text = opcode;
                         string operand = Parser.GetOperand(instruction);
@@ -53,21 +52,28 @@ namespace NEA_CPU_Model
             // execute only the next instruction
             else
             {
-                string instruction = instructions[programCounter];
-                if (instruction.Contains(':'))
+                if(programCounter < instructions.Count && repeat)
                 {
-                    // instruction is a label so should be ignored
+                    string instruction = instructions[programCounter];
+                    programCounter++;
+                    if (instruction.Contains(':'))
+                    {
+                        // instruction is a label so should be ignored
+                    }
+                    else
+                    {
+                        string opcode = Parser.GetOpcode(instruction);
+                        Program.model.cirText.Text = opcode;
+                        string operand = Parser.GetOperand(instruction);
+                        string[] values = operand.Split(',');
+
+                        Decode(opcode, values, RAM, instructions);
+                        Program.model.programCounterText.Text = programCounter.ToString();
+                    }
                 }
                 else
                 {
-                    programCounter++;
-                    string opcode = Parser.GetOpcode(instruction);
-                    Program.model.cirText.Text = opcode;
-                    string operand = Parser.GetOperand(instruction);
-                    string[] values = operand.Split(',');
-
-                    Decode(opcode, values, RAM, instructions);
-                    Program.model.programCounterText.Text = programCounter.ToString();
+                    // exit program as end reached
                 }
             }
         }
@@ -91,7 +97,7 @@ namespace NEA_CPU_Model
                     else
                     {
                         MessageBox.Show($"Attempted to access empty RAM address in line {programCounter}");
-                        goto Exit;
+                        repeat = false;
                     }
                     break;
 
@@ -111,7 +117,7 @@ namespace NEA_CPU_Model
                         else
                         {
                             MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                            goto Exit;
+                            repeat = false;
                         }
                     }
                     break;
@@ -131,7 +137,7 @@ namespace NEA_CPU_Model
                         else
                         {
                             MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                            goto Exit;
+                            repeat = false;
                         }
                     }
                     else if (values[2].Contains('R'))
@@ -147,7 +153,7 @@ namespace NEA_CPU_Model
                         else
                         {
                             MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                            goto Exit;
+                            repeat = false;
                         }
                     }
                     else
@@ -162,13 +168,13 @@ namespace NEA_CPU_Model
                         else
                         {
                             MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
-                            goto Exit;
+                            repeat = false;
                         }
                     }
                     break;
 
                 // subtract the value in the 3rd operand from the 2nd operand and stores it in the 1st operand
-                case "SUB":
+                case "SUB":                 
                     if (values[2].Contains('#'))
                     {
                         values[2] = values[2].Replace("#", "");
@@ -182,7 +188,7 @@ namespace NEA_CPU_Model
                         else
                         {
                             MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                            goto Exit;
+                            repeat = false;
                         }
                     }
                     else if (values[2].Contains('R'))
@@ -198,7 +204,7 @@ namespace NEA_CPU_Model
                         else
                         {
                             MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                            goto Exit;
+                            repeat = false;
                         }
                     }
                     else
@@ -213,7 +219,7 @@ namespace NEA_CPU_Model
                         else
                         {
                             MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
-                            goto Exit;
+                            repeat = false;
                         }
                     }
                     break;
@@ -246,7 +252,7 @@ namespace NEA_CPU_Model
                         else
                         {
                             MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                            goto Exit;
+                            repeat = false;
                         }
                     }
                     else
@@ -262,7 +268,7 @@ namespace NEA_CPU_Model
                         else
                         {
                             MessageBox.Show($"Attempted to access empty RAM address in line {programCounter}");
-                            goto Exit;
+                            repeat = false;
                         }
                     }
                     break;
@@ -294,7 +300,7 @@ namespace NEA_CPU_Model
                         else
                         {
                             MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                            goto Exit;
+                            repeat = false;
                         }
                     }
                     else if (values[1].Contains('R'))
@@ -322,7 +328,7 @@ namespace NEA_CPU_Model
                         else
                         {
                             MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                            goto Exit;
+                            repeat = false;
                         }
                     }
                     else
@@ -349,7 +355,7 @@ namespace NEA_CPU_Model
                         else
                         {
                             MessageBox.Show($"Attempted to access empty register/ RAM address in line {programCounter}");
-                            goto Exit;
+                            repeat = false;
                         }
                     }
                     break;
@@ -359,7 +365,7 @@ namespace NEA_CPU_Model
                     for (int i = 0; i < instructions.Count; i++)
                     {
                         string inst = instructions[i].Replace(":","");
-                        if (instructions[i] == values[0])
+                        if (Parser.GetOperand(inst) == values[0])
                         {
                             programCounter = i;
                             break;
@@ -374,7 +380,7 @@ namespace NEA_CPU_Model
                         for (int i = 0; i < instructions.Count; i++)
                         {
                             string inst = instructions[i].Replace(":", "");
-                            if (instructions[i] == values[0])
+                            if (Parser.GetOperand(inst) == values[0])
                             {
                                 programCounter = i;
                                 break;
@@ -390,7 +396,7 @@ namespace NEA_CPU_Model
                         for (int i = 0; i < instructions.Count; i++)
                         {
                             string inst = instructions[i].Replace(":", "");
-                            if (instructions[i] == values[0])
+                            if (Parser.GetOperand(inst) == values[0])
                             {
                                 programCounter = i;
                                 break;
@@ -406,7 +412,7 @@ namespace NEA_CPU_Model
                         for (int i = 0; i < instructions.Count; i++)
                         {
                             string inst = instructions[i].Replace(":", "");
-                            if (instructions[i] == values[0])
+                            if (Parser.GetOpcode(inst) == values[0])
                             {
                                 programCounter = i;
                                 break;
@@ -422,7 +428,7 @@ namespace NEA_CPU_Model
                         for (int i = 0; i < instructions.Count; i++)
                         {
                             string inst = instructions[i].Replace(":", "");
-                            if (instructions[i] == values[0])
+                            if (Parser.GetOpcode(inst) == values[0])
                             {
                                 programCounter = i;
                                 break;
@@ -463,7 +469,7 @@ namespace NEA_CPU_Model
                         else
                         {
                             MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                            goto Exit;
+                            repeat = false;
                         }
                     }
                     else if (values[2].Contains('R'))
@@ -479,7 +485,7 @@ namespace NEA_CPU_Model
                         else
                         {
                             MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                            goto Exit;
+                            repeat = false;
                         }
                     }
                     else
@@ -494,7 +500,7 @@ namespace NEA_CPU_Model
                         else
                         {
                             MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
-                            goto Exit;
+                            repeat = false;
                         }
                     }
                     break;
@@ -514,7 +520,7 @@ namespace NEA_CPU_Model
                         else
                         {
                             MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                            goto Exit;
+                            repeat = false;
                         }
                     }
                     else if (values[2].Contains('R'))
@@ -530,7 +536,7 @@ namespace NEA_CPU_Model
                         else
                         {
                             MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                            goto Exit;
+                            repeat = false;
                         }
                     }
                     else
@@ -545,17 +551,16 @@ namespace NEA_CPU_Model
                         else
                         {
                             MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
-                            goto Exit;
+                            repeat = false;
                         }
                     }
                     break;
 
                 // end of code execution, exit
                 case "HALT":
-                    goto Exit;
+                    repeat = false;
+                    break;
             }
-        Exit:
-            ; // HALT instruction found or error found, end of execution so will return back to call point
         }
         private void UpdateInterface(string register, int data)
         {

@@ -2,6 +2,10 @@ namespace NEA_CPU_Model
 {
     public partial class Model : Form
     {
+        // attributes
+        Processor processor = new Processor();
+        RAM RAM = new RAM();
+
         // constructor
         public Model()
         {
@@ -15,10 +19,6 @@ namespace NEA_CPU_Model
             List<string> instructions = instructionsTextBox.Text.Split('\n').ToList<string>();
             StackArray<string> splitInstructions = new StackArray<string>();
 
-            // creates an instance of the Parser class and uses it to check the instructions are valid
-            Parser parser = new Parser(instructions, splitInstructions);
-            string parsingOutput = parser.ParseInstructions(instructions, splitInstructions);
-
             // removes white space from the instruction
             for (int i = 0; i < instructions.Count; i++)
             {
@@ -27,15 +27,15 @@ namespace NEA_CPU_Model
                 instructions[i] = instructions[i].Replace("\n", "");
             }
 
+            // creates an instance of the Parser class and uses it to check the instructions are valid
+            Parser parser = new Parser(instructions, splitInstructions);
+            string parsingOutput = parser.ParseInstructions(instructions, splitInstructions);
+
             // takes the output of the parsing and either sends the instructions to be executed
             // or shows the error to the user
             if (parsingOutput == "Valid")
             {
                 // code has compiled correctly, execute
-                Processor processor = new Processor();
-                RAM RAM = new RAM();
-
-                // passes the instructions into the processor
                 processor.Flow(instructions, RAM, true);
             }
             else
@@ -67,10 +67,6 @@ namespace NEA_CPU_Model
             if (parsingOutput == "Valid")
             {
                 // code has compiled correctly, execute
-                Processor processor = new Processor();
-                RAM RAM = new RAM();
-
-                // passes the instructions into the processor
                 processor.Flow(instructions, RAM, false);
             }
             else

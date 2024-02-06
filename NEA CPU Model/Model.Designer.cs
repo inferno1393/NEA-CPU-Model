@@ -84,7 +84,7 @@
             instructionsTextBox.Name = "instructionsTextBox";
             instructionsTextBox.Size = new Size(269, 446);
             instructionsTextBox.TabIndex = 1;
-            instructionsTextBox.Text = "STR #1, 3\r\nLDR 0, 3\r\nB Subtract\r\nADD 1, 0, 3\r\nSubtract:\r\nSUB 2, 0, 3\r\nHALT";
+            instructionsTextBox.Text = "STR #1, 3\r\nLDR 0, 3\r\nADD 1, 0, 3\r\nHALT\r\nSUB 2, 0, 3\r\nHALT";
             // 
             // executeBtn
             // 
@@ -460,6 +460,7 @@
             programCounterText.ReadOnly = true;
             programCounterText.Size = new Size(150, 31);
             programCounterText.TabIndex = 60;
+            programCounterText.Text = "0";
             // 
             // label26
             // 
