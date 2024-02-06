@@ -49,13 +49,23 @@ namespace NEA_CPU_Model
         // returns a string showing the validity of the instructions
         public string ParseInstructions(List<string> instructions, StackArray<string> splitInstructions)
         {
+            int count = instructions.Count - 1;
             // splits the instructions in the queue into Opcode and Operand
             for (int i = 0; i < instructions.Count; i++)
             {
                 string instruction = instructions[i];
 
-                splitInstructions.Push(GetOpcode(instruction));
-                splitInstructions.Push(GetOperand(instruction));
+                if (instruction.Contains(':'))
+                {
+                    // instruction is a label so should be ignored
+                    MessageBox.Show("Label ignored");
+                    count--;
+                }
+                else
+                {
+                    splitInstructions.Push(GetOpcode(instruction));
+                    splitInstructions.Push(GetOperand(instruction));
+                }
             }
 
             splitInstructions.Pop(); // pops of the operand of the HALT instruction
@@ -67,7 +77,6 @@ namespace NEA_CPU_Model
                 return "Invalid, no HALT command";
             }
 
-            int count = instructions.Count-1;
             // checks instructions are valid
             for (int i = count; i > 0; i--)
             {

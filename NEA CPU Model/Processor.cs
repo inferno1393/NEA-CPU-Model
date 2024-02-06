@@ -33,6 +33,33 @@ namespace NEA_CPU_Model
                 while (programCounter < instructions.Count)
                 {
                     string instruction = instructions[programCounter];
+                    if (instruction.Contains(':'))
+                    {
+                        // instruction is a label so should be ignored
+                    }
+                    else
+                    {
+                        programCounter++;
+                        string opcode = Parser.GetOpcode(instruction);
+                        Program.model.cirText.Text = opcode;
+                        string operand = Parser.GetOperand(instruction);
+                        string[] values = operand.Split(',');
+
+                        Decode(opcode, values, RAM);
+                        Program.model.programCounterText.Text = programCounter.ToString();
+                    }
+                }
+            }
+            // execute only the next instruction
+            else
+            {
+                string instruction = instructions[programCounter];
+                if (instruction.Contains(':'))
+                {
+                    // instruction is a label so should be ignored
+                }
+                else
+                {
                     programCounter++;
                     string opcode = Parser.GetOpcode(instruction);
                     Program.model.cirText.Text = opcode;
@@ -43,27 +70,16 @@ namespace NEA_CPU_Model
                     Program.model.programCounterText.Text = programCounter.ToString();
                 }
             }
-            // execute only the next instruction
-            else
-            {
-                string instruction = instructions[programCounter];
-                programCounter++;
-                string opcode = Parser.GetOpcode(instruction);
-                Program.model.cirText.Text = opcode;
-                string operand = Parser.GetOperand(instruction);
-                string[] values = operand.Split(',');
-
-                Decode(opcode, values, RAM);
-                Program.model.programCounterText.Text = programCounter.ToString();
-            }
-
         }
+        
+
 
         private void Decode(string opcode, string[] values, RAM RAM)
         {
             // follow appropriate steps based on opcode
             switch (opcode)
             {
+                // load the value in the 2nd operand into the 1st operand
                 case "LDR":
                     if (RAM.ReturnData(values[1]) != -1)
                     {
@@ -76,8 +92,9 @@ namespace NEA_CPU_Model
                         goto Exit;
                     }
                     break;
+
+                // store the value in the 1st operand into the 2nd operand
                 case "STR":
-                    // uses the raw data if a hashtag is present
                     if (values[0].Contains('#'))
                     {
                         values[0] = values[0].Replace("#", "");
@@ -96,6 +113,8 @@ namespace NEA_CPU_Model
                         }
                     }
                     break;
+
+                // adds the value in the 3rd operand with the 2nd operand and stores it in the 1st operand
                 case "ADD":
                     int result = 0;
                     if (values[2].Contains('#'))
@@ -145,10 +164,10 @@ namespace NEA_CPU_Model
                             goto Exit;
                         }
                     }
-
                     break;
+
+                // subtract the value in the 3rd operand from the 2nd operand and stores it in the 1st operand
                 case "SUB":
-                    result = 0;
                     if (values[2].Contains('#'))
                     {
                         values[2] = values[2].Replace("#", "");
@@ -197,8 +216,9 @@ namespace NEA_CPU_Model
                         }
                     }
                     break;
+
+                // copies the value in the 2nd operand into the 1st operand
                 case "MOV":
-                    // uses the raw data if a hashtag is present
                     if (values[1].Contains('#'))
                     {
                         values[1] = values[1].Replace("#", "");
@@ -245,6 +265,8 @@ namespace NEA_CPU_Model
                         }
                     }
                     break;
+
+                // compares the value in the 1st operand with the 2nd operand
                 case "CMP":
                     string temp = string.Empty;
                     if (values[1].Contains('#'))
@@ -331,21 +353,152 @@ namespace NEA_CPU_Model
                         }
                     }
                     break;
+
+                // always branches to the label given by the operand
                 case "B":
                     programCounter = 0;
                     break;
-                case "AND":
+
+                // branches to the label given by the operand if the last comparison was EQ
+                case "B<EQ>":
+                    programCounter = 0;
                     break;
+
+                // branches to the label given by the operand if the last comparison was NE
+                case "B<NE>":
+                    programCounter = 0;
+                    break;
+
+                // branches to the label given by the operand if the last comparison was GT
+                case "B<GT>":
+                    programCounter = 0;
+                    break;
+
+                // branches to the label given by the operand if the last comparison was LT
+                case "B<LT>":
+                    programCounter = 0;
+                    break;
+
+                // Bitwise and the value in the 3rd operand with the 2nd operand and stores it in the 1st operand
+                case "AND":
+                   
+                    break;
+
+                // Bitwise or the value in the 3rd operand with the 2nd operand and stores it in the 1st operand
                 case "ORR":
                     break;
+
+                // Bitwise xor the value in the 3rd operand with the 2nd operand and stores it in the 1st operand
                 case "EOR":
                     break;
+
+                // Bitwise not the value in the 2nd operand and stores it in the 1st operand
                 case "MVN":
                     break;
+
+                // Bitwise left shift the value in the 2nd operand by the 3rd operand and stores it in the 1st operand
                 case "LSL":
+                    if (values[2].Contains('#'))
+                    {
+                        values[2] = values[2].Replace("#", "");
+                        if (registers.ContainsKey(values[1]))
+                        {
+                            result = registers[values[1]] * (2 * Convert.ToInt32(values[2]));
+                            registers[values[0]] = result;
+                            UpdateInterface(values[0], registers[values[0]]);
+                            Program.model.accumulatorText.Text = result.ToString();
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                            goto Exit;
+                        }
+                    }
+                    else if (values[2].Contains('R'))
+                    {
+                        values[2] = values[2].Replace("R", "");
+                        if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
+                        {
+                            result = registers[values[1]] * (2 * registers[values[2]]);
+                            registers[values[0]] = result;
+                            UpdateInterface(values[0], registers[values[0]]);
+                            Program.model.accumulatorText.Text = result.ToString();
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                            goto Exit;
+                        }
+                    }
+                    else
+                    {
+                        if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
+                        {
+                            result = registers[values[1]] * (2 * RAM.ReturnData(values[2]));
+                            registers[values[0]] = result;
+                            UpdateInterface(values[0], registers[values[0]]);
+                            Program.model.accumulatorText.Text = result.ToString();
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
+                            goto Exit;
+                        }
+                    }
                     break;
+
+                // Bitwise right shift the value in the 2nd operand by the 3rd operand and stores it in the 1st operand
                 case "LSR":
+                    if (values[2].Contains('#'))
+                    {
+                        values[2] = values[2].Replace("#", "");
+                        if (registers.ContainsKey(values[1]))
+                        {
+                            result = registers[values[1]] / (2 * Convert.ToInt32(values[2]));
+                            registers[values[0]] = result;
+                            UpdateInterface(values[0], registers[values[0]]);
+                            Program.model.accumulatorText.Text = result.ToString();
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                            goto Exit;
+                        }
+                    }
+                    else if (values[2].Contains('R'))
+                    {
+                        values[2] = values[2].Replace("R", "");
+                        if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
+                        {
+                            result = registers[values[1]] / (2 * registers[values[2]]);
+                            registers[values[0]] = result;
+                            UpdateInterface(values[0], registers[values[0]]);
+                            Program.model.accumulatorText.Text = result.ToString();
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                            goto Exit;
+                        }
+                    }
+                    else
+                    {
+                        if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
+                        {
+                            result = registers[values[1]] / (2 * RAM.ReturnData(values[2]));
+                            registers[values[0]] = result;
+                            UpdateInterface(values[0], registers[values[0]]);
+                            Program.model.accumulatorText.Text = result.ToString();
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
+                            goto Exit;
+                        }
+                    }
                     break;
+
+                // end of code execution, exit
                 case "HALT":
                     goto Exit;
             }

@@ -24,6 +24,8 @@ namespace NEA_CPU_Model
             {
                 return -1;
             }
+            Program.model.marText.Text = address;
+            Program.model.mbrText.Text = memory[address].ToString();
             return memory[address];
         }
 
@@ -38,6 +40,8 @@ namespace NEA_CPU_Model
             {
                 memory[address] = data;
             }
+            Program.model.marText.Text = address;
+            Program.model.mbrText.Text = data.ToString();
             UpdateInterface(address, data);
         }
 
