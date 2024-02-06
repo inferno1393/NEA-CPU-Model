@@ -63,7 +63,7 @@ namespace NEA_CPU_Model
             switch (opcode)
             {
                 case "LDR":
-                    if (RAM.ReturnData(values[1]) == -1)
+                    if (RAM.ReturnData(values[1]) != -1)
                     {
                         registers[values[0]] = RAM.ReturnData(values[1]);
                         UpdateInterface(values[0], registers[values[0]]);
@@ -83,7 +83,16 @@ namespace NEA_CPU_Model
                     }
                     else
                     {
-                        RAM.StoreData(values[1], registers[values[0]]);
+                        if (registers.ContainsKey(values[0]))
+                        {
+                            RAM.StoreData(values[1], registers[values[0]]);
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                            goto Exit;
+                        }
+                        
                     }
                     
                     break;
