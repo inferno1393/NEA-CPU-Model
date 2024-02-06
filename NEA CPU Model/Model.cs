@@ -23,6 +23,8 @@ namespace NEA_CPU_Model
             for (int i = 0; i < instructions.Count; i++)
             {
                 instructions[i] = instructions[i].Replace(" ", "");
+                instructions[i] = instructions[i].Replace("\r", "");
+                instructions[i] = instructions[i].Replace("\n", "");
             }
 
             // takes the output of the parsing and either sends the instructions to be executed
@@ -47,13 +49,15 @@ namespace NEA_CPU_Model
         // allows the user to step through the code instruction by instruction
         private void stepBtn_Click(object sender, EventArgs e)
         {
-            List<string> instructions = instructionsTextBox.Text.Split('\n').ToList<string>();
+            List<string> instructions = instructionsTextBox.Text.Split('\r').ToList<string>();
             StackArray<string> splitInstructions = new StackArray<string>();
 
             // removes white space from the instruction
             for (int i = 0; i < instructions.Count; i++)
             {
                 instructions[i] = instructions[i].Replace(" ", "");
+                instructions[i] = instructions[i].Replace("\r", "");
+                instructions[i] = instructions[i].Replace("\n", "");
             }
 
             // creates an instance of the Parser class and uses it to check the instructions are valid
