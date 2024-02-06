@@ -29,10 +29,10 @@ namespace NEA_CPU_Model
             // code needs to execute all instructions at once
             if (loop)
             {
-                foreach (var instruction in instructions)
+                while(programCounter < instructions.Count)
                 {
-
-
+                    string instruction = instructions[programCounter];
+                    programCounter++;
                     string opcode = Parser.GetOpcode(instruction);
                     string operand = Parser.GetOperand(instruction);
                     string[] values = operand.Split(',');
