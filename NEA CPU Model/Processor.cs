@@ -94,42 +94,136 @@ namespace NEA_CPU_Model
                             MessageBox.Show($"Attempted to access empty register in line {programCounter}");
                             goto Exit;
                         }
-                        
                     }
                     break;
                 case "ADD":
                     int result = 0;
-                    if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
+                    if (values[2].Contains('#'))
                     {
-                        result = registers[values[1]] + RAM.ReturnData(values[2]);
-                        registers[values[0]] = result;
-                        UpdateInterface(values[0], registers[values[0]]);
-                        Program.model.accumulatorText.Text = result.ToString();
+                        values[2] = values[2].Replace("#", "");
+                        if (registers.ContainsKey(values[1]))
+                        {
+                            result = registers[values[1]] + Convert.ToInt32(values[2]);
+                            registers[values[0]] = result;
+                            UpdateInterface(values[0], registers[values[0]]);
+                            Program.model.accumulatorText.Text = result.ToString();
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                            goto Exit;
+                        }
+                    }
+                    else if (values[2].Contains('R'))
+                    {
+                        values[2] = values[2].Replace("R", "");
+                        if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
+                        {
+                            result = registers[values[1]] + registers[values[2]];
+                            registers[values[0]] = result;
+                            UpdateInterface(values[0], registers[values[0]]);
+                            Program.model.accumulatorText.Text = result.ToString();
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                            goto Exit;
+                        }
                     }
                     else
                     {
-                        MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
-                        goto Exit;
+                        if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
+                        {
+                            result = registers[values[1]] + RAM.ReturnData(values[2]);
+                            registers[values[0]] = result;
+                            UpdateInterface(values[0], registers[values[0]]);
+                            Program.model.accumulatorText.Text = result.ToString();
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
+                            goto Exit;
+                        }
                     }
+
                     break;
                 case "SUB":
                     result = 0;
-                    if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
+                    if (values[2].Contains('#'))
                     {
-                        result = RAM.ReturnData(values[2]) - registers[values[1]];
-                        registers[values[0]] = result;
-                        UpdateInterface(values[0], registers[values[0]]);
-                        Program.model.accumulatorText.Text = result.ToString();
+                        values[2] = values[2].Replace("#", "");
+                        if (registers.ContainsKey(values[1]))
+                        {
+                            result = Convert.ToInt32(values[2]) - registers[values[1]];
+                            registers[values[0]] = result;
+                            UpdateInterface(values[0], registers[values[0]]);
+                            Program.model.accumulatorText.Text = result.ToString();
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                            goto Exit;
+                        }
+                    }
+                    else if (values[2].Contains('R'))
+                    {
+                        values[2] = values[2].Replace("R", "");
+                        if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
+                        {
+                            result = registers[values[2]] - registers[values[1]];
+                            registers[values[0]] = result;
+                            UpdateInterface(values[0], registers[values[0]]);
+                            Program.model.accumulatorText.Text = result.ToString();
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                            goto Exit;
+                        }
                     }
                     else
                     {
-                        MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
-                        goto Exit;
+                        if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
+                        {
+                            result = RAM.ReturnData(values[2]) - registers[values[1]];
+                            registers[values[0]] = result;
+                            UpdateInterface(values[0], registers[values[0]]);
+                            Program.model.accumulatorText.Text = result.ToString();
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
+                            goto Exit;
+                        }
                     }
                     break;
                 case "MOV":
+                    // uses the raw data if a hashtag is present
+                    if (values[0].Contains('#'))
+                    {
+                        values[0] = values[0].Replace("#", "");
+                        RAM.StoreData(values[1], Convert.ToInt32(values[0]));
+                    }
+                    else if (values[0].Contains('R'))
+                    {
+                        values[0] = values[0].Replace("R", "");
+                        RAM.StoreData(values[1], registers[values[0]]);
+                    }
+                    else
+                    {
+                        if (registers.ContainsKey(values[0]))
+                        {
+                            RAM.StoreData(values[1], registers[values[0]]);
+                        }
+                        else
+                        {
+                            MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                            goto Exit;
+                        }
+                    }
                     break;
                 case "CMP":
+
                     break;
                 case "B":
                     programCounter = 0;

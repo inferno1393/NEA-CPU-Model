@@ -37,8 +37,6 @@ namespace NEA_CPU_Model
 
                 // passes the instructions into the processor
                 processor.Flow(instructions, RAM, true);
-
-                MessageBox.Show("Execution Complete"); // REMOVE AFTER IT WORKS PLEASE THANKS
             }
             else
             {
@@ -74,8 +72,6 @@ namespace NEA_CPU_Model
 
                 // passes the instructions into the processor
                 processor.Flow(instructions, RAM, false);
-
-                MessageBox.Show("Executed 1 instruction"); // REMOVE AFTER IT WORKS PLEASE THANKS
             }
             else
             {
