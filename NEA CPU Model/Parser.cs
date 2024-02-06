@@ -54,8 +54,6 @@ namespace NEA_CPU_Model
             {
                 string instruction = instructions[i];
 
-                instruction = instruction.Replace(" ", ""); // removes white space from the instruction
-
                 splitInstructions.Push(GetOpcode(instruction));
                 splitInstructions.Push(GetOperand(instruction));
             }

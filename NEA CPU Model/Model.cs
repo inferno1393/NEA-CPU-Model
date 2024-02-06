@@ -19,6 +19,12 @@ namespace NEA_CPU_Model
             Parser parser = new Parser(instructions, splitInstructions);
             string parsingOutput = parser.ParseInstructions(instructions, splitInstructions);
 
+            // removes white space from the instruction
+            for (int i = 0; i < instructions.Count; i++)
+            {
+                instructions[i] = instructions[i].Replace(" ", "");
+            }
+
             // takes the output of the parsing and either sends the instructions to be executed
             // or shows the error to the user
             if (parsingOutput == "Valid")
@@ -43,6 +49,12 @@ namespace NEA_CPU_Model
         {
             List<string> instructions = instructionsTextBox.Text.Split('\n').ToList<string>();
             StackArray<string> splitInstructions = new StackArray<string>();
+
+            // removes white space from the instruction
+            for (int i = 0; i < instructions.Count; i++)
+            {
+                instructions[i] = instructions[i].Replace(" ", "");
+            }
 
             // creates an instance of the Parser class and uses it to check the instructions are valid
             Parser parser = new Parser(instructions, splitInstructions);

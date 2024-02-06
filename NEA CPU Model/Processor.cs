@@ -70,7 +70,7 @@ namespace NEA_CPU_Model
                     }
                     else
                     {
-                        MessageBox.Show($"Attempted to access empty RAM address in line {programCounter}"); // not showing the message box
+                        MessageBox.Show($"Attempted to access empty RAM address in line {programCounter}");
                         goto Exit;
                     }
                     break;
@@ -78,7 +78,7 @@ namespace NEA_CPU_Model
                     // uses the raw data if a hashtag is present
                     if (values[0].Contains('#'))
                     {
-                        values[0] = values[0].Replace('#' , ' ');
+                        values[0] = values[0].Replace("#", "");
                         RAM.StoreData(values[1], Convert.ToInt32(values[0]));
                     }
                     else
