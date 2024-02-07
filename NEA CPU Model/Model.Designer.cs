@@ -103,6 +103,8 @@
             label40 = new Label();
             ramIndexText = new TextBox();
             registerIndexText = new TextBox();
+            label11 = new Label();
+            backColourText = new TextBox();
             SuspendLayout();
             // 
             // instructionsTextBox
@@ -723,7 +725,7 @@
             // label39
             // 
             label39.AutoSize = true;
-            label39.Location = new Point(30, 866);
+            label39.Location = new Point(323, 866);
             label39.Name = "label39";
             label39.Size = new Size(214, 25);
             label39.TabIndex = 86;
@@ -732,7 +734,7 @@
             // label40
             // 
             label40.AutoSize = true;
-            label40.Location = new Point(312, 866);
+            label40.Location = new Point(640, 866);
             label40.Name = "label40";
             label40.Size = new Size(168, 25);
             label40.TabIndex = 87;
@@ -740,7 +742,7 @@
             // 
             // ramIndexText
             // 
-            ramIndexText.Location = new Point(30, 905);
+            ramIndexText.Location = new Point(323, 916);
             ramIndexText.Name = "ramIndexText";
             ramIndexText.Size = new Size(150, 31);
             ramIndexText.TabIndex = 88;
@@ -748,17 +750,36 @@
             // 
             // registerIndexText
             // 
-            registerIndexText.Location = new Point(312, 905);
+            registerIndexText.Location = new Point(643, 916);
             registerIndexText.Name = "registerIndexText";
             registerIndexText.Size = new Size(150, 31);
             registerIndexText.TabIndex = 89;
             registerIndexText.Text = "0";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(87, 866);
+            label11.Name = "label11";
+            label11.Size = new Size(165, 25);
+            label11.TabIndex = 90;
+            label11.Text = "Background Colour";
+            // 
+            // backColourText
+            // 
+            backColourText.Location = new Point(87, 916);
+            backColourText.Name = "backColourText";
+            backColourText.Size = new Size(150, 31);
+            backColourText.TabIndex = 91;
+            backColourText.Text = "White";
             // 
             // Model
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1898, 1144);
+            Controls.Add(backColourText);
+            Controls.Add(label11);
             Controls.Add(registerIndexText);
             Controls.Add(ramIndexText);
             Controls.Add(label40);
@@ -921,5 +942,7 @@
         private Label label39;
         private Label label40;
         private TextBox ramIndexText;
+        private Label label11;
+        private TextBox backColourText;
     }
 }

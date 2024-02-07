@@ -125,6 +125,7 @@ namespace NEA_CPU_Model
         private void Process(bool loop)
         {
             IndexRead(); // call for reading then writing the index start points for RAM and register addresses
+            Program.model.BackColor = Color.Blue; // sets background colour to user input
 
             // creates the List (and puts the values in the text box into it) and Stack necessary for parsing
             List<string> instructions = instructionsTextBox.Text.Split('\n').ToList<string>();
