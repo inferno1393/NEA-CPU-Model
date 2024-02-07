@@ -60,8 +60,16 @@ namespace NEA_CPU_Model
 
                 if (instruction.Contains(':'))
                 {
+                    string operand = GetOperand(instruction).Replace(":", "");
                     // instruction is a label so should be ignored
-                    labels.Add(GetOperand(instruction), i);
+                    if (labels.ContainsKey(operand))
+                    {
+                        labels[operand] = i;
+                    }
+                    else
+                    {
+                        labels.Add(operand, i);
+                    }
                     count--;
                 }
                 else

@@ -29,6 +29,7 @@ namespace NEA_CPU_Model
         // then controls the CPU components in executing the instruction
         public override void Flow(List<string> instructions, RAM RAM, bool loop)
         {
+            repeat = true;
             // code needs to execute all instructions at once
             if (loop)
             {
@@ -47,6 +48,7 @@ namespace NEA_CPU_Model
                 }
                 else
                 {
+                    programCounter = 0;
                     // exit program as end reached
                 }
             }
@@ -439,7 +441,12 @@ namespace NEA_CPU_Model
         {
             if (Parser.labels.ContainsKey(values[0]))
             {
-
+                programCounter = Parser.labels[values[0]];
+            }
+            else
+            {
+                MessageBox.Show("Label not found");
+                repeat = false;
             }
         }
 
@@ -448,14 +455,7 @@ namespace NEA_CPU_Model
         {
             if (temp == condition)
             {
-                for (int i = 0; i < instructions.Count; i++)
-                {
-                    if (Parser.GetOperand(instructions[i]) == values[0])
-                    {
-                        programCounter = i;
-                        break;
-                    }
-                }
+                
             }
         }
 
