@@ -78,7 +78,7 @@ namespace NEA_CPU_Model
         // decodes the instruction given and calls the appropriate subroutine to execute it
         private void Decode(string opcode, string[] values, RAM RAM, List<string> instructions)
         {
-            // follow appropriate steps based on opcode
+            // calls the appropriate subroutine and passes in the necessary values
             switch (opcode)
             {
                 case "LDR":
@@ -500,7 +500,11 @@ namespace NEA_CPU_Model
                 values[2] = values[2].Replace("#", "");
                 if (registers.ContainsKey(values[1]))
                 {
-                    result = registers[values[1]] * (2 * Convert.ToInt32(values[2]));
+                    result = registers[values[1]];
+                    for (int i = 0; i < Convert.ToInt32(values[2]); i++)
+                    {
+                        result *= 2;
+                    }
                     registers[values[0]] = result;
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
@@ -516,7 +520,11 @@ namespace NEA_CPU_Model
                 values[2] = values[2].Replace("R", "");
                 if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
                 {
-                    result = registers[values[1]] * (2 * registers[values[2]]);
+                    result = registers[values[1]];
+                    for (int i = 0; i < registers[values[2]]; i++)
+                    {
+                        result *= 2;
+                    }
                     registers[values[0]] = result;
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
@@ -531,7 +539,11 @@ namespace NEA_CPU_Model
             {
                 if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
                 {
-                    result = registers[values[1]] * (2 * RAM.ReturnData(values[2]));
+                    result = registers[values[1]];
+                    for (int i = 0; i < RAM.ReturnData(values[2]); i++)
+                    {
+                        result *= 2;
+                    }
                     registers[values[0]] = result;
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
@@ -553,7 +565,11 @@ namespace NEA_CPU_Model
                 values[2] = values[2].Replace("#", "");
                 if (registers.ContainsKey(values[1]))
                 {
-                    result = registers[values[1]] / (2 * Convert.ToInt32(values[2]));
+                    result = registers[values[1]];
+                    for (int i = 0; i < Convert.ToInt32(values[2]); i++)
+                    {
+                        result /= 2;
+                    }
                     registers[values[0]] = result;
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
@@ -569,7 +585,11 @@ namespace NEA_CPU_Model
                 values[2] = values[2].Replace("R", "");
                 if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
                 {
-                    result = registers[values[1]] / (2 * registers[values[2]]);
+                    result = registers[values[1]];
+                    for (int i = 0; i < registers[values[2]]; i++)
+                    {
+                        result /= 2;
+                    }
                     registers[values[0]] = result;
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
@@ -584,7 +604,10 @@ namespace NEA_CPU_Model
             {
                 if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
                 {
-                    result = registers[values[1]] / (2 * RAM.ReturnData(values[2]));
+                    for (int i = 0; i < RAM.ReturnData(values[2]); i++)
+                    {
+                        result /= 2;
+                    }
                     registers[values[0]] = result;
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
@@ -597,6 +620,7 @@ namespace NEA_CPU_Model
             }
         }
 
+        // adds the address/data that just got changed to the interface
         private void UpdateInterface(string register, int data)
         {
             int reg = Convert.ToInt32(register);

@@ -27,7 +27,7 @@ namespace NEA_CPU_Model
             { "ADD", "Rd, Rn, <memory ref>" },
             { "SUB", "Rd, Rn, <memory ref>" },
             { "MOV", "Rd, <memory ref>" },
-            { "CMP", "Rd, <memory ref> " },
+            { "CMP", "Rd, <memory ref>" },
             { "B", "<label>"},
             { "B<EQ>", "<label>" },
             { "B<NE>", "<label>" },
