@@ -437,7 +437,10 @@ namespace NEA_CPU_Model
         // always branches to the label given by the operand
         private void B(string[] values, RAM RAM, List<string> instructions)
         {
-            
+            if (Parser.labels.ContainsKey(values[0]))
+            {
+
+            }
         }
 
         // branches to the label given by the operand if the given condition was met by the last comparison
