@@ -8,7 +8,8 @@ namespace NEA_CPU_Model
 
         // creates array of avaiable text boxes for registers
         static public TextBox[] registersData =
-        {   Program.model.RData0,
+        {   
+            Program.model.RData0,
             Program.model.RData1,
             Program.model.RData2,
             Program.model.RData3,
@@ -19,7 +20,7 @@ namespace NEA_CPU_Model
         };
 
         // creates array of avaiable labels for registers
-        static private Label[] registerAddress =
+        private Label[] registerAddress =
         {
             Program.model.registerAddress0,
             Program.model.registerAddress1,
@@ -53,7 +54,7 @@ namespace NEA_CPU_Model
         };
 
         // creates array of avaiable labels for RAM
-        static private Label[] ramAddress = 
+        private Label[] ramAddress = 
         {
             Program.model.ramAddress0,
             Program.model.ramAddress1,
@@ -76,6 +77,16 @@ namespace NEA_CPU_Model
         // initializes indexes for ram and register addresses
         static public int ramIndex = 0;
         static public int registerIndex = 0;
+
+        // creates dictionary of accepted colours
+        private Dictionary<string, Color> colours = new Dictionary<string, Color>
+        {
+            {"white", Color.White },
+            {"black", Color.Black },
+            {"blue", Color.Blue },
+            {"red", Color.Red },
+            {"green", Color.Green }
+        };
 
         // constructor
         public Model()
@@ -125,7 +136,12 @@ namespace NEA_CPU_Model
         private void Process(bool loop)
         {
             IndexRead(); // call for reading then writing the index start points for RAM and register addresses
-            Program.model.BackColor = Color.Blue; // sets background colour to user input
+
+            // sets background colour to user input
+            if (colours.ContainsKey(backColour.Text))
+            {
+                Program.model.BackColor = colours[backColour.Text];
+            }
 
             // creates the List (and puts the values in the text box into it) and Stack necessary for parsing
             List<string> instructions = instructionsTextBox.Text.Split('\n').ToList<string>();

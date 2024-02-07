@@ -104,7 +104,7 @@
             ramIndexText = new TextBox();
             registerIndexText = new TextBox();
             label11 = new Label();
-            backColourText = new TextBox();
+            backColour = new TextBox();
             SuspendLayout();
             // 
             // instructionsTextBox
@@ -765,20 +765,20 @@
             label11.TabIndex = 90;
             label11.Text = "Background Colour";
             // 
-            // backColourText
+            // backColour
             // 
-            backColourText.Location = new Point(87, 916);
-            backColourText.Name = "backColourText";
-            backColourText.Size = new Size(150, 31);
-            backColourText.TabIndex = 91;
-            backColourText.Text = "White";
+            backColour.Location = new Point(87, 916);
+            backColour.Name = "backColour";
+            backColour.Size = new Size(150, 31);
+            backColour.TabIndex = 91;
+            backColour.Text = "White";
             // 
             // Model
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1898, 1144);
-            Controls.Add(backColourText);
+            Controls.Add(backColour);
             Controls.Add(label11);
             Controls.Add(registerIndexText);
             Controls.Add(ramIndexText);
@@ -943,6 +943,6 @@
         private Label label40;
         private TextBox ramIndexText;
         private Label label11;
-        private TextBox backColourText;
+        private TextBox backColour;
     }
 }
