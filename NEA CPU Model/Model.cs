@@ -57,6 +57,10 @@ namespace NEA_CPU_Model
             for (int i = 0; i < instructions.Count; i++)
             {
                 instructionsTextBox.Text += instructions[i];
+                if (i < instructions.Count - 2)
+                {
+                    instructionsTextBox.Text += '\n';
+                }
             }
 
             loadBtn.Enabled = true; // renables the button ready for next use
@@ -102,7 +106,7 @@ namespace NEA_CPU_Model
             StreamWriter writer = new StreamWriter("Instructions.txt");
             for (int i = 0; i < instructions.Count; i++)
             {
-                writer.WriteLine(instructions[i] + '\n');
+                writer.WriteLine(instructions[i]);
             }
             writer.Close();
         }
