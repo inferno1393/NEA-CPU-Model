@@ -16,11 +16,11 @@ namespace NEA_CPU_Model
             Program.model.RData4,
             Program.model.RData5,
             Program.model.RData6,
-            Program.model.RData7
+            Program.model.RData7,
         };
 
         // creates array of avaiable labels for registers
-        private Label[] registerAddress =
+        static private Label[] registerAddress =
         {
             Program.model.registerAddress0,
             Program.model.registerAddress1,
@@ -29,7 +29,7 @@ namespace NEA_CPU_Model
             Program.model.registerAddress4,
             Program.model.registerAddress5,
             Program.model.registerAddress6,
-            Program.model.registerAddress7
+            Program.model.registerAddress7,
         };
 
         // creates array of avaiable text boxes for RAM
@@ -50,11 +50,11 @@ namespace NEA_CPU_Model
             Program.model.Data12,
             Program.model.Data13,
             Program.model.Data14,
-            Program.model.Data15
+            Program.model.Data15,
         };
 
         // creates array of avaiable labels for RAM
-        private Label[] ramAddress = 
+        static private Label[] ramAddress = 
         {
             Program.model.ramAddress0,
             Program.model.ramAddress1,
@@ -71,7 +71,7 @@ namespace NEA_CPU_Model
             Program.model.ramAddress12,
             Program.model.ramAddress13,
             Program.model.ramAddress14,
-            Program.model.ramAddress15
+            Program.model.ramAddress15,
         };
 
         // initializes indexes for ram and register addresses
@@ -138,9 +138,10 @@ namespace NEA_CPU_Model
             IndexRead(); // call for reading then writing the index start points for RAM and register addresses
 
             // sets background colour to user input
-            if (colours.ContainsKey(backColour.Text))
+            string text = backColour.Text.ToLower();
+            if (colours.ContainsKey(text))
             {
-                Program.model.BackColor = colours[backColour.Text];
+                Program.model.BackColor = colours[text];
             }
 
             // creates the List (and puts the values in the text box into it) and Stack necessary for parsing
