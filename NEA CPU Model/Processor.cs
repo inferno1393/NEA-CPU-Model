@@ -15,9 +15,9 @@ namespace NEA_CPU_Model
         private Dictionary<string, int> registers = new Dictionary<string, int> { };
 
         // attributes
-        public int programCounter = 0;
-        public bool repeat = true;
-        public string temp = string.Empty;
+        public int programCounter = 0; // controls which instruction is executed
+        public bool repeat = true; // controls if the end of the program has been met (or an error has occured)
+        public string temp = string.Empty; // temporary value for comparisons/branching
 
         // constructor
         public Processor()
@@ -55,7 +55,7 @@ namespace NEA_CPU_Model
         }
 
         // controls the program counter during execution and splits the instruction
-        private void Execute(List<string> instructions, RAM RAM)
+        protected override void Execute(List<string> instructions, RAM RAM)
         {
             string instruction = instructions[programCounter];
             programCounter++;
@@ -66,17 +66,20 @@ namespace NEA_CPU_Model
             else
             {
                 string opcode = Parser.GetOpcode(instruction);
-                Program.model.cirText.Text = opcode;
                 string operand = Parser.GetOperand(instruction);
-                string[] values = operand.Split(',');
+                string[] values = operand.Split(','); // splits the operand into the actual operands
 
-                Decode(opcode, values, RAM, instructions);
+                // updates specific purpose registers
+                Program.model.cirText.Text = opcode;
                 Program.model.programCounterText.Text = programCounter.ToString();
+
+                Decode(opcode, values, RAM, instructions); // call point for the actual execution of the instruction
+                
             }
         }
 
         // decodes the instruction given and calls the appropriate subroutine to execute it
-        private void Decode(string opcode, string[] values, RAM RAM, List<string> instructions)
+        protected override void Decode(string opcode, string[] values, RAM RAM, List<string> instructions)
         {
             // calls the appropriate subroutine and passes in the necessary values
             switch (opcode)
@@ -158,12 +161,12 @@ namespace NEA_CPU_Model
         // load the value in the 2nd operand into the 1st operand
         private void LDR(string[] values, RAM RAM)
         {
-            if (RAM.ReturnData(values[1]) != -1)
+            if (RAM.ReturnData(values[1]) != -1) // checks that the accessed address is not empty
             {
                 registers[values[0]] = RAM.ReturnData(values[1]);
                 UpdateInterface(values[0], registers[values[0]]);
             }
-            else
+            else // address is empty, exit out
             {
                 MessageBox.Show($"Attempted to access empty RAM address in line {programCounter}");
                 repeat = false;
@@ -173,18 +176,19 @@ namespace NEA_CPU_Model
         // store the value in the 1st operand into the 2nd operand
         private void STR(string[] values, RAM RAM)
         {
-            if (values[0].Contains('#'))
+            if (values[0].Contains('#')) // if the value in the 1st operand is a hard value
             {
                 values[0] = values[0].Replace("#", "");
                 RAM.StoreData(values[1], Convert.ToInt32(values[0]));
             }
-            else
+            else // else the value in the 1st operand is a register
             {
-                if (registers.ContainsKey(values[0]))
+                values[0] = values[0].Replace("R", "");
+                if (registers.ContainsKey(values[0])) // checks that the accessed register is not empty
                 {
                     RAM.StoreData(values[1], registers[values[0]]);
                 }
-                else
+                else // address is empty, exit out
                 {
                     MessageBox.Show($"Attempted to access empty register in line {programCounter}");
                     repeat = false;
@@ -196,7 +200,7 @@ namespace NEA_CPU_Model
         private void ADD(string[] values, RAM RAM)
         {
             int result = 0;
-            if (values[2].Contains('#'))
+            if (values[2].Contains('#')) // if the value in the 3rd operand is a hard value
             {
                 values[2] = values[2].Replace("#", "");
                 if (registers.ContainsKey(values[1]))
@@ -206,13 +210,13 @@ namespace NEA_CPU_Model
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
-                else
+                else // address is empty, exit out
                 {
                     MessageBox.Show($"Attempted to access empty register in line {programCounter}");
                     repeat = false;
                 }
             }
-            else if (values[2].Contains('R'))
+            else if (values[2].Contains('R')) // or if the value in the 3rd operand is a register
             {
                 values[2] = values[2].Replace("R", "");
                 if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
@@ -222,13 +226,13 @@ namespace NEA_CPU_Model
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
-                else
+                else // address is empty, exit out
                 {
                     MessageBox.Show($"Attempted to access empty register in line {programCounter}");
                     repeat = false;
                 }
             }
-            else
+            else // else the value in the 3rd operand is a RAM address
             {
                 if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
                 {
@@ -237,7 +241,7 @@ namespace NEA_CPU_Model
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
-                else
+                else // address is empty, exit out
                 {
                     MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
                     repeat = false;
@@ -249,7 +253,7 @@ namespace NEA_CPU_Model
         private void SUB(string[] values, RAM RAM)
         {
             int result = 0;
-            if (values[2].Contains('#'))
+            if (values[2].Contains('#')) // if the value in the 3rd operand is a hard value
             {
                 values[2] = values[2].Replace("#", "");
                 if (registers.ContainsKey(values[1]))
@@ -259,13 +263,13 @@ namespace NEA_CPU_Model
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
-                else
+                else // address is empty, exit out
                 {
                     MessageBox.Show($"Attempted to access empty register in line {programCounter}");
                     repeat = false;
                 }
             }
-            else if (values[2].Contains('R'))
+            else if (values[2].Contains('R')) // or if the value in the 3rd operand is a register
             {
                 values[2] = values[2].Replace("R", "");
                 if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
@@ -275,13 +279,13 @@ namespace NEA_CPU_Model
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
-                else
+                else // address is empty, exit out
                 {
                     MessageBox.Show($"Attempted to access empty register in line {programCounter}");
                     repeat = false;
                 }
             }
-            else
+            else // else the value in the 3rd operand is a RAM address
             {
                 if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
                 {
@@ -290,7 +294,7 @@ namespace NEA_CPU_Model
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
-                else
+                else // address is empty, exit out
                 {
                     MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
                     repeat = false;
@@ -301,7 +305,7 @@ namespace NEA_CPU_Model
         // copies the value in the 2nd operand into the 1st operand
         private void MOV(string[] values, RAM RAM)
         {
-            if (values[1].Contains('#'))
+            if (values[1].Contains('#')) // if the value in the 2nd operand is a hard value
             {
                 values[1] = values[1].Replace("#", "");
                 if (registers.ContainsKey(values[0]))
@@ -313,7 +317,7 @@ namespace NEA_CPU_Model
                     registers.Add(values[0], Convert.ToInt32(values[1]));
                 }
             }
-            else if (values[1].Contains('R'))
+            else if (values[1].Contains('R')) // else if the value in the 2nd operand is a register
             {
                 values[1] = values[1].Replace("R", "");
                 if (registers.ContainsKey(values[0]) && registers.ContainsKey(values[1]))
@@ -324,13 +328,13 @@ namespace NEA_CPU_Model
                 {
                     registers.Add(values[0], Convert.ToInt32(values[1]));
                 }
-                else
+                else // address is empty, exit out
                 {
                     MessageBox.Show($"Attempted to access empty register in line {programCounter}");
                     repeat = false;
                 }
             }
-            else
+            else // else the value in the 2nd operand is a RAM address
             {
                 if (registers.ContainsKey(values[0]) && RAM.ReturnData(values[1]) != -1)
                 {
@@ -340,7 +344,7 @@ namespace NEA_CPU_Model
                 {
                     registers.Add(values[0], RAM.ReturnData(values[1]));
                 }
-                else
+                else // address is empty, exit out
                 {
                     MessageBox.Show($"Attempted to access empty RAM address in line {programCounter}");
                     repeat = false;
@@ -351,7 +355,7 @@ namespace NEA_CPU_Model
         // compares the value in the 1st operand with the 2nd operand
         private void CMP(string[] values, RAM RAM)
         {
-            if (values[1].Contains('#'))
+            if (values[1].Contains('#')) // if the value in the 2nd operand is a hard value
             {
                 values[1] = values[1].Replace("#", "");
                 if (registers.ContainsKey(values[0]))
@@ -373,13 +377,13 @@ namespace NEA_CPU_Model
                         temp = "LT";
                     }
                 }
-                else
+                else  // address is empty, exit out
                 {
                     MessageBox.Show($"Attempted to access empty register in line {programCounter}");
                     repeat = false;
                 }
             }
-            else if (values[1].Contains('R'))
+            else if (values[1].Contains('R')) // else if the value in the 2nd operand is a register
             {
                 values[1] = values[1].Replace("R", "");
                 if (registers.ContainsKey(values[0]) && registers.ContainsKey(values[1]))
@@ -401,13 +405,13 @@ namespace NEA_CPU_Model
                         temp = "LT";
                     }
                 }
-                else
+                else // address is empty, exit out
                 {
                     MessageBox.Show($"Attempted to access empty register in line {programCounter}");
                     repeat = false;
                 }
             }
-            else
+            else  // else the value in the 2nd operand is a RAM address
             {
                 if (registers.ContainsKey(values[0]) && RAM.ReturnData(values[1]) != -1)
                 {
@@ -428,7 +432,7 @@ namespace NEA_CPU_Model
                         temp = "LT";
                     }
                 }
-                else
+                else // address is empty, exit out
                 {
                     MessageBox.Show($"Attempted to access empty register/ RAM address in line {programCounter}");
                     repeat = false;
@@ -441,9 +445,9 @@ namespace NEA_CPU_Model
         {
             if (Parser.labels.ContainsKey(values[0]))
             {
-                programCounter = Parser.labels[values[0]];
+                programCounter = Parser.labels[values[0]]; // sets the program counter to the line containing the label
             }
-            else
+            else // label doesn't exist so exit out
             {
                 MessageBox.Show("Label not found");
                 repeat = false;
@@ -453,13 +457,13 @@ namespace NEA_CPU_Model
         // branches to the label given by the operand if the given condition was met by the last comparison
         private void Bcondition(string[] values, RAM RAM, List<string> instructions, string condition)
         {
-            if (temp == condition)
+            if (temp == condition) // if the last comparison was the given condition
             {
                 if (Parser.labels.ContainsKey(values[0]))
                 {
-                    programCounter = Parser.labels[values[0]];
+                    programCounter = Parser.labels[values[0]]; // sets the program counter to the line containing the label
                 }
-                else
+                else // label doesn't exist so exit out
                 {
                     MessageBox.Show("Label not found");
                     repeat = false;
@@ -495,7 +499,7 @@ namespace NEA_CPU_Model
         private void LSL(string[] values, RAM RAM)
         {
             int result = 0;
-            if (values[2].Contains('#'))
+            if (values[2].Contains('#')) // if the value in the 3rd operand is a hard value
             {
                 values[2] = values[2].Replace("#", "");
                 if (registers.ContainsKey(values[1]))
@@ -509,13 +513,13 @@ namespace NEA_CPU_Model
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
-                else
+                else // address is empty, exit out
                 {
                     MessageBox.Show($"Attempted to access empty register in line {programCounter}");
                     repeat = false;
                 }
             }
-            else if (values[2].Contains('R'))
+            else if (values[2].Contains('R')) // else if the value in the 3rd operand is a register
             {
                 values[2] = values[2].Replace("R", "");
                 if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
@@ -529,13 +533,13 @@ namespace NEA_CPU_Model
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
-                else
+                else // address is empty, exit out
                 {
                     MessageBox.Show($"Attempted to access empty register in line {programCounter}");
                     repeat = false;
                 }
             }
-            else
+            else // else the value in the 3rd operand is a RAM address
             {
                 if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
                 {
@@ -548,7 +552,7 @@ namespace NEA_CPU_Model
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
-                else
+                else // address is empty, exit out
                 {
                     MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
                     repeat = false;
@@ -560,7 +564,7 @@ namespace NEA_CPU_Model
         private void LSR(string[] values, RAM RAM)
         {
             int result = 0;
-            if (values[2].Contains('#'))
+            if (values[2].Contains('#')) // if the value in the 3rd operand is a hard value
             {
                 values[2] = values[2].Replace("#", "");
                 if (registers.ContainsKey(values[1]))
@@ -574,13 +578,13 @@ namespace NEA_CPU_Model
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
-                else
+                else // address is empty, exit out
                 {
                     MessageBox.Show($"Attempted to access empty register in line {programCounter}");
                     repeat = false;
                 }
             }
-            else if (values[2].Contains('R'))
+            else if (values[2].Contains('R')) // else if the value in the 3rd operand is a register
             {
                 values[2] = values[2].Replace("R", "");
                 if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
@@ -594,25 +598,26 @@ namespace NEA_CPU_Model
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
-                else
+                else // address is empty, exit out
                 {
                     MessageBox.Show($"Attempted to access empty register in line {programCounter}");
                     repeat = false;
                 }
             }
-            else
+            else // else the value in the 3rd operand is a RAM address
             {
                 if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
                 {
+                    result = registers[values[1]];
                     for (int i = 0; i < RAM.ReturnData(values[2]); i++)
                     {
-                        result /= 2;
+                        result *= 2;
                     }
                     registers[values[0]] = result;
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
-                else
+                else // address is empty, exit out
                 {
                     MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
                     repeat = false;
@@ -624,13 +629,13 @@ namespace NEA_CPU_Model
         private void UpdateInterface(string register, int data)
         {
             int reg = Convert.ToInt32(register);
-            if  (reg >= 0 && reg <= 3)
+            if  (reg >= 0 && reg <= 3) // register is within the range of available registers
             {
                 Model.registersData[reg].Text = data.ToString();
             }
-            else
+            else // register is not within range of available registers
             {
-                MessageBox.Show("Register out of range");
+                // nothing to do
             }
         }
     }
