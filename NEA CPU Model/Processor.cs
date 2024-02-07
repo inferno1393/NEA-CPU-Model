@@ -480,7 +480,7 @@ namespace NEA_CPU_Model
                 values[2] = values[2].Replace("#", "");
                 if (registers.ContainsKey(values[1]))
                 {
-                    result = registers[values[1]] + Convert.ToInt32(values[2]);
+                    result = Logic(registers[values[1]], Convert.ToInt32(values[2]), "AND");
                     registers[values[0]] = result;
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
@@ -496,7 +496,7 @@ namespace NEA_CPU_Model
                 values[2] = values[2].Replace("R", "");
                 if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
                 {
-                    result = registers[values[1]] + registers[values[2]];
+                    result = Logic(registers[values[1]], registers[values[2]], "AND");
                     registers[values[0]] = result;
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
@@ -511,7 +511,7 @@ namespace NEA_CPU_Model
             {
                 if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
                 {
-                    result = registers[values[1]] + RAM.ReturnData(values[2]);
+                    result = Logic(registers[values[1]], RAM.ReturnData(values[2]), "AND");
                     registers[values[0]] = result;
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
@@ -540,6 +540,45 @@ namespace NEA_CPU_Model
         private void MVN(string[] values, RAM RAM)
         {
 
+        }
+
+        // does the bitwise logic
+        private int Logic(int v1, int v2, string opcode)
+        {
+            int result = 0;
+            // converts the inputs to binary
+            v1 = denToBin(v1);
+            v2 = denToBin(v2);
+
+            if(opcode == "AND")
+            {
+                result = 0;
+            }
+            else if(opcode == "OR")
+            {
+                result = 1;
+            }
+            else if(opcode == "EOR")
+            {
+                result = 2;
+            }
+            else // must be a not opcode
+            {
+                result = 3;
+            }
+
+            return binToDen(result); // converts output to denary and returns to call point
+        }
+
+        // converts input to binary
+        private int denToBin(int v)
+        {
+            return 1;
+        }
+        // converts input to denary
+        private int binToDen(int v)
+        {
+            return 1;
         }
 
         // Bitwise left shift the value in the 2nd operand by the 3rd operand and stores it in the 1st operand
