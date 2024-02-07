@@ -53,8 +53,11 @@ namespace NEA_CPU_Model
         {
             loadBtn.Enabled = false; // disables the button to prevent spamming
 
-            // yeah its not complete though
-            MessageBox.Show("This button does nothing");
+            List<string> instructions = ReadFromFile();
+            for (int i = 0; i < instructions.Count; i++)
+            {
+                instructionsTextBox.Text += instructions[i];
+            }
 
             loadBtn.Enabled = true; // renables the button ready for next use
         }
@@ -84,11 +87,40 @@ namespace NEA_CPU_Model
             {
                 // code has compiled correctly, execute
                 processor.Flow(instructions, RAM, loop);
+                WriteToFile(instructions);
             }
             else
             {
                 MessageBox.Show(parsingOutput);
             }
+
+        }
+
+        // writes the instructions to a textfile
+        private void WriteToFile(List<string> instructions)
+        {
+            StreamWriter writer = new StreamWriter("Instructions.txt");
+            for (int i = 0; i < instructions.Count; i++)
+            {
+                writer.WriteLine(instructions[i] + '\n');
+            }
+            writer.Close();
+        }
+
+        // reads the instructions from a textfile
+        private List<string> ReadFromFile()
+        {
+            List<string> instructions = new List<string>();
+            string line = string.Empty;
+            StreamReader reader = new StreamReader("Instructions.txt");
+
+            while (line != null)
+            {
+                line = reader.ReadLine();
+                instructions.Add(line);
+            }
+            reader.Close();
+            return instructions;
 
         }
     }
