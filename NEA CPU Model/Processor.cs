@@ -470,7 +470,7 @@ namespace NEA_CPU_Model
         // Bitwise and the value in the 3rd operand with the 2nd operand and stores it in the 1st operand
         private void AND(string[] values, RAM RAM)
         {
-
+            
         }
 
         // Bitwise or the value in the 3rd operand with the 2nd operand and stores it in the 1st operand
