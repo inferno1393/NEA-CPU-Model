@@ -92,6 +92,7 @@ namespace NEA_CPU_Model
         public Model()
         {
             InitializeComponent();
+            this.Size = Screen.PrimaryScreen.WorkingArea.Size;
         }
 
         // parses the instructions and then executes them

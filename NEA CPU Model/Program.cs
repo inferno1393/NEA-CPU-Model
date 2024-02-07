@@ -13,8 +13,8 @@ namespace NEA_CPU_Model
 
         static void Main()
         {
+            
             ApplicationConfiguration.Initialize();
-           
             Application.Run(model);
         }
     }

@@ -18,7 +18,7 @@ namespace NEA_CPU_Model
         private int programCounter = 0; // controls which instruction is executed
         private bool repeat = true; // controls if the end of the program has been met (or an error has occured)
         private string temp = string.Empty; // temporary value for comparisons/branching
-        private int[] binary = new int[] { 128, 64, 32, 16, 8, 4, 2, 1 }; // int array for 8 bit binary conversion
+        private int[] binary = { 128, 64, 32, 16, 8, 4, 2, 1 }; // int array for 8 bit binary conversion
 
         // constructor
         public Processor()

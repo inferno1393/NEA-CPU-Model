@@ -129,27 +129,30 @@
             // label1
             // 
             label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.Location = new Point(71, 49);
             label1.Name = "label1";
-            label1.Size = new Size(79, 25);
+            label1.Size = new Size(83, 25);
             label1.TabIndex = 3;
             label1.Text = "Controls";
             // 
             // label2
             // 
             label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.Location = new Point(905, 49);
             label2.Name = "label2";
-            label2.Size = new Size(45, 25);
+            label2.Size = new Size(47, 25);
             label2.TabIndex = 4;
             label2.Text = "CPU";
             // 
             // label3
             // 
             label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.Location = new Point(1581, 49);
             label3.Name = "label3";
-            label3.Size = new Size(51, 25);
+            label3.Size = new Size(54, 25);
             label3.TabIndex = 5;
             label3.Text = "RAM";
             // 
@@ -176,24 +179,26 @@
             // label4
             // 
             label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
             label4.Location = new Point(1486, 105);
             label4.Name = "label4";
-            label4.Size = new Size(77, 25);
+            label4.Size = new Size(72, 25);
             label4.TabIndex = 9;
             label4.Text = "Address";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(1682, 105);
+            label5.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            label5.Location = new Point(1667, 105);
             label5.Name = "label5";
-            label5.Size = new Size(49, 25);
+            label5.Size = new Size(51, 25);
             label5.TabIndex = 10;
             label5.Text = "Data";
             // 
             // Data0
             // 
-            Data0.Location = new Point(1635, 133);
+            Data0.Location = new Point(1618, 133);
             Data0.Name = "Data0";
             Data0.ReadOnly = true;
             Data0.Size = new Size(150, 31);
@@ -201,7 +206,7 @@
             // 
             // Data1
             // 
-            Data1.Location = new Point(1635, 187);
+            Data1.Location = new Point(1618, 184);
             Data1.Name = "Data1";
             Data1.ReadOnly = true;
             Data1.Size = new Size(150, 31);
@@ -209,7 +214,7 @@
             // 
             // Data2
             // 
-            Data2.Location = new Point(1635, 245);
+            Data2.Location = new Point(1618, 239);
             Data2.Name = "Data2";
             Data2.ReadOnly = true;
             Data2.Size = new Size(150, 31);
@@ -217,7 +222,7 @@
             // 
             // Data3
             // 
-            Data3.Location = new Point(1635, 298);
+            Data3.Location = new Point(1618, 292);
             Data3.Name = "Data3";
             Data3.ReadOnly = true;
             Data3.Size = new Size(150, 31);
@@ -225,7 +230,7 @@
             // 
             // Data4
             // 
-            Data4.Location = new Point(1635, 354);
+            Data4.Location = new Point(1618, 351);
             Data4.Name = "Data4";
             Data4.ReadOnly = true;
             Data4.Size = new Size(150, 31);
@@ -233,7 +238,7 @@
             // 
             // Data5
             // 
-            Data5.Location = new Point(1635, 410);
+            Data5.Location = new Point(1618, 410);
             Data5.Name = "Data5";
             Data5.ReadOnly = true;
             Data5.Size = new Size(150, 31);
@@ -241,7 +246,7 @@
             // 
             // Data6
             // 
-            Data6.Location = new Point(1635, 461);
+            Data6.Location = new Point(1618, 461);
             Data6.Name = "Data6";
             Data6.ReadOnly = true;
             Data6.Size = new Size(150, 31);
@@ -249,7 +254,7 @@
             // 
             // Data7
             // 
-            Data7.Location = new Point(1635, 507);
+            Data7.Location = new Point(1618, 529);
             Data7.Name = "Data7";
             Data7.ReadOnly = true;
             Data7.Size = new Size(150, 31);
@@ -258,63 +263,70 @@
             // label6
             // 
             label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
             label6.Location = new Point(710, 285);
             label6.Name = "label6";
-            label6.Size = new Size(83, 25);
+            label6.Size = new Size(81, 25);
             label6.TabIndex = 27;
             label6.Text = "Registers";
             // 
             // label7
             // 
             label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
             label7.Location = new Point(710, 187);
             label7.Name = "label7";
-            label7.Size = new Size(112, 25);
+            label7.Size = new Size(111, 25);
             label7.TabIndex = 28;
             label7.Text = "Accumulator";
             // 
             // label8
             // 
             label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
             label8.Location = new Point(888, 190);
             label8.Name = "label8";
-            label8.Size = new Size(44, 25);
+            label8.Size = new Size(43, 25);
             label8.TabIndex = 29;
             label8.Text = "ALU";
             // 
             // label10
             // 
             label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
             label10.Location = new Point(1068, 124);
             label10.Name = "label10";
-            label10.Size = new Size(35, 25);
+            label10.Size = new Size(36, 25);
             label10.TabIndex = 31;
             label10.Text = "CU";
             // 
             // label12
             // 
             label12.AutoSize = true;
+            label12.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
             label12.Location = new Point(1161, 389);
             label12.Name = "label12";
-            label12.Size = new Size(59, 25);
+            label12.Size = new Size(61, 25);
             label12.TabIndex = 33;
             label12.Text = "Cache";
             // 
             // label13
             // 
             label13.AutoSize = true;
+            label13.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
             label13.Location = new Point(1214, 298);
             label13.Name = "label13";
-            label13.Size = new Size(51, 25);
+            label13.Size = new Size(48, 25);
             label13.TabIndex = 34;
             label13.Text = "MAR";
             // 
             // label14
             // 
             label14.AutoSize = true;
+            label14.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
             label14.Location = new Point(1216, 193);
             label14.Name = "label14";
-            label14.Size = new Size(49, 25);
+            label14.Size = new Size(47, 25);
             label14.TabIndex = 35;
             label14.Text = "MBR";
             // 
@@ -344,7 +356,7 @@
             // 
             // RData0
             // 
-            RData0.Location = new Point(753, 323);
+            RData0.Location = new Point(753, 331);
             RData0.Name = "RData0";
             RData0.ReadOnly = true;
             RData0.Size = new Size(150, 31);
@@ -352,7 +364,7 @@
             // 
             // RData1
             // 
-            RData1.Location = new Point(753, 383);
+            RData1.Location = new Point(753, 386);
             RData1.Name = "RData1";
             RData1.ReadOnly = true;
             RData1.Size = new Size(150, 31);
@@ -360,7 +372,7 @@
             // 
             // RData2
             // 
-            RData2.Location = new Point(753, 444);
+            RData2.Location = new Point(753, 441);
             RData2.Name = "RData2";
             RData2.ReadOnly = true;
             RData2.Size = new Size(150, 31);
@@ -368,7 +380,7 @@
             // 
             // RData3
             // 
-            RData3.Location = new Point(753, 507);
+            RData3.Location = new Point(753, 501);
             RData3.Name = "RData3";
             RData3.ReadOnly = true;
             RData3.Size = new Size(150, 31);
@@ -386,7 +398,7 @@
             // registerAddress1
             // 
             registerAddress1.AutoSize = true;
-            registerAddress1.Location = new Point(689, 383);
+            registerAddress1.Location = new Point(689, 389);
             registerAddress1.Name = "registerAddress1";
             registerAddress1.RightToLeft = RightToLeft.No;
             registerAddress1.Size = new Size(22, 25);
@@ -396,7 +408,7 @@
             // registerAddress2
             // 
             registerAddress2.AutoSize = true;
-            registerAddress2.Location = new Point(689, 444);
+            registerAddress2.Location = new Point(689, 447);
             registerAddress2.Name = "registerAddress2";
             registerAddress2.Size = new Size(22, 25);
             registerAddress2.TabIndex = 50;
@@ -405,7 +417,7 @@
             // registerAddress3
             // 
             registerAddress3.AutoSize = true;
-            registerAddress3.Location = new Point(689, 510);
+            registerAddress3.Location = new Point(689, 507);
             registerAddress3.Name = "registerAddress3";
             registerAddress3.Size = new Size(22, 25);
             registerAddress3.TabIndex = 51;
@@ -423,7 +435,7 @@
             // ramAddress1
             // 
             ramAddress1.AutoSize = true;
-            ramAddress1.Location = new Point(1494, 190);
+            ramAddress1.Location = new Point(1494, 187);
             ramAddress1.Name = "ramAddress1";
             ramAddress1.Size = new Size(22, 25);
             ramAddress1.TabIndex = 53;
@@ -432,7 +444,7 @@
             // ramAddress2
             // 
             ramAddress2.AutoSize = true;
-            ramAddress2.Location = new Point(1494, 251);
+            ramAddress2.Location = new Point(1494, 242);
             ramAddress2.Name = "ramAddress2";
             ramAddress2.Size = new Size(22, 25);
             ramAddress2.TabIndex = 54;
@@ -441,7 +453,7 @@
             // ramAddress3
             // 
             ramAddress3.AutoSize = true;
-            ramAddress3.Location = new Point(1494, 301);
+            ramAddress3.Location = new Point(1494, 298);
             ramAddress3.Name = "ramAddress3";
             ramAddress3.Size = new Size(22, 25);
             ramAddress3.TabIndex = 55;
@@ -468,7 +480,7 @@
             // ramAddress6
             // 
             ramAddress6.AutoSize = true;
-            ramAddress6.Location = new Point(1494, 461);
+            ramAddress6.Location = new Point(1494, 467);
             ramAddress6.Name = "ramAddress6";
             ramAddress6.Size = new Size(22, 25);
             ramAddress6.TabIndex = 58;
@@ -477,7 +489,7 @@
             // ramAddress7
             // 
             ramAddress7.AutoSize = true;
-            ramAddress7.Location = new Point(1494, 507);
+            ramAddress7.Location = new Point(1494, 529);
             ramAddress7.Name = "ramAddress7";
             ramAddress7.Size = new Size(22, 25);
             ramAddress7.TabIndex = 59;
@@ -495,9 +507,10 @@
             // label26
             // 
             label26.AutoSize = true;
+            label26.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
             label26.Location = new Point(689, 82);
             label26.Name = "label26";
-            label26.Size = new Size(149, 25);
+            label26.Size = new Size(147, 25);
             label26.TabIndex = 61;
             label26.Text = "Program Counter";
             // 
@@ -512,6 +525,7 @@
             // label9
             // 
             label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
             label9.Location = new Point(1068, 193);
             label9.Name = "label9";
             label9.Size = new Size(39, 25);
@@ -521,7 +535,7 @@
             // registerAddress4
             // 
             registerAddress4.AutoSize = true;
-            registerAddress4.Location = new Point(689, 554);
+            registerAddress4.Location = new Point(689, 560);
             registerAddress4.Name = "registerAddress4";
             registerAddress4.Size = new Size(22, 25);
             registerAddress4.TabIndex = 62;
@@ -530,7 +544,7 @@
             // registerAddress5
             // 
             registerAddress5.AutoSize = true;
-            registerAddress5.Location = new Point(689, 602);
+            registerAddress5.Location = new Point(689, 605);
             registerAddress5.Name = "registerAddress5";
             registerAddress5.Size = new Size(22, 25);
             registerAddress5.TabIndex = 63;
@@ -539,7 +553,7 @@
             // registerAddress6
             // 
             registerAddress6.AutoSize = true;
-            registerAddress6.Location = new Point(689, 646);
+            registerAddress6.Location = new Point(689, 660);
             registerAddress6.Name = "registerAddress6";
             registerAddress6.Size = new Size(22, 25);
             registerAddress6.TabIndex = 64;
@@ -548,7 +562,7 @@
             // registerAddress7
             // 
             registerAddress7.AutoSize = true;
-            registerAddress7.Location = new Point(689, 682);
+            registerAddress7.Location = new Point(689, 717);
             registerAddress7.Name = "registerAddress7";
             registerAddress7.Size = new Size(22, 25);
             registerAddress7.TabIndex = 65;
@@ -572,7 +586,7 @@
             // 
             // RData6
             // 
-            RData6.Location = new Point(753, 640);
+            RData6.Location = new Point(753, 654);
             RData6.Name = "RData6";
             RData6.ReadOnly = true;
             RData6.Size = new Size(150, 31);
@@ -580,7 +594,7 @@
             // 
             // RData7
             // 
-            RData7.Location = new Point(753, 682);
+            RData7.Location = new Point(753, 711);
             RData7.Name = "RData7";
             RData7.ReadOnly = true;
             RData7.Size = new Size(150, 31);
@@ -589,7 +603,7 @@
             // ramAddress8
             // 
             ramAddress8.AutoSize = true;
-            ramAddress8.Location = new Point(1494, 554);
+            ramAddress8.Location = new Point(1494, 593);
             ramAddress8.Name = "ramAddress8";
             ramAddress8.Size = new Size(22, 25);
             ramAddress8.TabIndex = 70;
@@ -598,7 +612,7 @@
             // ramAddress9
             // 
             ramAddress9.AutoSize = true;
-            ramAddress9.Location = new Point(1494, 599);
+            ramAddress9.Location = new Point(1494, 657);
             ramAddress9.Name = "ramAddress9";
             ramAddress9.Size = new Size(22, 25);
             ramAddress9.TabIndex = 71;
@@ -607,7 +621,7 @@
             // ramAddress10
             // 
             ramAddress10.AutoSize = true;
-            ramAddress10.Location = new Point(1486, 635);
+            ramAddress10.Location = new Point(1486, 711);
             ramAddress10.Name = "ramAddress10";
             ramAddress10.Size = new Size(32, 25);
             ramAddress10.TabIndex = 72;
@@ -616,7 +630,7 @@
             // ramAddress11
             // 
             ramAddress11.AutoSize = true;
-            ramAddress11.Location = new Point(1486, 680);
+            ramAddress11.Location = new Point(1486, 763);
             ramAddress11.Name = "ramAddress11";
             ramAddress11.Size = new Size(32, 25);
             ramAddress11.TabIndex = 73;
@@ -625,7 +639,7 @@
             // ramAddress12
             // 
             ramAddress12.AutoSize = true;
-            ramAddress12.Location = new Point(1486, 723);
+            ramAddress12.Location = new Point(1486, 828);
             ramAddress12.Name = "ramAddress12";
             ramAddress12.Size = new Size(32, 25);
             ramAddress12.TabIndex = 74;
@@ -634,7 +648,7 @@
             // ramAddress13
             // 
             ramAddress13.AutoSize = true;
-            ramAddress13.Location = new Point(1486, 763);
+            ramAddress13.Location = new Point(1486, 897);
             ramAddress13.Name = "ramAddress13";
             ramAddress13.Size = new Size(32, 25);
             ramAddress13.TabIndex = 75;
@@ -643,7 +657,7 @@
             // ramAddress14
             // 
             ramAddress14.AutoSize = true;
-            ramAddress14.Location = new Point(1484, 802);
+            ramAddress14.Location = new Point(1486, 953);
             ramAddress14.Name = "ramAddress14";
             ramAddress14.Size = new Size(32, 25);
             ramAddress14.TabIndex = 76;
@@ -652,7 +666,7 @@
             // ramAddress15
             // 
             ramAddress15.AutoSize = true;
-            ramAddress15.Location = new Point(1486, 844);
+            ramAddress15.Location = new Point(1486, 1012);
             ramAddress15.Name = "ramAddress15";
             ramAddress15.Size = new Size(32, 25);
             ramAddress15.TabIndex = 77;
@@ -660,7 +674,7 @@
             // 
             // Data8
             // 
-            Data8.Location = new Point(1635, 548);
+            Data8.Location = new Point(1618, 596);
             Data8.Name = "Data8";
             Data8.ReadOnly = true;
             Data8.Size = new Size(150, 31);
@@ -668,7 +682,7 @@
             // 
             // Data9
             // 
-            Data9.Location = new Point(1635, 593);
+            Data9.Location = new Point(1618, 651);
             Data9.Name = "Data9";
             Data9.ReadOnly = true;
             Data9.Size = new Size(150, 31);
@@ -676,7 +690,7 @@
             // 
             // Data10
             // 
-            Data10.Location = new Point(1635, 640);
+            Data10.Location = new Point(1618, 705);
             Data10.Name = "Data10";
             Data10.ReadOnly = true;
             Data10.Size = new Size(150, 31);
@@ -684,7 +698,7 @@
             // 
             // Data11
             // 
-            Data11.Location = new Point(1631, 677);
+            Data11.Location = new Point(1618, 757);
             Data11.Name = "Data11";
             Data11.ReadOnly = true;
             Data11.Size = new Size(150, 31);
@@ -692,7 +706,7 @@
             // 
             // Data12
             // 
-            Data12.Location = new Point(1631, 717);
+            Data12.Location = new Point(1618, 822);
             Data12.Name = "Data12";
             Data12.ReadOnly = true;
             Data12.Size = new Size(150, 31);
@@ -700,7 +714,7 @@
             // 
             // Data13
             // 
-            Data13.Location = new Point(1631, 763);
+            Data13.Location = new Point(1618, 891);
             Data13.Name = "Data13";
             Data13.ReadOnly = true;
             Data13.Size = new Size(150, 31);
@@ -708,7 +722,7 @@
             // 
             // Data14
             // 
-            Data14.Location = new Point(1635, 802);
+            Data14.Location = new Point(1618, 947);
             Data14.Name = "Data14";
             Data14.ReadOnly = true;
             Data14.Size = new Size(150, 31);
@@ -716,7 +730,7 @@
             // 
             // Data15
             // 
-            Data15.Location = new Point(1635, 844);
+            Data15.Location = new Point(1618, 1006);
             Data15.Name = "Data15";
             Data15.ReadOnly = true;
             Data15.Size = new Size(150, 31);
@@ -725,24 +739,26 @@
             // label39
             // 
             label39.AutoSize = true;
-            label39.Location = new Point(323, 866);
+            label39.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            label39.Location = new Point(210, 866);
             label39.Name = "label39";
-            label39.Size = new Size(214, 25);
+            label39.Size = new Size(206, 25);
             label39.TabIndex = 86;
             label39.Text = "RAM Address Start Index:";
             // 
             // label40
             // 
             label40.AutoSize = true;
-            label40.Location = new Point(640, 866);
+            label40.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            label40.Location = new Point(447, 866);
             label40.Name = "label40";
-            label40.Size = new Size(168, 25);
+            label40.Size = new Size(167, 25);
             label40.TabIndex = 87;
             label40.Text = "Register Start Index:";
             // 
             // ramIndexText
             // 
-            ramIndexText.Location = new Point(323, 916);
+            ramIndexText.Location = new Point(210, 916);
             ramIndexText.Name = "ramIndexText";
             ramIndexText.Size = new Size(150, 31);
             ramIndexText.TabIndex = 88;
@@ -750,7 +766,7 @@
             // 
             // registerIndexText
             // 
-            registerIndexText.Location = new Point(643, 916);
+            registerIndexText.Location = new Point(447, 916);
             registerIndexText.Name = "registerIndexText";
             registerIndexText.Size = new Size(150, 31);
             registerIndexText.TabIndex = 89;
@@ -759,15 +775,16 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(87, 866);
+            label11.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            label11.Location = new Point(12, 866);
             label11.Name = "label11";
-            label11.Size = new Size(165, 25);
+            label11.Size = new Size(163, 25);
             label11.TabIndex = 90;
             label11.Text = "Background Colour";
             // 
             // backColour
             // 
-            backColour.Location = new Point(87, 916);
+            backColour.Location = new Point(12, 916);
             backColour.Name = "backColour";
             backColour.Size = new Size(150, 31);
             backColour.TabIndex = 91;
