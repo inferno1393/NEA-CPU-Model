@@ -63,7 +63,7 @@ namespace NEA_CPU_Model
             int addr = Convert.ToInt32(address);
             if (addr >= Model.ramIndex && addr <= (Model.ramIndex + Model.ramData.Count())) // address is within the range of available addresses
             {
-                Model.ramData[addr + +Model.ramIndex].Text = data.ToString();
+                Model.ramData[addr - Model.ramIndex].Text = data.ToString();
             }
             else // address is not within range
             {

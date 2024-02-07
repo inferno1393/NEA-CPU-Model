@@ -918,7 +918,7 @@ namespace NEA_CPU_Model
             int reg = Convert.ToInt32(register);
             if  (reg >= Model.registerIndex && reg <= (Model.registerIndex + Model.registersData.Count())) // register is within the range of available registers
             {
-                Model.registersData[reg + Model.registerIndex].Text = data.ToString();
+                Model.registersData[reg - Model.registerIndex].Text = data.ToString();
             }
             else // register is not within range of available registers
             {
