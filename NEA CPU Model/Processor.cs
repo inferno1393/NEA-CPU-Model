@@ -684,109 +684,6 @@ namespace NEA_CPU_Model
             }
         }
 
-        // does the bitwise logic
-        private int Logic(int v1, int v2, string opcode)
-        {
-            string result = string.Empty;
-            // converts the inputs to binary
-            string op1 = denToBin(v1);
-            string op2 = denToBin(v2);
-
-            if(opcode == "AND")
-            {
-                for (int i = 0; i < op2.Length; i++)
-                {
-                    if (op1[i] == '1' && op2[i] == '1') // if both inputs are 1, output is 1
-                    {
-                        result += '1';
-                    }
-                    else // else output is 0
-                    {
-                        result += '0';
-                    }
-                }
-            }
-            else if(opcode == "OR")
-            {
-                for (int i = 0; i < op2.Length; i++)
-                {
-                    if (op1[i] == '1' || op2[i] == '1') // if either inputs are 1, output is 1
-                    {
-                        result += '1';
-                    }
-                    else // else output is 0
-                    {
-                        result += '0';
-                    }
-                }
-            }
-            else if(opcode == "EOR")
-            {
-                bool both1 = false;
-                for (int i = 0; i < op2.Length; i++)
-                {
-                    if (op1[i] == '1' && op2[i] == '1') // checks if both inputs are 1
-                    {
-                        both1 = true;
-                    }
-                    if (op1[i] == '1' || op2[i] == '1' && both1 == false) // if only 1 of the inputs is 1, output is 1
-                    {
-                        result += '1';
-                    }
-                    else // else output is 0
-                    {
-                        result += '0';
-                    }
-                }
-            }
-            else // must be a not opcode
-            {
-                for (int i = 0; i < op1.Length; i++)
-                {
-                    if (op1[i] == 1) // if input is 1, output is 0
-                    {
-                        result += '0';
-                    }
-                    else // else output is 0
-                    {
-                        result += '1';
-                    }
-                }
-            }
-
-            return binToDen(result); // converts output to denary and returns to call point
-        }
-
-        // converts input to binary
-        private string denToBin(int v)
-        {
-            string r = string.Empty;
-            for (int i = 0; i < 8; i++)
-            {
-                if (v >= binary[i])
-                {
-                    r += '1';
-                    v -= binary[i];
-                }
-            }
-            return r;
-        }
-        // converts input to denary
-        private int binToDen(string v)
-        {
-            
-            int r = 0;
-            for (int i = 0; i < 8; i++)
-            {
-                if (Convert.ToInt32(v) >= binary[i])
-                {
-                    r += binary[i];
-                    v = (Convert.ToInt32(v) - binary[i]).ToString();
-                }
-            }
-            return r;
-        }
-
         // Bitwise left shift the value in the 2nd operand by the 3rd operand and stores it in the 1st operand
         private void LSL(string[] values, RAM RAM)
         {
@@ -915,6 +812,104 @@ namespace NEA_CPU_Model
                     repeat = false;
                 }
             }
+        }
+
+        // does the bitwise logic
+        private int Logic(int v1, int v2, string opcode)
+        {
+            string result = string.Empty;
+            // converts the inputs to binary as this is necessary to carry out bitwise operations
+            string op1 = denToBin(v1);
+            string op2 = denToBin(v2);
+
+            if (opcode == "AND")
+            {
+                for (int i = 0; i < op2.Length; i++) // loops through for each digit in the binary representation of the operand
+                {
+                    if (op1[i] == '1' && op2[i] == '1') // if both inputs are 1, output is 1
+                    {
+                        result += '1';
+                    }
+                    else // else output is 0
+                    {
+                        result += '0';
+                    }
+                }
+            }
+            else if (opcode == "OR")
+            {
+                for (int i = 0; i < op2.Length; i++) // loops through for each digit in the binary representation of the operand
+                {
+                    if (op1[i] == '1' || op2[i] == '1') // if either inputs are 1, output is 1
+                    {
+                        result += '1';
+                    }
+                    else // else output is 0
+                    {
+                        result += '0';
+                    }
+                }
+            }
+            else if (opcode == "EOR")
+            {
+                for (int i = 0; i < op2.Length; i++) // loops through for each digit in the binary representation of the operand
+                {
+                    if ((op1[i] == '1' || op2[i] == '1') && !(op1[i] == '1' && op2[i] == '1')) // if only 1 of the inputs is 1, output is 1
+                    {
+                        result += '1';
+                    }
+                    else // else output is 0
+                    {
+                        result += '0';
+                    }
+                }
+            }
+            else // must be a not opcode
+            {
+                for (int i = 0; i < op1.Length; i++) // loops through for each digit in the binary representation of the operand
+                {
+                    if (op1[i] == 1) // if input is 1, output is 0
+                    {
+                        result += '0';
+                    }
+                    else // else output is 0
+                    {
+                        result += '1';
+                    }
+                }
+            }
+
+            return binToDen(result); // converts output to denary and returns to call point
+        }
+
+        // converts input to binary
+        private string denToBin(int v)
+        {
+            string r = string.Empty;
+            for (int i = 0; i < 8; i++)
+            {
+                if (v >= binary[i])
+                {
+                    r += '1';
+                    v -= binary[i];
+                }
+            }
+            return r;
+        }
+        // converts input to denary
+        private int binToDen(string v)
+        {
+
+            int r = 0;
+            for (int i = 0; i < 8; i++)
+            {
+                if (Convert.ToInt32(v) >= binary[i])
+                {
+                    r += binary[i];
+                    v = (Convert.ToInt32(v) - binary[i]).ToString();
+                }
+            }
+            return r;
         }
 
         // adds the address/data that just got changed to the interface
