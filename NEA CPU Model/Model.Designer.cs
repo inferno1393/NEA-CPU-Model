@@ -59,22 +59,50 @@
             RData1 = new TextBox();
             RData2 = new TextBox();
             RData3 = new TextBox();
-            label11 = new Label();
-            label15 = new Label();
-            label16 = new Label();
-            label17 = new Label();
-            label18 = new Label();
-            label19 = new Label();
-            label20 = new Label();
-            label21 = new Label();
-            label22 = new Label();
-            label23 = new Label();
-            label24 = new Label();
-            label25 = new Label();
+            registerAddress0 = new Label();
+            registerAddress1 = new Label();
+            registerAddress2 = new Label();
+            registerAddress3 = new Label();
+            ramAddress0 = new Label();
+            ramAddress1 = new Label();
+            ramAddress2 = new Label();
+            ramAddress3 = new Label();
+            ramAddress4 = new Label();
+            ramAddress5 = new Label();
+            ramAddress6 = new Label();
+            ramAddress7 = new Label();
             programCounterText = new TextBox();
             label26 = new Label();
             cirText = new TextBox();
             label9 = new Label();
+            registerAddress4 = new Label();
+            registerAddress5 = new Label();
+            registerAddress6 = new Label();
+            registerAddress7 = new Label();
+            RData4 = new TextBox();
+            RData5 = new TextBox();
+            RData6 = new TextBox();
+            RData7 = new TextBox();
+            ramAddress8 = new Label();
+            ramAddress9 = new Label();
+            ramAddress10 = new Label();
+            ramAddress11 = new Label();
+            ramAddress12 = new Label();
+            ramAddress13 = new Label();
+            ramAddress14 = new Label();
+            ramAddress15 = new Label();
+            Data8 = new TextBox();
+            Data9 = new TextBox();
+            Data10 = new TextBox();
+            Data11 = new TextBox();
+            Data12 = new TextBox();
+            Data13 = new TextBox();
+            Data14 = new TextBox();
+            Data15 = new TextBox();
+            label39 = new Label();
+            label40 = new Label();
+            ramIndex = new TextBox();
+            registerIndex = new TextBox();
             SuspendLayout();
             // 
             // instructionsTextBox
@@ -344,114 +372,114 @@
             RData3.Size = new Size(150, 31);
             RData3.TabIndex = 47;
             // 
-            // label11
+            // registerAddress0
             // 
-            label11.AutoSize = true;
-            label11.Location = new Point(689, 337);
-            label11.Name = "label11";
-            label11.Size = new Size(22, 25);
-            label11.TabIndex = 48;
-            label11.Text = "0";
+            registerAddress0.AutoSize = true;
+            registerAddress0.Location = new Point(689, 337);
+            registerAddress0.Name = "registerAddress0";
+            registerAddress0.Size = new Size(22, 25);
+            registerAddress0.TabIndex = 48;
+            registerAddress0.Text = "0";
             // 
-            // label15
+            // registerAddress1
             // 
-            label15.AutoSize = true;
-            label15.Location = new Point(689, 383);
-            label15.Name = "label15";
-            label15.RightToLeft = RightToLeft.No;
-            label15.Size = new Size(22, 25);
-            label15.TabIndex = 49;
-            label15.Text = "1";
+            registerAddress1.AutoSize = true;
+            registerAddress1.Location = new Point(689, 383);
+            registerAddress1.Name = "registerAddress1";
+            registerAddress1.RightToLeft = RightToLeft.No;
+            registerAddress1.Size = new Size(22, 25);
+            registerAddress1.TabIndex = 49;
+            registerAddress1.Text = "1";
             // 
-            // label16
+            // registerAddress2
             // 
-            label16.AutoSize = true;
-            label16.Location = new Point(689, 444);
-            label16.Name = "label16";
-            label16.Size = new Size(22, 25);
-            label16.TabIndex = 50;
-            label16.Text = "2";
+            registerAddress2.AutoSize = true;
+            registerAddress2.Location = new Point(689, 444);
+            registerAddress2.Name = "registerAddress2";
+            registerAddress2.Size = new Size(22, 25);
+            registerAddress2.TabIndex = 50;
+            registerAddress2.Text = "2";
             // 
-            // label17
+            // registerAddress3
             // 
-            label17.AutoSize = true;
-            label17.Location = new Point(689, 510);
-            label17.Name = "label17";
-            label17.Size = new Size(22, 25);
-            label17.TabIndex = 51;
-            label17.Text = "3";
+            registerAddress3.AutoSize = true;
+            registerAddress3.Location = new Point(689, 510);
+            registerAddress3.Name = "registerAddress3";
+            registerAddress3.Size = new Size(22, 25);
+            registerAddress3.TabIndex = 51;
+            registerAddress3.Text = "3";
             // 
-            // label18
+            // ramAddress0
             // 
-            label18.AutoSize = true;
-            label18.Location = new Point(1494, 139);
-            label18.Name = "label18";
-            label18.Size = new Size(22, 25);
-            label18.TabIndex = 52;
-            label18.Text = "0";
+            ramAddress0.AutoSize = true;
+            ramAddress0.Location = new Point(1494, 139);
+            ramAddress0.Name = "ramAddress0";
+            ramAddress0.Size = new Size(22, 25);
+            ramAddress0.TabIndex = 52;
+            ramAddress0.Text = "0";
             // 
-            // label19
+            // ramAddress1
             // 
-            label19.AutoSize = true;
-            label19.Location = new Point(1494, 190);
-            label19.Name = "label19";
-            label19.Size = new Size(22, 25);
-            label19.TabIndex = 53;
-            label19.Text = "1";
+            ramAddress1.AutoSize = true;
+            ramAddress1.Location = new Point(1494, 190);
+            ramAddress1.Name = "ramAddress1";
+            ramAddress1.Size = new Size(22, 25);
+            ramAddress1.TabIndex = 53;
+            ramAddress1.Text = "1";
             // 
-            // label20
+            // ramAddress2
             // 
-            label20.AutoSize = true;
-            label20.Location = new Point(1494, 251);
-            label20.Name = "label20";
-            label20.Size = new Size(22, 25);
-            label20.TabIndex = 54;
-            label20.Text = "2";
+            ramAddress2.AutoSize = true;
+            ramAddress2.Location = new Point(1494, 251);
+            ramAddress2.Name = "ramAddress2";
+            ramAddress2.Size = new Size(22, 25);
+            ramAddress2.TabIndex = 54;
+            ramAddress2.Text = "2";
             // 
-            // label21
+            // ramAddress3
             // 
-            label21.AutoSize = true;
-            label21.Location = new Point(1494, 301);
-            label21.Name = "label21";
-            label21.Size = new Size(22, 25);
-            label21.TabIndex = 55;
-            label21.Text = "3";
+            ramAddress3.AutoSize = true;
+            ramAddress3.Location = new Point(1494, 301);
+            ramAddress3.Name = "ramAddress3";
+            ramAddress3.Size = new Size(22, 25);
+            ramAddress3.TabIndex = 55;
+            ramAddress3.Text = "3";
             // 
-            // label22
+            // ramAddress4
             // 
-            label22.AutoSize = true;
-            label22.Location = new Point(1494, 357);
-            label22.Name = "label22";
-            label22.Size = new Size(22, 25);
-            label22.TabIndex = 56;
-            label22.Text = "4";
+            ramAddress4.AutoSize = true;
+            ramAddress4.Location = new Point(1494, 357);
+            ramAddress4.Name = "ramAddress4";
+            ramAddress4.Size = new Size(22, 25);
+            ramAddress4.TabIndex = 56;
+            ramAddress4.Text = "4";
             // 
-            // label23
+            // ramAddress5
             // 
-            label23.AutoSize = true;
-            label23.Location = new Point(1494, 416);
-            label23.Name = "label23";
-            label23.Size = new Size(22, 25);
-            label23.TabIndex = 57;
-            label23.Text = "5";
+            ramAddress5.AutoSize = true;
+            ramAddress5.Location = new Point(1494, 416);
+            ramAddress5.Name = "ramAddress5";
+            ramAddress5.Size = new Size(22, 25);
+            ramAddress5.TabIndex = 57;
+            ramAddress5.Text = "5";
             // 
-            // label24
+            // ramAddress6
             // 
-            label24.AutoSize = true;
-            label24.Location = new Point(1494, 461);
-            label24.Name = "label24";
-            label24.Size = new Size(22, 25);
-            label24.TabIndex = 58;
-            label24.Text = "6";
+            ramAddress6.AutoSize = true;
+            ramAddress6.Location = new Point(1494, 461);
+            ramAddress6.Name = "ramAddress6";
+            ramAddress6.Size = new Size(22, 25);
+            ramAddress6.TabIndex = 58;
+            ramAddress6.Text = "6";
             // 
-            // label25
+            // ramAddress7
             // 
-            label25.AutoSize = true;
-            label25.Location = new Point(1494, 507);
-            label25.Name = "label25";
-            label25.Size = new Size(22, 25);
-            label25.TabIndex = 59;
-            label25.Text = "7";
+            ramAddress7.AutoSize = true;
+            ramAddress7.Location = new Point(1494, 507);
+            ramAddress7.Name = "ramAddress7";
+            ramAddress7.Size = new Size(22, 25);
+            ramAddress7.TabIndex = 59;
+            ramAddress7.Text = "7";
             // 
             // programCounterText
             // 
@@ -488,25 +516,291 @@
             label9.TabIndex = 30;
             label9.Text = "CIR";
             // 
+            // registerAddress4
+            // 
+            registerAddress4.AutoSize = true;
+            registerAddress4.Location = new Point(689, 554);
+            registerAddress4.Name = "registerAddress4";
+            registerAddress4.Size = new Size(22, 25);
+            registerAddress4.TabIndex = 62;
+            registerAddress4.Text = "4";
+            // 
+            // registerAddress5
+            // 
+            registerAddress5.AutoSize = true;
+            registerAddress5.Location = new Point(689, 602);
+            registerAddress5.Name = "registerAddress5";
+            registerAddress5.Size = new Size(22, 25);
+            registerAddress5.TabIndex = 63;
+            registerAddress5.Text = "5";
+            // 
+            // registerAddress6
+            // 
+            registerAddress6.AutoSize = true;
+            registerAddress6.Location = new Point(689, 646);
+            registerAddress6.Name = "registerAddress6";
+            registerAddress6.Size = new Size(22, 25);
+            registerAddress6.TabIndex = 64;
+            registerAddress6.Text = "6";
+            // 
+            // registerAddress7
+            // 
+            registerAddress7.AutoSize = true;
+            registerAddress7.Location = new Point(689, 682);
+            registerAddress7.Name = "registerAddress7";
+            registerAddress7.Size = new Size(22, 25);
+            registerAddress7.TabIndex = 65;
+            registerAddress7.Text = "7";
+            // 
+            // RData4
+            // 
+            RData4.Location = new Point(753, 554);
+            RData4.Name = "RData4";
+            RData4.ReadOnly = true;
+            RData4.Size = new Size(150, 31);
+            RData4.TabIndex = 66;
+            // 
+            // RData5
+            // 
+            RData5.Location = new Point(753, 599);
+            RData5.Name = "RData5";
+            RData5.ReadOnly = true;
+            RData5.Size = new Size(150, 31);
+            RData5.TabIndex = 67;
+            // 
+            // RData6
+            // 
+            RData6.Location = new Point(753, 640);
+            RData6.Name = "RData6";
+            RData6.ReadOnly = true;
+            RData6.Size = new Size(150, 31);
+            RData6.TabIndex = 68;
+            // 
+            // RData7
+            // 
+            RData7.Location = new Point(753, 682);
+            RData7.Name = "RData7";
+            RData7.ReadOnly = true;
+            RData7.Size = new Size(150, 31);
+            RData7.TabIndex = 69;
+            // 
+            // ramAddress8
+            // 
+            ramAddress8.AutoSize = true;
+            ramAddress8.Location = new Point(1494, 554);
+            ramAddress8.Name = "ramAddress8";
+            ramAddress8.Size = new Size(22, 25);
+            ramAddress8.TabIndex = 70;
+            ramAddress8.Text = "8";
+            // 
+            // ramAddress9
+            // 
+            ramAddress9.AutoSize = true;
+            ramAddress9.Location = new Point(1494, 599);
+            ramAddress9.Name = "ramAddress9";
+            ramAddress9.Size = new Size(22, 25);
+            ramAddress9.TabIndex = 71;
+            ramAddress9.Text = "9";
+            // 
+            // ramAddress10
+            // 
+            ramAddress10.AutoSize = true;
+            ramAddress10.Location = new Point(1486, 635);
+            ramAddress10.Name = "ramAddress10";
+            ramAddress10.Size = new Size(32, 25);
+            ramAddress10.TabIndex = 72;
+            ramAddress10.Text = "10";
+            // 
+            // ramAddress11
+            // 
+            ramAddress11.AutoSize = true;
+            ramAddress11.Location = new Point(1486, 680);
+            ramAddress11.Name = "ramAddress11";
+            ramAddress11.Size = new Size(32, 25);
+            ramAddress11.TabIndex = 73;
+            ramAddress11.Text = "11";
+            // 
+            // ramAddress12
+            // 
+            ramAddress12.AutoSize = true;
+            ramAddress12.Location = new Point(1486, 723);
+            ramAddress12.Name = "ramAddress12";
+            ramAddress12.Size = new Size(32, 25);
+            ramAddress12.TabIndex = 74;
+            ramAddress12.Text = "12";
+            // 
+            // ramAddress13
+            // 
+            ramAddress13.AutoSize = true;
+            ramAddress13.Location = new Point(1486, 763);
+            ramAddress13.Name = "ramAddress13";
+            ramAddress13.Size = new Size(32, 25);
+            ramAddress13.TabIndex = 75;
+            ramAddress13.Text = "13";
+            // 
+            // ramAddress14
+            // 
+            ramAddress14.AutoSize = true;
+            ramAddress14.Location = new Point(1484, 802);
+            ramAddress14.Name = "ramAddress14";
+            ramAddress14.Size = new Size(32, 25);
+            ramAddress14.TabIndex = 76;
+            ramAddress14.Text = "14";
+            // 
+            // ramAddress15
+            // 
+            ramAddress15.AutoSize = true;
+            ramAddress15.Location = new Point(1486, 844);
+            ramAddress15.Name = "ramAddress15";
+            ramAddress15.Size = new Size(32, 25);
+            ramAddress15.TabIndex = 77;
+            ramAddress15.Text = "15";
+            // 
+            // Data8
+            // 
+            Data8.Location = new Point(1635, 548);
+            Data8.Name = "Data8";
+            Data8.ReadOnly = true;
+            Data8.Size = new Size(150, 31);
+            Data8.TabIndex = 78;
+            // 
+            // Data9
+            // 
+            Data9.Location = new Point(1635, 593);
+            Data9.Name = "Data9";
+            Data9.ReadOnly = true;
+            Data9.Size = new Size(150, 31);
+            Data9.TabIndex = 79;
+            // 
+            // Data10
+            // 
+            Data10.Location = new Point(1635, 640);
+            Data10.Name = "Data10";
+            Data10.ReadOnly = true;
+            Data10.Size = new Size(150, 31);
+            Data10.TabIndex = 80;
+            // 
+            // Data11
+            // 
+            Data11.Location = new Point(1631, 677);
+            Data11.Name = "Data11";
+            Data11.ReadOnly = true;
+            Data11.Size = new Size(150, 31);
+            Data11.TabIndex = 81;
+            // 
+            // Data12
+            // 
+            Data12.Location = new Point(1631, 717);
+            Data12.Name = "Data12";
+            Data12.ReadOnly = true;
+            Data12.Size = new Size(150, 31);
+            Data12.TabIndex = 82;
+            // 
+            // Data13
+            // 
+            Data13.Location = new Point(1631, 763);
+            Data13.Name = "Data13";
+            Data13.ReadOnly = true;
+            Data13.Size = new Size(150, 31);
+            Data13.TabIndex = 83;
+            // 
+            // Data14
+            // 
+            Data14.Location = new Point(1635, 802);
+            Data14.Name = "Data14";
+            Data14.ReadOnly = true;
+            Data14.Size = new Size(150, 31);
+            Data14.TabIndex = 84;
+            // 
+            // Data15
+            // 
+            Data15.Location = new Point(1635, 844);
+            Data15.Name = "Data15";
+            Data15.ReadOnly = true;
+            Data15.Size = new Size(150, 31);
+            Data15.TabIndex = 85;
+            // 
+            // label39
+            // 
+            label39.AutoSize = true;
+            label39.Location = new Point(30, 866);
+            label39.Name = "label39";
+            label39.Size = new Size(214, 25);
+            label39.TabIndex = 86;
+            label39.Text = "RAM Address Start Index:";
+            // 
+            // label40
+            // 
+            label40.AutoSize = true;
+            label40.Location = new Point(312, 866);
+            label40.Name = "label40";
+            label40.Size = new Size(168, 25);
+            label40.TabIndex = 87;
+            label40.Text = "Register Start Index:";
+            // 
+            // ramIndex
+            // 
+            ramIndex.Location = new Point(30, 905);
+            ramIndex.Name = "ramIndex";
+            ramIndex.Size = new Size(150, 31);
+            ramIndex.TabIndex = 88;
+            ramIndex.Text = "0";
+            // 
+            // registerIndex
+            // 
+            registerIndex.Location = new Point(312, 905);
+            registerIndex.Name = "registerIndex";
+            registerIndex.Size = new Size(150, 31);
+            registerIndex.TabIndex = 89;
+            registerIndex.Text = "0";
+            // 
             // Model
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1898, 1144);
+            Controls.Add(registerIndex);
+            Controls.Add(ramIndex);
+            Controls.Add(label40);
+            Controls.Add(label39);
+            Controls.Add(Data15);
+            Controls.Add(Data14);
+            Controls.Add(Data13);
+            Controls.Add(Data12);
+            Controls.Add(Data11);
+            Controls.Add(Data10);
+            Controls.Add(Data9);
+            Controls.Add(Data8);
+            Controls.Add(ramAddress15);
+            Controls.Add(ramAddress14);
+            Controls.Add(ramAddress13);
+            Controls.Add(ramAddress12);
+            Controls.Add(ramAddress11);
+            Controls.Add(ramAddress10);
+            Controls.Add(ramAddress9);
+            Controls.Add(ramAddress8);
+            Controls.Add(RData7);
+            Controls.Add(RData6);
+            Controls.Add(RData5);
+            Controls.Add(RData4);
+            Controls.Add(registerAddress7);
+            Controls.Add(registerAddress6);
+            Controls.Add(registerAddress5);
+            Controls.Add(registerAddress4);
             Controls.Add(label26);
             Controls.Add(programCounterText);
-            Controls.Add(label25);
-            Controls.Add(label24);
-            Controls.Add(label23);
-            Controls.Add(label22);
-            Controls.Add(label21);
-            Controls.Add(label20);
-            Controls.Add(label19);
-            Controls.Add(label18);
-            Controls.Add(label17);
-            Controls.Add(label16);
-            Controls.Add(label15);
-            Controls.Add(label11);
+            Controls.Add(ramAddress7);
+            Controls.Add(ramAddress6);
+            Controls.Add(ramAddress5);
+            Controls.Add(ramAddress4);
+            Controls.Add(ramAddress3);
+            Controls.Add(ramAddress2);
+            Controls.Add(ramAddress1);
+            Controls.Add(ramAddress0);
+            Controls.Add(registerAddress3);
+            Controls.Add(registerAddress2);
+            Controls.Add(registerAddress1);
+            Controls.Add(registerAddress0);
             Controls.Add(RData3);
             Controls.Add(RData2);
             Controls.Add(RData1);
@@ -571,7 +865,6 @@
         private Label label12;
         private Label label13;
         private Label label14;
-        private TextBox textBox6;
         private TextBox textBox8;
         private TextBox textBox10;
         private TextBox textBox12;
@@ -579,18 +872,18 @@
         public TextBox RData1;
         public TextBox RData2;
         public TextBox RData3;
-        private Label label11;
-        private Label label15;
-        private Label label16;
-        private Label label17;
-        private Label label18;
-        private Label label19;
-        private Label label20;
-        private Label label21;
-        private Label label22;
-        private Label label23;
-        private Label label24;
-        private Label label25;
+        private Label registerAddress0;
+        private Label registerAddress1;
+        private Label registerAddress2;
+        private Label registerAddress3;
+        private Label ramAddress0;
+        private Label ramAddress1;
+        private Label ramAddress2;
+        private Label ramAddress3;
+        private Label ramAddress4;
+        private Label ramAddress5;
+        private Label ramAddress6;
+        private Label ramAddress7;
         private Label label26;
         public TextBox programCounterText;
         public TextBox accumulatorText;
@@ -598,5 +891,35 @@
         private Label label9;
         public TextBox mbrText;
         public TextBox marText;
+        private Label registerAddress4;
+        private Label registerAddress5;
+        private Label registerAddress6;
+        private Label registerAddress7;
+        public TextBox RData4;
+        public TextBox RData5;
+        public TextBox RData6;
+        public TextBox RData7;
+        private Label ramAddress8;
+        private Label ramAddress9;
+        private Label ramAddress10;
+        private Label ramAddress11;
+        private Label ramAddress12;
+        private Label ramAddress13;
+        private Label ramAddress14;
+        private Label ramAddress15;
+        private TextBox registerIndex;
+        private TextBox textBox4;
+        private TextBox textBox7;
+        public TextBox Data8;
+        public TextBox Data9;
+        public TextBox Data10;
+        public TextBox Data11;
+        public TextBox Data12;
+        public TextBox Data13;
+        public TextBox Data14;
+        public TextBox Data15;
+        private Label label39;
+        private Label label40;
+        private TextBox ramIndex;
     }
 }

@@ -11,7 +11,11 @@ namespace NEA_CPU_Model
         {   Program.model.RData0,
             Program.model.RData1,
             Program.model.RData2,
-            Program.model.RData3
+            Program.model.RData3,
+            Program.model.RData4,
+            Program.model.RData5,
+            Program.model.RData6,
+            Program.model.RData7
         };
 
         // creates array of avaiable text boxes for RAM
@@ -19,7 +23,19 @@ namespace NEA_CPU_Model
         {   Program.model.Data0,
             Program.model.Data1,
             Program.model.Data2,
-            Program.model.Data3
+            Program.model.Data3,
+            Program.model.Data4,
+            Program.model.Data5,
+            Program.model.Data6,
+            Program.model.Data7,
+            Program.model.Data8,
+            Program.model.Data9,
+            Program.model.Data10,
+            Program.model.Data11,
+            Program.model.Data12,
+            Program.model.Data13,
+            Program.model.Data14,
+            Program.model.Data15,
         };
 
         // constructor
@@ -59,7 +75,7 @@ namespace NEA_CPU_Model
                 instructionsTextBox.Text += instructions[i];
                 if (i < instructions.Count - 2)
                 {
-                    instructionsTextBox.Text += '\n';
+                    instructionsTextBox.Text += Environment.NewLine;
                 }
             }
 
@@ -91,7 +107,7 @@ namespace NEA_CPU_Model
             {
                 // code has compiled correctly, execute
                 processor.Flow(instructions, RAM, loop);
-                WriteToFile(instructions);
+                WriteToFile(instructions); // writes the instructions into a textfile
             }
             else
             {
@@ -103,12 +119,12 @@ namespace NEA_CPU_Model
         // writes the instructions to a textfile
         private void WriteToFile(List<string> instructions)
         {
-            StreamWriter writer = new StreamWriter("Instructions.txt");
+            StreamWriter writer = new StreamWriter("Instructions.txt"); // creates instance of streamwriter for the given file
             for (int i = 0; i < instructions.Count; i++)
             {
-                writer.WriteLine(instructions[i]);
+                writer.WriteLine(instructions[i]); // adds each instruction to the textfile in turn
             }
-            writer.Close();
+            writer.Close(); // closes the file to avoid errors
         }
 
         // reads the instructions from a textfile
@@ -116,15 +132,16 @@ namespace NEA_CPU_Model
         {
             List<string> instructions = new List<string>();
             string line = string.Empty;
-            StreamReader reader = new StreamReader("Instructions.txt");
 
-            while (line != null)
+            StreamReader reader = new StreamReader("Instructions.txt"); // creates instance of streamreader for the given file
+
+            while (line != null) // while not reached the end of the file
             {
-                line = reader.ReadLine();
-                instructions.Add(line);
+                line = reader.ReadLine(); // reads each line in turn
+                instructions.Add(line); // adds the line to the list of instructions
             }
-            reader.Close();
-            return instructions;
+            reader.Close(); // closes the file to avoid errors
+            return instructions; // returns the list of instructions
 
         }
     }
