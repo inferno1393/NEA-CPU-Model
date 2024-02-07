@@ -82,7 +82,6 @@ namespace NEA_CPU_Model
         private Dictionary<string, Color> colours = new Dictionary<string, Color>
         {
             {"white", Color.White },
-            {"black", Color.Black },
             {"blue", Color.Blue },
             {"red", Color.Red },
             {"green", Color.Green }
