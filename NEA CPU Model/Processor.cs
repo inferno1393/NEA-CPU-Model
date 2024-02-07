@@ -455,7 +455,15 @@ namespace NEA_CPU_Model
         {
             if (temp == condition)
             {
-                
+                if (Parser.labels.ContainsKey(values[0]))
+                {
+                    programCounter = Parser.labels[values[0]];
+                }
+                else
+                {
+                    MessageBox.Show("Label not found");
+                    repeat = false;
+                }
             }
         }
 
