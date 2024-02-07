@@ -114,7 +114,7 @@
             instructionsTextBox.Name = "instructionsTextBox";
             instructionsTextBox.Size = new Size(269, 446);
             instructionsTextBox.TabIndex = 1;
-            instructionsTextBox.Text = "STR #1, 3\r\nLDR 0, 3\r\nEOR 1, 0, 3\r\nHALT";
+            instructionsTextBox.Text = "Enter Instructions Here";
             // 
             // executeBtn
             // 
