@@ -437,22 +437,10 @@ namespace NEA_CPU_Model
         // always branches to the label given by the operand
         private void B(string[] values, RAM RAM, List<string> instructions)
         {
-            string inst = string.Empty;
-            int count = 0;
-            while (count < instructions.Count)
-            {
-                inst = Parser.GetOperand(instructions[count]).Replace(":", "");
-                if (inst == values[0])
-                {
-                    programCounter = count;
-                    goto Exit;
-                }
-                count++;
-            }
-        Exit:
-            ;
+            
         }
 
+        // branches to the label given by the operand if the given condition was met by the last comparison
         private void Bcondition(string[] values, RAM RAM, List<string> instructions, string condition)
         {
             if (temp == condition)
@@ -600,22 +588,14 @@ namespace NEA_CPU_Model
 
         private void UpdateInterface(string register, int data)
         {
-            switch (register)
+            int reg = Convert.ToInt32(register);
+            if  (reg >= 0 && reg <= 3)
             {
-                case "0":
-                    Program.model.RData0.Text = data.ToString();
-                    break;
-                case "1":
-                    Program.model.RData1.Text = data.ToString();
-                    break;
-                case "2":
-                    Program.model.RData2.Text = data.ToString();
-                    break;
-                case "3":
-                    Program.model.RData3.Text = data.ToString();
-                    break;
-                default:
-                    break;
+                Model.registersData[reg].Text = data.ToString();
+            }
+            else
+            {
+                MessageBox.Show("Register out of range");
             }
         }
     }

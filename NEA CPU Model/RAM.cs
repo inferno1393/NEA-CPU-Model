@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -57,34 +58,14 @@ namespace NEA_CPU_Model
         // adds the address/data that just got changed to the interface
         private void UpdateInterface(string address, int data)
         {
-            switch (address)
+            int addr = Convert.ToInt32(address);
+            if (addr >= 0 && addr <= 3)
             {
-                case "0":
-                    Program.model.Data0.Text = data.ToString();
-                    break;
-                case "1":
-                    Program.model.Data1.Text = data.ToString();
-                    break;
-                case "2":
-                    Program.model.Data2.Text = data.ToString();
-                    break;
-                case "3":
-                    Program.model.Data3.Text = data.ToString();
-                    break;
-                case "4":
-                    Program.model.Data4.Text = data.ToString();
-                    break;
-                case "5":
-                    Program.model.Data5.Text = data.ToString();
-                    break;
-                case "6":
-                    Program.model.Data6.Text = data.ToString();
-                    break;
-                case "7":
-                    Program.model.Data7.Text = data.ToString();
-                    break;
-                default:
-                    break;
+                Model.ramData[addr].Text = data.ToString();
+            }
+            else
+            {
+                MessageBox.Show("RAM out of range");
             }
         }
     }

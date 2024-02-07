@@ -16,8 +16,11 @@ namespace NEA_CPU_Model
         private StackArray<string> splitInstructions;
         private List<string> instructions;
 
+        // uses a dictionary to implement an associative array to store the location of labels
+        static public Dictionary<string, int> labels = new Dictionary<string, int> { };
+
         // creates a dictionary of the valid Opcodes and the format their Operand should be in
-        static Dictionary<string, string> instructionSet = new()
+        static private Dictionary<string, string> instructionSet = new()
         {
             { "LDR", "Rd, <memory ref>" },
             { "STR", "Rd, <memory ref>" },
@@ -58,6 +61,7 @@ namespace NEA_CPU_Model
                 if (instruction.Contains(':'))
                 {
                     // instruction is a label so should be ignored
+                    labels.Add(GetOperand(instruction), i);
                     count--;
                 }
                 else

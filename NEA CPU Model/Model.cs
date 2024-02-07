@@ -6,6 +6,22 @@ namespace NEA_CPU_Model
         Processor processor = new Processor();
         RAM RAM = new RAM();
 
+        // creates array of avaiable text boxes for registers
+        static public TextBox[] registersData =
+        {   Program.model.RData0,
+            Program.model.RData1,
+            Program.model.RData2,
+            Program.model.RData3
+        };
+
+        // creates array of avaiable text boxes for RAM
+        static public TextBox[] ramData =
+        {   Program.model.Data0,
+            Program.model.Data1,
+            Program.model.Data2,
+            Program.model.Data3
+        };
+
         // constructor
         public Model()
         {
