@@ -61,9 +61,9 @@ namespace NEA_CPU_Model
         private void UpdateInterface(string address, int data)
         {
             int addr = Convert.ToInt32(address);
-            if (addr >= 0 && addr <= Model.ramData.Count()) // address is within the range of available addresses
+            if (addr >= Model.ramIndex && addr <= (Model.ramIndex + Model.ramData.Count())) // address is within the range of available addresses
             {
-                Model.ramData[addr].Text = data.ToString();
+                Model.ramData[addr + +Model.ramIndex].Text = data.ToString();
             }
             else // address is not within range
             {

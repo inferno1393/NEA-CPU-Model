@@ -101,8 +101,8 @@
             Data15 = new TextBox();
             label39 = new Label();
             label40 = new Label();
-            ramIndex = new TextBox();
-            registerIndex = new TextBox();
+            ramIndexText = new TextBox();
+            registerIndexText = new TextBox();
             SuspendLayout();
             // 
             // instructionsTextBox
@@ -738,29 +738,29 @@
             label40.TabIndex = 87;
             label40.Text = "Register Start Index:";
             // 
-            // ramIndex
+            // ramIndexText
             // 
-            ramIndex.Location = new Point(30, 905);
-            ramIndex.Name = "ramIndex";
-            ramIndex.Size = new Size(150, 31);
-            ramIndex.TabIndex = 88;
-            ramIndex.Text = "0";
+            ramIndexText.Location = new Point(30, 905);
+            ramIndexText.Name = "ramIndexText";
+            ramIndexText.Size = new Size(150, 31);
+            ramIndexText.TabIndex = 88;
+            ramIndexText.Text = "0";
             // 
-            // registerIndex
+            // registerIndexText
             // 
-            registerIndex.Location = new Point(312, 905);
-            registerIndex.Name = "registerIndex";
-            registerIndex.Size = new Size(150, 31);
-            registerIndex.TabIndex = 89;
-            registerIndex.Text = "0";
+            registerIndexText.Location = new Point(312, 905);
+            registerIndexText.Name = "registerIndexText";
+            registerIndexText.Size = new Size(150, 31);
+            registerIndexText.TabIndex = 89;
+            registerIndexText.Text = "0";
             // 
             // Model
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1898, 1144);
-            Controls.Add(registerIndex);
-            Controls.Add(ramIndex);
+            Controls.Add(registerIndexText);
+            Controls.Add(ramIndexText);
             Controls.Add(label40);
             Controls.Add(label39);
             Controls.Add(Data15);
@@ -907,7 +907,7 @@
         private Label ramAddress13;
         private Label ramAddress14;
         private Label ramAddress15;
-        private TextBox registerIndex;
+        private TextBox registerIndexText;
         private TextBox textBox4;
         private TextBox textBox7;
         public TextBox Data8;
@@ -920,6 +920,6 @@
         public TextBox Data15;
         private Label label39;
         private Label label40;
-        private TextBox ramIndex;
+        private TextBox ramIndexText;
     }
 }

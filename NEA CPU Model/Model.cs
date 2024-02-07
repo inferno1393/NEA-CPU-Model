@@ -18,9 +18,23 @@ namespace NEA_CPU_Model
             Program.model.RData7
         };
 
+        // creates array of avaiable labels for registers
+        static private Label[] registerAddress =
+        {
+            Program.model.registerAddress0,
+            Program.model.registerAddress1,
+            Program.model.registerAddress2,
+            Program.model.registerAddress3,
+            Program.model.registerAddress4,
+            Program.model.registerAddress5,
+            Program.model.registerAddress6,
+            Program.model.registerAddress7
+        };
+
         // creates array of avaiable text boxes for RAM
         static public TextBox[] ramData =
-        {   Program.model.Data0,
+        {   
+            Program.model.Data0,
             Program.model.Data1,
             Program.model.Data2,
             Program.model.Data3,
@@ -35,8 +49,33 @@ namespace NEA_CPU_Model
             Program.model.Data12,
             Program.model.Data13,
             Program.model.Data14,
-            Program.model.Data15,
+            Program.model.Data15
         };
+
+        // creates array of avaiable labels for RAM
+        static private Label[] ramAddress = 
+        {
+            Program.model.ramAddress0,
+            Program.model.ramAddress1,
+            Program.model.ramAddress2,
+            Program.model.ramAddress3,
+            Program.model.ramAddress4,
+            Program.model.ramAddress5,
+            Program.model.ramAddress6,
+            Program.model.ramAddress7,
+            Program.model.ramAddress8,
+            Program.model.ramAddress9,
+            Program.model.ramAddress10,
+            Program.model.ramAddress11,
+            Program.model.ramAddress12,
+            Program.model.ramAddress13,
+            Program.model.ramAddress14,
+            Program.model.ramAddress15
+        };
+
+        // initializes indexes for ram and register addresses
+        static public int ramIndex = 0;
+        static public int registerIndex = 0;
 
         // constructor
         public Model()
@@ -85,6 +124,8 @@ namespace NEA_CPU_Model
         // creates the instructions from the textbox in the interface, parses and then executes them (if valid)
         private void Process(bool loop)
         {
+            IndexRead(); // call for reading then writing the index start points for RAM and register addresses
+
             // creates the List (and puts the values in the text box into it) and Stack necessary for parsing
             List<string> instructions = instructionsTextBox.Text.Split('\n').ToList<string>();
             StackArray<string> splitInstructions = new StackArray<string>();
@@ -115,6 +156,52 @@ namespace NEA_CPU_Model
             }
 
         }
+
+        // uses the inputted indexes for RAM and Register start points
+        // to make the range of addresses changeable
+        private void IndexRead()
+        {
+            // tries to convert inputted indexes to integers for use
+            bool converted = false;
+            converted = int.TryParse(ramIndexText.Text, out ramIndex);
+            if (converted)
+            {
+                // successfully converted
+            }
+            else // not successfully converted
+            {
+                MessageBox.Show("RAM Start Index value invalid");
+            }
+
+            converted = int.TryParse(registerIndexText.Text, out registerIndex);
+            if (converted)
+            {
+                // successfully converted
+            }
+            else // not successfully converted
+            {
+                MessageBox.Show("Register Start Index value invalid");
+            }
+
+            IndexWrite();
+        }
+
+        // updates the addresses in the interface to update the new indexes
+        private void IndexWrite()
+        {
+            // updates RAM
+            for (int i = 0; i < ramAddress.Count(); i++)
+            {
+                ramAddress[i].Text = (ramIndex + i).ToString();
+            }
+
+            // updates registers
+            for (int i = 0; i < registerAddress.Count(); i++)
+            {
+                registerAddress[i].Text = (registerIndex + i).ToString();
+            }
+        }
+
 
         // writes the instructions to a textfile
         private void WriteToFile(List<string> instructions)

@@ -916,9 +916,9 @@ namespace NEA_CPU_Model
         private void UpdateInterface(string register, int data)
         {
             int reg = Convert.ToInt32(register);
-            if  (reg >= 0 && reg <= Model.registersData.Count()) // register is within the range of available registers
+            if  (reg >= Model.registerIndex && reg <= (Model.registerIndex + Model.registersData.Count())) // register is within the range of available registers
             {
-                Model.registersData[reg].Text = data.ToString();
+                Model.registersData[reg + Model.registerIndex].Text = data.ToString();
             }
             else // register is not within range of available registers
             {
