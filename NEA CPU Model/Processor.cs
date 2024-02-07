@@ -5,6 +5,7 @@ using System.Net;
 using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
 
 namespace NEA_CPU_Model
 {
@@ -12,8 +13,11 @@ namespace NEA_CPU_Model
     {
         // uses a dictionary to implement an associative array to store the register values
         private Dictionary<string, int> registers = new Dictionary<string, int> { };
+
+        // attributes
         public int programCounter = 0;
         public bool repeat = true;
+        public string temp = string.Empty;
 
         // constructor
         public Processor()
@@ -31,22 +35,7 @@ namespace NEA_CPU_Model
                 programCounter = 0;
                 while (programCounter < instructions.Count && repeat)
                 {
-                    string instruction = instructions[programCounter];
-                    programCounter++;
-                    if (instruction.Contains(':'))
-                    {
-                        // instruction is a label so should be ignored
-                    }
-                    else
-                    {
-                        string opcode = Parser.GetOpcode(instruction);
-                        Program.model.cirText.Text = opcode;
-                        string operand = Parser.GetOperand(instruction);
-                        string[] values = operand.Split(',');
-
-                        Decode(opcode, values, RAM, instructions);
-                        Program.model.programCounterText.Text = programCounter.ToString();
-                    }
+                    Execute(instructions, RAM);
                 }
             }
             // execute only the next instruction
@@ -54,22 +43,7 @@ namespace NEA_CPU_Model
             {
                 if(programCounter < instructions.Count && repeat)
                 {
-                    string instruction = instructions[programCounter];
-                    programCounter++;
-                    if (instruction.Contains(':'))
-                    {
-                        // instruction is a label so should be ignored
-                    }
-                    else
-                    {
-                        string opcode = Parser.GetOpcode(instruction);
-                        Program.model.cirText.Text = opcode;
-                        string operand = Parser.GetOperand(instruction);
-                        string[] values = operand.Split(',');
-
-                        Decode(opcode, values, RAM, instructions);
-                        Program.model.programCounterText.Text = programCounter.ToString();
-                    }
+                    Execute(instructions, RAM);
                 }
                 else
                 {
@@ -77,479 +51,99 @@ namespace NEA_CPU_Model
                 }
             }
         }
-        
 
+        // controls the program counter during execution and splits the instruction
+        private void Execute(List<string> instructions, RAM RAM)
+        {
+            string instruction = instructions[programCounter];
+            programCounter++;
+            if (instruction.Contains(':'))
+            {
+                // instruction is a label so should be ignored
+            }
+            else
+            {
+                string opcode = Parser.GetOpcode(instruction);
+                Program.model.cirText.Text = opcode;
+                string operand = Parser.GetOperand(instruction);
+                string[] values = operand.Split(',');
 
+                Decode(opcode, values, RAM, instructions);
+                Program.model.programCounterText.Text = programCounter.ToString();
+            }
+        }
+
+        // decodes the instruction given and calls the appropriate subroutine to execute it
         private void Decode(string opcode, string[] values, RAM RAM, List<string> instructions)
         {
-            int result = 0;
-            string temp = string.Empty;
             // follow appropriate steps based on opcode
             switch (opcode)
             {
-                // load the value in the 2nd operand into the 1st operand
                 case "LDR":
-                    if (RAM.ReturnData(values[1]) != -1)
-                    {
-                        registers[values[0]] = RAM.ReturnData(values[1]);
-                        UpdateInterface(values[0], registers[values[0]]);
-                    }
-                    else
-                    {
-                        MessageBox.Show($"Attempted to access empty RAM address in line {programCounter}");
-                        repeat = false;
-                    }
+                    LDR(values, RAM);
                     break;
 
-                // store the value in the 1st operand into the 2nd operand
                 case "STR":
-                    if (values[0].Contains('#'))
-                    {
-                        values[0] = values[0].Replace("#", "");
-                        RAM.StoreData(values[1], Convert.ToInt32(values[0]));
-                    }
-                    else
-                    {
-                        if (registers.ContainsKey(values[0]))
-                        {
-                            RAM.StoreData(values[1], registers[values[0]]);
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                            repeat = false;
-                        }
-                    }
+                    STR(values, RAM);
                     break;
 
-                // adds the value in the 3rd operand with the 2nd operand and stores it in the 1st operand
                 case "ADD":
-                    if (values[2].Contains('#'))
-                    {
-                        values[2] = values[2].Replace("#", "");
-                        if (registers.ContainsKey(values[1]))
-                        {
-                            result = registers[values[1]] + Convert.ToInt32(values[2]);
-                            registers[values[0]] = result;
-                            UpdateInterface(values[0], registers[values[0]]);
-                            Program.model.accumulatorText.Text = result.ToString();
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                            repeat = false;
-                        }
-                    }
-                    else if (values[2].Contains('R'))
-                    {
-                        values[2] = values[2].Replace("R", "");
-                        if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
-                        {
-                            result = registers[values[1]] + registers[values[2]];
-                            registers[values[0]] = result;
-                            UpdateInterface(values[0], registers[values[0]]);
-                            Program.model.accumulatorText.Text = result.ToString();
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                            repeat = false;
-                        }
-                    }
-                    else
-                    {
-                        if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
-                        {
-                            result = registers[values[1]] + RAM.ReturnData(values[2]);
-                            registers[values[0]] = result;
-                            UpdateInterface(values[0], registers[values[0]]);
-                            Program.model.accumulatorText.Text = result.ToString();
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
-                            repeat = false;
-                        }
-                    }
+                    ADD(values, RAM);
                     break;
 
-                // subtract the value in the 3rd operand from the 2nd operand and stores it in the 1st operand
-                case "SUB":                 
-                    if (values[2].Contains('#'))
-                    {
-                        values[2] = values[2].Replace("#", "");
-                        if (registers.ContainsKey(values[1]))
-                        {
-                            result = Convert.ToInt32(values[2]) - registers[values[1]];
-                            registers[values[0]] = result;
-                            UpdateInterface(values[0], registers[values[0]]);
-                            Program.model.accumulatorText.Text = result.ToString();
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                            repeat = false;
-                        }
-                    }
-                    else if (values[2].Contains('R'))
-                    {
-                        values[2] = values[2].Replace("R", "");
-                        if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
-                        {
-                            result = registers[values[2]] - registers[values[1]];
-                            registers[values[0]] = result;
-                            UpdateInterface(values[0], registers[values[0]]);
-                            Program.model.accumulatorText.Text = result.ToString();
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                            repeat = false;
-                        }
-                    }
-                    else
-                    {
-                        if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
-                        {
-                            result = RAM.ReturnData(values[2]) - registers[values[1]];
-                            registers[values[0]] = result;
-                            UpdateInterface(values[0], registers[values[0]]);
-                            Program.model.accumulatorText.Text = result.ToString();
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
-                            repeat = false;
-                        }
-                    }
+                case "SUB":
+                    SUB(values, RAM);
                     break;
 
-                // copies the value in the 2nd operand into the 1st operand
                 case "MOV":
-                    if (values[1].Contains('#'))
-                    {
-                        values[1] = values[1].Replace("#", "");
-                        if (registers.ContainsKey(values[0]))
-                        {
-                            registers[values[0]] = Convert.ToInt32(values[1]);
-                        }
-                        else
-                        {
-                            registers.Add(values[0], Convert.ToInt32(values[1]));
-                        }
-                    }
-                    else if (values[1].Contains('R'))
-                    {
-                        values[1] = values[1].Replace("R", "");
-                        if (registers.ContainsKey(values[0]) && registers.ContainsKey(values[1]))
-                        {
-                            registers[values[0]] = Convert.ToInt32(values[1]);
-                        }
-                        else if (registers.ContainsKey(values[1]))
-                        {
-                            registers.Add(values[0], Convert.ToInt32(values[1]));
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                            repeat = false;
-                        }
-                    }
-                    else
-                    {
-                        if (registers.ContainsKey(values[0]) && RAM.ReturnData(values[1]) != -1)
-                        {
-                            registers[values[0]] = RAM.ReturnData(values[1]);
-                        }
-                        else if(RAM.ReturnData(values[1]) != -1)
-                        {
-                            registers.Add(values[0], RAM.ReturnData(values[1]));
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Attempted to access empty RAM address in line {programCounter}");
-                            repeat = false;
-                        }
-                    }
+                    MOV(values, RAM);
                     break;
 
-                // compares the value in the 1st operand with the 2nd operand
                 case "CMP":
-                    if (values[1].Contains('#'))
-                    {
-                        values[1] = values[1].Replace("#", "");
-                        if (registers.ContainsKey(values[0]))
-                        {
-                            if (registers[values[0]] == Convert.ToInt32(values[1]))
-                            {
-                                temp = "EQ";
-                            }
-                            if (registers[values[0]] != Convert.ToInt32(values[1]))
-                            {
-                                temp = "NE";
-                            }
-                            else if (registers[values[0]] > Convert.ToInt32(values[1]))
-                            {
-                                temp = "GT";
-                            }
-                            else if (registers[values[0]] < Convert.ToInt32(values[1]))
-                            {
-                                temp = "LT";
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                            repeat = false;
-                        }
-                    }
-                    else if (values[1].Contains('R'))
-                    {
-                        values[1] = values[1].Replace("R", "");
-                        if (registers.ContainsKey(values[0]) && registers.ContainsKey(values[1]))
-                        {
-                            if(registers[values[0]] == registers[values[1]])
-                            {
-                                temp = "EQ";
-                            }
-                            if(registers[values[0]] != registers[values[1]])
-                            {
-                                temp = "NE";
-                            }
-                            else if (registers[values[0]] > registers[values[1]])
-                            {
-                                temp = "GT";
-                            }
-                            else if(registers[values[0]] < registers[values[1]])
-                            {
-                                temp = "LT";
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                            repeat = false;
-                        }
-                    }
-                    else
-                    {
-                        if (registers.ContainsKey(values[0]) && RAM.ReturnData(values[1]) != -1)
-                        {
-                            if (registers[values[0]] == RAM.ReturnData(values[1]))
-                            {
-                                temp = "EQ";
-                            }
-                            if (registers[values[0]] != RAM.ReturnData(values[1]))
-                            {
-                                temp = "NE";
-                            }
-                            else if (registers[values[0]] > RAM.ReturnData(values[1]))
-                            {
-                                temp = "GT";
-                            }
-                            else if (registers[values[0]] < RAM.ReturnData(values[1]))
-                            {
-                                temp = "LT";
-                            }
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Attempted to access empty register/ RAM address in line {programCounter}");
-                            repeat = false;
-                        }
-                    }
+                    CMP(values, RAM);
                     break;
 
-                // always branches to the label given by the operand
                 case "B":
-                    string inst = string.Empty;
-                    for (int i = 0; i < instructions.Count; i++)
-                    {
-                        inst = Parser.GetOperand(instructions[i]).Replace(":", "");
-                        if (inst == values[0])
-                        {
-                            programCounter = i;
-                        }                        
-                    }
-                        break;
+                    B(values, RAM, instructions);
+                    break;
 
-                // branches to the label given by the operand if the last comparison was EQ
                 case "B<EQ>":
-                    if (temp == "EQ")
-                    {
-                        for (int i = 0; i < instructions.Count; i++)
-                        {
-                            if (Parser.GetOperand(instructions[i]) == values[0])
-                            {
-                                programCounter = i;
-                                break;
-                            }
-                        }
-                    }
+                    Bcondition(values, RAM, instructions, "EQ");
                     break;
 
-                // branches to the label given by the operand if the last comparison was NE
                 case "B<NE>":
-                    if (temp == "NE")
-                    {
-                        for (int i = 0; i < instructions.Count; i++)
-                        {
-                            if (Parser.GetOperand(instructions[i]) == values[0])
-                            {
-                                programCounter = i;
-                                break;
-                            }
-                        }
-                    }
+                    Bcondition(values, RAM, instructions, "NE");
                     break;
 
-                // branches to the label given by the operand if the last comparison was GT
                 case "B<GT>":
-                    if (temp == "GT")
-                    {
-                        for (int i = 0; i < instructions.Count; i++)
-                        {
-                            if (Parser.GetOperand(instructions[i]) == values[0])
-                            {
-                                programCounter = i;
-                                break;
-                            }
-                        }
-                    }
+                    Bcondition(values, RAM, instructions, "GT");
                     break;
 
-                // branches to the label given by the operand if the last comparison was LT
                 case "B<LT>":
-                    if (temp == "LT")
-                    {
-                        for (int i = 0; i < instructions.Count; i++)
-                        {
-                            if (Parser.GetOperand(instructions[i]) == values[0])
-                            {
-                                programCounter = i;
-                                break;
-                            }
-                        }
-                    }
+                    Bcondition(values, RAM, instructions, "LT");
                     break;
 
-                // Bitwise and the value in the 3rd operand with the 2nd operand and stores it in the 1st operand
                 case "AND":
-                   
+                    AND(values, RAM);
                     break;
 
-                // Bitwise or the value in the 3rd operand with the 2nd operand and stores it in the 1st operand
                 case "ORR":
+                    ORR(values, RAM);
                     break;
 
-                // Bitwise xor the value in the 3rd operand with the 2nd operand and stores it in the 1st operand
                 case "EOR":
+                    EOR(values, RAM);
                     break;
-
-                // Bitwise not the value in the 2nd operand and stores it in the 1st operand
                 case "MVN":
+                    MVN(values, RAM);
                     break;
 
-                // Bitwise left shift the value in the 2nd operand by the 3rd operand and stores it in the 1st operand
                 case "LSL":
-                    if (values[2].Contains('#'))
-                    {
-                        values[2] = values[2].Replace("#", "");
-                        if (registers.ContainsKey(values[1]))
-                        {
-                            result = registers[values[1]] * (2 * Convert.ToInt32(values[2]));
-                            registers[values[0]] = result;
-                            UpdateInterface(values[0], registers[values[0]]);
-                            Program.model.accumulatorText.Text = result.ToString();
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                            repeat = false;
-                        }
-                    }
-                    else if (values[2].Contains('R'))
-                    {
-                        values[2] = values[2].Replace("R", "");
-                        if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
-                        {
-                            result = registers[values[1]] * (2 * registers[values[2]]);
-                            registers[values[0]] = result;
-                            UpdateInterface(values[0], registers[values[0]]);
-                            Program.model.accumulatorText.Text = result.ToString();
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                            repeat = false;
-                        }
-                    }
-                    else
-                    {
-                        if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
-                        {
-                            result = registers[values[1]] * (2 * RAM.ReturnData(values[2]));
-                            registers[values[0]] = result;
-                            UpdateInterface(values[0], registers[values[0]]);
-                            Program.model.accumulatorText.Text = result.ToString();
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
-                            repeat = false;
-                        }
-                    }
+                    LSL(values, RAM);
                     break;
 
-                // Bitwise right shift the value in the 2nd operand by the 3rd operand and stores it in the 1st operand
                 case "LSR":
-                    if (values[2].Contains('#'))
-                    {
-                        values[2] = values[2].Replace("#", "");
-                        if (registers.ContainsKey(values[1]))
-                        {
-                            result = registers[values[1]] / (2 * Convert.ToInt32(values[2]));
-                            registers[values[0]] = result;
-                            UpdateInterface(values[0], registers[values[0]]);
-                            Program.model.accumulatorText.Text = result.ToString();
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                            repeat = false;
-                        }
-                    }
-                    else if (values[2].Contains('R'))
-                    {
-                        values[2] = values[2].Replace("R", "");
-                        if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
-                        {
-                            result = registers[values[1]] / (2 * registers[values[2]]);
-                            registers[values[0]] = result;
-                            UpdateInterface(values[0], registers[values[0]]);
-                            Program.model.accumulatorText.Text = result.ToString();
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                            repeat = false;
-                        }
-                    }
-                    else
-                    {
-                        if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
-                        {
-                            result = registers[values[1]] / (2 * RAM.ReturnData(values[2]));
-                            registers[values[0]] = result;
-                            UpdateInterface(values[0], registers[values[0]]);
-                            Program.model.accumulatorText.Text = result.ToString();
-                        }
-                        else
-                        {
-                            MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
-                            repeat = false;
-                        }
-                    }
+                    LSR(values, RAM);
                     break;
 
                 // end of code execution, exit
@@ -558,6 +152,452 @@ namespace NEA_CPU_Model
                     break;
             }
         }
+
+        // load the value in the 2nd operand into the 1st operand
+        private void LDR(string[] values, RAM RAM)
+        {
+            if (RAM.ReturnData(values[1]) != -1)
+            {
+                registers[values[0]] = RAM.ReturnData(values[1]);
+                UpdateInterface(values[0], registers[values[0]]);
+            }
+            else
+            {
+                MessageBox.Show($"Attempted to access empty RAM address in line {programCounter}");
+                repeat = false;
+            }
+        }
+
+        // store the value in the 1st operand into the 2nd operand
+        private void STR(string[] values, RAM RAM)
+        {
+            if (values[0].Contains('#'))
+            {
+                values[0] = values[0].Replace("#", "");
+                RAM.StoreData(values[1], Convert.ToInt32(values[0]));
+            }
+            else
+            {
+                if (registers.ContainsKey(values[0]))
+                {
+                    RAM.StoreData(values[1], registers[values[0]]);
+                }
+                else
+                {
+                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                    repeat = false;
+                }
+            }
+        }
+
+        // adds the value in the 3rd operand with the 2nd operand and stores it in the 1st operand
+        private void ADD(string[] values, RAM RAM)
+        {
+            int result = 0;
+            if (values[2].Contains('#'))
+            {
+                values[2] = values[2].Replace("#", "");
+                if (registers.ContainsKey(values[1]))
+                {
+                    result = registers[values[1]] + Convert.ToInt32(values[2]);
+                    registers[values[0]] = result;
+                    UpdateInterface(values[0], registers[values[0]]);
+                    Program.model.accumulatorText.Text = result.ToString();
+                }
+                else
+                {
+                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                    repeat = false;
+                }
+            }
+            else if (values[2].Contains('R'))
+            {
+                values[2] = values[2].Replace("R", "");
+                if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
+                {
+                    result = registers[values[1]] + registers[values[2]];
+                    registers[values[0]] = result;
+                    UpdateInterface(values[0], registers[values[0]]);
+                    Program.model.accumulatorText.Text = result.ToString();
+                }
+                else
+                {
+                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                    repeat = false;
+                }
+            }
+            else
+            {
+                if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
+                {
+                    result = registers[values[1]] + RAM.ReturnData(values[2]);
+                    registers[values[0]] = result;
+                    UpdateInterface(values[0], registers[values[0]]);
+                    Program.model.accumulatorText.Text = result.ToString();
+                }
+                else
+                {
+                    MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
+                    repeat = false;
+                }
+            }
+        }
+
+        // subtract the value in the 3rd operand from the 2nd operand and stores it in the 1st operand
+        private void SUB(string[] values, RAM RAM)
+        {
+            int result = 0;
+            if (values[2].Contains('#'))
+            {
+                values[2] = values[2].Replace("#", "");
+                if (registers.ContainsKey(values[1]))
+                {
+                    result = Convert.ToInt32(values[2]) - registers[values[1]];
+                    registers[values[0]] = result;
+                    UpdateInterface(values[0], registers[values[0]]);
+                    Program.model.accumulatorText.Text = result.ToString();
+                }
+                else
+                {
+                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                    repeat = false;
+                }
+            }
+            else if (values[2].Contains('R'))
+            {
+                values[2] = values[2].Replace("R", "");
+                if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
+                {
+                    result = registers[values[2]] - registers[values[1]];
+                    registers[values[0]] = result;
+                    UpdateInterface(values[0], registers[values[0]]);
+                    Program.model.accumulatorText.Text = result.ToString();
+                }
+                else
+                {
+                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                    repeat = false;
+                }
+            }
+            else
+            {
+                if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
+                {
+                    result = RAM.ReturnData(values[2]) - registers[values[1]];
+                    registers[values[0]] = result;
+                    UpdateInterface(values[0], registers[values[0]]);
+                    Program.model.accumulatorText.Text = result.ToString();
+                }
+                else
+                {
+                    MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
+                    repeat = false;
+                }
+            }
+        }
+
+        // copies the value in the 2nd operand into the 1st operand
+        private void MOV(string[] values, RAM RAM)
+        {
+            if (values[1].Contains('#'))
+            {
+                values[1] = values[1].Replace("#", "");
+                if (registers.ContainsKey(values[0]))
+                {
+                    registers[values[0]] = Convert.ToInt32(values[1]);
+                }
+                else
+                {
+                    registers.Add(values[0], Convert.ToInt32(values[1]));
+                }
+            }
+            else if (values[1].Contains('R'))
+            {
+                values[1] = values[1].Replace("R", "");
+                if (registers.ContainsKey(values[0]) && registers.ContainsKey(values[1]))
+                {
+                    registers[values[0]] = Convert.ToInt32(values[1]);
+                }
+                else if (registers.ContainsKey(values[1]))
+                {
+                    registers.Add(values[0], Convert.ToInt32(values[1]));
+                }
+                else
+                {
+                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                    repeat = false;
+                }
+            }
+            else
+            {
+                if (registers.ContainsKey(values[0]) && RAM.ReturnData(values[1]) != -1)
+                {
+                    registers[values[0]] = RAM.ReturnData(values[1]);
+                }
+                else if (RAM.ReturnData(values[1]) != -1)
+                {
+                    registers.Add(values[0], RAM.ReturnData(values[1]));
+                }
+                else
+                {
+                    MessageBox.Show($"Attempted to access empty RAM address in line {programCounter}");
+                    repeat = false;
+                }
+            }
+        }
+
+        // compares the value in the 1st operand with the 2nd operand
+        private void CMP(string[] values, RAM RAM)
+        {
+            if (values[1].Contains('#'))
+            {
+                values[1] = values[1].Replace("#", "");
+                if (registers.ContainsKey(values[0]))
+                {
+                    if (registers[values[0]] == Convert.ToInt32(values[1]))
+                    {
+                        temp = "EQ";
+                    }
+                    if (registers[values[0]] != Convert.ToInt32(values[1]))
+                    {
+                        temp = "NE";
+                    }
+                    else if (registers[values[0]] > Convert.ToInt32(values[1]))
+                    {
+                        temp = "GT";
+                    }
+                    else if (registers[values[0]] < Convert.ToInt32(values[1]))
+                    {
+                        temp = "LT";
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                    repeat = false;
+                }
+            }
+            else if (values[1].Contains('R'))
+            {
+                values[1] = values[1].Replace("R", "");
+                if (registers.ContainsKey(values[0]) && registers.ContainsKey(values[1]))
+                {
+                    if (registers[values[0]] == registers[values[1]])
+                    {
+                        temp = "EQ";
+                    }
+                    if (registers[values[0]] != registers[values[1]])
+                    {
+                        temp = "NE";
+                    }
+                    else if (registers[values[0]] > registers[values[1]])
+                    {
+                        temp = "GT";
+                    }
+                    else if (registers[values[0]] < registers[values[1]])
+                    {
+                        temp = "LT";
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                    repeat = false;
+                }
+            }
+            else
+            {
+                if (registers.ContainsKey(values[0]) && RAM.ReturnData(values[1]) != -1)
+                {
+                    if (registers[values[0]] == RAM.ReturnData(values[1]))
+                    {
+                        temp = "EQ";
+                    }
+                    if (registers[values[0]] != RAM.ReturnData(values[1]))
+                    {
+                        temp = "NE";
+                    }
+                    else if (registers[values[0]] > RAM.ReturnData(values[1]))
+                    {
+                        temp = "GT";
+                    }
+                    else if (registers[values[0]] < RAM.ReturnData(values[1]))
+                    {
+                        temp = "LT";
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"Attempted to access empty register/ RAM address in line {programCounter}");
+                    repeat = false;
+                }
+            }
+        }
+
+        // always branches to the label given by the operand
+        private void B(string[] values, RAM RAM, List<string> instructions)
+        {
+            string inst = string.Empty;
+            int count = 0;
+            while (count < instructions.Count)
+            {
+                inst = Parser.GetOperand(instructions[count]).Replace(":", "");
+                if (inst == values[0])
+                {
+                    programCounter = count;
+                    goto Exit;
+                }
+                count++;
+            }
+        Exit:
+            ;
+        }
+
+        private void Bcondition(string[] values, RAM RAM, List<string> instructions, string condition)
+        {
+            if (temp == condition)
+            {
+                for (int i = 0; i < instructions.Count; i++)
+                {
+                    if (Parser.GetOperand(instructions[i]) == values[0])
+                    {
+                        programCounter = i;
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Bitwise and the value in the 3rd operand with the 2nd operand and stores it in the 1st operand
+        private void AND(string[] values, RAM RAM)
+        {
+
+        }
+
+        // Bitwise or the value in the 3rd operand with the 2nd operand and stores it in the 1st operand
+        private void ORR(string[] values, RAM RAM)
+        {
+
+        }
+
+        // Bitwise xor the value in the 3rd operand with the 2nd operand and stores it in the 1st operand
+        private void EOR(string[] values, RAM RAM)
+        {
+
+        }
+
+        // Bitwise not the value in the 2nd operand and stores it in the 1st operand
+        private void MVN(string[] values, RAM RAM)
+        {
+
+        }
+
+        // Bitwise left shift the value in the 2nd operand by the 3rd operand and stores it in the 1st operand
+        private void LSL(string[] values, RAM RAM)
+        {
+            int result = 0;
+            if (values[2].Contains('#'))
+            {
+                values[2] = values[2].Replace("#", "");
+                if (registers.ContainsKey(values[1]))
+                {
+                    result = registers[values[1]] * (2 * Convert.ToInt32(values[2]));
+                    registers[values[0]] = result;
+                    UpdateInterface(values[0], registers[values[0]]);
+                    Program.model.accumulatorText.Text = result.ToString();
+                }
+                else
+                {
+                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                    repeat = false;
+                }
+            }
+            else if (values[2].Contains('R'))
+            {
+                values[2] = values[2].Replace("R", "");
+                if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
+                {
+                    result = registers[values[1]] * (2 * registers[values[2]]);
+                    registers[values[0]] = result;
+                    UpdateInterface(values[0], registers[values[0]]);
+                    Program.model.accumulatorText.Text = result.ToString();
+                }
+                else
+                {
+                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                    repeat = false;
+                }
+            }
+            else
+            {
+                if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
+                {
+                    result = registers[values[1]] * (2 * RAM.ReturnData(values[2]));
+                    registers[values[0]] = result;
+                    UpdateInterface(values[0], registers[values[0]]);
+                    Program.model.accumulatorText.Text = result.ToString();
+                }
+                else
+                {
+                    MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
+                    repeat = false;
+                }
+            }
+        }
+
+        // Bitwise right shift the value in the 2nd operand by the 3rd operand and stores it in the 1st operand
+        private void LSR(string[] values, RAM RAM)
+        {
+            int result = 0;
+            if (values[2].Contains('#'))
+            {
+                values[2] = values[2].Replace("#", "");
+                if (registers.ContainsKey(values[1]))
+                {
+                    result = registers[values[1]] / (2 * Convert.ToInt32(values[2]));
+                    registers[values[0]] = result;
+                    UpdateInterface(values[0], registers[values[0]]);
+                    Program.model.accumulatorText.Text = result.ToString();
+                }
+                else
+                {
+                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                    repeat = false;
+                }
+            }
+            else if (values[2].Contains('R'))
+            {
+                values[2] = values[2].Replace("R", "");
+                if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
+                {
+                    result = registers[values[1]] / (2 * registers[values[2]]);
+                    registers[values[0]] = result;
+                    UpdateInterface(values[0], registers[values[0]]);
+                    Program.model.accumulatorText.Text = result.ToString();
+                }
+                else
+                {
+                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                    repeat = false;
+                }
+            }
+            else
+            {
+                if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
+                {
+                    result = registers[values[1]] / (2 * RAM.ReturnData(values[2]));
+                    registers[values[0]] = result;
+                    UpdateInterface(values[0], registers[values[0]]);
+                    Program.model.accumulatorText.Text = result.ToString();
+                }
+                else
+                {
+                    MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
+                    repeat = false;
+                }
+            }
+        }
+
         private void UpdateInterface(string register, int data)
         {
             switch (register)
