@@ -474,7 +474,54 @@ namespace NEA_CPU_Model
         // Bitwise and the value in the 3rd operand with the 2nd operand and stores it in the 1st operand
         private void AND(string[] values, RAM RAM)
         {
-            
+            int result = 0;
+            if (values[2].Contains('#')) // if the value in the 3rd operand is a hard value
+            {
+                values[2] = values[2].Replace("#", "");
+                if (registers.ContainsKey(values[1]))
+                {
+                    result = registers[values[1]] + Convert.ToInt32(values[2]);
+                    registers[values[0]] = result;
+                    UpdateInterface(values[0], registers[values[0]]);
+                    Program.model.accumulatorText.Text = result.ToString();
+                }
+                else // address is empty, exit out
+                {
+                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                    repeat = false;
+                }
+            }
+            else if (values[2].Contains('R')) // or if the value in the 3rd operand is a register
+            {
+                values[2] = values[2].Replace("R", "");
+                if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
+                {
+                    result = registers[values[1]] + registers[values[2]];
+                    registers[values[0]] = result;
+                    UpdateInterface(values[0], registers[values[0]]);
+                    Program.model.accumulatorText.Text = result.ToString();
+                }
+                else // address is empty, exit out
+                {
+                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
+                    repeat = false;
+                }
+            }
+            else // else the value in the 3rd operand is a RAM address
+            {
+                if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
+                {
+                    result = registers[values[1]] + RAM.ReturnData(values[2]);
+                    registers[values[0]] = result;
+                    UpdateInterface(values[0], registers[values[0]]);
+                    Program.model.accumulatorText.Text = result.ToString();
+                }
+                else // address is empty, exit out
+                {
+                    MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
+                    repeat = false;
+                }
+            }
         }
 
         // Bitwise or the value in the 3rd operand with the 2nd operand and stores it in the 1st operand
