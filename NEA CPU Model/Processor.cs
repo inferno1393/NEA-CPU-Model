@@ -34,22 +34,22 @@ namespace NEA_CPU_Model
             // code needs to execute all instructions at once
             if (loop)
             {
-                programCounter = 0;
-                while (programCounter < instructions.Count && repeat)
+                programCounter = 0; // sets program counter to start of instructions
+                while (programCounter < instructions.Count && repeat) // while not reached end of code/error not encountered
                 {
-                    Execute(instructions, RAM);
+                    Execute(instructions, RAM); // call to process the instructions
                 }
             }
             // execute only the next instruction
             else
             {
-                if(programCounter < instructions.Count && repeat)
+                if(programCounter < instructions.Count && repeat) // while not reached end of code/error not encountered
                 {
-                    Execute(instructions, RAM);
+                    Execute(instructions, RAM); // call to process the instructions
                 }
                 else
                 {
-                    programCounter = 0;
+                    programCounter = 0; // sets program counter to start of instructions ready for next cycle
                     // exit program as end reached
                 }
             }
@@ -58,19 +58,22 @@ namespace NEA_CPU_Model
         // controls the program counter during execution and splits the instruction
         protected override void Execute(List<string> instructions, RAM RAM)
         {
-            string instruction = instructions[programCounter];
-            programCounter++;
-            if (instruction.Contains(':'))
+            string instruction = instructions[programCounter]; // gets current instruction
+            programCounter++; // increments program counter for next cycle
+            if (instruction.Contains(':')) // since a colon is present the instruction is a label
             {
-                // instruction is a label so should be ignored
+                // so should be ignored
             }
             else
             {
+                // splits the instruction into opcode and operand
                 string opcode = Parser.GetOpcode(instruction);
                 string operand = Parser.GetOperand(instruction);
-                string[] values = operand.Split(','); // splits the operand into the actual operands
 
-                // updates specific purpose registers
+                // splits the operand into the individual operands
+                string[] values = operand.Split(',');
+
+                // updates specific purpose registers on the interface
                 Program.model.cirText.Text = opcode;
                 Program.model.programCounterText.Text = programCounter.ToString();
 
@@ -164,8 +167,8 @@ namespace NEA_CPU_Model
         {
             if (RAM.ReturnData(values[1]) != -1) // checks that the accessed address is not empty
             {
-                registers[values[0]] = RAM.ReturnData(values[1]);
-                UpdateInterface(values[0], registers[values[0]]);
+                registers[values[0]] = RAM.ReturnData(values[1]); // sets the appropriate register to the value fetched from RAM
+                UpdateInterface(values[0], registers[values[0]]); // updates the interface accordingly
             }
             else // address is empty, exit out
             {
@@ -179,15 +182,15 @@ namespace NEA_CPU_Model
         {
             if (values[0].Contains('#')) // if the value in the 1st operand is a hard value
             {
-                values[0] = values[0].Replace("#", "");
-                RAM.StoreData(values[1], Convert.ToInt32(values[0]));
+                values[0] = values[0].Replace("#", ""); // removes the # from the operand
+                RAM.StoreData(values[1], Convert.ToInt32(values[0])); // stores the data in the appropriate RAM address
             }
             else // else the value in the 1st operand is a register
             {
-                values[0] = values[0].Replace("R", "");
+                values[0] = values[0].Replace("R", ""); // removes the R from the operand
                 if (registers.ContainsKey(values[0])) // checks that the accessed register is not empty
                 {
-                    RAM.StoreData(values[1], registers[values[0]]);
+                    RAM.StoreData(values[1], registers[values[0]]); // stores the data in the appropriate RAM address
                 }
                 else // address is empty, exit out
                 {
@@ -203,11 +206,13 @@ namespace NEA_CPU_Model
             int result = 0;
             if (values[2].Contains('#')) // if the value in the 3rd operand is a hard value
             {
-                values[2] = values[2].Replace("#", "");
-                if (registers.ContainsKey(values[1]))
+                values[2] = values[2].Replace("#", ""); // removes the # from the operand
+                if (registers.ContainsKey(values[1])) // checks that the accessed register is not empty
                 {
-                    result = registers[values[1]] + Convert.ToInt32(values[2]);
-                    registers[values[0]] = result;
+                    result = registers[values[1]] + Convert.ToInt32(values[2]); // calculates the result
+                    registers[values[0]] = result; // stores the result in the appropriate register
+
+                    // updates the interface
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
@@ -219,11 +224,13 @@ namespace NEA_CPU_Model
             }
             else if (values[2].Contains('R')) // or if the value in the 3rd operand is a register
             {
-                values[2] = values[2].Replace("R", "");
-                if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
+                values[2] = values[2].Replace("R", ""); // removes the R from the operand
+                if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2])) // checks that the accessed registers are not empty
                 {
-                    result = registers[values[1]] + registers[values[2]];
-                    registers[values[0]] = result;
+                    result = registers[values[1]] + registers[values[2]]; // calculates the result
+                    registers[values[0]] = result; // stores the result in the appropriate register
+
+                    // updates the interface
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
@@ -235,10 +242,12 @@ namespace NEA_CPU_Model
             }
             else // else the value in the 3rd operand is a RAM address
             {
-                if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
+                if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1) // checks that the accessed register and RAM address is not empty
                 {
-                    result = registers[values[1]] + RAM.ReturnData(values[2]);
-                    registers[values[0]] = result;
+                    result = registers[values[1]] + RAM.ReturnData(values[2]); // calculates the result
+                    registers[values[0]] = result; // stores the result in the appropriate register
+
+                    // updates the interface
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
@@ -256,11 +265,13 @@ namespace NEA_CPU_Model
             int result = 0;
             if (values[2].Contains('#')) // if the value in the 3rd operand is a hard value
             {
-                values[2] = values[2].Replace("#", "");
-                if (registers.ContainsKey(values[1]))
+                values[2] = values[2].Replace("#", ""); // removes the # from the operand
+                if (registers.ContainsKey(values[1])) // checks that the accessed register is not empty
                 {
-                    result = Convert.ToInt32(values[2]) - registers[values[1]];
-                    registers[values[0]] = result;
+                    result = Convert.ToInt32(values[2]) - registers[values[1]]; // calculates the result
+                    registers[values[0]] = result; // stores the result in the appropriate register
+
+                    // updates the interface
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
@@ -272,11 +283,13 @@ namespace NEA_CPU_Model
             }
             else if (values[2].Contains('R')) // or if the value in the 3rd operand is a register
             {
-                values[2] = values[2].Replace("R", "");
-                if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
+                values[2] = values[2].Replace("R", ""); // removes the R from the operand
+                if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2])) // checks that the accessed registers are not empty
                 {
-                    result = registers[values[2]] - registers[values[1]];
-                    registers[values[0]] = result;
+                    result = registers[values[2]] - registers[values[1]]; // calculates the result
+                    registers[values[0]] = result; // stores the result in the appropriate register
+
+                    // updates the interface
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
@@ -288,10 +301,12 @@ namespace NEA_CPU_Model
             }
             else // else the value in the 3rd operand is a RAM address
             {
-                if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
+                if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1) // checks that the accessed register and RAM address is not empty
                 {
-                    result = RAM.ReturnData(values[2]) - registers[values[1]];
-                    registers[values[0]] = result;
+                    result = RAM.ReturnData(values[2]) - registers[values[1]]; // calculates the result
+                    registers[values[0]] = result; // stores the result in the appropriate register
+
+                    // updates the interface
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
@@ -308,26 +323,26 @@ namespace NEA_CPU_Model
         {
             if (values[1].Contains('#')) // if the value in the 2nd operand is a hard value
             {
-                values[1] = values[1].Replace("#", "");
-                if (registers.ContainsKey(values[0]))
+                values[1] = values[1].Replace("#", ""); // removes the # from the operand
+                if (registers.ContainsKey(values[0])) // if the address already has a value replace it
                 {
                     registers[values[0]] = Convert.ToInt32(values[1]);
                 }
-                else
+                else // else add the address and its value to the dictionary
                 {
                     registers.Add(values[0], Convert.ToInt32(values[1]));
                 }
             }
             else if (values[1].Contains('R')) // else if the value in the 2nd operand is a register
             {
-                values[1] = values[1].Replace("R", "");
-                if (registers.ContainsKey(values[0]) && registers.ContainsKey(values[1]))
+                values[1] = values[1].Replace("R", ""); // removes the R from the operand
+                if (registers.ContainsKey(values[0]) && registers.ContainsKey(values[1]))// checks that the accessed registers are not empty
                 {
-                    registers[values[0]] = Convert.ToInt32(values[1]);
+                    registers[values[0]] = Convert.ToInt32(values[1]); // if the address already has a value replace it
                 }
                 else if (registers.ContainsKey(values[1]))
                 {
-                    registers.Add(values[0], Convert.ToInt32(values[1]));
+                    registers.Add(values[0], Convert.ToInt32(values[1])); // else add the address and its value to the dictionar
                 }
                 else // address is empty, exit out
                 {
@@ -337,13 +352,13 @@ namespace NEA_CPU_Model
             }
             else // else the value in the 2nd operand is a RAM address
             {
-                if (registers.ContainsKey(values[0]) && RAM.ReturnData(values[1]) != -1)
+                if (registers.ContainsKey(values[0]) && RAM.ReturnData(values[1]) != -1)// checks that the accessed register and RAM address is not empty
                 {
-                    registers[values[0]] = RAM.ReturnData(values[1]);
+                    registers[values[0]] = RAM.ReturnData(values[1]); // if the address already has a value replace it
                 }
                 else if (RAM.ReturnData(values[1]) != -1)
                 {
-                    registers.Add(values[0], RAM.ReturnData(values[1]));
+                    registers.Add(values[0], RAM.ReturnData(values[1])); // else add the address and its value to the dictionary
                 }
                 else // address is empty, exit out
                 {
@@ -358,10 +373,10 @@ namespace NEA_CPU_Model
         {
             if (values[1].Contains('#')) // if the value in the 2nd operand is a hard value
             {
-                values[1] = values[1].Replace("#", "");
-                if (registers.ContainsKey(values[0]))
+                values[1] = values[1].Replace("#", ""); // removes the R from the operand
+                if (registers.ContainsKey(values[0])) // checks that the accessed register is not empty
                 {
-                    if (registers[values[0]] == Convert.ToInt32(values[1]))
+                    if (registers[values[0]] == Convert.ToInt32(values[1])) // records the result of the comparison in the temp variable
                     {
                         temp = "EQ";
                     }
@@ -387,9 +402,9 @@ namespace NEA_CPU_Model
             else if (values[1].Contains('R')) // else if the value in the 2nd operand is a register
             {
                 values[1] = values[1].Replace("R", "");
-                if (registers.ContainsKey(values[0]) && registers.ContainsKey(values[1]))
+                if (registers.ContainsKey(values[0]) && registers.ContainsKey(values[1])) // checks that the accessed registers are not empty
                 {
-                    if (registers[values[0]] == registers[values[1]])
+                    if (registers[values[0]] == registers[values[1]]) // records the result of the comparison in the temp variable
                     {
                         temp = "EQ";
                     }
@@ -414,9 +429,9 @@ namespace NEA_CPU_Model
             }
             else  // else the value in the 2nd operand is a RAM address
             {
-                if (registers.ContainsKey(values[0]) && RAM.ReturnData(values[1]) != -1)
+                if (registers.ContainsKey(values[0]) && RAM.ReturnData(values[1]) != -1) // checks that the accessed register and RAM address are not empty
                 {
-                    if (registers[values[0]] == RAM.ReturnData(values[1]))
+                    if (registers[values[0]] == RAM.ReturnData(values[1])) // records the result of the comparison in the temp variable
                     {
                         temp = "EQ";
                     }
@@ -444,7 +459,7 @@ namespace NEA_CPU_Model
         // always branches to the label given by the operand
         private void B(string[] values, RAM RAM, List<string> instructions)
         {
-            if (Parser.labels.ContainsKey(values[0]))
+            if (Parser.labels.ContainsKey(values[0])) // checks the label exists
             {
                 programCounter = Parser.labels[values[0]]; // sets the program counter to the line containing the label
             }
@@ -458,9 +473,9 @@ namespace NEA_CPU_Model
         // branches to the label given by the operand if the given condition was met by the last comparison
         private void Bcondition(string[] values, RAM RAM, List<string> instructions, string condition)
         {
-            if (temp == condition) // if the last comparison was the given condition
+            if (temp == condition) // checks if the last comparison met the given condition
             {
-                if (Parser.labels.ContainsKey(values[0]))
+                if (Parser.labels.ContainsKey(values[0])) // checks the label exists
                 {
                     programCounter = Parser.labels[values[0]]; // sets the program counter to the line containing the label
                 }
@@ -478,11 +493,13 @@ namespace NEA_CPU_Model
             int result = 0;
             if (values[2].Contains('#')) // if the value in the 3rd operand is a hard value
             {
-                values[2] = values[2].Replace("#", "");
-                if (registers.ContainsKey(values[1]))
+                values[2] = values[2].Replace("#", ""); // removes the # from the operand
+                if (registers.ContainsKey(values[1])) // checks that the accessed register is not empty
                 {
-                    result = Logic(registers[values[1]], Convert.ToInt32(values[2]), "AND");
-                    registers[values[0]] = result;
+                    result = Logic(registers[values[1]], Convert.ToInt32(values[2]), "AND"); // calcultes the result
+                    registers[values[0]] = result; // stores the result in the appropriate register
+
+                    // updates the interface
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
@@ -494,11 +511,13 @@ namespace NEA_CPU_Model
             }
             else if (values[2].Contains('R')) // or if the value in the 3rd operand is a register
             {
-                values[2] = values[2].Replace("R", "");
-                if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
+                values[2] = values[2].Replace("R", ""); // removes the R from the operand
+                if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2])) // checks that the accessed registers are not empty
                 {
-                    result = Logic(registers[values[1]], registers[values[2]], "AND");
-                    registers[values[0]] = result;
+                    result = Logic(registers[values[1]], registers[values[2]], "AND"); // calcultes the result
+                    registers[values[0]] = result; // stores the result in the appropriate register
+
+                    // updates the interface
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
@@ -510,10 +529,12 @@ namespace NEA_CPU_Model
             }
             else // else the value in the 3rd operand is a RAM address
             {
-                if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
+                if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1) // checks that the accessed register and RAM address are not empty
                 {
-                    result = Logic(registers[values[1]], RAM.ReturnData(values[2]), "AND");
-                    registers[values[0]] = result;
+                    result = Logic(registers[values[1]], RAM.ReturnData(values[2]), "AND"); // calcultes the result
+                    registers[values[0]] = result; // stores the result in the appropriate register
+
+                    // updates the interface
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
@@ -531,11 +552,13 @@ namespace NEA_CPU_Model
             int result = 0;
             if (values[2].Contains('#')) // if the value in the 3rd operand is a hard value
             {
-                values[2] = values[2].Replace("#", "");
-                if (registers.ContainsKey(values[1]))
+                values[2] = values[2].Replace("#", ""); // removes the # from the operand
+                if (registers.ContainsKey(values[1])) // checks that the accessed register is not empty
                 {
-                    result = Logic(registers[values[1]], Convert.ToInt32(values[2]), "OR");
-                    registers[values[0]] = result;
+                    result = Logic(registers[values[1]], Convert.ToInt32(values[2]), "OR"); // calcultes the result
+                    registers[values[0]] = result; // stores the result in the appropriate register
+
+                    // updates the interface
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
@@ -547,11 +570,13 @@ namespace NEA_CPU_Model
             }
             else if (values[2].Contains('R')) // or if the value in the 3rd operand is a register
             {
-                values[2] = values[2].Replace("R", "");
-                if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
+                values[2] = values[2].Replace("R", ""); // removes the R from the operand
+                if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2])) // checks that the accessed registers are not empty
                 {
-                    result = Logic(registers[values[1]], registers[values[2]], "OR");
-                    registers[values[0]] = result;
+                    result = Logic(registers[values[1]], registers[values[2]], "OR"); // calcultes the result
+                    registers[values[0]] = result; // stores the result in the appropriate register
+
+                    // updates the interface
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
@@ -563,10 +588,12 @@ namespace NEA_CPU_Model
             }
             else // else the value in the 3rd operand is a RAM address
             {
-                if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
+                if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1) // checks that the accessed register and RAM address are not empty
                 {
-                    result = Logic(registers[values[1]], RAM.ReturnData(values[2]), "OR");
-                    registers[values[0]] = result;
+                    result = Logic(registers[values[1]], RAM.ReturnData(values[2]), "OR"); // calcultes the result
+                    registers[values[0]] = result; // stores the result in the appropriate register
+
+                    // updates the interface
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
@@ -584,11 +611,13 @@ namespace NEA_CPU_Model
             int result = 0;
             if (values[2].Contains('#')) // if the value in the 3rd operand is a hard value
             {
-                values[2] = values[2].Replace("#", "");
-                if (registers.ContainsKey(values[1]))
+                values[2] = values[2].Replace("#", ""); // removes the # from the operand
+                if (registers.ContainsKey(values[1])) // checks that the accessed register is not empty
                 {
-                    result = Logic(registers[values[1]], Convert.ToInt32(values[2]), "EOR");
-                    registers[values[0]] = result;
+                    result = Logic(registers[values[1]], Convert.ToInt32(values[2]), "EOR"); // calcultes the result
+                    registers[values[0]] = result; // stores the result in the appropriate register
+
+                    // updates the interface
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
@@ -600,11 +629,13 @@ namespace NEA_CPU_Model
             }
             else if (values[2].Contains('R')) // or if the value in the 3rd operand is a register
             {
-                values[2] = values[2].Replace("R", "");
-                if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
+                values[2] = values[2].Replace("R", ""); // removes the R from the operand
+                if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2])) // checks that the accessed registers are not empty
                 {
-                    result = Logic(registers[values[1]], registers[values[2]], "EOR");
-                    registers[values[0]] = result;
+                    result = Logic(registers[values[1]], registers[values[2]], "EOR"); // calcultes the result
+                    registers[values[0]] = result; // stores the result in the appropriate register
+
+                    // updates the interface
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
@@ -616,10 +647,12 @@ namespace NEA_CPU_Model
             }
             else // else the value in the 3rd operand is a RAM address
             {
-                if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
+                if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1) // checks that the accessed register and RAM address are not empty
                 {
-                    result = Logic(registers[values[1]], RAM.ReturnData(values[2]), "EOR");
-                    registers[values[0]] = result;
+                    result = Logic(registers[values[1]], RAM.ReturnData(values[2]), "EOR"); // calcultes the result
+                    registers[values[0]] = result; // stores the result in the appropriate register
+
+                    // updates the interface
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
@@ -637,27 +670,34 @@ namespace NEA_CPU_Model
             int result = 0;
             if (values[1].Contains('#')) // if the value in the 3rd operand is a hard value
             {
-                values[1] = values[1].Replace("#", "");
-                if (registers.ContainsKey(values[0]))
+                values[1] = values[1].Replace("#", ""); // removes the # from the operand
+
+                result = Logic(Convert.ToInt32(values[1]), 0, "MVN"); // calculates the result
+                // updates the interface
+
+                if (registers.ContainsKey(values[0])) // address exists, so update current data
                 {
-                    result = Logic(Convert.ToInt32(values[1]), 0, "MVN");
-                    registers[values[0]] = result;
-                    UpdateInterface(values[0], registers[values[0]]);
-                    Program.model.accumulatorText.Text = result.ToString();
+                    
+                    registers[values[0]] = result; // stores the result in the appropriate register
+
                 }
-                else // address is empty, exit out
+                else // address doesn't exist, so need to add address
                 {
-                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                    repeat = false;
+                    registers.Add(values[0], result); // stores the result in the appropriate register
                 }
+
+                UpdateInterface(values[0], registers[values[0]]);
+                Program.model.accumulatorText.Text = result.ToString();
             }
             else if (values[1].Contains('R')) // or if the value in the 3rd operand is a register
             {
-                values[1] = values[1].Replace("R", "");
-                if (registers.ContainsKey(values[1]))
+                values[1] = values[1].Replace("R", ""); // removes the R from the operand
+                if (registers.ContainsKey(values[1])) // checks that the accessed register is not empty
                 {
-                    result = Logic(registers[values[1]], 0, "MVN");
-                    registers[values[0]] = result;
+                    result = Logic(registers[values[1]], 0, "MVN"); // calculates the result
+                    registers[values[0]] = result; // stores the result in the appropriate register
+
+                    // updates the interface
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
@@ -669,10 +709,12 @@ namespace NEA_CPU_Model
             }
             else // else the value in the 3rd operand is a RAM address
             {
-                if (RAM.ReturnData(values[1]) != -1)
+                if (RAM.ReturnData(values[1]) != -1) // checks that the accessed RAM address is not empty
                 {
-                    Logic(RAM.ReturnData(values[1]), 0, "MVN");
-                    registers[values[0]] = result;
+                    Logic(RAM.ReturnData(values[1]), 0, "MVN"); // calculates the result
+                    registers[values[0]] = result; // stores the result in the appropriate register
+
+                    // updates the interface
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();
                 }
@@ -815,18 +857,18 @@ namespace NEA_CPU_Model
         }
 
         // does the bitwise logic
-        private int Logic(int v1, int v2, string opcode)
+        private int Logic(int value1, int value2, string opcode)
         {
             string result = string.Empty;
             // converts the inputs to binary as this is necessary to carry out bitwise operations
-            string op1 = denToBin(v1);
-            string op2 = denToBin(v2);
+            string operand1 = denToBin(value1);
+            string operand2 = denToBin(value2);
 
             if (opcode == "AND")
             {
-                for (int i = 0; i < op2.Length; i++) // loops through for each digit in the binary representation of the operand
+                for (int i = 0; i < operand2.Length; i++) // loops through for each digit in the binary representation of the operand
                 {
-                    if (op1[i] == '1' && op2[i] == '1') // if both inputs are 1, output is 1
+                    if (operand1[i] == '1' && operand2[i] == '1') // if both inputs are 1, output is 1
                     {
                         result += '1';
                     }
@@ -838,9 +880,9 @@ namespace NEA_CPU_Model
             }
             else if (opcode == "OR")
             {
-                for (int i = 0; i < op2.Length; i++) // loops through for each digit in the binary representation of the operand
+                for (int i = 0; i < operand2.Length; i++) // loops through for each digit in the binary representation of the operand
                 {
-                    if (op1[i] == '1' || op2[i] == '1') // if either inputs are 1, output is 1
+                    if (operand1[i] == '1' || operand2[i] == '1') // if either inputs are 1, output is 1
                     {
                         result += '1';
                     }
@@ -852,9 +894,9 @@ namespace NEA_CPU_Model
             }
             else if (opcode == "EOR")
             {
-                for (int i = 0; i < op2.Length; i++) // loops through for each digit in the binary representation of the operand
+                for (int i = 0; i < operand2.Length; i++) // loops through for each digit in the binary representation of the operand
                 {
-                    if ((op1[i] == '1' || op2[i] == '1') && !(op1[i] == '1' && op2[i] == '1')) // if only 1 of the inputs is 1, output is 1
+                    if ((operand1[i] == '1' || operand2[i] == '1') && !(operand1[i] == '1' && operand2[i] == '1')) // if only 1 of the inputs is 1, output is 1
                     {
                         result += '1';
                     }
@@ -866,9 +908,9 @@ namespace NEA_CPU_Model
             }
             else // must be a not opcode
             {
-                for (int i = 0; i < op1.Length; i++) // loops through for each digit in the binary representation of the operand
+                for (int i = 0; i < operand1.Length; i++) // loops through for each digit in the binary representation of the operand
                 {
-                    if (op1[i] == 1) // if input is 1, output is 0
+                    if (operand1[i] == 1) // if input is 1, output is 0
                     {
                         result += '0';
                     }
@@ -922,14 +964,12 @@ namespace NEA_CPU_Model
         private void UpdateInterface(string register, int data)
         {
             int reg = Convert.ToInt32(register);
-            if  (reg >= Model.registerIndex && reg <= (Model.registerIndex + Model.registersData.Count())) // register is within the range of available registers
+            // if register is within the range of available registers
+            if (reg >= Model.registerIndex && reg <= (Model.registerIndex + Model.registersData.Count()))
             {
                 Model.registersData[reg - Model.registerIndex].Text = data.ToString();
             }
-            else // register is not within range of available registers
-            {
-                // nothing to do
-            }
+            // else address is not within range so do nothing
         }
     }
 }

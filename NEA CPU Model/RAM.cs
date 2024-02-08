@@ -71,10 +71,7 @@ namespace NEA_CPU_Model
             {
                 Model.ramData[addr - Model.ramIndex].Text = data.ToString();
             }
-            else // address is not within range
-            {
-                // nothing to do
-            }
+            // else address is not within range so do nothing
         }
     }
 }

@@ -12,18 +12,21 @@ namespace NEA_CPU_Model
         public virtual int ReturnData(string address)
         {
             return 0;
+            // returns the data stored in the given address
             // is overriden by the child class
         }
 
         // stores the data given in the given address
         public virtual void StoreData(string address, int data)
         {
+            // stores the given data in the given address
             // is overriden by the child class
         }
 
         // returns if an address is empty
         protected virtual bool IsAddressEmpty(string address)
         {
+            // checks if the given address contains data
             return false;
             // is overriden by the child class
         }
