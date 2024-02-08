@@ -109,10 +109,10 @@
             updateRam = new Button();
             updateRegister = new Button();
             resetBtn = new Button();
-            label15 = new Label();
-            label16 = new Label();
-            label17 = new Label();
-            label18 = new Label();
+            cacheAddress0 = new Label();
+            cacheAddress1 = new Label();
+            cacheAddress2 = new Label();
+            cacheAddress3 = new Label();
             CData0 = new TextBox();
             CData1 = new TextBox();
             CData2 = new TextBox();
@@ -845,41 +845,41 @@
             resetBtn.UseVisualStyleBackColor = true;
             resetBtn.Click += resetBtn_Click;
             // 
-            // label15
+            // cacheAddress0
             // 
-            label15.AutoSize = true;
-            label15.Location = new Point(1116, 422);
-            label15.Name = "label15";
-            label15.Size = new Size(22, 25);
-            label15.TabIndex = 97;
-            label15.Text = "0";
+            cacheAddress0.AutoSize = true;
+            cacheAddress0.Location = new Point(1116, 422);
+            cacheAddress0.Name = "cacheAddress0";
+            cacheAddress0.Size = new Size(40, 25);
+            cacheAddress0.TabIndex = 97;
+            cacheAddress0.Text = "null";
             // 
-            // label16
+            // cacheAddress1
             // 
-            label16.AutoSize = true;
-            label16.Location = new Point(1116, 478);
-            label16.Name = "label16";
-            label16.Size = new Size(22, 25);
-            label16.TabIndex = 98;
-            label16.Text = "1";
+            cacheAddress1.AutoSize = true;
+            cacheAddress1.Location = new Point(1116, 478);
+            cacheAddress1.Name = "cacheAddress1";
+            cacheAddress1.Size = new Size(40, 25);
+            cacheAddress1.TabIndex = 98;
+            cacheAddress1.Text = "null";
             // 
-            // label17
+            // cacheAddress2
             // 
-            label17.AutoSize = true;
-            label17.Location = new Point(1116, 529);
-            label17.Name = "label17";
-            label17.Size = new Size(22, 25);
-            label17.TabIndex = 99;
-            label17.Text = "2";
+            cacheAddress2.AutoSize = true;
+            cacheAddress2.Location = new Point(1116, 529);
+            cacheAddress2.Name = "cacheAddress2";
+            cacheAddress2.Size = new Size(40, 25);
+            cacheAddress2.TabIndex = 99;
+            cacheAddress2.Text = "null";
             // 
-            // label18
+            // cacheAddress3
             // 
-            label18.AutoSize = true;
-            label18.Location = new Point(1116, 578);
-            label18.Name = "label18";
-            label18.Size = new Size(22, 25);
-            label18.TabIndex = 100;
-            label18.Text = "3";
+            cacheAddress3.AutoSize = true;
+            cacheAddress3.Location = new Point(1116, 578);
+            cacheAddress3.Name = "cacheAddress3";
+            cacheAddress3.Size = new Size(40, 25);
+            cacheAddress3.TabIndex = 100;
+            cacheAddress3.Text = "null";
             // 
             // CData0
             // 
@@ -922,10 +922,10 @@
             Controls.Add(CData2);
             Controls.Add(CData1);
             Controls.Add(CData0);
-            Controls.Add(label18);
-            Controls.Add(label17);
-            Controls.Add(label16);
-            Controls.Add(label15);
+            Controls.Add(cacheAddress3);
+            Controls.Add(cacheAddress2);
+            Controls.Add(cacheAddress1);
+            Controls.Add(cacheAddress0);
             Controls.Add(resetBtn);
             Controls.Add(updateRegister);
             Controls.Add(updateRam);
@@ -1100,10 +1100,10 @@
         private Button updateRam;
         private Button updateRegister;
         private Button resetBtn;
-        private Label label15;
-        private Label label16;
-        private Label label17;
-        private Label label18;
+        private Label cacheAddress0;
+        private Label cacheAddress1;
+        private Label cacheAddress2;
+        private Label cacheAddress3;
         private TextBox textBox2;
         public TextBox CData0;
         public TextBox CData1;

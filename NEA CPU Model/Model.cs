@@ -75,7 +75,7 @@ namespace NEA_CPU_Model
         };
 
         // creates array of avaiable text boxes for cache
-        static public TextBox[] cacheData = new TextBox[]
+        static public TextBox[] cacheData =
         {
             Program.model.CData0,
             Program.model.CData1,
@@ -83,10 +83,18 @@ namespace NEA_CPU_Model
             Program.model.CData3,
         };
 
-        // initializes indexes for ram, register and cache addresses
+        static public Label[] cacheAddress =
+        {
+            Program.model.cacheAddress0,
+            Program.model.cacheAddress1,
+            Program.model.cacheAddress2,
+            Program.model.cacheAddress3,
+        };
+
+        // initializes indexes for ram and register addresses
         static public int ramIndex = 0;
         static public int registerIndex = 0;
-        static public int cacheIndex = 0;
+  
 
         // creates dictionary of accepted colours
         private Dictionary<string, Color> colours = new Dictionary<string, Color>

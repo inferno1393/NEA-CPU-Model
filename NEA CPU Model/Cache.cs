@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace NEA_CPU_Model
 {
@@ -11,6 +13,7 @@ namespace NEA_CPU_Model
     {
         // uses a dictionary to implement an associative array to store the cache values
         Dictionary<string, int> cache = new Dictionary<string, int>() { };
+        string[,] CacheArray = new string[,] { };
 
         // uses a queue to tell which addresses have been in cache the longest
         QueueArray<string> queue = new QueueArray<string>();
@@ -55,7 +58,7 @@ namespace NEA_CPU_Model
             Program.model.marText.Text = address;
             Program.model.mbrText.Text = data.ToString();
 
-            UpdateInterface(address, data); // updates interface to show changes
+            UpdateInterface(); // updates interface to show changes
         }
 
         // checks if the given address is empty
@@ -73,16 +76,30 @@ namespace NEA_CPU_Model
             cache = new Dictionary<string, int>() { };
         }
 
-        private void UpdateInterface(string address, int data)
+        private void UpdateInterface()
         {
-            int addr = Convert.ToInt32(address);
-            // if address is within the range of available addresses
-            if (addr >= Model.cacheIndex && addr <= (Model.cacheIndex + Model.cacheData.Count()))
+            // creates a dictionary containing the keys currently in cache
+            Dictionary<string, int>.KeyCollection keys = cache.Keys;
+
+            // sorts keys into numerical order
+            MergeSort(keys);
+
+            // updates interface to show the new order
+            int i = 0; // sets an interation value to 0
+            foreach (var key in keys)
             {
-                Model.cacheData[addr - Model.cacheIndex].Text = data.ToString();
+                MessageBox.Show(Model.cacheData[i].Text);
+                MessageBox.Show(Model.cacheAddress[i].Text);
+
+                Model.cacheData[i].Text = cache[key.ToString()].ToString();
+                Model.cacheAddress[i].Text = key.ToString();
+                i++;
             }
-            // else address is not within range so do nothing
         }
 
+        private Dictionary<string, int>.KeyCollection MergeSort(Dictionary<string, int>.KeyCollection keys)
+        {
+            return keys;
+        }
     }
 }
