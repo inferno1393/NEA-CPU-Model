@@ -38,11 +38,10 @@ namespace NEA_CPU_Model
         // stores the data given in the given address
         public override void StoreData(string address, int data)
         {
-            if(queue.Count == capacity)
+            if (queue.Count == capacity)
             {
-                address = queue.Dequeue();
-                MessageBox.Show(address);
-                cache.Remove(address);
+                string addr = queue.Dequeue();
+                cache.Remove(addr);
             }
             if (IsAddressEmpty(address)) // checks if address is empty to avoid updating an existing key
             {
@@ -81,10 +80,11 @@ namespace NEA_CPU_Model
         {
             // creates a dictionary containing the keys currently in cache
             Dictionary<string, int>.KeyCollection keys = cache.Keys;
-            var sortedKeys = keys.OrderBy(key => Convert.ToInt32(key));
+
+            var sortedKeys = keys.OrderBy(key => Convert.ToInt32(key)); // temporary sorting for testing purposes
 
             // sorts keys into numerical order
-            keys = MergeSort(keys);
+            //keys = MergeSort(keys);
 
             // updates interface to show the new order
             int i = 0; // sets an interation value to 0
@@ -102,10 +102,9 @@ namespace NEA_CPU_Model
         private Dictionary<string, int>.KeyCollection MergeSort(Dictionary<string, int>.KeyCollection keys)
         {
             Dictionary<string, int> sortingKeys = new Dictionary<string, int>() { };
-            for (int i = 0; i < keys.Count; i++)
-            {
-                
-            }
+ 
+
+
             Dictionary<string, int>.KeyCollection sortedKeys = sortingKeys.Keys;
             return sortedKeys;
         }
