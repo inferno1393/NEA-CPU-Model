@@ -84,7 +84,10 @@ namespace NEA_CPU_Model
             {"white", Color.White },
             {"blue", Color.Blue },
             {"red", Color.Red },
-            {"green", Color.Green }
+            {"yellow", Color.Yellow },
+            {"green", Color.Green },
+            {"orange", Color.Orange },
+            {"violet", Color.Violet },
         };
 
         // constructor
@@ -114,18 +117,19 @@ namespace NEA_CPU_Model
             stepBtn.Enabled = true; // renables the button ready for next use
         }
 
-        // allows the user to load instructions from a text file on appropriate button click
+        // allows the user to load the last set of instructions from a text file on appropriate button click
         private void loadBtn_Click(object sender, EventArgs e)
         {
             loadBtn.Enabled = false; // disables the button to prevent spamming
 
-            List<string> instructions = ReadFromFile();
-            for (int i = 0; i < instructions.Count; i++)
+            List<string> instructions = ReadFromFile(); // calls a method to load the instructions
+
+            for (int i = 0; i < instructions.Count; i++) // updates the instructions textbox to show the loaded instructions
             {
                 instructionsTextBox.Text += instructions[i];
                 if (i < instructions.Count - 2)
                 {
-                    instructionsTextBox.Text += Environment.NewLine;
+                    instructionsTextBox.Text += Environment.NewLine; // adds a new line character to the end of each instruction
                 }
             }
 

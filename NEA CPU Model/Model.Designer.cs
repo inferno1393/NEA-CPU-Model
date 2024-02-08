@@ -789,7 +789,7 @@
             // colourBox
             // 
             colourBox.FormattingEnabled = true;
-            colourBox.Items.AddRange(new object[] { "Blue", "Red", "Green", "White" });
+            colourBox.Items.AddRange(new object[] { "White", "Blue", "Red", "Yellow", "Green", "Orange", "Violet" });
             colourBox.Location = new Point(12, 914);
             colourBox.Name = "colourBox";
             colourBox.Size = new Size(182, 33);
