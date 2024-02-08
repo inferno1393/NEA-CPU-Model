@@ -108,6 +108,7 @@
             updateColour = new Button();
             updateRam = new Button();
             updateRegister = new Button();
+            resetBtn = new Button();
             SuspendLayout();
             // 
             // instructionsTextBox
@@ -171,7 +172,7 @@
             // 
             // loadBtn
             // 
-            loadBtn.Location = new Point(87, 646);
+            loadBtn.Location = new Point(12, 651);
             loadBtn.Name = "loadBtn";
             loadBtn.Size = new Size(127, 73);
             loadBtn.TabIndex = 8;
@@ -825,11 +826,23 @@
             updateRegister.UseVisualStyleBackColor = true;
             updateRegister.Click += updateRegister_Click;
             // 
+            // resetBtn
+            // 
+            resetBtn.Location = new Point(156, 651);
+            resetBtn.Name = "resetBtn";
+            resetBtn.RightToLeft = RightToLeft.No;
+            resetBtn.Size = new Size(125, 73);
+            resetBtn.TabIndex = 96;
+            resetBtn.Text = "Reset";
+            resetBtn.UseVisualStyleBackColor = true;
+            resetBtn.Click += resetBtn_Click;
+            // 
             // Model
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1898, 1144);
+            Controls.Add(resetBtn);
             Controls.Add(updateRegister);
             Controls.Add(updateRam);
             Controls.Add(updateColour);
@@ -1002,5 +1015,6 @@
         private Button updateColour;
         private Button updateRam;
         private Button updateRegister;
+        private Button resetBtn;
     }
 }

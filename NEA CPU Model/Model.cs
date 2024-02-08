@@ -132,6 +132,67 @@ namespace NEA_CPU_Model
             loadBtn.Enabled = true; // renables the button ready for next use
         }
 
+
+        // 
+        private void resetBtn_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        // updates the background colours to the value in the colourBox menu
+        private void updateColour_Click(object sender, EventArgs e)
+        {
+            // sets background colour to user input
+            string text = colourBox.Text.ToLower(); // changes the case to be all lower to avoid being case sensitive
+            if (colours.ContainsKey(text)) // checks colour is valid using a dictionary
+            {
+                Program.model.BackColor = colours[text];
+            }
+            else // colour is not valid
+            {
+                MessageBox.Show("Invalid colour");
+            }
+        }
+
+        // updates RAM index on appropriate button click
+        private void updateRam_Click(object sender, EventArgs e)
+        {
+            // tries to convert inputted indexes to integers for use
+            bool converted = int.TryParse(ramIndexText.Text, out ramIndex);
+            if (!converted) // was not successfully converted
+            {
+                MessageBox.Show("RAM Start Index value invalid");
+            }
+
+            // updates the RAM Addresses in the interface to update to the new indexes
+            if (converted) // index was successfully converted so continue to update interface
+            {
+                for (int i = 0; i < ramAddress.Count(); i++)
+                {
+                    ramAddress[i].Text = (ramIndex + i).ToString();
+                }
+            }
+        }
+
+        // updates Register index on appropriate button click
+        private void updateRegister_Click(object sender, EventArgs e)
+        {
+            bool converted = int.TryParse(registerIndexText.Text, out registerIndex);
+            if (!converted) // not successfully converted
+            {
+                MessageBox.Show("Register Start Index value invalid");
+            }
+
+            // updates the registers in the interface to update to the new indexes
+            if (converted) // index was successfully converted so continue to update interface
+            {
+                for (int i = 0; i < registerAddress.Count(); i++)
+                {
+                    registerAddress[i].Text = (registerIndex + i).ToString();
+                }
+            }
+        }
+
         // creates the instructions from the textbox in the interface, parses and then executes them (if valid)
         private void Process(bool loop)
         {
@@ -193,60 +254,6 @@ namespace NEA_CPU_Model
             reader.Close(); // closes the file to avoid errors
             return instructions; // returns the list of instructions
 
-        }
-
-        // updates the background colours to the value in the colourBox menu
-        private void updateColour_Click(object sender, EventArgs e)
-        {
-            // sets background colour to user input
-            string text = colourBox.Text.ToLower(); // changes the case to be all lower to avoid being case sensitive
-            if (colours.ContainsKey(text)) // checks colour is valid using a dictionary
-            {
-                Program.model.BackColor = colours[text];
-            }
-            else // colour is not valid
-            {
-                MessageBox.Show("Invalid colour");
-            }
-        }
-
-        // updates RAM index on appropriate button click
-        private void updateRam_Click(object sender, EventArgs e)
-        {
-            // tries to convert inputted indexes to integers for use
-            bool converted = int.TryParse(ramIndexText.Text, out ramIndex);
-            if (!converted) // was not successfully converted
-            {
-                MessageBox.Show("RAM Start Index value invalid");
-            }
-
-            // updates the RAM Addresses in the interface to update to the new indexes
-            if (converted) // index was successfully converted so continue to update interface
-            {
-                for (int i = 0; i < ramAddress.Count(); i++)
-                {
-                    ramAddress[i].Text = (ramIndex + i).ToString();
-                }
-            }
-        }
-
-        // updates Register index on appropriate button click
-        private void updateRegister_Click(object sender, EventArgs e)
-        {
-            bool converted = int.TryParse(registerIndexText.Text, out registerIndex);
-            if (!converted) // not successfully converted
-            {
-                MessageBox.Show("Register Start Index value invalid");
-            }
-
-            // updates the registers in the interface to update to the new indexes
-            if (converted) // index was successfully converted so continue to update interface
-            {
-                for (int i = 0; i < registerAddress.Count(); i++)
-                {
-                    registerAddress[i].Text = (registerIndex + i).ToString();
-                }
-            }
         }
     }
 }
