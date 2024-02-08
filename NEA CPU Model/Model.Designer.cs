@@ -119,6 +119,17 @@
             CData3 = new TextBox();
             label15 = new Label();
             cacheCapacity = new TextBox();
+            label16 = new Label();
+            cacheIndexText = new TextBox();
+            updateCacheBtn = new Button();
+            cacheAddress4 = new Label();
+            cacheAddress5 = new Label();
+            cacheAddress6 = new Label();
+            cacheAddress7 = new Label();
+            CData4 = new TextBox();
+            CData5 = new TextBox();
+            CData6 = new TextBox();
+            CData7 = new TextBox();
             SuspendLayout();
             // 
             // instructionsTextBox
@@ -764,7 +775,7 @@
             // 
             label40.AutoSize = true;
             label40.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            label40.Location = new Point(447, 866);
+            label40.Location = new Point(422, 866);
             label40.Name = "label40";
             label40.Size = new Size(167, 25);
             label40.TabIndex = 87;
@@ -780,7 +791,7 @@
             // 
             // registerIndexText
             // 
-            registerIndexText.Location = new Point(447, 916);
+            registerIndexText.Location = new Point(422, 916);
             registerIndexText.Name = "registerIndexText";
             registerIndexText.Size = new Size(150, 31);
             registerIndexText.TabIndex = 89;
@@ -828,7 +839,7 @@
             // 
             // updateRegisterBtn
             // 
-            updateRegisterBtn.Location = new Point(439, 961);
+            updateRegisterBtn.Location = new Point(422, 959);
             updateRegisterBtn.Name = "updateRegisterBtn";
             updateRegisterBtn.Size = new Size(158, 75);
             updateRegisterBtn.TabIndex = 95;
@@ -877,7 +888,7 @@
             // cacheAddress3
             // 
             cacheAddress3.AutoSize = true;
-            cacheAddress3.Location = new Point(1116, 578);
+            cacheAddress3.Location = new Point(1116, 581);
             cacheAddress3.Name = "cacheAddress3";
             cacheAddress3.Size = new Size(40, 25);
             cacheAddress3.TabIndex = 100;
@@ -919,7 +930,7 @@
             // 
             label15.AutoSize = true;
             label15.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            label15.Location = new Point(636, 866);
+            label15.Location = new Point(791, 866);
             label15.Name = "label15";
             label15.Size = new Size(140, 25);
             label15.TabIndex = 105;
@@ -927,17 +938,123 @@
             // 
             // cacheCapacity
             // 
-            cacheCapacity.Location = new Point(636, 914);
+            cacheCapacity.Location = new Point(791, 914);
             cacheCapacity.Name = "cacheCapacity";
             cacheCapacity.Size = new Size(150, 31);
             cacheCapacity.TabIndex = 106;
             cacheCapacity.Text = "4";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            label16.Location = new Point(605, 866);
+            label16.Name = "label16";
+            label16.Size = new Size(154, 25);
+            label16.TabIndex = 107;
+            label16.Text = "Cache Start Index:";
+            // 
+            // cacheIndexText
+            // 
+            cacheIndexText.Location = new Point(609, 914);
+            cacheIndexText.Name = "cacheIndexText";
+            cacheIndexText.Size = new Size(150, 31);
+            cacheIndexText.TabIndex = 108;
+            cacheIndexText.Text = "0";
+            // 
+            // updateCacheBtn
+            // 
+            updateCacheBtn.Location = new Point(609, 959);
+            updateCacheBtn.Name = "updateCacheBtn";
+            updateCacheBtn.Size = new Size(159, 75);
+            updateCacheBtn.TabIndex = 109;
+            updateCacheBtn.Text = "Update Cache Index";
+            updateCacheBtn.UseVisualStyleBackColor = true;
+            // 
+            // cacheAddress4
+            // 
+            cacheAddress4.AutoSize = true;
+            cacheAddress4.Location = new Point(1116, 639);
+            cacheAddress4.Name = "cacheAddress4";
+            cacheAddress4.Size = new Size(40, 25);
+            cacheAddress4.TabIndex = 110;
+            cacheAddress4.Text = "null";
+            // 
+            // cacheAddress5
+            // 
+            cacheAddress5.AutoSize = true;
+            cacheAddress5.Location = new Point(1116, 683);
+            cacheAddress5.Name = "cacheAddress5";
+            cacheAddress5.Size = new Size(40, 25);
+            cacheAddress5.TabIndex = 111;
+            cacheAddress5.Text = "null";
+            // 
+            // cacheAddress6
+            // 
+            cacheAddress6.AutoSize = true;
+            cacheAddress6.Location = new Point(1116, 728);
+            cacheAddress6.Name = "cacheAddress6";
+            cacheAddress6.Size = new Size(40, 25);
+            cacheAddress6.TabIndex = 112;
+            cacheAddress6.Text = "null";
+            // 
+            // cacheAddress7
+            // 
+            cacheAddress7.AutoSize = true;
+            cacheAddress7.Location = new Point(1116, 779);
+            cacheAddress7.Name = "cacheAddress7";
+            cacheAddress7.Size = new Size(40, 25);
+            cacheAddress7.TabIndex = 113;
+            cacheAddress7.Text = "null";
+            // 
+            // CData4
+            // 
+            CData4.Location = new Point(1207, 633);
+            CData4.Name = "CData4";
+            CData4.ReadOnly = true;
+            CData4.Size = new Size(150, 31);
+            CData4.TabIndex = 114;
+            // 
+            // CData5
+            // 
+            CData5.Location = new Point(1207, 677);
+            CData5.Name = "CData5";
+            CData5.ReadOnly = true;
+            CData5.Size = new Size(150, 31);
+            CData5.TabIndex = 115;
+            // 
+            // CData6
+            // 
+            CData6.Location = new Point(1207, 722);
+            CData6.Name = "CData6";
+            CData6.ReadOnly = true;
+            CData6.Size = new Size(150, 31);
+            CData6.TabIndex = 116;
+            // 
+            // CData7
+            // 
+            CData7.Location = new Point(1207, 773);
+            CData7.Name = "CData7";
+            CData7.ReadOnly = true;
+            CData7.Size = new Size(150, 31);
+            CData7.TabIndex = 117;
             // 
             // Model
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1898, 1144);
+            Controls.Add(CData7);
+            Controls.Add(CData6);
+            Controls.Add(CData5);
+            Controls.Add(CData4);
+            Controls.Add(cacheAddress7);
+            Controls.Add(cacheAddress6);
+            Controls.Add(cacheAddress5);
+            Controls.Add(cacheAddress4);
+            Controls.Add(updateCacheBtn);
+            Controls.Add(cacheIndexText);
+            Controls.Add(label16);
             Controls.Add(cacheCapacity);
             Controls.Add(label15);
             Controls.Add(CData3);
@@ -1133,5 +1250,18 @@
         public TextBox CData3;
         private Label label15;
         public TextBox cacheCapacity;
+        private Label label16;
+        private TextBox cacheIndexText;
+        private Button updateCacheBtn;
+        private TextBox textBox3;
+        private TextBox textBox6;
+        public TextBox CData4;
+        public TextBox CData5;
+        public TextBox CData6;
+        public Label cacheAddress4;
+        public Label cacheAddress5;
+        public Label cacheAddress6;
+        public Label cacheAddress7;
+        public TextBox CData7;
     }
 }

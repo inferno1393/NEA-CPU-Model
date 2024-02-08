@@ -81,6 +81,10 @@ namespace NEA_CPU_Model
             Program.model.CData1,
             Program.model.CData2,
             Program.model.CData3,
+            Program.model.CData4,
+            Program.model.CData5,
+            Program.model.CData6,
+            Program.model.CData7,
         };
 
         static public Label[] cacheAddress =
@@ -89,11 +93,16 @@ namespace NEA_CPU_Model
             Program.model.cacheAddress1,
             Program.model.cacheAddress2,
             Program.model.cacheAddress3,
+            Program.model.cacheAddress4,
+            Program.model.cacheAddress5,
+            Program.model.cacheAddress6,
+            Program.model.cacheAddress7,
         };
 
-        // initializes indexes for ram and register addresses
+        // initializes indexes for ram, register and cache addresses
         static public int ramIndex = 0;
         static public int registerIndex = 0;
+        static public int cacheIndex = 0;
   
 
         // creates dictionary of accepted colours
@@ -252,6 +261,29 @@ namespace NEA_CPU_Model
             }
 
             updateRegisterBtn.Enabled = true; // renables the button ready for next use
+        }
+
+        private void updateCacheBtn_Click(object sender, EventArgs e)
+        {
+            updateCacheBtn.Enabled = false; // disables the button to prevent spamming
+
+            bool converted = int.TryParse(cacheIndexText.Text, out cacheIndex);
+            if (!converted) // not successfully converted
+            {
+                MessageBox.Show("Cache Start Index value invalid");
+            }
+
+            // updates the registers in the interface to update to the new indexes
+            if (converted) // index was successfully converted so continue to update interface
+            {
+                for (int i = 0; i < cacheAddress.Count(); i++)
+                {
+                    cacheAddress[i].Text = (cacheIndex + i).ToString();
+                }
+            }
+
+
+            updateCacheBtn.Enabled = true; // renables the button ready for next use
         }
 
         // creates the instructions from the textbox in the interface, parses and then executes them (if valid)
