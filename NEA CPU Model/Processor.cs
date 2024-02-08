@@ -951,7 +951,19 @@ namespace NEA_CPU_Model
             return result;
         }
 
-        // clears the current instance of memory
+        // fetches data from RAM
+        private int FetchData(string address, RAM RAM)
+        {
+            return RAM.ReturnData(address); // return the value stored in RAM at the given address
+        }
+
+        // writes data to RAM
+        private void WriteData(string address, int data, RAM RAM)
+        {
+            RAM.StoreData(address, data); // store the given data in the given address in RAM
+        }
+
+        // clears the current instance of registers and cache
         public void Clear()
         {
             registers = new Dictionary<string, int>(); // resets registers back to an empty dictionary
