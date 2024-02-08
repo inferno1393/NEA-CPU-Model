@@ -15,7 +15,7 @@ namespace NEA_CPU_Model
         QueueArray<string> queue = new QueueArray<string>();
 
         // attributes
-        public int capacity = 8;
+        public int capacity = 4;
 
         // returns the data of the address being accessed
         public override int ReturnData(string address)
@@ -27,23 +27,33 @@ namespace NEA_CPU_Model
             // updates specific purpose registers
             Program.model.marText.Text = address;
             Program.model.mbrText.Text = cache[address].ToString();
+
             return cache[address]; // returns data
         }
 
         // stores the data given in the given address
         public override void StoreData(string address, int data)
         {
+            if(queue.Count == capacity)
+            {
+                queue.Dequeue();
+                MessageBox.Show("Dequeued");
+            }
             if (IsAddressEmpty(address)) // checks if address is empty to avoid updating an existing key
             {
                 cache.Add(address, data);
+                
             }
             else
             {
                 cache[address] = data;
             }
+            queue.Enqueue(address); // adds the new address to the queue
+
             // updates specific purpose registers
             Program.model.marText.Text = address;
             Program.model.mbrText.Text = data.ToString();
+
             UpdateInterface(address, data); // updates interface to show changes
         }
 

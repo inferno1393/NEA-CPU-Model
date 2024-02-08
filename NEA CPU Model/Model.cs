@@ -74,6 +74,15 @@ namespace NEA_CPU_Model
             Program.model.ramAddress15,
         };
 
+        // creates array of avaiable text boxes for cache
+        static public TextBox[] cacheData = new TextBox[]
+        {
+            Program.model.CData0,
+            Program.model.CData1,
+            Program.model.CData2,
+            Program.model.CData3,
+        };
+
         // initializes indexes for ram and register addresses
         static public int ramIndex = 0;
         static public int registerIndex = 0;

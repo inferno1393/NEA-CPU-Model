@@ -13,7 +13,7 @@ namespace NEA_CPU_Model
     public class Parser
     {
         // Attributes
-        private StackArray<string> splitInstructions;
+        private StackArray<string> splitInstructions = new StackArray<string>();
         private List<string> instructions;
 
         // uses a dictionary to implement an associative array to store the location of labels

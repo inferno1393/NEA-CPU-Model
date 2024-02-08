@@ -109,6 +109,14 @@
             updateRam = new Button();
             updateRegister = new Button();
             resetBtn = new Button();
+            label15 = new Label();
+            label16 = new Label();
+            label17 = new Label();
+            label18 = new Label();
+            CData0 = new TextBox();
+            CData1 = new TextBox();
+            CData2 = new TextBox();
+            CData3 = new TextBox();
             SuspendLayout();
             // 
             // instructionsTextBox
@@ -837,11 +845,87 @@
             resetBtn.UseVisualStyleBackColor = true;
             resetBtn.Click += resetBtn_Click;
             // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(1116, 422);
+            label15.Name = "label15";
+            label15.Size = new Size(22, 25);
+            label15.TabIndex = 97;
+            label15.Text = "0";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Location = new Point(1116, 478);
+            label16.Name = "label16";
+            label16.Size = new Size(22, 25);
+            label16.TabIndex = 98;
+            label16.Text = "1";
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Location = new Point(1116, 529);
+            label17.Name = "label17";
+            label17.Size = new Size(22, 25);
+            label17.TabIndex = 99;
+            label17.Text = "2";
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Location = new Point(1116, 578);
+            label18.Name = "label18";
+            label18.Size = new Size(22, 25);
+            label18.TabIndex = 100;
+            label18.Text = "3";
+            // 
+            // CData0
+            // 
+            CData0.Location = new Point(1207, 422);
+            CData0.Name = "CData0";
+            CData0.ReadOnly = true;
+            CData0.Size = new Size(150, 31);
+            CData0.TabIndex = 101;
+            // 
+            // CData1
+            // 
+            CData1.Location = new Point(1207, 478);
+            CData1.Name = "CData1";
+            CData1.ReadOnly = true;
+            CData1.Size = new Size(150, 31);
+            CData1.TabIndex = 102;
+            // 
+            // CData2
+            // 
+            CData2.Location = new Point(1207, 526);
+            CData2.Name = "CData2";
+            CData2.ReadOnly = true;
+            CData2.Size = new Size(150, 31);
+            CData2.TabIndex = 103;
+            // 
+            // CData3
+            // 
+            CData3.Location = new Point(1207, 578);
+            CData3.Name = "CData3";
+            CData3.ReadOnly = true;
+            CData3.Size = new Size(150, 31);
+            CData3.TabIndex = 104;
+            // 
             // Model
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1898, 1144);
+            Controls.Add(CData3);
+            Controls.Add(CData2);
+            Controls.Add(CData1);
+            Controls.Add(CData0);
+            Controls.Add(label18);
+            Controls.Add(label17);
+            Controls.Add(label16);
+            Controls.Add(label15);
             Controls.Add(resetBtn);
             Controls.Add(updateRegister);
             Controls.Add(updateRam);
@@ -1016,5 +1100,14 @@
         private Button updateRam;
         private Button updateRegister;
         private Button resetBtn;
+        private Label label15;
+        private Label label16;
+        private Label label17;
+        private Label label18;
+        private TextBox textBox2;
+        public TextBox CData0;
+        public TextBox CData1;
+        public TextBox CData2;
+        public TextBox CData3;
     }
 }
