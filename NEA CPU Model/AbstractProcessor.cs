@@ -19,7 +19,7 @@ namespace NEA_CPU_Model
         }
 
         // controls the program counter during execution and splits the instruction
-        protected virtual void Execute(List<string> instructions, RAM RAM)
+        protected virtual void SplitInstruction(List<string> instructions, RAM RAM)
         {
             // is overriden by the child class
             // updates program counter, program counter + cir on interface

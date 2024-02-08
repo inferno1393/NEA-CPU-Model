@@ -37,7 +37,7 @@ namespace NEA_CPU_Model
                 programCounter = 0; // sets program counter to start of instructions
                 while (programCounter < instructions.Count && repeat) // while not reached end of code/error not encountered
                 {
-                    Execute(instructions, RAM); // call to process the instructions
+                    SplitInstruction(instructions, RAM); // call to process the instructions
                 }
             }
             // execute only the next instruction
@@ -45,7 +45,7 @@ namespace NEA_CPU_Model
             {
                 if(programCounter < instructions.Count && repeat) // while not reached end of code/error not encountered
                 {
-                    Execute(instructions, RAM); // call to process the instructions
+                    SplitInstruction(instructions, RAM); // call to process the instructions
                 }
                 else
                 {
@@ -56,7 +56,7 @@ namespace NEA_CPU_Model
         }
 
         // controls the program counter during execution and splits the instruction
-        protected override void Execute(List<string> instructions, RAM RAM)
+        protected override void SplitInstruction(List<string> instructions, RAM RAM)
         {
             string instruction = instructions[programCounter]; // gets current instruction
             programCounter++; // increments program counter for next cycle
