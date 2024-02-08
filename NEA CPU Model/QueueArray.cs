@@ -5,11 +5,11 @@ using System.Text;
 
 namespace NEA_CPU_Model
 {
-    public class CircularQueue<T>
+    public class QueueArray<T> // array based implenetation of a circular queue
     {
         // attributes
         private int capacity;
-        private T[] QueueArray;
+        private T[] Queue;
         private int front;
         private int rear;
         private int count;
@@ -18,14 +18,14 @@ namespace NEA_CPU_Model
         public int Count { get { return count; } }
 
         // constructor
-        public CircularQueue() : this(capacity: 10)
+        public QueueArray() : this(capacity: 10)
         {
         }
 
         // initializes attributes
-        public CircularQueue(int capacity)
+        public QueueArray(int capacity)
         {
-            QueueArray = new T[capacity];
+            Queue = new T[capacity];
             this.capacity = capacity;
             front = 0;
             rear = -1;
@@ -38,7 +38,7 @@ namespace NEA_CPU_Model
             if (!Full())
             {
                 rear = (rear + 1) % capacity;
-                QueueArray[rear] = s;
+                Queue[rear] = s;
                 count++;
             }
         }
@@ -48,8 +48,8 @@ namespace NEA_CPU_Model
         {
             if (!Empty())
             {
-                T r = QueueArray[front];
-                QueueArray[front] = default(T);
+                T r = Queue[front];
+                Queue[front] = default(T);
                 front = (front + 1) % capacity;
                 count--;
                 return r;
@@ -58,6 +58,12 @@ namespace NEA_CPU_Model
             {
                 throw new InvalidOperationException("Invalid operation. The queue is empty.");
             }
+        }
+
+        // clears the queue
+        public void Clear()
+        {
+            front = -1;
         }
 
         // returns if the queue is empty

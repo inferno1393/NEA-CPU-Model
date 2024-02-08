@@ -11,6 +11,9 @@ namespace NEA_CPU_Model
         // uses a dictionary to implement an associative array to store the cache values
         Dictionary<string, int> cache = new Dictionary<string, int>() { };
 
+        // uses a queue to tell which addresses have been in cache the longest
+        QueueArray<string> queue = new QueueArray<string>();
+
         // attributes
         public int capacity = 8;
 

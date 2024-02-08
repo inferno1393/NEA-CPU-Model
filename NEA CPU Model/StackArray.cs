@@ -7,7 +7,7 @@ using System.Text;
 
 namespace NEA_CPU_Model
 {
-    public class StackArray<T>
+    public class StackArray<T>// array based implenetation of a stack
     {
         // attributes
         private int capacity;
