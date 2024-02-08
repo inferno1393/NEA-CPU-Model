@@ -939,11 +939,11 @@ namespace NEA_CPU_Model
         // finds the given binary number for a denary input using recursion
         private int findBinary(int denaryNumber)
         {
-            if (denaryNumber == 0)
+            if (denaryNumber == 0) // if values is 0, return 0 (aka if the number has been reduced to 0, end)
             {
                 return 0;
             }
-            else
+            else // else add the value mod 2 to the recursive call to calculate the next digit
             {
                 return (denaryNumber % 2 + 10 * findBinary(denaryNumber / 2));
             }
@@ -953,12 +953,12 @@ namespace NEA_CPU_Model
         // finds the given decimal number for a binary input using recursion
         private int findDecimal(string binaryNumber, int i=0)
         {
-            int length = binaryNumber.Length;
-            if (i == length-1)
+            int length = binaryNumber.Length; // stores number of digits in binary
+            if (i == length-1) // if the end of the string has been reached, remove the last digit
             {
                 return binaryNumber[i] - '0';
             }
-            else
+            else // 
             {
                 return (binaryNumber[i] - '0') << (length-i-1) + findDecimal(binaryNumber, i +1);
             }
