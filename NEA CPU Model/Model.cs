@@ -155,7 +155,7 @@ namespace NEA_CPU_Model
         }
 
 
-        // resets the RAM, registers and cache to be empty on appropriate button click
+        // resets the system back to beginning to be empty on appropriate button click
         private void resetBtn_Click(object sender, EventArgs e)
         {
             resetBtn.Enabled = false; // disables the button to prevent spamming
@@ -174,6 +174,16 @@ namespace NEA_CPU_Model
             {
                 ramData[i].Text = "";
             }
+
+            // updates the interface to show that the cache has been cleared
+            for (int i = 0; i < cacheData.Count(); i++)
+            {
+                cacheData[i].Text = "";
+                cacheAddress[i].Text = "null";
+            }
+
+            // resest the program counter to 0
+            programCounterText.Text = 0.ToString();
 
             resetBtn.Enabled = true; // renables the button ready for next use
         }

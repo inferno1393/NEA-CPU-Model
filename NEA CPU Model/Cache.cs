@@ -40,8 +40,9 @@ namespace NEA_CPU_Model
         {
             if(queue.Count == capacity)
             {
-                queue.Dequeue();
-                MessageBox.Show("Dequeued");
+                address = queue.Dequeue();
+                MessageBox.Show(address);
+                cache.Remove(address);
             }
             if (IsAddressEmpty(address)) // checks if address is empty to avoid updating an existing key
             {
@@ -88,17 +89,21 @@ namespace NEA_CPU_Model
             int i = 0; // sets an interation value to 0
             foreach (var key in keys)
             {
-                MessageBox.Show(Model.cacheData[i].Text);
-                MessageBox.Show(Model.cacheAddress[i].Text);
-
-                Model.cacheData[i].Text = cache[key.ToString()].ToString();
-                Model.cacheAddress[i].Text = key.ToString();
+                if (i <= capacity-1)
+                {
+                    Model.cacheData[i].Text = cache[key.ToString()].ToString();
+                    Model.cacheAddress[i].Text = key.ToString();
+                }
                 i++;
             }
         }
 
         private Dictionary<string, int>.KeyCollection MergeSort(Dictionary<string, int>.KeyCollection keys)
         {
+            for (int i = 0; i < keys.Count; i++)
+            {
+
+            }
             return keys;
         }
     }
