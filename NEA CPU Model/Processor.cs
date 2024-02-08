@@ -14,6 +14,8 @@ namespace NEA_CPU_Model
         // uses a dictionary to implement an associative array to store the register values
         private Dictionary<string, int> registers = new Dictionary<string, int> { };
 
+        private Cache cache = new Cache();
+
         // attributes
         private int programCounter = 0; // controls which instruction is executed
         private bool repeat = true; // controls if the end of the program has been met (or an error has occured)
@@ -161,9 +163,9 @@ namespace NEA_CPU_Model
         // load the value in the 2nd operand into the 1st operand
         private void LDR(string[] values, RAM RAM)
         {
-            if (RAM.ReturnData(values[1]) != -1) // checks that the accessed address is not empty
+            if (FetchData(values[1], RAM) != -1) // checks that the accessed address is not empty
             {
-                registers[values[0]] = RAM.ReturnData(values[1]); // sets the appropriate register to the value fetched from RAM
+                registers[values[0]] = FetchData(values[1], RAM); // sets the appropriate register to the value fetched from RAM
                 UpdateInterface(values[0], registers[values[0]]); // updates the interface accordingly
             }
             else // address is empty, exit out
@@ -179,14 +181,14 @@ namespace NEA_CPU_Model
             if (values[0].Contains('#')) // if the value in the 1st operand is a hard value
             {
                 values[0] = values[0].Replace("#", ""); // removes the # from the operand
-                RAM.StoreData(values[1], Convert.ToInt32(values[0])); // stores the data in the appropriate RAM address
+                WriteData(values[1], Convert.ToInt32(values[0]), RAM); // stores the data in the appropriate RAM address
             }
             else // else the value in the 1st operand is a register
             {
                 values[0] = values[0].Replace("R", ""); // removes the R from the operand
                 if (registers.ContainsKey(values[0])) // checks that the accessed register is not empty
                 {
-                    RAM.StoreData(values[1], registers[values[0]]); // stores the data in the appropriate RAM address
+                    WriteData(values[1], registers[values[0]], RAM); // stores the data in the appropriate RAM address
                 }
                 else // address is empty, exit out
                 {
@@ -238,9 +240,9 @@ namespace NEA_CPU_Model
             }
             else // else the value in the 3rd operand is a RAM address
             {
-                if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1) // checks that the accessed register and RAM address is not empty
+                if (registers.ContainsKey(values[1]) && FetchData(values[2], RAM) != -1) // checks that the accessed register and RAM address is not empty
                 {
-                    result = registers[values[1]] + RAM.ReturnData(values[2]); // calculates the result
+                    result = registers[values[1]] + FetchData(values[2], RAM); // calculates the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -297,9 +299,9 @@ namespace NEA_CPU_Model
             }
             else // else the value in the 3rd operand is a RAM address
             {
-                if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1) // checks that the accessed register and RAM address is not empty
+                if (registers.ContainsKey(values[1]) && FetchData(values[2], RAM) != -1) // checks that the accessed register and RAM address is not empty
                 {
-                    result = RAM.ReturnData(values[2]) - registers[values[1]]; // calculates the result
+                    result = FetchData(values[2], RAM) - registers[values[1]]; // calculates the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -348,13 +350,13 @@ namespace NEA_CPU_Model
             }
             else // else the value in the 2nd operand is a RAM address
             {
-                if (registers.ContainsKey(values[0]) && RAM.ReturnData(values[1]) != -1)// checks that the accessed register and RAM address is not empty
+                if (registers.ContainsKey(values[0]) && FetchData(values[1], RAM) != -1)// checks that the accessed register and RAM address is not empty
                 {
-                    registers[values[0]] = RAM.ReturnData(values[1]); // if the address already has a value replace it
+                    registers[values[0]] = FetchData(values[1], RAM); // if the address already has a value replace it
                 }
-                else if (RAM.ReturnData(values[1]) != -1)
+                else if (FetchData(values[1], RAM) != -1)
                 {
-                    registers.Add(values[0], RAM.ReturnData(values[1])); // else add the address and its value to the dictionary
+                    registers.Add(values[0], FetchData(values[1], RAM)); // else add the address and its value to the dictionary
                 }
                 else // address is empty, exit out
                 {
@@ -425,21 +427,21 @@ namespace NEA_CPU_Model
             }
             else  // else the value in the 2nd operand is a RAM address
             {
-                if (registers.ContainsKey(values[0]) && RAM.ReturnData(values[1]) != -1) // checks that the accessed register and RAM address are not empty
+                if (registers.ContainsKey(values[0]) && FetchData(values[1], RAM) != -1) // checks that the accessed register and RAM address are not empty
                 {
-                    if (registers[values[0]] == RAM.ReturnData(values[1])) // records the result of the comparison in the temp variable
+                    if (registers[values[0]] == FetchData(values[1], RAM)) // records the result of the comparison in the temp variable
                     {
                         temp = "EQ";
                     }
-                    if (registers[values[0]] != RAM.ReturnData(values[1]))
+                    if (registers[values[0]] != FetchData(values[1], RAM))
                     {
                         temp = "NE";
                     }
-                    else if (registers[values[0]] > RAM.ReturnData(values[1]))
+                    else if (registers[values[0]] > FetchData(values[1], RAM))
                     {
                         temp = "GT";
                     }
-                    else if (registers[values[0]] < RAM.ReturnData(values[1]))
+                    else if (registers[values[0]] < FetchData(values[1], RAM))
                     {
                         temp = "LT";
                     }
@@ -525,9 +527,9 @@ namespace NEA_CPU_Model
             }
             else // else the value in the 3rd operand is a RAM address
             {
-                if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1) // checks that the accessed register and RAM address are not empty
+                if (registers.ContainsKey(values[1]) && FetchData(values[2], RAM) != -1) // checks that the accessed register and RAM address are not empty
                 {
-                    result = BinaryLogic(registers[values[1]], RAM.ReturnData(values[2]), "AND"); // calcultes the result
+                    result = BinaryLogic(registers[values[1]], FetchData(values[2], RAM), "AND"); // calcultes the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -584,9 +586,9 @@ namespace NEA_CPU_Model
             }
             else // else the value in the 3rd operand is a RAM address
             {
-                if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1) // checks that the accessed register and RAM address are not empty
+                if (registers.ContainsKey(values[1]) && FetchData(values[2], RAM) != -1) // checks that the accessed register and RAM address are not empty
                 {
-                    result = BinaryLogic(registers[values[1]], RAM.ReturnData(values[2]), "OR"); // calcultes the result
+                    result = BinaryLogic(registers[values[1]], FetchData(values[2], RAM), "OR"); // calcultes the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -643,9 +645,9 @@ namespace NEA_CPU_Model
             }
             else // else the value in the 3rd operand is a RAM address
             {
-                if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1) // checks that the accessed register and RAM address are not empty
+                if (registers.ContainsKey(values[1]) && FetchData(values[2], RAM) != -1) // checks that the accessed register and RAM address are not empty
                 {
-                    result = BinaryLogic(registers[values[1]], RAM.ReturnData(values[2]), "EOR"); // calcultes the result
+                    result = BinaryLogic(registers[values[1]], FetchData(values[2], RAM), "EOR"); // calcultes the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -705,9 +707,9 @@ namespace NEA_CPU_Model
             }
             else // else the value in the 3rd operand is a RAM address
             {
-                if (RAM.ReturnData(values[1]) != -1) // checks that the accessed RAM address is not empty
+                if (FetchData(values[1], RAM) != -1) // checks that the accessed RAM address is not empty
                 {
-                    BinaryLogic(RAM.ReturnData(values[1]), 0, "MVN"); // calculates the result
+                    BinaryLogic(FetchData(values[1], RAM), 0, "MVN"); // calculates the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -768,10 +770,10 @@ namespace NEA_CPU_Model
             }
             else // else the value in the 3rd operand is a RAM address
             {
-                if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
+                if (registers.ContainsKey(values[1]) && FetchData(values[2], RAM) != -1)
                 {
                     result = registers[values[1]];
-                    for (int i = 0; i < RAM.ReturnData(values[2]); i++)
+                    for (int i = 0; i < FetchData(values[2], RAM); i++)
                     {
                         result *= 2;
                     }
@@ -833,10 +835,10 @@ namespace NEA_CPU_Model
             }
             else // else the value in the 3rd operand is a RAM address
             {
-                if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1)
+                if (registers.ContainsKey(values[1]) && FetchData(values[2], RAM) != -1)
                 {
                     result = registers[values[1]];
-                    for (int i = 0; i < RAM.ReturnData(values[2]); i++)
+                    for (int i = 0; i < FetchData(values[2], RAM); i++)
                     {
                         result *= 2;
                     }
@@ -958,28 +960,34 @@ namespace NEA_CPU_Model
             {
                 return binaryNumber[i] - '0';
             }
-            else // 
+            else // else left shift the value by the addition of the length and the recursive call
             {
-                return (binaryNumber[i] - '0') << (length-i-1) + findDecimal(binaryNumber, i +1);
+                return (binaryNumber[i] - '0') << (length-i-1) + findDecimal(binaryNumber, i +1); // << means perform a left shift
             }
         }
 
         // fetches data from RAM
         private int FetchData(string address, RAM RAM)
         {
-            return RAM.ReturnData(address); // return the value stored in RAM at the given address
+            if(cache.ReturnData(address) != -1) // if the address is stored in cache, return the value stored in cache at the given address
+            {
+                return cache.ReturnData(address);
+            }
+            return RAM.ReturnData(address); // else return the value stored in RAM at the given address
         }
 
         // writes data to RAM
         private void WriteData(string address, int data, RAM RAM)
         {
             RAM.StoreData(address, data); // store the given data in the given address in RAM
+            cache.StoreData(address, data); // also store the given data in the given address in cache
         }
 
         // clears the current instance of registers and cache
         public void Clear()
         {
             registers = new Dictionary<string, int>(); // resets registers back to an empty dictionary
+            cache.Clear(); // resets cache
         }
 
         // adds the address/data that just got changed to the interface
