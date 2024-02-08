@@ -10,7 +10,7 @@ namespace NEA_CPU_Model
     internal class AbstractProcessor
     {
         // controls the flow of instructions/data around the CPU
-        public virtual void Flow(List<string> instructions, RAM RAM, bool loop)
+        public virtual void FlowOfInstructions(List<string> instructions, RAM RAM, bool loop)
         {
             // is overriden by the child class
             // controls whether the code needs to execute all instructions or one instruction

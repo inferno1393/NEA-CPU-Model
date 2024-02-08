@@ -250,7 +250,7 @@ namespace NEA_CPU_Model
             if (parsingOutput == "Valid")
             {
                 // code has compiled correctly, execute
-                processor.Flow(instructions, RAM, loop);
+                processor.FlowOfInstructions(instructions, RAM, loop);
                 WriteToFile(instructions); // writes the instructions into a textfile
             }
             else

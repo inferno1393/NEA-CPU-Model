@@ -28,7 +28,7 @@ namespace NEA_CPU_Model
 
         // splits the instructions into each instruction and then into opcode and operand
         // then controls the CPU components in executing the instruction
-        public override void Flow(List<string> instructions, RAM RAM, bool loop)
+        public override void FlowOfInstructions(List<string> instructions, RAM RAM, bool loop)
         {
             repeat = true;
             // code needs to execute all instructions at once
