@@ -74,7 +74,7 @@ namespace NEA_CPU_Model
                 Program.model.cirText.Text = opcode;
                 Program.model.programCounterText.Text = programCounter.ToString();
 
-                DecodeInstruction(opcode, values, RAM, instructions); // call point for the actual execution of the instruction
+                DecodeInstruction(opcode, values, RAM, instructions); // call point for the decoding of the instruction
             }
             // else a colon is present so it should ignore it
         }
@@ -922,33 +922,33 @@ namespace NEA_CPU_Model
         }
 
         // converts input to binary
-        private string denToBin(int v)
+        private string denToBin(int value)
         {
-            string r = string.Empty;
-            for (int i = 0; i < 8; i++)
+            string result = string.Empty;
+            for (int i = 0; i < binary.Length; i++)
             {
-                if (v >= binary[i])
+                if (value >= binary[i])
                 {
-                    r += '1';
-                    v -= binary[i];
+                    result += '1';
+                    value -= binary[i];
                 }
             }
-            return r;
+            return result;
         }
         // converts input to denary
-        private int binToDen(string v)
+        private int binToDen(string value)
         {
 
-            int r = 0;
-            for (int i = 0; i < 8; i++)
+            int result = 0;
+            for (int i = 0; i < binary.Length; i++)
             {
-                if (Convert.ToInt32(v) >= binary[i])
+                if (Convert.ToInt32(value) >= binary[i])
                 {
-                    r += binary[i];
-                    v = (Convert.ToInt32(v) - binary[i]).ToString();
+                    result += binary[i];
+                    value = (Convert.ToInt32(value) - binary[i]).ToString();
                 }
             }
-            return r;
+            return result;
         }
 
         // clears the current instance of memory
