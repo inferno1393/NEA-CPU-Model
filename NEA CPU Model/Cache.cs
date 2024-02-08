@@ -72,12 +72,13 @@ namespace NEA_CPU_Model
             return true;
         }
 
-
+        // clears the current instance of cache
         public void Clear()
         {
             cache = new Dictionary<string, int>() { };
         }
 
+        // orders the addresses in cache in ascending numerical order and the displays them to the interface
         private void UpdateInterface()
         {
             // creates a dictionary containing the keys currently in cache
