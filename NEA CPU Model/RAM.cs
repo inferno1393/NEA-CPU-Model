@@ -57,6 +57,12 @@ namespace NEA_CPU_Model
             return true;
         }
 
+        // clears the current instance of memory
+        public void Clear()
+        {
+            memory = new Dictionary<string, int>(); // resets memory back to an empty dictionary
+        }
+
         // adds the address/data that just got changed to the interface
         private void UpdateInterface(string address, int data)
         {

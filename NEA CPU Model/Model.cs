@@ -94,7 +94,7 @@ namespace NEA_CPU_Model
             this.Size = Screen.PrimaryScreen.WorkingArea.Size;
         }
 
-        // parses the instructions and then executes them
+        // parses the instructions and then executes them on appropriate button click
         private void executeBtn_Click(object sender, EventArgs e)
         {
             executeBtn.Enabled = false; // disables the button to prevent spamming
@@ -104,7 +104,7 @@ namespace NEA_CPU_Model
             executeBtn.Enabled = true; // renables the button ready for next use
         }
 
-        // allows the user to step through the code instruction by instruction
+        // allows the user to step through the code instruction by instruction on appropriate button click
         private void stepBtn_Click(object sender, EventArgs e)
         {
             stepBtn.Enabled = false; // disables the button to prevent spamming
@@ -114,7 +114,7 @@ namespace NEA_CPU_Model
             stepBtn.Enabled = true; // renables the button ready for next use
         }
 
-        // allows the user to load instructions from a text file
+        // allows the user to load instructions from a text file on appropriate button click
         private void loadBtn_Click(object sender, EventArgs e)
         {
             loadBtn.Enabled = false; // disables the button to prevent spamming
@@ -133,15 +133,34 @@ namespace NEA_CPU_Model
         }
 
 
-        // 
+        // resets the RAM, registers and cache to be empty on appropriate button click
         private void resetBtn_Click(object sender, EventArgs e)
         {
+            resetBtn.Enabled = false; // disables the button to prevent spamming
 
+            RAM.Clear(); // calls a method to clear RAM
+            processor.Clear(); // calls a method to clear registers and cache
+
+            // updates the interface to show that the registers have been cleared
+            for (int i = 0; i < registersData.Count(); i++)
+            {
+                registersData[i].Text = "";
+            }
+
+            // updates the interface to show that the RAM has been cleared
+            for (int i = 0; i < ramData.Count(); i++)
+            {
+                ramData[i].Text = "";
+            }
+
+            resetBtn.Enabled = true; // renables the button ready for next use
         }
 
-        // updates the background colours to the value in the colourBox menu
+        // updates the background colours to the value in the colourBox menu on appropriate button click
         private void updateColour_Click(object sender, EventArgs e)
         {
+            updateColour.Enabled = false; // disables the button to prevent spamming
+
             // sets background colour to user input
             string text = colourBox.Text.ToLower(); // changes the case to be all lower to avoid being case sensitive
             if (colours.ContainsKey(text)) // checks colour is valid using a dictionary
@@ -152,11 +171,15 @@ namespace NEA_CPU_Model
             {
                 MessageBox.Show("Invalid colour");
             }
+
+            updateColour.Enabled = true; // renables the button ready for next use
         }
 
         // updates RAM index on appropriate button click
         private void updateRam_Click(object sender, EventArgs e)
         {
+            updateRam.Enabled = false; // disables the button to prevent spamming
+
             // tries to convert inputted indexes to integers for use
             bool converted = int.TryParse(ramIndexText.Text, out ramIndex);
             if (!converted) // was not successfully converted
@@ -172,11 +195,15 @@ namespace NEA_CPU_Model
                     ramAddress[i].Text = (ramIndex + i).ToString();
                 }
             }
+
+            updateRam.Enabled = true; // renables the button ready for next use
         }
 
         // updates Register index on appropriate button click
         private void updateRegister_Click(object sender, EventArgs e)
         {
+            updateRegister.Enabled = false; // disables the button to prevent spamming
+
             bool converted = int.TryParse(registerIndexText.Text, out registerIndex);
             if (!converted) // not successfully converted
             {
@@ -191,6 +218,8 @@ namespace NEA_CPU_Model
                     registerAddress[i].Text = (registerIndex + i).ToString();
                 }
             }
+
+            updateRegister.Enabled = true; // renables the button ready for next use
         }
 
         // creates the instructions from the textbox in the interface, parses and then executes them (if valid)

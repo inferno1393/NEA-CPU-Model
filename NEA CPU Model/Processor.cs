@@ -912,6 +912,12 @@ namespace NEA_CPU_Model
             return r;
         }
 
+        // clears the current instance of memory
+        public void Clear()
+        {
+            registers = new Dictionary<string, int>(); // resets registers back to an empty dictionary
+        }
+
         // adds the address/data that just got changed to the interface
         private void UpdateInterface(string register, int data)
         {
