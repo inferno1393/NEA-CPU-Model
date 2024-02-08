@@ -60,11 +60,8 @@ namespace NEA_CPU_Model
         {
             string instruction = instructions[programCounter]; // gets current instruction
             programCounter++; // increments program counter for next cycle
-            if (instruction.Contains(':')) // since a colon is present the instruction is a label
-            {
-                // so should be ignored
-            }
-            else
+
+            if (!instruction.Contains(':')) // checks if a colon is present the instruction is a label
             {
                 // splits the instruction into opcode and operand
                 string opcode = Parser.GetOpcode(instruction);
@@ -78,8 +75,8 @@ namespace NEA_CPU_Model
                 Program.model.programCounterText.Text = programCounter.ToString();
 
                 DecodeInstruction(opcode, values, RAM, instructions); // call point for the actual execution of the instruction
-                
             }
+            // else a colon is present so it should ignore it
         }
 
         // decodes the instruction given and calls the appropriate subroutine to execute it
