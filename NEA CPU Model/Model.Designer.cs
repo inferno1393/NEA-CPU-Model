@@ -105,6 +105,9 @@
             registerIndexText = new TextBox();
             label11 = new Label();
             colourBox = new ComboBox();
+            updateColour = new Button();
+            updateRam = new Button();
+            updateRegister = new Button();
             SuspendLayout();
             // 
             // instructionsTextBox
@@ -792,11 +795,44 @@
             colourBox.TabIndex = 92;
             colourBox.Text = "Select Colour";
             // 
+            // updateColour
+            // 
+            updateColour.Location = new Point(12, 962);
+            updateColour.Name = "updateColour";
+            updateColour.Size = new Size(182, 75);
+            updateColour.TabIndex = 93;
+            updateColour.Text = "Update Colour";
+            updateColour.UseVisualStyleBackColor = true;
+            updateColour.Click += updateColour_Click;
+            // 
+            // updateRam
+            // 
+            updateRam.Location = new Point(210, 959);
+            updateRam.Name = "updateRam";
+            updateRam.Size = new Size(150, 78);
+            updateRam.TabIndex = 94;
+            updateRam.Text = "Update RAM Index";
+            updateRam.UseVisualStyleBackColor = true;
+            updateRam.Click += updateRam_Click;
+            // 
+            // updateRegister
+            // 
+            updateRegister.Location = new Point(439, 961);
+            updateRegister.Name = "updateRegister";
+            updateRegister.Size = new Size(158, 75);
+            updateRegister.TabIndex = 95;
+            updateRegister.Text = "Update Register Index";
+            updateRegister.UseVisualStyleBackColor = true;
+            updateRegister.Click += updateRegister_Click;
+            // 
             // Model
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1898, 1144);
+            Controls.Add(updateRegister);
+            Controls.Add(updateRam);
+            Controls.Add(updateColour);
             Controls.Add(colourBox);
             Controls.Add(label11);
             Controls.Add(registerIndexText);
@@ -963,5 +999,8 @@
         private TextBox ramIndexText;
         private Label label11;
         private ComboBox colourBox;
+        private Button updateColour;
+        private Button updateRam;
+        private Button updateRegister;
     }
 }

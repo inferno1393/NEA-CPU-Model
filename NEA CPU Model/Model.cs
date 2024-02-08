@@ -8,7 +8,7 @@ namespace NEA_CPU_Model
 
         // creates array of avaiable text boxes for registers
         static public TextBox[] registersData =
-        {   
+        {
             Program.model.RData0,
             Program.model.RData1,
             Program.model.RData2,
@@ -34,7 +34,7 @@ namespace NEA_CPU_Model
 
         // creates array of avaiable text boxes for RAM
         static public TextBox[] ramData =
-        {   
+        {
             Program.model.Data0,
             Program.model.Data1,
             Program.model.Data2,
@@ -54,7 +54,7 @@ namespace NEA_CPU_Model
         };
 
         // creates array of avaiable labels for RAM
-        static private Label[] ramAddress = 
+        static private Label[] ramAddress =
         {
             Program.model.ramAddress0,
             Program.model.ramAddress1,
@@ -100,7 +100,7 @@ namespace NEA_CPU_Model
             executeBtn.Enabled = false; // disables the button to prevent spamming
 
             Process(true); // calls to execute with looping
-            
+
             executeBtn.Enabled = true; // renables the button ready for next use
         }
 
@@ -135,15 +135,6 @@ namespace NEA_CPU_Model
         // creates the instructions from the textbox in the interface, parses and then executes them (if valid)
         private void Process(bool loop)
         {
-            IndexRead(); // call for reading then writing the index start points for RAM and register addresses
-
-            // sets background colour to user input
-            string text = colourBox.Text.ToLower();
-            if (colours.ContainsKey(text))
-            {
-                Program.model.BackColor = colours[text];
-            }
-
             // creates the List (and puts the values in the text box into it) and Stack necessary for parsing
             List<string> instructions = instructionsTextBox.Text.Split('\n').ToList<string>();
             StackArray<string> splitInstructions = new StackArray<string>();
@@ -175,52 +166,6 @@ namespace NEA_CPU_Model
 
         }
 
-        // uses the inputted indexes for RAM and Register start points
-        // to make the range of addresses changeable
-        private void IndexRead()
-        {
-            // tries to convert inputted indexes to integers for use
-            bool converted = false;
-            converted = int.TryParse(ramIndexText.Text, out ramIndex);
-            if (converted)
-            {
-                // successfully converted
-            }
-            else // not successfully converted
-            {
-                MessageBox.Show("RAM Start Index value invalid");
-            }
-
-            converted = int.TryParse(registerIndexText.Text, out registerIndex);
-            if (converted)
-            {
-                // successfully converted
-            }
-            else // not successfully converted
-            {
-                MessageBox.Show("Register Start Index value invalid");
-            }
-
-            IndexWrite();
-        }
-
-        // updates the addresses in the interface to update the new indexes
-        private void IndexWrite()
-        {
-            // updates RAM
-            for (int i = 0; i < ramAddress.Count(); i++)
-            {
-                ramAddress[i].Text = (ramIndex + i).ToString();
-            }
-
-            // updates registers
-            for (int i = 0; i < registerAddress.Count(); i++)
-            {
-                registerAddress[i].Text = (registerIndex + i).ToString();
-            }
-        }
-
-
         // writes the instructions to a textfile
         private void WriteToFile(List<string> instructions)
         {
@@ -248,6 +193,60 @@ namespace NEA_CPU_Model
             reader.Close(); // closes the file to avoid errors
             return instructions; // returns the list of instructions
 
+        }
+
+        // updates the background colours to the value in the colourBox menu
+        private void updateColour_Click(object sender, EventArgs e)
+        {
+            // sets background colour to user input
+            string text = colourBox.Text.ToLower(); // changes the case to be all lower to avoid being case sensitive
+            if (colours.ContainsKey(text)) // checks colour is valid using a dictionary
+            {
+                Program.model.BackColor = colours[text];
+            }
+            else // colour is not valid
+            {
+                MessageBox.Show("Invalid colour");
+            }
+        }
+
+        // updates RAM index on appropriate button click
+        private void updateRam_Click(object sender, EventArgs e)
+        {
+            // tries to convert inputted indexes to integers for use
+            bool converted = int.TryParse(ramIndexText.Text, out ramIndex);
+            if (!converted) // was not successfully converted
+            {
+                MessageBox.Show("RAM Start Index value invalid");
+            }
+
+            // updates the RAM Addresses in the interface to update to the new indexes
+            if (converted) // index was successfully converted so continue to update interface
+            {
+                for (int i = 0; i < ramAddress.Count(); i++)
+                {
+                    ramAddress[i].Text = (ramIndex + i).ToString();
+                }
+            }
+        }
+
+        // updates Register index on appropriate button click
+        private void updateRegister_Click(object sender, EventArgs e)
+        {
+            bool converted = int.TryParse(registerIndexText.Text, out registerIndex);
+            if (!converted) // not successfully converted
+            {
+                MessageBox.Show("Register Start Index value invalid");
+            }
+
+            // updates the registers in the interface to update to the new indexes
+            if (converted) // index was successfully converted so continue to update interface
+            {
+                for (int i = 0; i < registerAddress.Count(); i++)
+                {
+                    registerAddress[i].Text = (registerIndex + i).ToString();
+                }
+            }
         }
     }
 }
