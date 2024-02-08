@@ -77,13 +77,13 @@ namespace NEA_CPU_Model
                 Program.model.cirText.Text = opcode;
                 Program.model.programCounterText.Text = programCounter.ToString();
 
-                Decode(opcode, values, RAM, instructions); // call point for the actual execution of the instruction
+                DecodeInstruction(opcode, values, RAM, instructions); // call point for the actual execution of the instruction
                 
             }
         }
 
         // decodes the instruction given and calls the appropriate subroutine to execute it
-        protected override void Decode(string opcode, string[] values, RAM RAM, List<string> instructions)
+        protected override void DecodeInstruction(string opcode, string[] values, RAM RAM, List<string> instructions)
         {
             // calls the appropriate subroutine and passes in the necessary values
             switch (opcode)

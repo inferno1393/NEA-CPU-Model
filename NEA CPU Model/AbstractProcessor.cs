@@ -28,7 +28,7 @@ namespace NEA_CPU_Model
         }
 
         // decodes the instruction given and calls the appropriate subroutine to execute it
-        protected virtual void Decode(string opcode, string[] values, RAM RAM, List<string> instructions)
+        protected virtual void DecodeInstruction(string opcode, string[] values, RAM RAM, List<string> instructions)
         {
             // is overriden by the child class
             // contains switch-case which calls the appropriate subroutine and gives it the data
