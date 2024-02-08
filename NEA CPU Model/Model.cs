@@ -138,7 +138,7 @@ namespace NEA_CPU_Model
             IndexRead(); // call for reading then writing the index start points for RAM and register addresses
 
             // sets background colour to user input
-            string text = backColour.Text.ToLower();
+            string text = colourBox.Text.ToLower();
             if (colours.ContainsKey(text))
             {
                 Program.model.BackColor = colours[text];

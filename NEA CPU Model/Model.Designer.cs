@@ -104,7 +104,7 @@
             ramIndexText = new TextBox();
             registerIndexText = new TextBox();
             label11 = new Label();
-            backColour = new TextBox();
+            colourBox = new ComboBox();
             SuspendLayout();
             // 
             // instructionsTextBox
@@ -562,7 +562,7 @@
             // registerAddress7
             // 
             registerAddress7.AutoSize = true;
-            registerAddress7.Location = new Point(689, 717);
+            registerAddress7.Location = new Point(689, 711);
             registerAddress7.Name = "registerAddress7";
             registerAddress7.Size = new Size(22, 25);
             registerAddress7.TabIndex = 65;
@@ -621,7 +621,7 @@
             // ramAddress10
             // 
             ramAddress10.AutoSize = true;
-            ramAddress10.Location = new Point(1486, 711);
+            ramAddress10.Location = new Point(1494, 708);
             ramAddress10.Name = "ramAddress10";
             ramAddress10.Size = new Size(32, 25);
             ramAddress10.TabIndex = 72;
@@ -630,7 +630,7 @@
             // ramAddress11
             // 
             ramAddress11.AutoSize = true;
-            ramAddress11.Location = new Point(1486, 763);
+            ramAddress11.Location = new Point(1494, 760);
             ramAddress11.Name = "ramAddress11";
             ramAddress11.Size = new Size(32, 25);
             ramAddress11.TabIndex = 73;
@@ -639,7 +639,7 @@
             // ramAddress12
             // 
             ramAddress12.AutoSize = true;
-            ramAddress12.Location = new Point(1486, 828);
+            ramAddress12.Location = new Point(1494, 825);
             ramAddress12.Name = "ramAddress12";
             ramAddress12.Size = new Size(32, 25);
             ramAddress12.TabIndex = 74;
@@ -648,7 +648,7 @@
             // ramAddress13
             // 
             ramAddress13.AutoSize = true;
-            ramAddress13.Location = new Point(1486, 897);
+            ramAddress13.Location = new Point(1494, 894);
             ramAddress13.Name = "ramAddress13";
             ramAddress13.Size = new Size(32, 25);
             ramAddress13.TabIndex = 75;
@@ -657,7 +657,7 @@
             // ramAddress14
             // 
             ramAddress14.AutoSize = true;
-            ramAddress14.Location = new Point(1486, 953);
+            ramAddress14.Location = new Point(1494, 953);
             ramAddress14.Name = "ramAddress14";
             ramAddress14.Size = new Size(32, 25);
             ramAddress14.TabIndex = 76;
@@ -666,7 +666,7 @@
             // ramAddress15
             // 
             ramAddress15.AutoSize = true;
-            ramAddress15.Location = new Point(1486, 1012);
+            ramAddress15.Location = new Point(1494, 1009);
             ramAddress15.Name = "ramAddress15";
             ramAddress15.Size = new Size(32, 25);
             ramAddress15.TabIndex = 77;
@@ -778,24 +778,26 @@
             label11.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
             label11.Location = new Point(12, 866);
             label11.Name = "label11";
-            label11.Size = new Size(163, 25);
+            label11.Size = new Size(167, 25);
             label11.TabIndex = 90;
-            label11.Text = "Background Colour";
+            label11.Text = "Background Colour:";
             // 
-            // backColour
+            // colourBox
             // 
-            backColour.Location = new Point(12, 916);
-            backColour.Name = "backColour";
-            backColour.Size = new Size(150, 31);
-            backColour.TabIndex = 91;
-            backColour.Text = "White";
+            colourBox.FormattingEnabled = true;
+            colourBox.Items.AddRange(new object[] { "Blue", "Red", "Green", "White" });
+            colourBox.Location = new Point(12, 914);
+            colourBox.Name = "colourBox";
+            colourBox.Size = new Size(182, 33);
+            colourBox.TabIndex = 92;
+            colourBox.Text = "Select Colour";
             // 
             // Model
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1898, 1144);
-            Controls.Add(backColour);
+            Controls.Add(colourBox);
             Controls.Add(label11);
             Controls.Add(registerIndexText);
             Controls.Add(ramIndexText);
@@ -960,6 +962,6 @@
         private Label label40;
         private TextBox ramIndexText;
         private Label label11;
-        private TextBox backColour;
+        private ComboBox colourBox;
     }
 }
