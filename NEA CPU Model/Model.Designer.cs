@@ -176,7 +176,7 @@
             loadBtn.Name = "loadBtn";
             loadBtn.Size = new Size(127, 73);
             loadBtn.TabIndex = 8;
-            loadBtn.Text = "Load";
+            loadBtn.Text = "Restore Last Instructions";
             loadBtn.UseVisualStyleBackColor = true;
             loadBtn.Click += loadBtn_Click;
             // 
