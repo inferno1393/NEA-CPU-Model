@@ -184,6 +184,10 @@ namespace NEA_CPU_Model
             {
                 return "";
             }
+            else if(GetOpcode(instruction) == " " || GetOpcode(instruction) == "")
+            {
+                return "";
+            }
             // if the Opcode starts with B, it is a branch instruction
             else if (GetOpcode(instruction)[0] == 'B')
             {
@@ -222,6 +226,11 @@ namespace NEA_CPU_Model
             if (instruction == "HALT")
             {
                 return "HALT";
+            }
+            // if the instruction is blank, return a blank opcode
+            else if(instruction == " " || instruction == "")
+            {
+                return "";
             }
             // if the Opcode starts with B, it is a branch instruction
             else if (instruction[0] == 'B')

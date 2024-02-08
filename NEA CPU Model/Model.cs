@@ -140,7 +140,7 @@ namespace NEA_CPU_Model
         {
             loadBtn.Enabled = false; // disables the button to prevent spamming
 
-            List<string> instructions = ReadFromFile(); // calls a method to load the instructions
+            List<string> instructions = ReadInstructionsFromFile(); // calls a method to load the instructions
 
             for (int i = 0; i < instructions.Count; i++) // updates the instructions textbox to show the loaded instructions
             {
@@ -279,7 +279,7 @@ namespace NEA_CPU_Model
             {
                 // code has compiled correctly, execute
                 processor.FlowOfInstructions(instructions, RAM, loop);
-                WriteToFile(instructions); // writes the instructions into a textfile
+                WriteInstructionsToFile(instructions); // writes the instructions into a textfile
             }
             else
             {
@@ -289,7 +289,7 @@ namespace NEA_CPU_Model
         }
 
         // writes the instructions to a textfile
-        private void WriteToFile(List<string> instructions)
+        private void WriteInstructionsToFile(List<string> instructions)
         {
             StreamWriter writer = new StreamWriter("Instructions.txt"); // creates instance of streamwriter for the given file
             for (int i = 0; i < instructions.Count; i++)
@@ -300,7 +300,7 @@ namespace NEA_CPU_Model
         }
 
         // reads the instructions from a textfile
-        private List<string> ReadFromFile()
+        private List<string> ReadInstructionsFromFile()
         {
             List<string> instructions = new List<string>();
             string line = string.Empty;

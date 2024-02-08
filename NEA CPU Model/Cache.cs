@@ -81,13 +81,14 @@ namespace NEA_CPU_Model
         {
             // creates a dictionary containing the keys currently in cache
             Dictionary<string, int>.KeyCollection keys = cache.Keys;
+            var sortedKeys = keys.OrderBy(key => Convert.ToInt32(key));
 
             // sorts keys into numerical order
-            MergeSort(keys);
+            keys = MergeSort(keys);
 
             // updates interface to show the new order
             int i = 0; // sets an interation value to 0
-            foreach (var key in keys)
+            foreach (var key in sortedKeys)
             {
                 if (i <= capacity-1)
                 {
@@ -100,11 +101,13 @@ namespace NEA_CPU_Model
 
         private Dictionary<string, int>.KeyCollection MergeSort(Dictionary<string, int>.KeyCollection keys)
         {
+            Dictionary<string, int> sortingKeys = new Dictionary<string, int>() { };
             for (int i = 0; i < keys.Count; i++)
             {
-
+                
             }
-            return keys;
+            Dictionary<string, int>.KeyCollection sortedKeys = sortingKeys.Keys;
+            return sortedKeys;
         }
     }
 }
