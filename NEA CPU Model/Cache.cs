@@ -19,7 +19,7 @@ namespace NEA_CPU_Model
         QueueArray<string> queue = new QueueArray<string>();
 
         // attributes
-        public int capacity = Convert.ToInt32(Program.model.cacheCapacity.Text);
+        public int capacity = 4;
 
         // returns the data of the address being accessed
         public override int ReturnData(string address)

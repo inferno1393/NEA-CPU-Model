@@ -99,10 +99,9 @@ namespace NEA_CPU_Model
             Program.model.cacheAddress7,
         };
 
-        // initializes indexes for ram, register and cache addresses
+        // initializes indexes for ram and register addresses
         static public int ramIndex = 0;
         static public int registerIndex = 0;
-        static public int cacheIndex = 0;
   
 
         // creates dictionary of accepted colours
@@ -194,6 +193,9 @@ namespace NEA_CPU_Model
             // resest the program counter to 0
             programCounterText.Text = 0.ToString();
 
+            // sets the cache capacity to the inputted value
+            Processor.cache.capacity = Convert.ToInt32(Program.model.cacheCapacity.Text);
+
             resetBtn.Enabled = true; // renables the button ready for next use
         }
 
@@ -221,7 +223,7 @@ namespace NEA_CPU_Model
         {
             updateRamBtn.Enabled = false; // disables the button to prevent spamming
 
-            // tries to convert inputted indexes to integers for use
+            // tries to convert the input into an integer for use
             bool converted = int.TryParse(ramIndexText.Text, out ramIndex);
             if (!converted) // was not successfully converted
             {
@@ -245,6 +247,7 @@ namespace NEA_CPU_Model
         {
             updateRegisterBtn.Enabled = false; // disables the button to prevent spamming
 
+            // tries to convert the input into an integer for use
             bool converted = int.TryParse(registerIndexText.Text, out registerIndex);
             if (!converted) // not successfully converted
             {
@@ -263,27 +266,18 @@ namespace NEA_CPU_Model
             updateRegisterBtn.Enabled = true; // renables the button ready for next use
         }
 
-        private void updateCacheBtn_Click(object sender, EventArgs e)
+        private void updateCacheCapacityBtn_Click(object sender, EventArgs e)
         {
-            updateCacheBtn.Enabled = false; // disables the button to prevent spamming
+            updateCacheCapacityBtn.Enabled = false; // disables the button to prevent spamming
 
-            bool converted = int.TryParse(cacheIndexText.Text, out cacheIndex);
-            if (!converted) // not successfully converted
+            // tries to convert the input into an integer for use
+            bool converted = int.TryParse(cacheCapacity.Text, out Processor.cache.capacity); 
+            if(!converted)
             {
-                MessageBox.Show("Cache Start Index value invalid");
+                MessageBox.Show("Cache Capacity value invalid");
             }
 
-            // updates the registers in the interface to update to the new indexes
-            if (converted) // index was successfully converted so continue to update interface
-            {
-                for (int i = 0; i < cacheAddress.Count(); i++)
-                {
-                    cacheAddress[i].Text = (cacheIndex + i).ToString();
-                }
-            }
-
-
-            updateCacheBtn.Enabled = true; // renables the button ready for next use
+            updateCacheCapacityBtn.Enabled = true; // renables the button ready for next use
         }
 
         // creates the instructions from the textbox in the interface, parses and then executes them (if valid)

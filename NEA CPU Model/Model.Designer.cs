@@ -119,9 +119,6 @@
             CData3 = new TextBox();
             label15 = new Label();
             cacheCapacity = new TextBox();
-            label16 = new Label();
-            cacheIndexText = new TextBox();
-            updateCacheBtn = new Button();
             cacheAddress4 = new Label();
             cacheAddress5 = new Label();
             cacheAddress6 = new Label();
@@ -130,6 +127,7 @@
             CData5 = new TextBox();
             CData6 = new TextBox();
             CData7 = new TextBox();
+            updateCacheCapacityBtn = new Button();
             SuspendLayout();
             // 
             // instructionsTextBox
@@ -930,7 +928,7 @@
             // 
             label15.AutoSize = true;
             label15.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            label15.Location = new Point(791, 866);
+            label15.Location = new Point(605, 866);
             label15.Name = "label15";
             label15.Size = new Size(140, 25);
             label15.TabIndex = 105;
@@ -938,38 +936,11 @@
             // 
             // cacheCapacity
             // 
-            cacheCapacity.Location = new Point(791, 914);
+            cacheCapacity.Location = new Point(605, 914);
             cacheCapacity.Name = "cacheCapacity";
             cacheCapacity.Size = new Size(150, 31);
             cacheCapacity.TabIndex = 106;
             cacheCapacity.Text = "4";
-            // 
-            // label16
-            // 
-            label16.AutoSize = true;
-            label16.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            label16.Location = new Point(605, 866);
-            label16.Name = "label16";
-            label16.Size = new Size(154, 25);
-            label16.TabIndex = 107;
-            label16.Text = "Cache Start Index:";
-            // 
-            // cacheIndexText
-            // 
-            cacheIndexText.Location = new Point(609, 914);
-            cacheIndexText.Name = "cacheIndexText";
-            cacheIndexText.Size = new Size(150, 31);
-            cacheIndexText.TabIndex = 108;
-            cacheIndexText.Text = "0";
-            // 
-            // updateCacheBtn
-            // 
-            updateCacheBtn.Location = new Point(609, 959);
-            updateCacheBtn.Name = "updateCacheBtn";
-            updateCacheBtn.Size = new Size(159, 75);
-            updateCacheBtn.TabIndex = 109;
-            updateCacheBtn.Text = "Update Cache Index";
-            updateCacheBtn.UseVisualStyleBackColor = true;
             // 
             // cacheAddress4
             // 
@@ -1039,11 +1010,21 @@
             CData7.Size = new Size(150, 31);
             CData7.TabIndex = 117;
             // 
+            // updateCacheCapacityBtn
+            // 
+            updateCacheCapacityBtn.Location = new Point(605, 959);
+            updateCacheCapacityBtn.Name = "updateCacheCapacityBtn";
+            updateCacheCapacityBtn.Size = new Size(150, 75);
+            updateCacheCapacityBtn.TabIndex = 118;
+            updateCacheCapacityBtn.Text = "Update Cache Capacity";
+            updateCacheCapacityBtn.UseVisualStyleBackColor = true;
+            // 
             // Model
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1898, 1144);
+            Controls.Add(updateCacheCapacityBtn);
             Controls.Add(CData7);
             Controls.Add(CData6);
             Controls.Add(CData5);
@@ -1052,9 +1033,6 @@
             Controls.Add(cacheAddress6);
             Controls.Add(cacheAddress5);
             Controls.Add(cacheAddress4);
-            Controls.Add(updateCacheBtn);
-            Controls.Add(cacheIndexText);
-            Controls.Add(label16);
             Controls.Add(cacheCapacity);
             Controls.Add(label15);
             Controls.Add(CData3);
@@ -1250,9 +1228,6 @@
         public TextBox CData3;
         private Label label15;
         public TextBox cacheCapacity;
-        private Label label16;
-        private TextBox cacheIndexText;
-        private Button updateCacheBtn;
         private TextBox textBox3;
         private TextBox textBox6;
         public TextBox CData4;
@@ -1263,5 +1238,6 @@
         public Label cacheAddress6;
         public Label cacheAddress7;
         public TextBox CData7;
+        private Button updateCacheCapacityBtn;
     }
 }
