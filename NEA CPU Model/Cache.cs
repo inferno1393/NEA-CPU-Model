@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -74,7 +75,13 @@ namespace NEA_CPU_Model
 
         private void UpdateInterface(string address, int data)
         {
-
+            int addr = Convert.ToInt32(address);
+            // if address is within the range of available addresses
+            if (addr >= Model.cacheIndex && addr <= (Model.cacheIndex + Model.cacheData.Count()))
+            {
+                Model.cacheData[addr - Model.cacheIndex].Text = data.ToString();
+            }
+            // else address is not within range so do nothing
         }
 
     }

@@ -83,9 +83,10 @@ namespace NEA_CPU_Model
             Program.model.CData3,
         };
 
-        // initializes indexes for ram and register addresses
+        // initializes indexes for ram, register and cache addresses
         static public int ramIndex = 0;
         static public int registerIndex = 0;
+        static public int cacheIndex = 0;
 
         // creates dictionary of accepted colours
         private Dictionary<string, Color> colours = new Dictionary<string, Color>
