@@ -43,14 +43,13 @@ namespace NEA_CPU_Model
         };
 
         // constructor
-        public Parser(List<string> instructions, StackArray<string> splitInstructions)
+        public Parser(List<string> instructions)
         {
-            this.splitInstructions = splitInstructions;
             this.instructions = instructions;
         }
 
         // returns a string showing the validity of the instructions
-        public string ParseInstructions(List<string> instructions, StackArray<string> splitInstructions)
+        public string ParseInstructions(List<string> instructions)
         {
             int count = instructions.Count - 1;
             // splits the instructions in the queue into Opcode and Operand

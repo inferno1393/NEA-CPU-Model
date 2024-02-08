@@ -242,8 +242,8 @@ namespace NEA_CPU_Model
             }
 
             // creates an instance of the Parser class and uses it to check the instructions are valid
-            Parser parser = new Parser(instructions, splitInstructions);
-            string parsingOutput = parser.ParseInstructions(instructions, splitInstructions);
+            Parser parser = new Parser(instructions);
+            string parsingOutput = parser.ParseInstructions(instructions);
 
             // takes the output of the parsing and either sends the instructions to be executed
             // or shows the error to the user
