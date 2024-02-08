@@ -18,7 +18,6 @@ namespace NEA_CPU_Model
         private int programCounter = 0; // controls which instruction is executed
         private bool repeat = true; // controls if the end of the program has been met (or an error has occured)
         private string temp = string.Empty; // temporary value for comparisons/branching
-        private int[] binary = { 128, 64, 32, 16, 8, 4, 2, 1 }; // int array for 8 bit binary conversion
 
         // constructor
         public Processor()
@@ -924,31 +923,45 @@ namespace NEA_CPU_Model
         // converts input to binary
         private string denToBin(int value)
         {
-            string result = string.Empty;
-            for (int i = 0; i < binary.Length; i++)
-            {
-                if (value >= binary[i])
-                {
-                    result += '1';
-                    value -= binary[i];
-                }
-            }
+            string result = " ";
+            result = findBinary(value).ToString(); // calls recursive convertor
             return result;
         }
+
         // converts input to denary
         private int binToDen(string value)
         {
-
             int result = 0;
-            for (int i = 0; i < binary.Length; i++)
-            {
-                if (Convert.ToInt32(value) >= binary[i])
-                {
-                    result += binary[i];
-                    value = (Convert.ToInt32(value) - binary[i]).ToString();
-                }
-            }
+            result = findDecimal(value); // calls recursive convertor
             return result;
+        }
+
+        // finds the given binary number for a denary input using recursion
+        private int findBinary(int denaryNumber)
+        {
+            if (denaryNumber == 0)
+            {
+                return 0;
+            }
+            else
+            {
+                return (denaryNumber % 2 + 10 * findBinary(denaryNumber / 2));
+            }
+        }
+
+
+        // finds the given decimal number for a binary input using recursion
+        private int findDecimal(string binaryNumber, int i=0)
+        {
+            int length = binaryNumber.Length;
+            if (i == length-1)
+            {
+                return binaryNumber[i] - '0';
+            }
+            else
+            {
+                return (binaryNumber[i] - '0') << (length-i-1) + findDecimal(binaryNumber, i +1);
+            }
         }
 
         // fetches data from RAM
