@@ -9,9 +9,12 @@ namespace NEA_CPU_Model
 {
     public class StackArray<T>
     {
+        // attributes
         private int capacity;
         private T[] arrayStack;
         private int top;
+
+        // allows read-only access to count
         public int Count { get { return top + 1; } }
 
         // constructor
@@ -19,6 +22,7 @@ namespace NEA_CPU_Model
         {
         }
 
+        // initializes attributes
         public StackArray(int capacity)
         {
             arrayStack = new T[capacity];
