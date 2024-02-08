@@ -1,6 +1,7 @@
 ﻿using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Net;
 using System.Text;
@@ -71,6 +72,7 @@ namespace NEA_CPU_Model
             return true;
         }
 
+
         public void Clear()
         {
             cache = new Dictionary<string, int>() { };
@@ -81,10 +83,8 @@ namespace NEA_CPU_Model
             // creates a dictionary containing the keys currently in cache
             Dictionary<string, int>.KeyCollection keys = cache.Keys;
 
-            var sortedKeys = keys.OrderBy(key => Convert.ToInt32(key)); // temporary sorting for testing purposes
-
             // sorts keys into numerical order
-            //keys = MergeSort(keys);
+            var sortedKeys = keys.OrderBy(key => Convert.ToInt32(key)); // temporary sorting for testing purposes
 
             // updates interface to show the new order
             int i = 0; // sets an interation value to 0
@@ -97,16 +97,6 @@ namespace NEA_CPU_Model
                 }
                 i++;
             }
-        }
-
-        private Dictionary<string, int>.KeyCollection MergeSort(Dictionary<string, int>.KeyCollection keys)
-        {
-            Dictionary<string, int> sortingKeys = new Dictionary<string, int>() { };
- 
-
-
-            Dictionary<string, int>.KeyCollection sortedKeys = sortingKeys.Keys;
-            return sortedKeys;
         }
     }
 }
