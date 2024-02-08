@@ -496,7 +496,7 @@ namespace NEA_CPU_Model
                 values[2] = values[2].Replace("#", ""); // removes the # from the operand
                 if (registers.ContainsKey(values[1])) // checks that the accessed register is not empty
                 {
-                    result = Logic(registers[values[1]], Convert.ToInt32(values[2]), "AND"); // calcultes the result
+                    result = BinaryLogic(registers[values[1]], Convert.ToInt32(values[2]), "AND"); // calcultes the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -514,7 +514,7 @@ namespace NEA_CPU_Model
                 values[2] = values[2].Replace("R", ""); // removes the R from the operand
                 if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2])) // checks that the accessed registers are not empty
                 {
-                    result = Logic(registers[values[1]], registers[values[2]], "AND"); // calcultes the result
+                    result = BinaryLogic(registers[values[1]], registers[values[2]], "AND"); // calcultes the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -531,7 +531,7 @@ namespace NEA_CPU_Model
             {
                 if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1) // checks that the accessed register and RAM address are not empty
                 {
-                    result = Logic(registers[values[1]], RAM.ReturnData(values[2]), "AND"); // calcultes the result
+                    result = BinaryLogic(registers[values[1]], RAM.ReturnData(values[2]), "AND"); // calcultes the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -555,7 +555,7 @@ namespace NEA_CPU_Model
                 values[2] = values[2].Replace("#", ""); // removes the # from the operand
                 if (registers.ContainsKey(values[1])) // checks that the accessed register is not empty
                 {
-                    result = Logic(registers[values[1]], Convert.ToInt32(values[2]), "OR"); // calcultes the result
+                    result = BinaryLogic(registers[values[1]], Convert.ToInt32(values[2]), "OR"); // calcultes the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -573,7 +573,7 @@ namespace NEA_CPU_Model
                 values[2] = values[2].Replace("R", ""); // removes the R from the operand
                 if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2])) // checks that the accessed registers are not empty
                 {
-                    result = Logic(registers[values[1]], registers[values[2]], "OR"); // calcultes the result
+                    result = BinaryLogic(registers[values[1]], registers[values[2]], "OR"); // calcultes the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -590,7 +590,7 @@ namespace NEA_CPU_Model
             {
                 if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1) // checks that the accessed register and RAM address are not empty
                 {
-                    result = Logic(registers[values[1]], RAM.ReturnData(values[2]), "OR"); // calcultes the result
+                    result = BinaryLogic(registers[values[1]], RAM.ReturnData(values[2]), "OR"); // calcultes the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -614,7 +614,7 @@ namespace NEA_CPU_Model
                 values[2] = values[2].Replace("#", ""); // removes the # from the operand
                 if (registers.ContainsKey(values[1])) // checks that the accessed register is not empty
                 {
-                    result = Logic(registers[values[1]], Convert.ToInt32(values[2]), "EOR"); // calcultes the result
+                    result = BinaryLogic(registers[values[1]], Convert.ToInt32(values[2]), "EOR"); // calcultes the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -632,7 +632,7 @@ namespace NEA_CPU_Model
                 values[2] = values[2].Replace("R", ""); // removes the R from the operand
                 if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2])) // checks that the accessed registers are not empty
                 {
-                    result = Logic(registers[values[1]], registers[values[2]], "EOR"); // calcultes the result
+                    result = BinaryLogic(registers[values[1]], registers[values[2]], "EOR"); // calcultes the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -649,7 +649,7 @@ namespace NEA_CPU_Model
             {
                 if (registers.ContainsKey(values[1]) && RAM.ReturnData(values[2]) != -1) // checks that the accessed register and RAM address are not empty
                 {
-                    result = Logic(registers[values[1]], RAM.ReturnData(values[2]), "EOR"); // calcultes the result
+                    result = BinaryLogic(registers[values[1]], RAM.ReturnData(values[2]), "EOR"); // calcultes the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -672,7 +672,7 @@ namespace NEA_CPU_Model
             {
                 values[1] = values[1].Replace("#", ""); // removes the # from the operand
 
-                result = Logic(Convert.ToInt32(values[1]), 0, "MVN"); // calculates the result
+                result = BinaryLogic(Convert.ToInt32(values[1]), 0, "MVN"); // calculates the result
                 // updates the interface
 
                 if (registers.ContainsKey(values[0])) // address exists, so update current data
@@ -694,7 +694,7 @@ namespace NEA_CPU_Model
                 values[1] = values[1].Replace("R", ""); // removes the R from the operand
                 if (registers.ContainsKey(values[1])) // checks that the accessed register is not empty
                 {
-                    result = Logic(registers[values[1]], 0, "MVN"); // calculates the result
+                    result = BinaryLogic(registers[values[1]], 0, "MVN"); // calculates the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -711,7 +711,7 @@ namespace NEA_CPU_Model
             {
                 if (RAM.ReturnData(values[1]) != -1) // checks that the accessed RAM address is not empty
                 {
-                    Logic(RAM.ReturnData(values[1]), 0, "MVN"); // calculates the result
+                    BinaryLogic(RAM.ReturnData(values[1]), 0, "MVN"); // calculates the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -857,7 +857,7 @@ namespace NEA_CPU_Model
         }
 
         // does the bitwise logic
-        private int Logic(int value1, int value2, string opcode)
+        private int BinaryLogic(int value1, int value2, string opcode)
         {
             string result = string.Empty;
             // converts the inputs to binary as this is necessary to carry out bitwise operations
