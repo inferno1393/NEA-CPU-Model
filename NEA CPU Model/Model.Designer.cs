@@ -105,9 +105,9 @@
             registerIndexText = new TextBox();
             label11 = new Label();
             colourBox = new ComboBox();
-            updateColour = new Button();
-            updateRam = new Button();
-            updateRegister = new Button();
+            updateColourBtn = new Button();
+            updateRamBtn = new Button();
+            updateRegisterBtn = new Button();
             resetBtn = new Button();
             cacheAddress0 = new Label();
             cacheAddress1 = new Label();
@@ -117,6 +117,8 @@
             CData1 = new TextBox();
             CData2 = new TextBox();
             CData3 = new TextBox();
+            label15 = new Label();
+            cacheCapacity = new TextBox();
             SuspendLayout();
             // 
             // instructionsTextBox
@@ -804,35 +806,35 @@
             colourBox.TabIndex = 92;
             colourBox.Text = "Select Colour";
             // 
-            // updateColour
+            // updateColourBtn
             // 
-            updateColour.Location = new Point(12, 962);
-            updateColour.Name = "updateColour";
-            updateColour.Size = new Size(182, 75);
-            updateColour.TabIndex = 93;
-            updateColour.Text = "Update Colour";
-            updateColour.UseVisualStyleBackColor = true;
-            updateColour.Click += updateColour_Click;
+            updateColourBtn.Location = new Point(12, 962);
+            updateColourBtn.Name = "updateColourBtn";
+            updateColourBtn.Size = new Size(182, 75);
+            updateColourBtn.TabIndex = 93;
+            updateColourBtn.Text = "Update Colour";
+            updateColourBtn.UseVisualStyleBackColor = true;
+            updateColourBtn.Click += updateColourBtn_Click;
             // 
-            // updateRam
+            // updateRamBtn
             // 
-            updateRam.Location = new Point(210, 959);
-            updateRam.Name = "updateRam";
-            updateRam.Size = new Size(150, 78);
-            updateRam.TabIndex = 94;
-            updateRam.Text = "Update RAM Index";
-            updateRam.UseVisualStyleBackColor = true;
-            updateRam.Click += updateRam_Click;
+            updateRamBtn.Location = new Point(210, 959);
+            updateRamBtn.Name = "updateRamBtn";
+            updateRamBtn.Size = new Size(150, 78);
+            updateRamBtn.TabIndex = 94;
+            updateRamBtn.Text = "Update RAM Index";
+            updateRamBtn.UseVisualStyleBackColor = true;
+            updateRamBtn.Click += updateRamBtn_Click;
             // 
-            // updateRegister
+            // updateRegisterBtn
             // 
-            updateRegister.Location = new Point(439, 961);
-            updateRegister.Name = "updateRegister";
-            updateRegister.Size = new Size(158, 75);
-            updateRegister.TabIndex = 95;
-            updateRegister.Text = "Update Register Index";
-            updateRegister.UseVisualStyleBackColor = true;
-            updateRegister.Click += updateRegister_Click;
+            updateRegisterBtn.Location = new Point(439, 961);
+            updateRegisterBtn.Name = "updateRegisterBtn";
+            updateRegisterBtn.Size = new Size(158, 75);
+            updateRegisterBtn.TabIndex = 95;
+            updateRegisterBtn.Text = "Update Register Index";
+            updateRegisterBtn.UseVisualStyleBackColor = true;
+            updateRegisterBtn.Click += updateRegisterBtn_Click;
             // 
             // resetBtn
             // 
@@ -913,11 +915,31 @@
             CData3.Size = new Size(150, 31);
             CData3.TabIndex = 104;
             // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            label15.Location = new Point(636, 866);
+            label15.Name = "label15";
+            label15.Size = new Size(140, 25);
+            label15.TabIndex = 105;
+            label15.Text = "Cache Capacity:";
+            // 
+            // cacheCapacity
+            // 
+            cacheCapacity.Location = new Point(636, 914);
+            cacheCapacity.Name = "cacheCapacity";
+            cacheCapacity.Size = new Size(150, 31);
+            cacheCapacity.TabIndex = 106;
+            cacheCapacity.Text = "4";
+            // 
             // Model
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1898, 1144);
+            Controls.Add(cacheCapacity);
+            Controls.Add(label15);
             Controls.Add(CData3);
             Controls.Add(CData2);
             Controls.Add(CData1);
@@ -927,9 +949,9 @@
             Controls.Add(cacheAddress1);
             Controls.Add(cacheAddress0);
             Controls.Add(resetBtn);
-            Controls.Add(updateRegister);
-            Controls.Add(updateRam);
-            Controls.Add(updateColour);
+            Controls.Add(updateRegisterBtn);
+            Controls.Add(updateRamBtn);
+            Controls.Add(updateColourBtn);
             Controls.Add(colourBox);
             Controls.Add(label11);
             Controls.Add(registerIndexText);
@@ -1096,9 +1118,9 @@
         private TextBox ramIndexText;
         private Label label11;
         private ComboBox colourBox;
-        private Button updateColour;
-        private Button updateRam;
-        private Button updateRegister;
+        private Button updateColourBtn;
+        private Button updateRamBtn;
+        private Button updateRegisterBtn;
         private Button resetBtn;
         private Label cacheAddress0;
         private Label cacheAddress1;
@@ -1109,5 +1131,7 @@
         public TextBox CData1;
         public TextBox CData2;
         public TextBox CData3;
+        private Label label15;
+        public TextBox cacheCapacity;
     }
 }

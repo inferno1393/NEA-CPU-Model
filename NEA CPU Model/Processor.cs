@@ -14,7 +14,7 @@ namespace NEA_CPU_Model
         // uses a dictionary to implement an associative array to store the register values
         private Dictionary<string, int> registers = new Dictionary<string, int> { };
 
-        private Cache cache = new Cache();
+        static public Cache cache = new Cache();
 
         // attributes
         private int programCounter = 0; // controls which instruction is executed

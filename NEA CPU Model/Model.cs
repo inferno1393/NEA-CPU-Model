@@ -189,9 +189,9 @@ namespace NEA_CPU_Model
         }
 
         // updates the background colours to the value in the colourBox menu on appropriate button click
-        private void updateColour_Click(object sender, EventArgs e)
+        private void updateColourBtn_Click(object sender, EventArgs e)
         {
-            updateColour.Enabled = false; // disables the button to prevent spamming
+            updateColourBtn.Enabled = false; // disables the button to prevent spamming
 
             // sets background colour to user input
             string text = colourBox.Text.ToLower(); // changes the case to be all lower to avoid being case sensitive
@@ -204,13 +204,13 @@ namespace NEA_CPU_Model
                 MessageBox.Show("Invalid colour");
             }
 
-            updateColour.Enabled = true; // renables the button ready for next use
+            updateColourBtn.Enabled = true; // renables the button ready for next use
         }
 
         // updates RAM index on appropriate button click
-        private void updateRam_Click(object sender, EventArgs e)
+        private void updateRamBtn_Click(object sender, EventArgs e)
         {
-            updateRam.Enabled = false; // disables the button to prevent spamming
+            updateRamBtn.Enabled = false; // disables the button to prevent spamming
 
             // tries to convert inputted indexes to integers for use
             bool converted = int.TryParse(ramIndexText.Text, out ramIndex);
@@ -228,13 +228,13 @@ namespace NEA_CPU_Model
                 }
             }
 
-            updateRam.Enabled = true; // renables the button ready for next use
+            updateRamBtn.Enabled = true; // renables the button ready for next use
         }
 
         // updates Register index on appropriate button click
-        private void updateRegister_Click(object sender, EventArgs e)
+        private void updateRegisterBtn_Click(object sender, EventArgs e)
         {
-            updateRegister.Enabled = false; // disables the button to prevent spamming
+            updateRegisterBtn.Enabled = false; // disables the button to prevent spamming
 
             bool converted = int.TryParse(registerIndexText.Text, out registerIndex);
             if (!converted) // not successfully converted
@@ -251,7 +251,7 @@ namespace NEA_CPU_Model
                 }
             }
 
-            updateRegister.Enabled = true; // renables the button ready for next use
+            updateRegisterBtn.Enabled = true; // renables the button ready for next use
         }
 
         // creates the instructions from the textbox in the interface, parses and then executes them (if valid)

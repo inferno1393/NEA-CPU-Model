@@ -14,13 +14,12 @@ namespace NEA_CPU_Model
     {
         // uses a dictionary to implement an associative array to store the cache values
         Dictionary<string, int> cache = new Dictionary<string, int>() { };
-        string[,] CacheArray = new string[,] { };
 
         // uses a queue to tell which addresses have been in cache the longest
         QueueArray<string> queue = new QueueArray<string>();
 
         // attributes
-        public int capacity = 4;
+        public int capacity = Convert.ToInt32(Program.model.cacheCapacity.Text);
 
         // returns the data of the address being accessed
         public override int ReturnData(string address)
@@ -84,17 +83,21 @@ namespace NEA_CPU_Model
             // creates a dictionary containing the keys currently in cache
             Dictionary<string, int>.KeyCollection keys = cache.Keys;
 
-            // sorts keys into numerical order
-            var sortedKeys = keys.OrderBy(key => Convert.ToInt32(key)); // temporary sorting for testing purposes
+            // sorts keys into numerical order for visbility
+            var sortedKeys = keys.OrderBy(key => Convert.ToInt32(key));
 
             // updates interface to show the new order
-            int i = 0; // sets an interation value to 0
+            int i = 0; // sets an iteration value to 0
+
             foreach (var key in sortedKeys)
             {
                 if (i <= capacity-1)
                 {
-                    Model.cacheData[i].Text = cache[key.ToString()].ToString();
-                    Model.cacheAddress[i].Text = key.ToString();
+                    if (i < Model.cacheData.Count())
+                    {
+                        Model.cacheData[i].Text = cache[key.ToString()].ToString();
+                        Model.cacheAddress[i].Text = key.ToString();
+                    }
                 }
                 i++;
             }
