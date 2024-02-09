@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace NEA_CPU_Model
@@ -87,7 +88,16 @@ namespace NEA_CPU_Model
             Dictionary<string, int>.KeyCollection keys = cacheMemory.Keys;
 
             // sorts keys into numerical order for visbility
-            var sortedKeys = keys.OrderBy(key => Convert.ToInt32(key));
+            //var sortedKeys = keys.OrderBy(key => Convert.ToInt32(key));
+            string[] unSortedKeys = new string[keys.Count];
+            int j = 0;
+            foreach(var key in keys)
+            {
+                unSortedKeys[j] = key;
+                j++;
+            }
+
+            var sortedKeys = SortArray(unSortedKeys, 0, unSortedKeys.Length - 1);
 
             // updates interface to show the new order
             int i = 0; // sets an iteration value to 0
@@ -103,6 +113,53 @@ namespace NEA_CPU_Model
                     }
                 }
                 i++; // increments the iteration value for next cycle
+            }
+        }
+
+        private string[] SortArray(string[] unSortedArray, int left, int right)
+        {
+            if (left < right)
+            {
+                int middle = left + (right - left) / 2;
+                SortArray(unSortedArray, left, middle);
+                SortArray(unSortedArray, middle + 1, right);
+                MergeArray(unSortedArray, left, middle, right);
+            }
+            return unSortedArray;
+        }
+
+        private void MergeArray(string[] unSortedArray, int left, int middle, int right)
+        {
+            var leftArrayLength = middle - left + 1;
+            var rightArrayLength = right - middle;
+            var leftArray = new string[leftArrayLength];
+            var rightArray = new string[rightArrayLength];
+            int i, j;
+            for (i = 0; i < leftArrayLength; ++i)
+                leftArray[i] = unSortedArray[left + i];
+            for (j = 0; j < rightArrayLength; ++j)
+                rightArray[j] = unSortedArray[middle + 1 + j];
+            i = 0;
+            j = 0;
+            int k = left;
+            while (i < leftArrayLength && j < rightArrayLength)
+            {
+                if (Convert.ToInt32(leftArray[i]) <= Convert.ToInt32(rightArray[j]))
+                {
+                    unSortedArray[k++] = leftArray[i++];
+                }
+                else
+                {
+                    unSortedArray[k++] = rightArray[j++];
+                }
+            }
+            while (i < leftArrayLength)
+            {
+                unSortedArray[k++] = leftArray[i++];
+            }
+            while (j < rightArrayLength)
+            {
+                unSortedArray[k++] = rightArray[j++];
             }
         }
     }

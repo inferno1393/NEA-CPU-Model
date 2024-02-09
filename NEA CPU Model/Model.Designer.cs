@@ -286,10 +286,10 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            label6.Location = new Point(710, 285);
+            label6.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.Location = new Point(740, 292);
             label6.Name = "label6";
-            label6.Size = new Size(81, 25);
+            label6.Size = new Size(90, 25);
             label6.TabIndex = 27;
             label6.Text = "Registers";
             // 
@@ -326,10 +326,10 @@
             // label12
             // 
             label12.AutoSize = true;
-            label12.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            label12.Location = new Point(1161, 389);
+            label12.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label12.Location = new Point(1175, 389);
             label12.Name = "label12";
-            label12.Size = new Size(61, 25);
+            label12.Size = new Size(63, 25);
             label12.TabIndex = 33;
             label12.Text = "Cache";
             // 
@@ -781,7 +781,7 @@
             // 
             // ramIndexText
             // 
-            ramIndexText.Location = new Point(210, 916);
+            ramIndexText.Location = new Point(232, 916);
             ramIndexText.Name = "ramIndexText";
             ramIndexText.Size = new Size(150, 31);
             ramIndexText.TabIndex = 88;
@@ -827,7 +827,7 @@
             // 
             // updateRamBtn
             // 
-            updateRamBtn.Location = new Point(210, 959);
+            updateRamBtn.Location = new Point(232, 959);
             updateRamBtn.Name = "updateRamBtn";
             updateRamBtn.Size = new Size(150, 78);
             updateRamBtn.TabIndex = 94;
@@ -928,7 +928,7 @@
             // 
             label15.AutoSize = true;
             label15.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            label15.Location = new Point(605, 866);
+            label15.Location = new Point(617, 866);
             label15.Name = "label15";
             label15.Size = new Size(140, 25);
             label15.TabIndex = 105;
@@ -936,7 +936,7 @@
             // 
             // cacheCapacity
             // 
-            cacheCapacity.Location = new Point(605, 914);
+            cacheCapacity.Location = new Point(617, 914);
             cacheCapacity.Name = "cacheCapacity";
             cacheCapacity.Size = new Size(150, 31);
             cacheCapacity.TabIndex = 106;
@@ -1012,7 +1012,7 @@
             // 
             // updateCacheCapacityBtn
             // 
-            updateCacheCapacityBtn.Location = new Point(605, 959);
+            updateCacheCapacityBtn.Location = new Point(617, 959);
             updateCacheCapacityBtn.Name = "updateCacheCapacityBtn";
             updateCacheCapacityBtn.Size = new Size(150, 75);
             updateCacheCapacityBtn.TabIndex = 118;
