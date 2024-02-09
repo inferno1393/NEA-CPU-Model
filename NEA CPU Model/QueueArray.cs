@@ -56,14 +56,10 @@ namespace NEA_CPU_Model
             }
             else
             {
-                throw new InvalidOperationException("Invalid operation. The queue is empty.");
+                MessageBox.Show("Invalid operation in queue, attempted to remove value from an empty queue.");
+                T r = Queue[front];
+                return r;
             }
-        }
-
-        // clears the queue
-        public void Clear()
-        {
-            front = -1;
         }
 
         // returns if the queue is empty
