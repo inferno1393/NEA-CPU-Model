@@ -52,8 +52,6 @@ namespace NEA_CPU_Model
             else
             {
                 cacheMemory[address] = data; // address already exsits so update the address
-                //ageQueue.Remove(address);
-                //ageQueue.Enqueue(address);
             }
             
 
@@ -119,23 +117,23 @@ namespace NEA_CPU_Model
 
         // recursively calls until the array is split into individual values
         // and combines and sorts arrays until one combined, sorted array is returned to call point
-        private string[] SortArray(string[] unSortedArray, int left, int right)
+        private string[] SortArray(string[] unSortedArray, int leftValue, int rightValue)
         {
-            if (left < right) // checks if the array has been split to individual values
+            if (leftValue < rightValue) // checks if the array has been split to individual values
             {
-                int middle = left + (right - left) / 2; // finds the midpoint of the array
-                SortArray(unSortedArray, left, middle); // splits the left side down to individual values
-                SortArray(unSortedArray, middle + 1, right); // splits the right side down to individual values
-                MergeArray(unSortedArray, left, middle, right); // combines and sorts the current array
+                int middleValue = leftValue + (rightValue - leftValue) / 2; // finds the midpoint of the array
+                SortArray(unSortedArray, leftValue, middleValue); // splits the left side down to individual values
+                SortArray(unSortedArray, middleValue + 1, rightValue); // splits the right side down to individual values
+                MergeArray(unSortedArray, leftValue, middleValue, rightValue); // combines and sorts the current array
             }
             return unSortedArray; // the current array will now be sorted
         }
 
         // combines and sorts the given array
-        private void MergeArray(string[] unSortedArray, int left, int middle, int right)
+        private void MergeArray(string[] unSortedArray, int leftValue, int middleValue, int rightValue)
         {
-            int leftArrayLength = middle - left + 1; // finds the length of the left
-            int rightArrayLength = right - middle; // finds the length of the right
+            int leftArrayLength = middleValue - leftValue + 1; // finds the length of the left
+            int rightArrayLength = rightValue - middleValue; // finds the length of the right
             string[] leftArray = new string[leftArrayLength]; // creates the left array
             string[] rightArray = new string[rightArrayLength]; // creates the right array
 
@@ -146,13 +144,13 @@ namespace NEA_CPU_Model
             // adds the values to the left array
             for (i = 0; i < leftArrayLength; ++i)
             {
-                leftArray[i] = unSortedArray[left + i];
+                leftArray[i] = unSortedArray[leftValue + i];
             }
 
             // adds the values to the right array
             for (j = 0; j < rightArrayLength; ++j)
             {
-                rightArray[j] = unSortedArray[middle + 1 + j];
+                rightArray[j] = unSortedArray[middleValue + 1 + j];
             }
 
             // reses the iteration values
@@ -164,24 +162,24 @@ namespace NEA_CPU_Model
             {
                 if (Convert.ToInt32(leftArray[i]) <= Convert.ToInt32(rightArray[j]))
                 {
-                    unSortedArray[left++] = leftArray[i++];
+                    unSortedArray[leftValue++] = leftArray[i++];
                 }
                 else
                 {
-                    unSortedArray[left++] = rightArray[j++];
+                    unSortedArray[leftValue++] = rightArray[j++];
                 }
             }
 
             // inserts the left array into the sorted array
             while (i < leftArrayLength)
             {
-                unSortedArray[left++] = leftArray[i++];
+                unSortedArray[leftValue++] = leftArray[i++];
             }
 
             // inserts the right array into the sorted array
             while (j < rightArrayLength)
             {
-                unSortedArray[left++] = rightArray[j++];
+                unSortedArray[leftValue++] = rightArray[j++];
             }
         }
     }
