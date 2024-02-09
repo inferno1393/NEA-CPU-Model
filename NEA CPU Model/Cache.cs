@@ -94,7 +94,7 @@ namespace NEA_CPU_Model
                 if (i <= capacity-1)
                 {
                     if (i < Model.cacheData.Count())
-                    {
+                    {   
                         Model.cacheData[i].Text = cache[key.ToString()].ToString();
                         Model.cacheAddress[i].Text = key.ToString();
                     }

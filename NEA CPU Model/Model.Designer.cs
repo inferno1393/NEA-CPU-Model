@@ -1018,6 +1018,7 @@
             updateCacheCapacityBtn.TabIndex = 118;
             updateCacheCapacityBtn.Text = "Update Cache Capacity";
             updateCacheCapacityBtn.UseVisualStyleBackColor = true;
+            updateCacheCapacityBtn.Click += updateCacheCapacityBtn_Click;
             // 
             // Model
             // 

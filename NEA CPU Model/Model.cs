@@ -193,9 +193,6 @@ namespace NEA_CPU_Model
             // resest the program counter to 0
             programCounterText.Text = 0.ToString();
 
-            // sets the cache capacity to the inputted value
-            Processor.cache.capacity = Convert.ToInt32(Program.model.cacheCapacity.Text);
-
             resetBtn.Enabled = true; // renables the button ready for next use
         }
 
@@ -271,11 +268,12 @@ namespace NEA_CPU_Model
             updateCacheCapacityBtn.Enabled = false; // disables the button to prevent spamming
 
             // tries to convert the input into an integer for use
-            bool converted = int.TryParse(cacheCapacity.Text, out Processor.cache.capacity); 
-            if(!converted)
+            bool converted = int.TryParse(cacheCapacity.Text, out Processor.cache.capacity);
+            if (!converted)
             {
                 MessageBox.Show("Cache Capacity value invalid");
             }
+            MessageBox.Show($"{Processor.cache.capacity}");
 
             updateCacheCapacityBtn.Enabled = true; // renables the button ready for next use
         }
