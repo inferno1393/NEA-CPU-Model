@@ -17,8 +17,8 @@ namespace NEA_CPU_Model
         static public Cache cache = new Cache();
 
         // attributes
+        static public int cycleCounter = 0; // shows how many instructions have been executed
         private int programCounter = 0; // controls which instruction is executed
-        public int cycleCounter = 0; // shows how many instructions have been executed
         private bool repeat = true; // controls if the end of the program has been met (or an error has occured)
         private string temp = string.Empty; // temporary value for comparisons/branching
 
