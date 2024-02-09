@@ -57,7 +57,7 @@ namespace NEA_CPU_Model
             else
             {
                 MessageBox.Show("Invalid operation in queue, attempted to remove value from an empty queue.");
-                return default(T);
+                return default(T); // returns null equivalent
             }
         }
 
