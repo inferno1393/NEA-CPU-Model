@@ -75,6 +75,7 @@ namespace NEA_CPU_Model
         public void Clear()
         {
             cache = new Dictionary<string, int>() { };
+            queue = new QueueArray<string>();
         }
 
         // orders the addresses in cache in ascending numerical order and the displays them to the interface

@@ -121,6 +121,19 @@ namespace NEA_CPU_Model
         {
             InitializeComponent();
             this.Size = Screen.PrimaryScreen.WorkingArea.Size;
+
+            // updates the colour to be the last used colour
+            StreamReader reader = new StreamReader("Colours.txt");
+            string line = reader.ReadLine();
+            string colour = string.Empty;
+
+            if(line != null) // verifies the file contains a value
+            {
+                colour = line.ToLower();
+            }
+            reader.Close(); // closes the file to avoid errors
+
+            BackColor = colours[colour];
         }
 
         // parses the instructions and then executes them on appropriate button click
@@ -212,6 +225,11 @@ namespace NEA_CPU_Model
                 MessageBox.Show("Invalid colour");
             }
 
+            // writes the colour to a text file so it can be restored on next use
+            StreamWriter writer = new StreamWriter("Colours.txt");
+            writer.WriteLine(text); // writes the colour inputted to the file
+            writer.Close(); // closes the file to avoid errors
+
             updateColourBtn.Enabled = true; // renables the button ready for next use
         }
 
@@ -273,7 +291,6 @@ namespace NEA_CPU_Model
             {
                 MessageBox.Show("Cache Capacity value invalid");
             }
-            MessageBox.Show($"{Processor.cache.capacity}");
 
             updateCacheCapacityBtn.Enabled = true; // renables the button ready for next use
         }
