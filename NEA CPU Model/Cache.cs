@@ -107,7 +107,8 @@ namespace NEA_CPU_Model
                 if (i <= capacity-1)
                 {
                     if (i < Model.cacheData.Count())
-                    {   
+                    {
+                        // adds the address and data to the interface
                         Model.cacheData[i].Text = cacheMemory[key.ToString()].ToString();
                         Model.cacheAddress[i].Text = key.ToString();
                     }
@@ -116,50 +117,71 @@ namespace NEA_CPU_Model
             }
         }
 
+        // recursively calls until the array is split into individual values
+        // and combines and sorts arrays until one combined, sorted array is returned to call point
         private string[] SortArray(string[] unSortedArray, int left, int right)
         {
-            if (left < right)
+            if (left < right) // checks if the array has been split to individual values
             {
-                int middle = left + (right - left) / 2;
-                SortArray(unSortedArray, left, middle);
-                SortArray(unSortedArray, middle + 1, right);
-                MergeArray(unSortedArray, left, middle, right);
+                int middle = left + (right - left) / 2; // finds the midpoint of the array
+                SortArray(unSortedArray, left, middle); // splits the left side down to individual values
+                SortArray(unSortedArray, middle + 1, right); // splits the right side down to individual values
+                MergeArray(unSortedArray, left, middle, right); // combines and sorts the current array
             }
-            return unSortedArray;
+            return unSortedArray; // the current array will now be sorted
         }
 
+        // combines and sorts the given array
         private void MergeArray(string[] unSortedArray, int left, int middle, int right)
         {
-            var leftArrayLength = middle - left + 1;
-            var rightArrayLength = right - middle;
-            var leftArray = new string[leftArrayLength];
-            var rightArray = new string[rightArrayLength];
-            int i, j;
+            int leftArrayLength = middle - left + 1; // finds the length of the left
+            int rightArrayLength = right - middle; // finds the length of the right
+            string[] leftArray = new string[leftArrayLength]; // creates the left array
+            string[] rightArray = new string[rightArrayLength]; // creates the right array
+
+            // intiailizes iteration values
+            int i = 0;
+            int j = 0;
+
+            // adds the values to the left array
             for (i = 0; i < leftArrayLength; ++i)
+            {
                 leftArray[i] = unSortedArray[left + i];
+            }
+
+            // adds the values to the right array
             for (j = 0; j < rightArrayLength; ++j)
+            {
                 rightArray[j] = unSortedArray[middle + 1 + j];
+            }
+
+            // reses the iteration values
             i = 0;
             j = 0;
-            int k = left;
+
+            // combines the left array and right array
             while (i < leftArrayLength && j < rightArrayLength)
             {
                 if (Convert.ToInt32(leftArray[i]) <= Convert.ToInt32(rightArray[j]))
                 {
-                    unSortedArray[k++] = leftArray[i++];
+                    unSortedArray[left++] = leftArray[i++];
                 }
                 else
                 {
-                    unSortedArray[k++] = rightArray[j++];
+                    unSortedArray[left++] = rightArray[j++];
                 }
             }
+
+            // inserts the left array into the sorted array
             while (i < leftArrayLength)
             {
-                unSortedArray[k++] = leftArray[i++];
+                unSortedArray[left++] = leftArray[i++];
             }
+
+            // inserts the right array into the sorted array
             while (j < rightArrayLength)
             {
-                unSortedArray[k++] = rightArray[j++];
+                unSortedArray[left++] = rightArray[j++];
             }
         }
     }
