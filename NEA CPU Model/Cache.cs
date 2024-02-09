@@ -39,11 +39,15 @@ namespace NEA_CPU_Model
         // stores the data given in the given address
         public override void StoreData(string address, int data)
         {
-            if (cacheMemory.Count == capacity)
+            if (cacheMemory.Count == capacity) // checks if cache is full
             {
-                string addr = RemoveOldest();
+                string addr = FindOldest();
+
+                // cache is full so remove the address that has been in cache the longest
+                age.Remove(addr);
                 cacheMemory.Remove(addr);
             }
+
             if (IsAddressEmpty(address)) // checks if address is empty to avoid updating an existing key
             {
                 cacheMemory.Add(address, data); // address does not already exists so add the address
@@ -52,7 +56,7 @@ namespace NEA_CPU_Model
             else
             {
                 cacheMemory[address] = data; // address already exsits so update the address
-                age[address] = Processor.cycleCounter;
+                age[address] = Processor.cycleCounter; // updates the age counter to reflect the update time
             }
             
 
@@ -63,10 +67,11 @@ namespace NEA_CPU_Model
             UpdateInterface(); // updates interface to show changes
         }
 
-        private string RemoveOldest()
+        // returns the address of the oldest address in cache
+        private string FindOldest()
         {
-
-            return " ";
+            var sorted = age.OrderBy(addr => addr.Value); // sorts the timestamp dictionary
+            return sorted.First().Key; // returns the first value in the dictionary
         }
 
         // checks if the given address is empty
