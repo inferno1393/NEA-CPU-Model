@@ -298,9 +298,8 @@ namespace NEA_CPU_Model
         // creates the instructions from the textbox in the interface, parses and then executes them (if valid)
         private void Process(bool loop)
         {
-            // creates the List (and puts the values in the text box into it) and Stack necessary for parsing
+            // creates the list of instructions and puts the values in the text box into it
             List<string> instructions = instructionsTextBox.Text.Split('\n').ToList<string>();
-            StackArray<string> splitInstructions = new StackArray<string>();
 
             // removes white space from the instruction
             for (int i = 0; i < instructions.Count; i++)

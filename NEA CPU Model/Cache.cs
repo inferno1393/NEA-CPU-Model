@@ -16,8 +16,8 @@ namespace NEA_CPU_Model
         // uses a dictionary to implement an associative array to store the cache values
         Dictionary<string, int> cacheMemory = new Dictionary<string, int>() { };
 
-        // uses a queue to tell which addresses have been in cache the longest
-        QueueArray<string> ageQueue = new QueueArray<string>();
+        // uses a dictionary to implement an associative array to tell which addresses have been in cache the longest
+        Dictionary<string, int> age = new Dictionary<string, int>() { };
 
         // attributes
         public int capacity = 4;
@@ -39,19 +39,20 @@ namespace NEA_CPU_Model
         // stores the data given in the given address
         public override void StoreData(string address, int data)
         {
-            if (ageQueue.Count == capacity)
+            if (cacheMemory.Count == capacity)
             {
-                string addr = ageQueue.Dequeue();
+                string addr = RemoveOldest();
                 cacheMemory.Remove(addr);
             }
             if (IsAddressEmpty(address)) // checks if address is empty to avoid updating an existing key
             {
                 cacheMemory.Add(address, data); // address does not already exists so add the address
-                ageQueue.Enqueue(address); // adds the new address to the queue
+                age.Add(address, cycleCounter); // adds the new address to the queue
             }
             else
             {
                 cacheMemory[address] = data; // address already exsits so update the address
+                age[address] = cycleCounter;
             }
             
 
@@ -60,6 +61,12 @@ namespace NEA_CPU_Model
             Program.model.mbrText.Text = data.ToString();
 
             UpdateInterface(); // updates interface to show changes
+        }
+
+        private string RemoveOldest()
+        {
+
+            return " ";
         }
 
         // checks if the given address is empty

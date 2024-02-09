@@ -18,6 +18,7 @@ namespace NEA_CPU_Model
 
         // attributes
         private int programCounter = 0; // controls which instruction is executed
+        public int cycleCounter = 0; // shows how many instructions have been executed
         private bool repeat = true; // controls if the end of the program has been met (or an error has occured)
         private string temp = string.Empty; // temporary value for comparisons/branching
 
@@ -61,6 +62,7 @@ namespace NEA_CPU_Model
         {
             string instruction = instructions[programCounter]; // gets current instruction
             programCounter++; // increments program counter for next cycle
+            cycleCounter++; // increments cycle counter to show how many instructions have been executed
 
             if (!instruction.Contains(':')) // checks if a colon is present the instruction is a label
             {
