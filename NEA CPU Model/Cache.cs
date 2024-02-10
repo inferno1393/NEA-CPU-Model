@@ -20,7 +20,7 @@ namespace NEA_CPU_Model
         Dictionary<string, int> age = new Dictionary<string, int>() { };
 
         // attributes
-        public int capacity = 4;
+        public int capacity = 8;
 
         // returns the data of the address being accessed
         public override int ReturnData(string address)

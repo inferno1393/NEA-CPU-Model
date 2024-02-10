@@ -940,7 +940,7 @@
             cacheCapacity.Name = "cacheCapacity";
             cacheCapacity.Size = new Size(150, 31);
             cacheCapacity.TabIndex = 106;
-            cacheCapacity.Text = "4";
+            cacheCapacity.Text = "8";
             // 
             // cacheAddress4
             // 

@@ -87,6 +87,7 @@ namespace NEA_CPU_Model
             Program.model.CData7,
         };
 
+        // creates array of avaiable labels for cache
         static public Label[] cacheAddress =
         {
             Program.model.cacheAddress0,

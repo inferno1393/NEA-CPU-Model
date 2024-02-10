@@ -159,6 +159,9 @@ namespace NEA_CPU_Model
                 case "HALT":
                     repeat = false;
                     break;
+
+                default: // in case an empty instruction was detected, go to next instruction
+                    break;
             }
         }
 
