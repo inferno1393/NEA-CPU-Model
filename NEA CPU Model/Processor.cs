@@ -167,6 +167,10 @@ namespace NEA_CPU_Model
         {
             if (FetchData(values[1], RAM) != -1) // checks that the accessed address is not empty
             {
+                if (values[0].Contains('R')) // checks if the user has put in the register with a label
+                {
+                    values[0] = values[0].Replace("R", "");
+                }
                 registers[values[0]] = FetchData(values[1], RAM); // sets the appropriate register to the value fetched from RAM
                 UpdateInterface(values[0], registers[values[0]]); // updates the interface accordingly
             }
@@ -204,6 +208,15 @@ namespace NEA_CPU_Model
         private void ADD(string[] values, RAM RAM)
         {
             int result = 0;
+            if (values[0].Contains('R')) // checks if the user has put in the register with a label
+            {
+                values[0] = values[0].Replace("R", "");
+            }
+            if (values[1].Contains('R')) // checks if the user has put in the register with a label
+            {
+                values[1] = values[1].Replace("R", "");
+            }
+
             if (values[2].Contains('#')) // if the value in the 3rd operand is a hard value
             {
                 values[2] = values[2].Replace("#", ""); // removes the # from the operand
@@ -263,6 +276,15 @@ namespace NEA_CPU_Model
         private void SUB(string[] values, RAM RAM)
         {
             int result = 0;
+            if (values[0].Contains('R')) // checks if the user has put in the register with a label
+            {
+                values[0] = values[0].Replace("R", "");
+            }
+            if (values[1].Contains('R')) // checks if the user has put in the register with a label
+            {
+                values[1] = values[1].Replace("R", "");
+            }
+
             if (values[2].Contains('#')) // if the value in the 3rd operand is a hard value
             {
                 values[2] = values[2].Replace("#", ""); // removes the # from the operand
@@ -321,6 +343,11 @@ namespace NEA_CPU_Model
         // copies the value in the 2nd operand into the 1st operand
         private void MOV(string[] values, RAM RAM)
         {
+            if (values[0].Contains('R')) // checks if the user has put in the register with a label
+            {
+                values[0] = values[0].Replace("R", "");
+            }
+
             if (values[1].Contains('#')) // if the value in the 2nd operand is a hard value
             {
                 values[1] = values[1].Replace("#", ""); // removes the # from the operand
@@ -371,6 +398,11 @@ namespace NEA_CPU_Model
         // compares the value in the 1st operand with the 2nd operand
         private void CMP(string[] values, RAM RAM)
         {
+            if (values[0].Contains('R')) // checks if the user has put in the register with a label
+            {
+                values[0] = values[0].Replace("R", "");
+            }
+            
             if (values[1].Contains('#')) // if the value in the 2nd operand is a hard value
             {
                 values[1] = values[1].Replace("#", ""); // removes the R from the operand
@@ -491,6 +523,15 @@ namespace NEA_CPU_Model
         private void AND(string[] values, RAM RAM)
         {
             int result = 0;
+            if (values[0].Contains('R')) // checks if the user has put in the register with a label
+            {
+                values[0] = values[0].Replace("R", "");
+            }
+            if (values[1].Contains('R')) // checks if the user has put in the register with a label
+            {
+                values[1] = values[1].Replace("R", "");
+            }
+
             if (values[2].Contains('#')) // if the value in the 3rd operand is a hard value
             {
                 values[2] = values[2].Replace("#", ""); // removes the # from the operand
@@ -550,6 +591,15 @@ namespace NEA_CPU_Model
         private void ORR(string[] values, RAM RAM)
         {
             int result = 0;
+            if (values[0].Contains('R')) // checks if the user has put in the register with a label
+            {
+                values[0] = values[0].Replace("R", "");
+            }
+            if (values[1].Contains('R')) // checks if the user has put in the register with a label
+            {
+                values[1] = values[1].Replace("R", "");
+            }
+
             if (values[2].Contains('#')) // if the value in the 3rd operand is a hard value
             {
                 values[2] = values[2].Replace("#", ""); // removes the # from the operand
@@ -609,6 +659,15 @@ namespace NEA_CPU_Model
         private void EOR(string[] values, RAM RAM)
         {
             int result = 0;
+            if (values[0].Contains('R')) // checks if the user has put in the register with a label
+            {
+                values[0] = values[0].Replace("R", "");
+            }
+            if (values[1].Contains('R')) // checks if the user has put in the register with a label
+            {
+                values[1] = values[1].Replace("R", "");
+            }
+
             if (values[2].Contains('#')) // if the value in the 3rd operand is a hard value
             {
                 values[2] = values[2].Replace("#", ""); // removes the # from the operand
@@ -668,6 +727,11 @@ namespace NEA_CPU_Model
         private void MVN(string[] values, RAM RAM)
         {
             int result = 0;
+            if (values[0].Contains('R')) // checks if the user has put in the register with a label
+            {
+                values[0] = values[0].Replace("R", "");
+            }
+            
             if (values[1].Contains('#')) // if the value in the 3rd operand is a hard value
             {
                 values[1] = values[1].Replace("#", ""); // removes the # from the operand
@@ -730,6 +794,15 @@ namespace NEA_CPU_Model
         private void LSL(string[] values, RAM RAM)
         {
             int result = 0;
+            if (values[0].Contains('R')) // checks if the user has put in the register with a label
+            {
+                values[0] = values[0].Replace("R", "");
+            }
+            if (values[1].Contains('R')) // checks if the user has put in the register with a label
+            {
+                values[1] = values[0].Replace("R", "");
+            }
+
             if (values[2].Contains('#')) // if the value in the 3rd operand is a hard value
             {
                 values[2] = values[2].Replace("#", "");
@@ -795,6 +868,15 @@ namespace NEA_CPU_Model
         private void LSR(string[] values, RAM RAM)
         {
             int result = 0;
+            if (values[0].Contains('R')) // checks if the user has put in the register with a label
+            {
+                values[0] = values[0].Replace("R", "");
+            }
+            if (values[1].Contains('R')) // checks if the user has put in the register with a label
+            {
+                values[1] = values[0].Replace("R", "");
+            }
+
             if (values[2].Contains('#')) // if the value in the 3rd operand is a hard value
             {
                 values[2] = values[2].Replace("#", "");
