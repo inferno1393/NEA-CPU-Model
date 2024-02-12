@@ -17,10 +17,17 @@ namespace NEA_CPU_Model
         static public Cache cache = new Cache();
 
         // attributes
-        static public int cycleCounter = 0; // shows how many instructions have been executed
-        private int programCounter = 0; // controls which instruction is executed
-        private bool repeat = true; // controls if the end of the program has been met (or an error has occured)
-        private string temp = string.Empty; // temporary value for comparisons/branching
+        // shows how many instructions have been executed
+        static public int cycleCounter = 0;
+
+        // controls which instruction is executed
+        private int programCounter = 0;
+
+        // controls if the end of the program has been met or if an error has occured
+        private bool repeat = true;
+
+        // temporary value for comparisons/branching
+        private string temp = string.Empty;
 
         // constructor
         public Processor()
@@ -52,7 +59,7 @@ namespace NEA_CPU_Model
                 else
                 {
                     programCounter = 0; // sets program counter to start of instructions ready for next cycle
-                    // exit program as end reached
+                    // do nothing
                 }
             }
         }
@@ -508,7 +515,8 @@ namespace NEA_CPU_Model
         // branches to the label given by the operand if the given condition was met by the last comparison
         private void Bcondition(string[] values, RAM RAM, List<string> instructions, string condition)
         {
-            if (temp == condition) // checks if the last comparison met the given condition
+            // checks if the string stored by thelast comparison met the given condition
+            if (temp == condition)
             {
                 if (Parser.labels.ContainsKey(values[0])) // checks the label exists
                 {
@@ -740,13 +748,11 @@ namespace NEA_CPU_Model
                 values[1] = values[1].Replace("#", ""); // removes the # from the operand
 
                 result = BinaryLogic(Convert.ToInt32(values[1]), 0, "MVN"); // calculates the result
-                // updates the interface
 
+                // updates the interface
                 if (registers.ContainsKey(values[0])) // address exists, so update current data
                 {
-                    
-                    registers[values[0]] = result; // stores the result in the appropriate register
-
+                    registers[values[0]] = result; // stores the result in the appropriate 
                 }
                 else // address doesn't exist, so need to add address
                 {
@@ -811,11 +817,12 @@ namespace NEA_CPU_Model
                 values[2] = values[2].Replace("#", "");
                 if (registers.ContainsKey(values[1]))
                 {
-                    result = registers[values[1]];
+                    int calculation = registers[values[1]]; // creates a temporary value to carry out the calculation on
                     for (int i = 0; i < Convert.ToInt32(values[2]); i++)
                     {
-                        result *= 2;
+                        calculation *= 2;
                     }
+                    result = calculation;
                     registers[values[0]] = result;
                     UpdateInterface(values[0], registers[values[0]]);
                     Program.model.accumulatorText.Text = result.ToString();

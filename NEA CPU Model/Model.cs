@@ -103,7 +103,10 @@ namespace NEA_CPU_Model
         // initializes indexes for ram and register addresses
         static public int ramIndex = 0;
         static public int registerIndex = 0;
-  
+
+        private string ColourFileName = "Colours.txt";
+        private string InstructionsFileName = "Instructions.txt";
+
 
         // creates dictionary of accepted colours
         private Dictionary<string, Color> colours = new Dictionary<string, Color>
@@ -123,18 +126,7 @@ namespace NEA_CPU_Model
             InitializeComponent();
             this.Size = Screen.PrimaryScreen.WorkingArea.Size;
 
-            // updates the colour to be the last used colour
-            StreamReader reader = new StreamReader("Colours.txt");
-            string line = reader.ReadLine();
-            string colour = string.Empty;
-
-            if(line != null) // verifies the file contains a value
-            {
-                colour = line.ToLower();
-            }
-            reader.Close(); // closes the file to avoid errors
-
-            BackColor = colours[colour];
+            RestoreColour();
         }
 
         // parses the instructions and then executes them on appropriate button click
@@ -332,7 +324,7 @@ namespace NEA_CPU_Model
         // writes the instructions to a textfile
         private void WriteInstructionsToFile(List<string> instructions)
         {
-            StreamWriter writer = new StreamWriter("Instructions.txt"); // creates instance of streamwriter for the given file
+            StreamWriter writer = new StreamWriter(InstructionsFileName); // creates instance of streamwriter for the given file
             for (int i = 0; i < instructions.Count; i++)
             {
                 writer.WriteLine(instructions[i]); // adds each instruction to the textfile in turn
@@ -346,7 +338,7 @@ namespace NEA_CPU_Model
             List<string> instructions = new List<string>();
             string line = string.Empty;
 
-            StreamReader reader = new StreamReader("Instructions.txt"); // creates instance of streamreader for the given file
+            StreamReader reader = new StreamReader(InstructionsFileName); // creates instance of streamreader for the given file
 
             while (line != null) // while not reached the end of the file
             {
@@ -356,6 +348,24 @@ namespace NEA_CPU_Model
             reader.Close(); // closes the file to avoid errors
             return instructions; // returns the list of instructions
 
+        }
+
+        private void RestoreColour()
+        {
+            // updates the colour to be the last used colour
+            StreamReader reader = new StreamReader(ColourFileName);
+            string line = reader.ReadLine();
+            string colour = string.Empty;
+
+            if (line != null) // verifies the file contains a value
+            {
+                colour = line.ToLower();
+            }
+            reader.Close(); // closes the file to avoid errors
+
+            BackColor = colours[colour]; // updates the interface to have the correct colour
+
+            colourBox.Text = colour; // updates the interface to show the colour selected
         }
     }
 }

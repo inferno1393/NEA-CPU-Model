@@ -51,7 +51,7 @@ namespace NEA_CPU_Model
         // returns a string showing the validity of the instructions
         public string ParseInstructions(List<string> instructions)
         {
-            int count = instructions.Count - 1;
+            int count = instructions.Count - 1; // initializes an iteration value that can be decremented to remove instructions to ignore
             // splits the instructions in the queue into Opcode and Operand
             for (int i = 0; i < instructions.Count; i++)
             {
@@ -78,7 +78,7 @@ namespace NEA_CPU_Model
                 }
             }
 
-            splitInstructions.Pop(); // pops of the operand of the HALT instruction
+            splitInstructions.Pop(); // pops off the operand of the HALT instruction
 
 
             // checks last instruction is a HALT (since program must halt)
@@ -122,7 +122,7 @@ namespace NEA_CPU_Model
             return true;
         }
 
-        // returns the format the Operand is in by counting the commans present
+        // returns the format the Operand is in by counting the commas present
         static string OperandFormat(string Operand)
         {
             int count = 0;
@@ -136,7 +136,6 @@ namespace NEA_CPU_Model
                 }
             }
 
-            
             // if the Operand is blank then the format is blank and that is returned instead
             if (Operand == "")
             {
@@ -184,7 +183,7 @@ namespace NEA_CPU_Model
             {
                 return "";
             }
-            else if(GetOpcode(instruction) == " " || GetOpcode(instruction) == "")
+            else if(GetOpcode(instruction) == " " || GetOpcode(instruction) == "") // checks for blank instructions
             {
                 return "";
             }
@@ -192,17 +191,20 @@ namespace NEA_CPU_Model
             else if (GetOpcode(instruction)[0] == 'B')
             {
                 // checks if the branch has a condition or not
-                if (instruction[1] != '<')
+                // if the next character in the instruction is not a < then it is an always branch instruction
+                if (instruction[1] != '<') 
                 {
                     for (int i = 0; i < instruction.Length-1; i++)
                     {
-                        operand += instruction[i + 1];
+                        // the opcode is 1 long, so add the remaining characters to the operand
+                        operand += instruction[i + 1]; 
                     }
                 }
-                else
+                else // else the character is a branch condition
                 {
                     for (int i = 0; i < instruction.Length-5; i++)
                     {
+                        // the opcode is 5 long, so add the remaining characters to the operand
                         operand += instruction[i + 5];
                     }
                 }
@@ -212,6 +214,7 @@ namespace NEA_CPU_Model
             {
                 for (int i = 0; i < instruction.Length - 3; i++)
                 {
+                    // the opcode is 3 long, so add the remaining characters to the operand
                     operand += instruction[i + 3];
                 }
             }
