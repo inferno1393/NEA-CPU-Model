@@ -43,7 +43,9 @@ namespace NEA_CPU_Model
             // code needs to execute all instructions at once
             if (loop)
             {
-                programCounter = 0; // sets program counter to start of instructions
+                // reset cycle values
+                programCounter = 0;
+                cycleCounter = 0;
                 while (programCounter < instructions.Count && repeat) // while not reached end of code/error not encountered
                 {
                     SplitInstruction(instructions, RAM); // call to process the instructions
@@ -52,14 +54,15 @@ namespace NEA_CPU_Model
             // execute only the next instruction
             else
             {
-                if(programCounter < instructions.Count && repeat) // while not reached end of code/error not encountered
+                if(programCounter < instructions.Count && repeat) // if not reached end of code/error not encountered
                 {
                     SplitInstruction(instructions, RAM); // call to process the instructions
                 }
                 else
                 {
-                    programCounter = 0; // sets program counter to start of instructions ready for next cycle
-                    // do nothing
+                    // reset cycle values for next cycle
+                    programCounter = 0;
+                    cycleCounter = 0;
                 }
             }
         }
@@ -79,6 +82,7 @@ namespace NEA_CPU_Model
 
                 // splits the operand into the individual operands
                 string[] values = operand.Split(',');
+
 
                 // updates specific purpose registers on the interface
                 Program.model.cirText.Text = opcode;
@@ -548,7 +552,7 @@ namespace NEA_CPU_Model
                 values[2] = values[2].Replace("#", ""); // removes the # from the operand
                 if (registers.ContainsKey(values[1])) // checks that the accessed register is not empty
                 {
-                    result = BinaryLogic(registers[values[1]], Convert.ToInt32(values[2]), "AND"); // calcultes the result
+                    result = registers[values[1]] & Convert.ToInt32(values[2]); // calcultes the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -566,7 +570,7 @@ namespace NEA_CPU_Model
                 values[2] = values[2].Replace("R", ""); // removes the R from the operand
                 if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2])) // checks that the accessed registers are not empty
                 {
-                    result = BinaryLogic(registers[values[1]], registers[values[2]], "AND"); // calcultes the result
+                    result = registers[values[1]] & registers[values[2]]; // calcultes the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -583,7 +587,7 @@ namespace NEA_CPU_Model
             {
                 if (registers.ContainsKey(values[1]) && FetchData(values[2], RAM) != -1) // checks that the accessed register and RAM address are not empty
                 {
-                    result = BinaryLogic(registers[values[1]], FetchData(values[2], RAM), "AND"); // calcultes the result
+                    result = registers[values[1]] & FetchData(values[2], RAM); // calcultes the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -616,7 +620,7 @@ namespace NEA_CPU_Model
                 values[2] = values[2].Replace("#", ""); // removes the # from the operand
                 if (registers.ContainsKey(values[1])) // checks that the accessed register is not empty
                 {
-                    result = BinaryLogic(registers[values[1]], Convert.ToInt32(values[2]), "OR"); // calcultes the result
+                    result = registers[values[1]] | Convert.ToInt32(values[2]); // calcultes the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -634,7 +638,7 @@ namespace NEA_CPU_Model
                 values[2] = values[2].Replace("R", ""); // removes the R from the operand
                 if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2])) // checks that the accessed registers are not empty
                 {
-                    result = BinaryLogic(registers[values[1]], registers[values[2]], "OR"); // calcultes the result
+                    result = registers[values[1]] | registers[values[2]]; // calcultes the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -651,7 +655,7 @@ namespace NEA_CPU_Model
             {
                 if (registers.ContainsKey(values[1]) && FetchData(values[2], RAM) != -1) // checks that the accessed register and RAM address are not empty
                 {
-                    result = BinaryLogic(registers[values[1]], FetchData(values[2], RAM), "OR"); // calcultes the result
+                    result = registers[values[1]] | FetchData(values[2], RAM); // calcultes the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -684,7 +688,7 @@ namespace NEA_CPU_Model
                 values[2] = values[2].Replace("#", ""); // removes the # from the operand
                 if (registers.ContainsKey(values[1])) // checks that the accessed register is not empty
                 {
-                    result = BinaryLogic(registers[values[1]], Convert.ToInt32(values[2]), "EOR"); // calcultes the result
+                    result = registers[values[1]] ^ Convert.ToInt32(values[2]); // calcultes the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -702,7 +706,7 @@ namespace NEA_CPU_Model
                 values[2] = values[2].Replace("R", ""); // removes the R from the operand
                 if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2])) // checks that the accessed registers are not empty
                 {
-                    result = BinaryLogic(registers[values[1]], registers[values[2]], "EOR"); // calcultes the result
+                    result = registers[values[1]] ^ registers[values[2]]; // calcultes the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -719,7 +723,7 @@ namespace NEA_CPU_Model
             {
                 if (registers.ContainsKey(values[1]) && FetchData(values[2], RAM) != -1) // checks that the accessed register and RAM address are not empty
                 {
-                    result = BinaryLogic(registers[values[1]], FetchData(values[2], RAM), "EOR"); // calcultes the result
+                    result = registers[values[1]] ^ FetchData(values[2], RAM); // calcultes the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -747,7 +751,7 @@ namespace NEA_CPU_Model
             {
                 values[1] = values[1].Replace("#", ""); // removes the # from the operand
 
-                result = BinaryLogic(Convert.ToInt32(values[1]), 0, "MVN"); // calculates the result
+                result = NotLogic(Convert.ToInt32(values[1])); // calculates the result
 
                 // updates the interface
                 if (registers.ContainsKey(values[0])) // address exists, so update current data
@@ -767,7 +771,7 @@ namespace NEA_CPU_Model
                 values[1] = values[1].Replace("R", ""); // removes the R from the operand
                 if (registers.ContainsKey(values[1])) // checks that the accessed register is not empty
                 {
-                    result = BinaryLogic(registers[values[1]], 0, "MVN"); // calculates the result
+                    result = NotLogic(registers[values[1]]); // calculates the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -784,7 +788,7 @@ namespace NEA_CPU_Model
             {
                 if (FetchData(values[1], RAM) != -1) // checks that the accessed RAM address is not empty
                 {
-                    BinaryLogic(FetchData(values[1], RAM), 0, "MVN"); // calculates the result
+                    NotLogic(FetchData(values[1], RAM)); // calculates the result
                     registers[values[0]] = result; // stores the result in the appropriate register
 
                     // updates the interface
@@ -949,67 +953,22 @@ namespace NEA_CPU_Model
         }
 
         // does the bitwise logic
-        private int BinaryLogic(int value1, int value2, string opcode)
+        private int NotLogic(int value)
         {
             string result = string.Empty;
-            // converts the inputs to binary as this is necessary to carry out bitwise operations
-            string operand1 = denToBin(value1);
-            string operand2 = denToBin(value2);
 
-            if (opcode == "AND")
+            // converts the input to binary as this is necessary to carry out bitwise operations
+            string operand = denToBin(value);
+
+            for (int i = 0; i < operand.Length; i++)
             {
-                for (int i = 0; i < operand2.Length; i++) // loops through for each digit in the binary representation of the operand
+                if (operand[i] == 1) // if input is 1, output is 0
                 {
-                    if (operand1[i] == '1' && operand2[i] == '1') // if both inputs are 1, output is 1
-                    {
-                        result += '1';
-                    }
-                    else // else output is 0
-                    {
-                        result += '0';
-                    }
+                    result += '0';
                 }
-            }
-            else if (opcode == "OR")
-            {
-                for (int i = 0; i < operand2.Length; i++) // loops through for each digit in the binary representation of the operand
+                else // else output is 0
                 {
-                    if (operand1[i] == '1' || operand2[i] == '1') // if either inputs are 1, output is 1
-                    {
-                        result += '1';
-                    }
-                    else // else output is 0
-                    {
-                        result += '0';
-                    }
-                }
-            }
-            else if (opcode == "EOR")
-            {
-                for (int i = 0; i < operand2.Length; i++) // loops through for each digit in the binary representation of the operand
-                {
-                    if ((operand1[i] == '1' || operand2[i] == '1') && !(operand1[i] == '1' && operand2[i] == '1')) // if only 1 of the inputs is 1, output is 1
-                    {
-                        result += '1';
-                    }
-                    else // else output is 0
-                    {
-                        result += '0';
-                    }
-                }
-            }
-            else // must be a not opcode
-            {
-                for (int i = 0; i < operand1.Length; i++) // loops through for each digit in the binary representation of the operand
-                {
-                    if (operand1[i] == 1) // if input is 1, output is 0
-                    {
-                        result += '0';
-                    }
-                    else // else output is 0
-                    {
-                        result += '1';
-                    }
+                    result += '1';
                 }
             }
 
