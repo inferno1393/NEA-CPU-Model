@@ -509,30 +509,15 @@ namespace NEA_CPU_Model
             int result = 0;
             if(valueFormat == "#") // returns if the value is a hard value
             {
-                int calculationValue = registers[values[1]]; // creates a temporary value to carry out the calculation on
-                for (int i = 0; i < Convert.ToInt32(values[2]); i++)
-                {
-                    calculationValue *= 2;
-                }
-                result = calculationValue;
+                result = LogicalShift(registers[values[1]], Convert.ToInt32(values[2]), "*"); // calculates the result
             }
             else if(valueFormat == "R") // returns if the value is a register
             {
-                int calculationValue = registers[values[1]]; // creates a temporary value to carry out the calculation on
-                for (int i = 0; i < registers[values[2]]; i++)
-                {
-                    calculationValue *= 2;
-                }
-                result = calculationValue;
+                result = LogicalShift(registers[values[1]], registers[values[2]], "*"); // calculates the result
             }
             else // else the value is a RAM address
             {
-                int calculationValue = registers[values[1]]; // creates a temporary value to carry out the calculation on
-                for (int i = 0; i < FetchData(values[2], RAM); i++)
-                {
-                    calculationValue *= 2;
-                }
-                result = calculationValue;
+                result = LogicalShift(registers[values[1]], FetchData(values[2], RAM), "*"); // calculates the result
             }
 
             registers[values[0]] = result; // stores the result in the appropriate register
@@ -549,30 +534,15 @@ namespace NEA_CPU_Model
             int result = 0;
             if (valueFormat == "#") // returns if the value is a hard value
             {
-                int calculationValue = registers[values[1]]; // creates a temporary value to carry out the calculation on
-                for (int i = 0; i < Convert.ToInt32(values[2]); i++)
-                {
-                    calculationValue /= 2;
-                }
-                result = calculationValue;
+                result = LogicalShift(registers[values[1]], Convert.ToInt32(values[2]), "*"); // calculates the result
             }
             else if (valueFormat == "R") // returns if the value is a register
             {
-                int calculationValue = registers[values[1]]; // creates a temporary value to carry out the calculation on
-                for (int i = 0; i < registers[values[2]]; i++)
-                {
-                    calculationValue /= 2;
-                }
-                result = calculationValue;
+                result = LogicalShift(registers[values[1]], registers[values[2]], "*"); // calculates the result
             }
             else // else the value is a RAM address
             {
-                int calculationValue = registers[values[1]]; // creates a temporary value to carry out the calculation on
-                for (int i = 0; i < FetchData(values[2], RAM); i++)
-                {
-                    calculationValue /= 2;
-                }
-                result = calculationValue;
+                result = LogicalShift(registers[values[1]], FetchData(values[2],RAM), "/"); // calculates the result
             }
 
             registers[values[0]] = result; // stores the result in the appropriate register
@@ -604,6 +574,29 @@ namespace NEA_CPU_Model
             }
 
             return binToDen(result); // converts output to denary and returns to call point
+        }
+
+        // does the Logical Shifting
+        private int LogicalShift(int value, int shift, string Operator)
+        {
+            int calculationValue = 0; // creates a temporary value to carry out the calculation on
+            if (Operator == "*") // if the call point is a left shift
+            {
+                calculationValue = value;
+                for (int i = 0; i < shift; i++) // shifts the value a number of times equal to shift
+                {
+                    calculationValue *= 2;
+                }
+            }
+            else // else the call point is a right shift
+            {
+                calculationValue = value;
+                for (int i = 0; i < shift; i++) // shifts the value a number of times equal to shift
+                {
+                    calculationValue /= 2;
+                }
+            }
+            return calculationValue; // returns the result
         }
 
         // converts input to binary
