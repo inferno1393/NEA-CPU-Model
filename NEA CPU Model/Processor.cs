@@ -6,15 +6,46 @@ using System.Reflection.Emit;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
+using System.Xml.XPath;
 
 namespace NEA_CPU_Model
 {
     internal class Processor : AbstractProcessor
     {
+        // dictionaries
         // uses a dictionary to implement an associative array to store the register values
         private Dictionary<string, int> registers = new Dictionary<string, int> { };
 
+        // creates an instance of the cache class
         static public Cache cache = new Cache();
+
+        // uses a dictionary to store the opcodes that can take <value>
+        private Dictionary<string, int> ValueOpcodes = new Dictionary<string, int>
+        {
+            { "STR", 0},
+            { "ADD", 2},
+            { "SUB", 2},
+            { "MOV", 1},
+            { "CMP", 1},
+            { "AND", 2},
+            { "ORR", 2},
+            { "EOR", 2},
+            { "MVN", 1},
+            { "LSL", 3},
+            { "LSR", 3},
+        };
+
+        // uses a dictionary to store the opcodes that access a register
+        private Dictionary<string, int> multipleOperandOpcodes = new Dictionary<string, int>
+        {
+            { "ADD", 1},
+            { "SUB", 1},
+            { "AND", 1},
+            { "ORR", 1},
+            { "EOR", 1},
+            { "LSL", 1},
+            { "LSR", 1}
+        };
 
         // attributes
         // shows how many instructions have been executed
@@ -26,8 +57,11 @@ namespace NEA_CPU_Model
         // controls if the end of the program has been met or if an error has occured
         private bool repeat = true;
 
-        // temporary value for comparisons/branching
-        private string temp = string.Empty;
+        // string value to store result of comparisons for branching
+        private string comparisonResult = string.Empty;
+
+        // string value to store format of any <value> operands
+        private string valueFormat = string.Empty;
 
         // constructor
         public Processor()
@@ -83,14 +117,63 @@ namespace NEA_CPU_Model
                 // splits the operand into the individual operands
                 string[] values = operand.Split(',');
 
+                // decides which format any <value> is and does error checking for empty RAM addresses
+                if (ValueOpcodes.ContainsKey(opcode))
+                {
+                    int valuePosition = ValueOpcodes[opcode];
+                    if (values[valuePosition].Contains('#')) // if the value in the operand is a hard value
+                    {
+                        values[valuePosition] = values[valuePosition].Replace("#", "");
+                        valueFormat = "#";
+                    }
+                    else if (values[valuePosition].Contains('R')) // if the value in the operand is a register address
+                    {
+                        values[valuePosition] = values[valuePosition].Replace("R", "");
+                        valueFormat = "R";
+                        if (!registers.ContainsKey(values[valuePosition]))
+                        {
+                            MessageBox.Show("Register address empty");
+                            goto Exit;
+                        }
+                    }
+                    else // else the value in the operand is a RAM address
+                    {
+                        valueFormat = "A";
+                        if (FetchData(values[valuePosition], RAM) == -1)
+                        {
+                            MessageBox.Show("RAM address empty");
+                            goto Exit;
+                        }
+                    }
+                }
+
+                // checks for the opcodes that contain multiple operands
+                // checks that the second of the three operands (which is always a regiser) is not empty
+                if (multipleOperandOpcodes.ContainsKey(opcode))
+                {
+                    if (values[1].Contains('R')) // checks if the user has put in the register with a label
+                    {
+                        values[1] = values[1].Replace("R", "");
+                    }
+
+                    if (!registers.ContainsKey(values[1]))
+                    {
+                        MessageBox.Show("Register address empty");
+                        goto Exit;
+                    }
+                }
 
                 // updates specific purpose registers on the interface
                 Program.model.cirText.Text = opcode;
                 Program.model.programCounterText.Text = programCounter.ToString();
 
-                DecodeInstruction(opcode, values, RAM, instructions); // call point for the decoding of the instruction
+                // call point for the decoding of the instruction
+                DecodeInstruction(opcode, values, RAM, instructions);
+
+            Exit:
+                // error found so should stop exeuction
+                repeat = false;
             }
-            // else a colon is present so it should ignore it
         }
 
         // decodes the instruction given and calls the appropriate subroutine to execute it
@@ -124,23 +207,23 @@ namespace NEA_CPU_Model
                     break;
 
                 case "B":
-                    B(values, RAM, instructions);
+                    Branch(values, RAM, instructions, "NA");
                     break;
 
                 case "B<EQ>":
-                    Bcondition(values, RAM, instructions, "EQ");
+                    Branch(values, RAM, instructions, "EQ");
                     break;
 
                 case "B<NE>":
-                    Bcondition(values, RAM, instructions, "NE");
+                    Branch(values, RAM, instructions, "NE");
                     break;
 
                 case "B<GT>":
-                    Bcondition(values, RAM, instructions, "GT");
+                    Branch(values, RAM, instructions, "GT");
                     break;
 
                 case "B<LT>":
-                    Bcondition(values, RAM, instructions, "LT");
+                    Branch(values, RAM, instructions, "LT");
                     break;
 
                 case "AND":
@@ -181,10 +264,6 @@ namespace NEA_CPU_Model
         {
             if (FetchData(values[1], RAM) != -1) // checks that the accessed address is not empty
             {
-                if (values[0].Contains('R')) // checks if the user has put in the register with a label
-                {
-                    values[0] = values[0].Replace("R", "");
-                }
                 registers[values[0]] = FetchData(values[1], RAM); // sets the appropriate register to the value fetched from RAM
                 UpdateInterface(values[0], registers[values[0]]); // updates the interface accordingly
             }
@@ -198,23 +277,13 @@ namespace NEA_CPU_Model
         // store the value in the 1st operand into the 2nd operand
         private void STR(string[] values, RAM RAM)
         {
-            if (values[0].Contains('#')) // if the value in the 1st operand is a hard value
+            if (valueFormat == "#") // returns if the value is a hard value
             {
-                values[0] = values[0].Replace("#", ""); // removes the # from the operand
                 WriteData(values[1], Convert.ToInt32(values[0]), RAM); // stores the data in the appropriate RAM address
             }
-            else // else the value in the 1st operand is a register
+            else // else the value is a register
             {
-                values[0] = values[0].Replace("R", ""); // removes the R from the operand
-                if (registers.ContainsKey(values[0])) // checks that the accessed register is not empty
-                {
-                    WriteData(values[1], registers[values[0]], RAM); // stores the data in the appropriate RAM address
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                    repeat = false;
-                }
+                WriteData(values[1], registers[values[0]], RAM); // stores the data in the appropriate RAM address
             }
         }
 
@@ -222,305 +291,109 @@ namespace NEA_CPU_Model
         private void ADD(string[] values, RAM RAM)
         {
             int result = 0;
-            if (values[0].Contains('R')) // checks if the user has put in the register with a label
+            if(valueFormat == "#") // returns if the value is a hard value
             {
-                values[0] = values[0].Replace("R", "");
+                result = registers[values[1]] + Convert.ToInt32(values[2]); // calculates the result
             }
-            if (values[1].Contains('R')) // checks if the user has put in the register with a label
+            else if(valueFormat == "R") // returns if the value is a register
             {
-                values[1] = values[1].Replace("R", "");
+                result = registers[values[1]] + registers[values[2]]; // calculates the result
+            }
+            else // else the value is a RAM address
+            {
+                result = registers[values[1]] + FetchData(values[2], RAM); // calculates the result
             }
 
-            if (values[2].Contains('#')) // if the value in the 3rd operand is a hard value
-            {
-                values[2] = values[2].Replace("#", ""); // removes the # from the operand
-                if (registers.ContainsKey(values[1])) // checks that the accessed register is not empty
-                {
-                    result = registers[values[1]] + Convert.ToInt32(values[2]); // calculates the result
-                    registers[values[0]] = result; // stores the result in the appropriate register
+            registers[values[0]] = result; // stores the result in the appropriate register
 
-                    // updates the interface
-                    UpdateInterface(values[0], registers[values[0]]);
-                    Program.model.accumulatorText.Text = result.ToString();
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                    repeat = false;
-                }
-            }
-            else if (values[2].Contains('R')) // or if the value in the 3rd operand is a register
-            {
-                values[2] = values[2].Replace("R", ""); // removes the R from the operand
-                if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2])) // checks that the accessed registers are not empty
-                {
-                    result = registers[values[1]] + registers[values[2]]; // calculates the result
-                    registers[values[0]] = result; // stores the result in the appropriate register
-
-                    // updates the interface
-                    UpdateInterface(values[0], registers[values[0]]);
-                    Program.model.accumulatorText.Text = result.ToString();
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                    repeat = false;
-                }
-            }
-            else // else the value in the 3rd operand is a RAM address
-            {
-                if (registers.ContainsKey(values[1]) && FetchData(values[2], RAM) != -1) // checks that the accessed register and RAM address is not empty
-                {
-                    result = registers[values[1]] + FetchData(values[2], RAM); // calculates the result
-                    registers[values[0]] = result; // stores the result in the appropriate register
-
-                    // updates the interface
-                    UpdateInterface(values[0], registers[values[0]]);
-                    Program.model.accumulatorText.Text = result.ToString();
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
-                    repeat = false;
-                }
-            }
+            // updates the interface
+            UpdateInterface(values[0], registers[values[0]]);
+            Program.model.accumulatorText.Text = result.ToString();
         }
 
         // subtract the value in the 3rd operand from the 2nd operand and stores it in the 1st operand
         private void SUB(string[] values, RAM RAM)
         {
             int result = 0;
-            if (values[0].Contains('R')) // checks if the user has put in the register with a label
+            if (valueFormat == "#") // returns if the value is a hard value
             {
-                values[0] = values[0].Replace("R", "");
+                result = Convert.ToInt32(values[2]) - registers[values[1]]; // calculates the result
             }
-            if (values[1].Contains('R')) // checks if the user has put in the register with a label
+            else if (valueFormat == "R") // returns if the value is a register
             {
-                values[1] = values[1].Replace("R", "");
+                result = registers[values[2]] - registers[values[1]]; // calculates the result
+            }
+            else // else the value is a RAM address
+            {
+                result = FetchData(values[2], RAM) - registers[values[1]]; // calculates the result
             }
 
-            if (values[2].Contains('#')) // if the value in the 3rd operand is a hard value
-            {
-                values[2] = values[2].Replace("#", ""); // removes the # from the operand
-                if (registers.ContainsKey(values[1])) // checks that the accessed register is not empty
-                {
-                    result = Convert.ToInt32(values[2]) - registers[values[1]]; // calculates the result
-                    registers[values[0]] = result; // stores the result in the appropriate register
+            registers[values[0]] = result; // stores the result in the appropriate register
 
-                    // updates the interface
-                    UpdateInterface(values[0], registers[values[0]]);
-                    Program.model.accumulatorText.Text = result.ToString();
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                    repeat = false;
-                }
-            }
-            else if (values[2].Contains('R')) // or if the value in the 3rd operand is a register
-            {
-                values[2] = values[2].Replace("R", ""); // removes the R from the operand
-                if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2])) // checks that the accessed registers are not empty
-                {
-                    result = registers[values[2]] - registers[values[1]]; // calculates the result
-                    registers[values[0]] = result; // stores the result in the appropriate register
-
-                    // updates the interface
-                    UpdateInterface(values[0], registers[values[0]]);
-                    Program.model.accumulatorText.Text = result.ToString();
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                    repeat = false;
-                }
-            }
-            else // else the value in the 3rd operand is a RAM address
-            {
-                if (registers.ContainsKey(values[1]) && FetchData(values[2], RAM) != -1) // checks that the accessed register and RAM address is not empty
-                {
-                    result = FetchData(values[2], RAM) - registers[values[1]]; // calculates the result
-                    registers[values[0]] = result; // stores the result in the appropriate register
-
-                    // updates the interface
-                    UpdateInterface(values[0], registers[values[0]]);
-                    Program.model.accumulatorText.Text = result.ToString();
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
-                    repeat = false;
-                }
-            }
+            // updates the interface
+            UpdateInterface(values[0], registers[values[0]]);
+            Program.model.accumulatorText.Text = result.ToString();
         }
 
         // copies the value in the 2nd operand into the 1st operand
         private void MOV(string[] values, RAM RAM)
         {
-            if (values[0].Contains('R')) // checks if the user has put in the register with a label
+            if(valueFormat == "#") // returns if the value is a hard value
             {
-                values[0] = values[0].Replace("R", "");
+                registers[values[0]] = Convert.ToInt32(values[1]);
             }
-
-            if (values[1].Contains('#')) // if the value in the 2nd operand is a hard value
+            else if (valueFormat == "R") // returns if the value is a register
             {
-                values[1] = values[1].Replace("#", ""); // removes the # from the operand
-                if (registers.ContainsKey(values[0])) // if the address already has a value replace it
-                {
-                    registers[values[0]] = Convert.ToInt32(values[1]);
-                }
-                else // else add the address and its value to the dictionary
-                {
-                    registers.Add(values[0], Convert.ToInt32(values[1]));
-                }
+                registers[values[0]] = Convert.ToInt32(values[1]);
             }
-            else if (values[1].Contains('R')) // else if the value in the 2nd operand is a register
+            else // else the value is a RAM address
             {
-                values[1] = values[1].Replace("R", ""); // removes the R from the operand
-                if (registers.ContainsKey(values[0]) && registers.ContainsKey(values[1]))// checks that the accessed registers are not empty
-                {
-                    registers[values[0]] = Convert.ToInt32(values[1]); // if the address already has a value replace it
-                }
-                else if (registers.ContainsKey(values[1]))
-                {
-                    registers.Add(values[0], Convert.ToInt32(values[1])); // else add the address and its value to the dictionar
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                    repeat = false;
-                }
-            }
-            else // else the value in the 2nd operand is a RAM address
-            {
-                if (registers.ContainsKey(values[0]) && FetchData(values[1], RAM) != -1)// checks that the accessed register and RAM address is not empty
-                {
-                    registers[values[0]] = FetchData(values[1], RAM); // if the address already has a value replace it
-                }
-                else if (FetchData(values[1], RAM) != -1)
-                {
-                    registers.Add(values[0], FetchData(values[1], RAM)); // else add the address and its value to the dictionary
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty RAM address in line {programCounter}");
-                    repeat = false;
-                }
+                registers[values[0]] = FetchData(values[1], RAM);
             }
         }
 
         // compares the value in the 1st operand with the 2nd operand
         private void CMP(string[] values, RAM RAM)
         {
-            if (values[0].Contains('R')) // checks if the user has put in the register with a label
-            {
-                values[0] = values[0].Replace("R", "");
-            }
-            
-            if (values[1].Contains('#')) // if the value in the 2nd operand is a hard value
-            {
-                values[1] = values[1].Replace("#", ""); // removes the R from the operand
-                if (registers.ContainsKey(values[0])) // checks that the accessed register is not empty
-                {
-                    if (registers[values[0]] == Convert.ToInt32(values[1])) // records the result of the comparison in the temp variable
-                    {
-                        temp = "EQ";
-                    }
-                    if (registers[values[0]] != Convert.ToInt32(values[1]))
-                    {
-                        temp = "NE";
-                    }
-                    else if (registers[values[0]] > Convert.ToInt32(values[1]))
-                    {
-                        temp = "GT";
-                    }
-                    else if (registers[values[0]] < Convert.ToInt32(values[1]))
-                    {
-                        temp = "LT";
-                    }
-                }
-                else  // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                    repeat = false;
-                }
-            }
-            else if (values[1].Contains('R')) // else if the value in the 2nd operand is a register
-            {
-                values[1] = values[1].Replace("R", "");
-                if (registers.ContainsKey(values[0]) && registers.ContainsKey(values[1])) // checks that the accessed registers are not empty
-                {
-                    if (registers[values[0]] == registers[values[1]]) // records the result of the comparison in the temp variable
-                    {
-                        temp = "EQ";
-                    }
-                    if (registers[values[0]] != registers[values[1]])
-                    {
-                        temp = "NE";
-                    }
-                    else if (registers[values[0]] > registers[values[1]])
-                    {
-                        temp = "GT";
-                    }
-                    else if (registers[values[0]] < registers[values[1]])
-                    {
-                        temp = "LT";
-                    }
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                    repeat = false;
-                }
-            }
-            else  // else the value in the 2nd operand is a RAM address
-            {
-                if (registers.ContainsKey(values[0]) && FetchData(values[1], RAM) != -1) // checks that the accessed register and RAM address are not empty
-                {
-                    if (registers[values[0]] == FetchData(values[1], RAM)) // records the result of the comparison in the temp variable
-                    {
-                        temp = "EQ";
-                    }
-                    if (registers[values[0]] != FetchData(values[1], RAM))
-                    {
-                        temp = "NE";
-                    }
-                    else if (registers[values[0]] > FetchData(values[1], RAM))
-                    {
-                        temp = "GT";
-                    }
-                    else if (registers[values[0]] < FetchData(values[1], RAM))
-                    {
-                        temp = "LT";
-                    }
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register/ RAM address in line {programCounter}");
-                    repeat = false;
-                }
-            }
-        }
+            int comparisonValue = 0;
 
-        // always branches to the label given by the operand
-        private void B(string[] values, RAM RAM, List<string> instructions)
-        {
-            if (Parser.labels.ContainsKey(values[0])) // checks the label exists
+            if (valueFormat == "#") // returns if the value is a hard value
             {
-                programCounter = Parser.labels[values[0]]; // sets the program counter to the line containing the label
+                comparisonValue = Convert.ToInt32(values[1]);
             }
-            else // label doesn't exist so exit out
+            else if(valueFormat == "R") // returns if the value is a register
             {
-                MessageBox.Show("Label not found");
-                repeat = false;
+                comparisonValue = registers[values[1]];
+            }
+            else // else the value is a RAM address
+            {
+                comparisonValue = FetchData(values[1], RAM);
+            }
+
+            // records the result of the comparison in the appropriate variable
+            if (registers[values[0]] == comparisonValue)
+            {
+                comparisonResult = "EQ";
+            }
+            if (registers[values[0]] != comparisonValue)
+            {
+                comparisonResult = "NE";
+            }
+            else if (registers[values[0]] > comparisonValue)
+            {
+                comparisonResult = "GT";
+            }
+            else if (registers[values[0]] < comparisonValue)
+            {
+                comparisonResult = "LT";
             }
         }
 
         // branches to the label given by the operand if the given condition was met by the last comparison
-        private void Bcondition(string[] values, RAM RAM, List<string> instructions, string condition)
+        private void Branch(string[] values, RAM RAM, List<string> instructions, string condition)
         {
-            // checks if the string stored by thelast comparison met the given condition
-            if (temp == condition)
+            // checks if the string stored by the last comparison met the given condition (or if it should always branch)
+            if (comparisonResult == condition || condition == "NA")
             {
                 if (Parser.labels.ContainsKey(values[0])) // checks the label exists
                 {
@@ -538,418 +411,176 @@ namespace NEA_CPU_Model
         private void AND(string[] values, RAM RAM)
         {
             int result = 0;
-            if (values[0].Contains('R')) // checks if the user has put in the register with a label
+            if (valueFormat == "#") // returns if the value is a hard value
             {
-                values[0] = values[0].Replace("R", "");
+                result = registers[values[1]] & Convert.ToInt32(values[2]); // calculates the result
             }
-            if (values[1].Contains('R')) // checks if the user has put in the register with a label
+            else if (valueFormat == "R") // returns if the value is a register
             {
-                values[1] = values[1].Replace("R", "");
+                result = registers[values[1]] & registers[values[2]]; // calculates the result
+            }
+            else // else the value is a RAM address
+            {
+                result = registers[values[1]] & FetchData(values[2], RAM); // calculates the result
             }
 
-            if (values[2].Contains('#')) // if the value in the 3rd operand is a hard value
-            {
-                values[2] = values[2].Replace("#", ""); // removes the # from the operand
-                if (registers.ContainsKey(values[1])) // checks that the accessed register is not empty
-                {
-                    result = registers[values[1]] & Convert.ToInt32(values[2]); // calcultes the result
-                    registers[values[0]] = result; // stores the result in the appropriate register
+            registers[values[0]] = result; // stores the result in the appropriate register
 
-                    // updates the interface
-                    UpdateInterface(values[0], registers[values[0]]);
-                    Program.model.accumulatorText.Text = result.ToString();
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                    repeat = false;
-                }
-            }
-            else if (values[2].Contains('R')) // or if the value in the 3rd operand is a register
-            {
-                values[2] = values[2].Replace("R", ""); // removes the R from the operand
-                if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2])) // checks that the accessed registers are not empty
-                {
-                    result = registers[values[1]] & registers[values[2]]; // calcultes the result
-                    registers[values[0]] = result; // stores the result in the appropriate register
-
-                    // updates the interface
-                    UpdateInterface(values[0], registers[values[0]]);
-                    Program.model.accumulatorText.Text = result.ToString();
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                    repeat = false;
-                }
-            }
-            else // else the value in the 3rd operand is a RAM address
-            {
-                if (registers.ContainsKey(values[1]) && FetchData(values[2], RAM) != -1) // checks that the accessed register and RAM address are not empty
-                {
-                    result = registers[values[1]] & FetchData(values[2], RAM); // calcultes the result
-                    registers[values[0]] = result; // stores the result in the appropriate register
-
-                    // updates the interface
-                    UpdateInterface(values[0], registers[values[0]]);
-                    Program.model.accumulatorText.Text = result.ToString();
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
-                    repeat = false;
-                }
-            }
+            // updates the interface
+            UpdateInterface(values[0], registers[values[0]]);
+            Program.model.accumulatorText.Text = result.ToString();
         }
 
         // Bitwise or the value in the 3rd operand with the 2nd operand and stores it in the 1st operand
         private void ORR(string[] values, RAM RAM)
         {
             int result = 0;
-            if (values[0].Contains('R')) // checks if the user has put in the register with a label
+            if (valueFormat == "#") // returns if the value is a hard value
             {
-                values[0] = values[0].Replace("R", "");
+                result = registers[values[1]] | Convert.ToInt32(values[2]); // calculates the result
             }
-            if (values[1].Contains('R')) // checks if the user has put in the register with a label
+            else if (valueFormat == "R") // returns if the value is a register
             {
-                values[1] = values[1].Replace("R", "");
+                result = registers[values[1]] | registers[values[2]]; // calculates the result
+            }
+            else // else the value is a RAM address
+            {
+                result = registers[values[1]] | FetchData(values[2], RAM); // calculates the result
             }
 
-            if (values[2].Contains('#')) // if the value in the 3rd operand is a hard value
-            {
-                values[2] = values[2].Replace("#", ""); // removes the # from the operand
-                if (registers.ContainsKey(values[1])) // checks that the accessed register is not empty
-                {
-                    result = registers[values[1]] | Convert.ToInt32(values[2]); // calcultes the result
-                    registers[values[0]] = result; // stores the result in the appropriate register
+            registers[values[0]] = result; // stores the result in the appropriate register
 
-                    // updates the interface
-                    UpdateInterface(values[0], registers[values[0]]);
-                    Program.model.accumulatorText.Text = result.ToString();
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                    repeat = false;
-                }
-            }
-            else if (values[2].Contains('R')) // or if the value in the 3rd operand is a register
-            {
-                values[2] = values[2].Replace("R", ""); // removes the R from the operand
-                if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2])) // checks that the accessed registers are not empty
-                {
-                    result = registers[values[1]] | registers[values[2]]; // calcultes the result
-                    registers[values[0]] = result; // stores the result in the appropriate register
-
-                    // updates the interface
-                    UpdateInterface(values[0], registers[values[0]]);
-                    Program.model.accumulatorText.Text = result.ToString();
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                    repeat = false;
-                }
-            }
-            else // else the value in the 3rd operand is a RAM address
-            {
-                if (registers.ContainsKey(values[1]) && FetchData(values[2], RAM) != -1) // checks that the accessed register and RAM address are not empty
-                {
-                    result = registers[values[1]] | FetchData(values[2], RAM); // calcultes the result
-                    registers[values[0]] = result; // stores the result in the appropriate register
-
-                    // updates the interface
-                    UpdateInterface(values[0], registers[values[0]]);
-                    Program.model.accumulatorText.Text = result.ToString();
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
-                    repeat = false;
-                }
-            }
+            // updates the interface
+            UpdateInterface(values[0], registers[values[0]]);
+            Program.model.accumulatorText.Text = result.ToString();
         }
 
         // Bitwise xor the value in the 3rd operand with the 2nd operand and stores it in the 1st operand
         private void EOR(string[] values, RAM RAM)
         {
             int result = 0;
-            if (values[0].Contains('R')) // checks if the user has put in the register with a label
+            if (valueFormat == "#") // returns if the value is a hard value
             {
-                values[0] = values[0].Replace("R", "");
+                result = registers[values[1]] ^ Convert.ToInt32(values[2]); // calculates the result
             }
-            if (values[1].Contains('R')) // checks if the user has put in the register with a label
+            else if (valueFormat == "R") // returns if the value is a register
             {
-                values[1] = values[1].Replace("R", "");
+                result = registers[values[1]] ^ registers[values[2]]; // calculates the result
+            }
+            else // else the value is a RAM address
+            {
+                result = registers[values[1]] ^ FetchData(values[2], RAM); // calculates the result
             }
 
-            if (values[2].Contains('#')) // if the value in the 3rd operand is a hard value
-            {
-                values[2] = values[2].Replace("#", ""); // removes the # from the operand
-                if (registers.ContainsKey(values[1])) // checks that the accessed register is not empty
-                {
-                    result = registers[values[1]] ^ Convert.ToInt32(values[2]); // calcultes the result
-                    registers[values[0]] = result; // stores the result in the appropriate register
+            registers[values[0]] = result; // stores the result in the appropriate register
 
-                    // updates the interface
-                    UpdateInterface(values[0], registers[values[0]]);
-                    Program.model.accumulatorText.Text = result.ToString();
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                    repeat = false;
-                }
-            }
-            else if (values[2].Contains('R')) // or if the value in the 3rd operand is a register
-            {
-                values[2] = values[2].Replace("R", ""); // removes the R from the operand
-                if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2])) // checks that the accessed registers are not empty
-                {
-                    result = registers[values[1]] ^ registers[values[2]]; // calcultes the result
-                    registers[values[0]] = result; // stores the result in the appropriate register
-
-                    // updates the interface
-                    UpdateInterface(values[0], registers[values[0]]);
-                    Program.model.accumulatorText.Text = result.ToString();
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                    repeat = false;
-                }
-            }
-            else // else the value in the 3rd operand is a RAM address
-            {
-                if (registers.ContainsKey(values[1]) && FetchData(values[2], RAM) != -1) // checks that the accessed register and RAM address are not empty
-                {
-                    result = registers[values[1]] ^ FetchData(values[2], RAM); // calcultes the result
-                    registers[values[0]] = result; // stores the result in the appropriate register
-
-                    // updates the interface
-                    UpdateInterface(values[0], registers[values[0]]);
-                    Program.model.accumulatorText.Text = result.ToString();
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
-                    repeat = false;
-                }
-            }
+            // updates the interface
+            UpdateInterface(values[0], registers[values[0]]);
+            Program.model.accumulatorText.Text = result.ToString();
         }
 
         // Bitwise not the value in the 2nd operand and stores it in the 1st operand
         private void MVN(string[] values, RAM RAM)
         {
             int result = 0;
-            if (values[0].Contains('R')) // checks if the user has put in the register with a label
+            if(valueFormat == "#") // returns if the value is a hard value
             {
-                values[0] = values[0].Replace("R", "");
-            }
-            
-            if (values[1].Contains('#')) // if the value in the 3rd operand is a hard value
-            {
-                values[1] = values[1].Replace("#", ""); // removes the # from the operand
-
                 result = NotLogic(Convert.ToInt32(values[1])); // calculates the result
-
-                // updates the interface
-                if (registers.ContainsKey(values[0])) // address exists, so update current data
-                {
-                    registers[values[0]] = result; // stores the result in the appropriate 
-                }
-                else // address doesn't exist, so need to add address
-                {
-                    registers.Add(values[0], result); // stores the result in the appropriate register
-                }
-
-                UpdateInterface(values[0], registers[values[0]]);
-                Program.model.accumulatorText.Text = result.ToString();
             }
-            else if (values[1].Contains('R')) // or if the value in the 3rd operand is a register
+            else if(valueFormat == "R") // returns if the value is a register
             {
-                values[1] = values[1].Replace("R", ""); // removes the R from the operand
-                if (registers.ContainsKey(values[1])) // checks that the accessed register is not empty
-                {
-                    result = NotLogic(registers[values[1]]); // calculates the result
-                    registers[values[0]] = result; // stores the result in the appropriate register
-
-                    // updates the interface
-                    UpdateInterface(values[0], registers[values[0]]);
-                    Program.model.accumulatorText.Text = result.ToString();
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                    repeat = false;
-                }
+                result = NotLogic(registers[values[1]]); // calculates the result
             }
-            else // else the value in the 3rd operand is a RAM address
+            else // else the value is a RAM address
             {
-                if (FetchData(values[1], RAM) != -1) // checks that the accessed RAM address is not empty
-                {
-                    NotLogic(FetchData(values[1], RAM)); // calculates the result
-                    registers[values[0]] = result; // stores the result in the appropriate register
-
-                    // updates the interface
-                    UpdateInterface(values[0], registers[values[0]]);
-                    Program.model.accumulatorText.Text = result.ToString();
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
-                    repeat = false;
-                }
+                result = NotLogic(FetchData(values[1], RAM)); // calculates the result
             }
+
+            registers[values[0]] = result; // stores the result in the appropriate register
+
+            // updates the interface
+            UpdateInterface(values[0], registers[values[0]]);
+            Program.model.accumulatorText.Text = result.ToString();
         }
 
         // Bitwise left shift the value in the 2nd operand by the 3rd operand and stores it in the 1st operand
         private void LSL(string[] values, RAM RAM)
         {
             int result = 0;
-            if (values[0].Contains('R')) // checks if the user has put in the register with a label
+            if(valueFormat == "#") // returns if the value is a hard value
             {
-                values[0] = values[0].Replace("R", "");
+                int calculationValue = registers[values[1]]; // creates a temporary value to carry out the calculation on
+                for (int i = 0; i < Convert.ToInt32(values[2]); i++)
+                {
+                    calculationValue *= 2;
+                }
+                result = calculationValue;
             }
-            if (values[1].Contains('R')) // checks if the user has put in the register with a label
+            else if(valueFormat == "R") // returns if the value is a register
             {
-                values[1] = values[0].Replace("R", "");
+                int calculationValue = registers[values[1]]; // creates a temporary value to carry out the calculation on
+                for (int i = 0; i < registers[values[2]]; i++)
+                {
+                    calculationValue *= 2;
+                }
+                result = calculationValue;
+            }
+            else // else the value is a RAM address
+            {
+                int calculationValue = registers[values[1]]; // creates a temporary value to carry out the calculation on
+                for (int i = 0; i < FetchData(values[2], RAM); i++)
+                {
+                    calculationValue *= 2;
+                }
+                result = calculationValue;
             }
 
-            if (values[2].Contains('#')) // if the value in the 3rd operand is a hard value
-            {
-                values[2] = values[2].Replace("#", "");
-                if (registers.ContainsKey(values[1]))
-                {
-                    int calculation = registers[values[1]]; // creates a temporary value to carry out the calculation on
-                    for (int i = 0; i < Convert.ToInt32(values[2]); i++)
-                    {
-                        calculation *= 2;
-                    }
-                    result = calculation;
-                    registers[values[0]] = result;
-                    UpdateInterface(values[0], registers[values[0]]);
-                    Program.model.accumulatorText.Text = result.ToString();
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                    repeat = false;
-                }
-            }
-            else if (values[2].Contains('R')) // else if the value in the 3rd operand is a register
-            {
-                values[2] = values[2].Replace("R", "");
-                if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
-                {
-                    result = registers[values[1]];
-                    for (int i = 0; i < registers[values[2]]; i++)
-                    {
-                        result *= 2;
-                    }
-                    registers[values[0]] = result;
-                    UpdateInterface(values[0], registers[values[0]]);
-                    Program.model.accumulatorText.Text = result.ToString();
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                    repeat = false;
-                }
-            }
-            else // else the value in the 3rd operand is a RAM address
-            {
-                if (registers.ContainsKey(values[1]) && FetchData(values[2], RAM) != -1)
-                {
-                    result = registers[values[1]];
-                    for (int i = 0; i < FetchData(values[2], RAM); i++)
-                    {
-                        result *= 2;
-                    }
-                    registers[values[0]] = result;
-                    UpdateInterface(values[0], registers[values[0]]);
-                    Program.model.accumulatorText.Text = result.ToString();
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
-                    repeat = false;
-                }
-            }
+            registers[values[0]] = result; // stores the result in the appropriate register
+
+            // updates the interface
+            UpdateInterface(values[0], registers[values[0]]);
+            Program.model.accumulatorText.Text = result.ToString();
+
         }
 
         // Bitwise right shift the value in the 2nd operand by the 3rd operand and stores it in the 1st operand
         private void LSR(string[] values, RAM RAM)
         {
             int result = 0;
-            if (values[0].Contains('R')) // checks if the user has put in the register with a label
+            if (valueFormat == "#") // returns if the value is a hard value
             {
-                values[0] = values[0].Replace("R", "");
+                int calculationValue = registers[values[1]]; // creates a temporary value to carry out the calculation on
+                for (int i = 0; i < Convert.ToInt32(values[2]); i++)
+                {
+                    calculationValue /= 2;
+                }
+                result = calculationValue;
             }
-            if (values[1].Contains('R')) // checks if the user has put in the register with a label
+            else if (valueFormat == "R") // returns if the value is a register
             {
-                values[1] = values[0].Replace("R", "");
+                int calculationValue = registers[values[1]]; // creates a temporary value to carry out the calculation on
+                for (int i = 0; i < registers[values[2]]; i++)
+                {
+                    calculationValue /= 2;
+                }
+                result = calculationValue;
+            }
+            else // else the value is a RAM address
+            {
+                int calculationValue = registers[values[1]]; // creates a temporary value to carry out the calculation on
+                for (int i = 0; i < FetchData(values[2], RAM); i++)
+                {
+                    calculationValue /= 2;
+                }
+                result = calculationValue;
             }
 
-            if (values[2].Contains('#')) // if the value in the 3rd operand is a hard value
-            {
-                values[2] = values[2].Replace("#", "");
-                if (registers.ContainsKey(values[1]))
-                {
-                    result = registers[values[1]];
-                    for (int i = 0; i < Convert.ToInt32(values[2]); i++)
-                    {
-                        result /= 2;
-                    }
-                    registers[values[0]] = result;
-                    UpdateInterface(values[0], registers[values[0]]);
-                    Program.model.accumulatorText.Text = result.ToString();
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                    repeat = false;
-                }
-            }
-            else if (values[2].Contains('R')) // else if the value in the 3rd operand is a register
-            {
-                values[2] = values[2].Replace("R", "");
-                if (registers.ContainsKey(values[1]) && registers.ContainsKey(values[2]))
-                {
-                    result = registers[values[1]];
-                    for (int i = 0; i < registers[values[2]]; i++)
-                    {
-                        result /= 2;
-                    }
-                    registers[values[0]] = result;
-                    UpdateInterface(values[0], registers[values[0]]);
-                    Program.model.accumulatorText.Text = result.ToString();
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register in line {programCounter}");
-                    repeat = false;
-                }
-            }
-            else // else the value in the 3rd operand is a RAM address
-            {
-                if (registers.ContainsKey(values[1]) && FetchData(values[2], RAM) != -1)
-                {
-                    result = registers[values[1]];
-                    for (int i = 0; i < FetchData(values[2], RAM); i++)
-                    {
-                        result *= 2;
-                    }
-                    registers[values[0]] = result;
-                    UpdateInterface(values[0], registers[values[0]]);
-                    Program.model.accumulatorText.Text = result.ToString();
-                }
-                else // address is empty, exit out
-                {
-                    MessageBox.Show($"Attempted to access empty register/RAM address in line {programCounter}");
-                    repeat = false;
-                }
-            }
+            registers[values[0]] = result; // stores the result in the appropriate register
+
+            // updates the interface
+            UpdateInterface(values[0], registers[values[0]]);
+            Program.model.accumulatorText.Text = result.ToString();
+
         }
 
         // does the bitwise logic
