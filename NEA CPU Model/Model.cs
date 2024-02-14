@@ -2,10 +2,20 @@ namespace NEA_CPU_Model
 {
     public partial class Model : Form
     {
-        // attributes
-        Processor processor = new Processor();
-        RAM RAM = new RAM();
+        // dictionaries
+        // creates dictionary of accepted colours
+        private Dictionary<string, Color> colours = new Dictionary<string, Color>
+        {
+            {"white", Color.White },
+            {"blue", Color.Aqua },
+            {"red", Color.Crimson },
+            {"yellow", Color.LightYellow },
+            {"green", Color.Green },
+            {"orange", Color.DarkGoldenrod },
+            {"violet", Color.Violet },
+        };
 
+        // arrays
         // creates array of avaiable text boxes for registers
         static public TextBox[] registersData =
         {
@@ -100,25 +110,16 @@ namespace NEA_CPU_Model
             Program.model.cacheAddress7,
         };
 
+        // attributes
+        Processor processor = new Processor();
+        RAM RAM = new RAM();
+
         // initializes indexes for ram and register addresses
         static public int ramIndex = 0;
         static public int registerIndex = 0;
 
         private string ColourFileName = "Colours.txt";
         private string InstructionsFileName = "Instructions.txt";
-
-
-        // creates dictionary of accepted colours
-        private Dictionary<string, Color> colours = new Dictionary<string, Color>
-        {
-            {"white", Color.White },
-            {"blue", Color.Aqua },
-            {"red", Color.Crimson },
-            {"yellow", Color.LightYellow },
-            {"green", Color.Green },
-            {"orange", Color.DarkGoldenrod },
-            {"violet", Color.Violet },
-        };
 
         // constructor
         public Model()
