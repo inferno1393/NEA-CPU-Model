@@ -169,8 +169,8 @@ namespace NEA_CPU_Model
 
             // adds the load instructions button
             Button loadBtn = new Button();
-            loadBtn.Size = new Size(150, 100);
-            loadBtn.Location = new Point(10, 750);
+            loadBtn.Size = new Size(180, 100);
+            loadBtn.Location = new Point(100, 700);
             loadBtn.BackColor = Color.White;
             loadBtn.Click += new EventHandler(loadBtn_Click);
             loadBtn.Text = "Load Instructions From File";
@@ -178,8 +178,8 @@ namespace NEA_CPU_Model
 
             // adds the write instructions button
             Button writeBtn = new Button();
-            writeBtn.Size = new Size(150, 100);
-            writeBtn.Location = new Point(200, 750);
+            writeBtn.Size = new Size(180, 100);
+            writeBtn.Location = new Point(330, 700);
             writeBtn.BackColor = Color.White;
             writeBtn.Click += new EventHandler(writeBtn_Click);
             writeBtn.Text = "Write Instructions To File";
