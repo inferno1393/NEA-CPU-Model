@@ -79,9 +79,9 @@ namespace NEA_CPU_Model
         {
             if (cacheMemory.ContainsKey(address)) // checks if key is in dictionary
             {
-                return false;
+                return false; // the address is not empty
             }
-            return true;
+            return true; // the address is empty
         }
 
         // clears the current instance of cache

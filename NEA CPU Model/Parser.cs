@@ -71,7 +71,7 @@ namespace NEA_CPU_Model
                     }
                     count--;
                 }
-                else
+                else // push the opcode and operand onto the stack
                 {
                     splitInstructions.Push(GetOpcode(instruction));
                     splitInstructions.Push(GetOperand(instruction));
