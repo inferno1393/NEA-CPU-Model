@@ -133,7 +133,7 @@ namespace NEA_CPU_Model
                         if (!registers.ContainsKey(values[valuePosition]))
                         {
                             MessageBox.Show("Register address empty");
-                            goto Exit;
+                            repeat = false; // an error has occured so stop execution
                         }
                     }
                     else // else the value in the operand is a RAM address
@@ -142,7 +142,7 @@ namespace NEA_CPU_Model
                         if (FetchData(values[valuePosition], RAM) == -1)
                         {
                             MessageBox.Show("RAM address empty");
-                            goto Exit;
+                            repeat = false; // an error has occured so stop execution
                         }
                     }
                 }
@@ -159,7 +159,7 @@ namespace NEA_CPU_Model
                     if (!registers.ContainsKey(values[1]))
                     {
                         MessageBox.Show("Register address empty");
-                        goto Exit;
+                        repeat = false; // an error has occured so stop execution
                     }
                 }
 
@@ -169,12 +169,9 @@ namespace NEA_CPU_Model
 
                 // call point for the decoding of the instruction
                 DecodeInstruction(opcode, values, RAM, instructions);
-
-            Exit:
-                // error found so should stop exeuction
-                repeat = false;
             }
         }
+
 
         // decodes the instruction given and calls the appropriate subroutine to execute it
         protected override void DecodeInstruction(string opcode, string[] values, RAM RAM, List<string> instructions)
@@ -277,32 +274,16 @@ namespace NEA_CPU_Model
         // store the value in the 1st operand into the 2nd operand
         private void STR(string[] values, RAM RAM)
         {
-            if (valueFormat == "#") // returns if the value is a hard value
-            {
-                WriteData(values[1], Convert.ToInt32(values[0]), RAM); // stores the data in the appropriate RAM address
-            }
-            else // else the value is a register
-            {
-                WriteData(values[1], registers[values[0]], RAM); // stores the data in the appropriate RAM address
-            }
+            int calculationValue = findCalculationValue(values, 0,RAM); // fetches the value to process
+            WriteData(values[1], calculationValue, RAM); // stores the data appropriately
         }
 
         // adds the value in the 3rd operand with the 2nd operand and stores it in the 1st operand
         private void ADD(string[] values, RAM RAM)
         {
-            int result = 0;
-            if(valueFormat == "#") // returns if the value is a hard value
-            {
-                result = registers[values[1]] + Convert.ToInt32(values[2]); // calculates the result
-            }
-            else if(valueFormat == "R") // returns if the value is a register
-            {
-                result = registers[values[1]] + registers[values[2]]; // calculates the result
-            }
-            else // else the value is a RAM address
-            {
-                result = registers[values[1]] + FetchData(values[2], RAM); // calculates the result
-            }
+
+            int calculationValue = findCalculationValue(values, 2, RAM); // fetches the value to process
+            int result = registers[values[1]] + calculationValue; // calculates the result
 
             registers[values[0]] = result; // stores the result in the appropriate register
 
@@ -314,19 +295,8 @@ namespace NEA_CPU_Model
         // subtract the value in the 3rd operand from the 2nd operand and stores it in the 1st operand
         private void SUB(string[] values, RAM RAM)
         {
-            int result = 0;
-            if (valueFormat == "#") // returns if the value is a hard value
-            {
-                result = Convert.ToInt32(values[2]) - registers[values[1]]; // calculates the result
-            }
-            else if (valueFormat == "R") // returns if the value is a register
-            {
-                result = registers[values[2]] - registers[values[1]]; // calculates the result
-            }
-            else // else the value is a RAM address
-            {
-                result = FetchData(values[2], RAM) - registers[values[1]]; // calculates the result
-            }
+            int calculationValue = findCalculationValue(values, 2, RAM); // fetches the value to process
+            int result = calculationValue - registers[values[1]]; // calculates the result
 
             registers[values[0]] = result; // stores the result in the appropriate register
 
@@ -338,37 +308,15 @@ namespace NEA_CPU_Model
         // copies the value in the 2nd operand into the 1st operand
         private void MOV(string[] values, RAM RAM)
         {
-            if(valueFormat == "#") // returns if the value is a hard value
-            {
-                registers[values[0]] = Convert.ToInt32(values[1]);
-            }
-            else if (valueFormat == "R") // returns if the value is a register
-            {
-                registers[values[0]] = Convert.ToInt32(values[1]);
-            }
-            else // else the value is a RAM address
-            {
-                registers[values[0]] = FetchData(values[1], RAM);
-            }
+            int calculationValue = findCalculationValue(values, 1, RAM); // fetches the value to process
+            registers[values[0]] = calculationValue; // stores the value in the right register
+            UpdateInterface(values[0], calculationValue); // updates the interface to show the new register update
         }
 
         // compares the value in the 1st operand with the 2nd operand
         private void CMP(string[] values, RAM RAM)
         {
-            int comparisonValue = 0;
-
-            if (valueFormat == "#") // returns if the value is a hard value
-            {
-                comparisonValue = Convert.ToInt32(values[1]);
-            }
-            else if(valueFormat == "R") // returns if the value is a register
-            {
-                comparisonValue = registers[values[1]];
-            }
-            else // else the value is a RAM address
-            {
-                comparisonValue = FetchData(values[1], RAM);
-            }
+            int comparisonValue = findCalculationValue(values, 1, RAM); // fetches the value to compare too
 
             // records the result of the comparison in the appropriate variable
             if (registers[values[0]] == comparisonValue)
@@ -410,19 +358,8 @@ namespace NEA_CPU_Model
         // Bitwise and the value in the 3rd operand with the 2nd operand and stores it in the 1st operand
         private void AND(string[] values, RAM RAM)
         {
-            int result = 0;
-            if (valueFormat == "#") // returns if the value is a hard value
-            {
-                result = registers[values[1]] & Convert.ToInt32(values[2]); // calculates the result
-            }
-            else if (valueFormat == "R") // returns if the value is a register
-            {
-                result = registers[values[1]] & registers[values[2]]; // calculates the result
-            }
-            else // else the value is a RAM address
-            {
-                result = registers[values[1]] & FetchData(values[2], RAM); // calculates the result
-            }
+            int calculationValue = findCalculationValue(values, 2, RAM); // fetches the value to process
+            int result = registers[values[1]] & calculationValue; // calculates the result
 
             registers[values[0]] = result; // stores the result in the appropriate register
 
@@ -434,19 +371,8 @@ namespace NEA_CPU_Model
         // Bitwise or the value in the 3rd operand with the 2nd operand and stores it in the 1st operand
         private void ORR(string[] values, RAM RAM)
         {
-            int result = 0;
-            if (valueFormat == "#") // returns if the value is a hard value
-            {
-                result = registers[values[1]] | Convert.ToInt32(values[2]); // calculates the result
-            }
-            else if (valueFormat == "R") // returns if the value is a register
-            {
-                result = registers[values[1]] | registers[values[2]]; // calculates the result
-            }
-            else // else the value is a RAM address
-            {
-                result = registers[values[1]] | FetchData(values[2], RAM); // calculates the result
-            }
+            int calculationValue = findCalculationValue(values, 2, RAM); // fetches the value to process
+            int result = registers[values[1]] | calculationValue; // calculates the result
 
             registers[values[0]] = result; // stores the result in the appropriate register
 
@@ -458,20 +384,9 @@ namespace NEA_CPU_Model
         // Bitwise xor the value in the 3rd operand with the 2nd operand and stores it in the 1st operand
         private void EOR(string[] values, RAM RAM)
         {
-            int result = 0;
-            if (valueFormat == "#") // returns if the value is a hard value
-            {
-                result = registers[values[1]] ^ Convert.ToInt32(values[2]); // calculates the result
-            }
-            else if (valueFormat == "R") // returns if the value is a register
-            {
-                result = registers[values[1]] ^ registers[values[2]]; // calculates the result
-            }
-            else // else the value is a RAM address
-            {
-                result = registers[values[1]] ^ FetchData(values[2], RAM); // calculates the result
-            }
-
+            int calculationValue = findCalculationValue(values, 2, RAM); // fetches the value to process
+            int result = registers[values[1]] ^ calculationValue; // calculates the result
+            
             registers[values[0]] = result; // stores the result in the appropriate register
 
             // updates the interface
@@ -482,20 +397,9 @@ namespace NEA_CPU_Model
         // Bitwise not the value in the 2nd operand and stores it in the 1st operand
         private void MVN(string[] values, RAM RAM)
         {
-            int result = 0;
-            if(valueFormat == "#") // returns if the value is a hard value
-            {
-                result = NotLogic(Convert.ToInt32(values[1])); // calculates the result
-            }
-            else if(valueFormat == "R") // returns if the value is a register
-            {
-                result = NotLogic(registers[values[1]]); // calculates the result
-            }
-            else // else the value is a RAM address
-            {
-                result = NotLogic(FetchData(values[1], RAM)); // calculates the result
-            }
-
+            int calculationValue = findCalculationValue(values, 2, RAM); // fetches the value to process
+            int result = NotLogic(calculationValue); // calculates the result
+           
             registers[values[0]] = result; // stores the result in the appropriate register
 
             // updates the interface
@@ -506,19 +410,8 @@ namespace NEA_CPU_Model
         // Bitwise left shift the value in the 2nd operand by the 3rd operand and stores it in the 1st operand
         private void LSL(string[] values, RAM RAM)
         {
-            int result = 0;
-            if(valueFormat == "#") // returns if the value is a hard value
-            {
-                result = LogicalShift(registers[values[1]], Convert.ToInt32(values[2]), "*"); // calculates the result
-            }
-            else if(valueFormat == "R") // returns if the value is a register
-            {
-                result = LogicalShift(registers[values[1]], registers[values[2]], "*"); // calculates the result
-            }
-            else // else the value is a RAM address
-            {
-                result = LogicalShift(registers[values[1]], FetchData(values[2], RAM), "*"); // calculates the result
-            }
+            int calculationValue = findCalculationValue(values, 2, RAM); // fetches the value to process
+            int result = LogicalShift(registers[values[1]], calculationValue, "/"); // calculates the result
 
             registers[values[0]] = result; // stores the result in the appropriate register
 
@@ -531,19 +424,8 @@ namespace NEA_CPU_Model
         // Bitwise right shift the value in the 2nd operand by the 3rd operand and stores it in the 1st operand
         private void LSR(string[] values, RAM RAM)
         {
-            int result = 0;
-            if (valueFormat == "#") // returns if the value is a hard value
-            {
-                result = LogicalShift(registers[values[1]], Convert.ToInt32(values[2]), "*"); // calculates the result
-            }
-            else if (valueFormat == "R") // returns if the value is a register
-            {
-                result = LogicalShift(registers[values[1]], registers[values[2]], "*"); // calculates the result
-            }
-            else // else the value is a RAM address
-            {
-                result = LogicalShift(registers[values[1]], FetchData(values[2],RAM), "/"); // calculates the result
-            }
+            int calculationValue = findCalculationValue(values, 2, RAM); // fetches the value to process
+            int result = LogicalShift(registers[values[1]], calculationValue, "*"); // calculates the result
 
             registers[values[0]] = result; // stores the result in the appropriate register
 
@@ -641,6 +523,25 @@ namespace NEA_CPU_Model
             {
                 return (binaryNumber[i] - '0') << (length-i-1) + findDecimal(binaryNumber, i +1); // << means perform a left shift
             }
+        }
+
+        // returns the operand from the value format for the given position
+        private int findCalculationValue(string[] values, int position, RAM RAM)
+        {
+            int calculationValue = 0;
+            if(valueFormat == "#") // returns if the value is a hard value
+            {
+                calculationValue = Convert.ToInt32(values[position]);
+            }
+            else if(valueFormat == "R") // returns if the value is a register
+            {
+                calculationValue = registers[values[position]];
+            }
+            else // else the value is a RAM address
+            {
+                calculationValue = FetchData(values[position], RAM);
+            }
+            return calculationValue;
         }
 
         // fetches data from RAM
