@@ -128,6 +128,9 @@
             CData6 = new TextBox();
             CData7 = new TextBox();
             updateCacheCapacityBtn = new Button();
+            writeBtn = new Button();
+            label16 = new Label();
+            fileNameText = new TextBox();
             SuspendLayout();
             // 
             // instructionsTextBox
@@ -143,7 +146,7 @@
             // 
             executeBtn.Location = new Point(12, 554);
             executeBtn.Name = "executeBtn";
-            executeBtn.Size = new Size(125, 73);
+            executeBtn.Size = new Size(152, 76);
             executeBtn.TabIndex = 2;
             executeBtn.Text = "Execute";
             executeBtn.UseVisualStyleBackColor = true;
@@ -181,9 +184,9 @@
             // 
             // stepBtn
             // 
-            stepBtn.Location = new Point(156, 554);
+            stepBtn.Location = new Point(185, 554);
             stepBtn.Name = "stepBtn";
-            stepBtn.Size = new Size(125, 73);
+            stepBtn.Size = new Size(147, 76);
             stepBtn.TabIndex = 7;
             stepBtn.Text = "Step";
             stepBtn.UseVisualStyleBackColor = true;
@@ -191,11 +194,11 @@
             // 
             // loadBtn
             // 
-            loadBtn.Location = new Point(12, 651);
+            loadBtn.Location = new Point(12, 728);
             loadBtn.Name = "loadBtn";
-            loadBtn.Size = new Size(127, 73);
+            loadBtn.Size = new Size(152, 91);
             loadBtn.TabIndex = 8;
-            loadBtn.Text = "Restore Last Instructions";
+            loadBtn.Text = "Load Instructions From File";
             loadBtn.UseVisualStyleBackColor = true;
             loadBtn.Click += loadBtn_Click;
             // 
@@ -847,7 +850,7 @@
             // 
             // resetBtn
             // 
-            resetBtn.Location = new Point(156, 651);
+            resetBtn.Location = new Point(111, 649);
             resetBtn.Name = "resetBtn";
             resetBtn.RightToLeft = RightToLeft.No;
             resetBtn.Size = new Size(125, 73);
@@ -1020,11 +1023,42 @@
             updateCacheCapacityBtn.UseVisualStyleBackColor = true;
             updateCacheCapacityBtn.Click += updateCacheCapacityBtn_Click;
             // 
+            // writeBtn
+            // 
+            writeBtn.Location = new Point(185, 728);
+            writeBtn.Name = "writeBtn";
+            writeBtn.Size = new Size(147, 91);
+            writeBtn.TabIndex = 119;
+            writeBtn.Text = "Write Instructions To File";
+            writeBtn.UseVisualStyleBackColor = true;
+            writeBtn.Click += writeBtn_Click;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            label16.Location = new Point(792, 866);
+            label16.Name = "label16";
+            label16.Size = new Size(173, 25);
+            label16.TabIndex = 120;
+            label16.Text = "File Name to Access:";
+            // 
+            // fileNameText
+            // 
+            fileNameText.Location = new Point(792, 914);
+            fileNameText.Name = "fileNameText";
+            fileNameText.Size = new Size(150, 31);
+            fileNameText.TabIndex = 121;
+            fileNameText.Text = "Instructions.txt";
+            // 
             // Model
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1898, 1144);
+            Controls.Add(fileNameText);
+            Controls.Add(label16);
+            Controls.Add(writeBtn);
             Controls.Add(updateCacheCapacityBtn);
             Controls.Add(CData7);
             Controls.Add(CData6);
@@ -1240,5 +1274,8 @@
         public Label cacheAddress7;
         public TextBox CData7;
         private Button updateCacheCapacityBtn;
+        private Button writeBtn;
+        private Label label16;
+        private TextBox fileNameText;
     }
 }

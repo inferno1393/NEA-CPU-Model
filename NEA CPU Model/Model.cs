@@ -154,6 +154,8 @@ namespace NEA_CPU_Model
         {
             loadBtn.Enabled = false; // disables the button to prevent spamming
 
+            InstructionsFileName = fileNameText.Text; // sets the filename to read from to the inputted file name
+
             List<string> instructions = ReadInstructionsFromFile(); // calls a method to load the instructions
 
             for (int i = 0; i < instructions.Count; i++) // updates the instructions textbox to show the loaded instructions
@@ -168,6 +170,19 @@ namespace NEA_CPU_Model
             loadBtn.Enabled = true; // renables the button ready for next use
         }
 
+        private void writeBtn_Click(object sender, EventArgs e)
+        {
+            writeBtn.Enabled = false; // disables the button to prevent spamming
+
+            // creates the list of instructions and puts the values in the text box into it
+            List<string> instructions = instructionsTextBox.Text.Split('\n').ToList<string>();
+
+            InstructionsFileName = fileNameText.Text; // sets the filename to write to, to the inputted file name
+
+            WriteInstructionsToFile(instructions);// writes the instructions into a textfile
+
+            writeBtn.Enabled = true; // renables the button ready for next use
+        }
 
         // resets the system back to beginning to be empty on appropriate button click
         private void resetBtn_Click(object sender, EventArgs e)
@@ -312,7 +327,6 @@ namespace NEA_CPU_Model
             {
                 // code has compiled correctly, execute
                 processor.FlowOfInstructions(instructions, RAM, loop);
-                WriteInstructionsToFile(instructions); // writes the instructions into a textfile
             }
             else
             {
