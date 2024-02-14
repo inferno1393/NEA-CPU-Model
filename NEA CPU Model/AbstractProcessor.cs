@@ -35,5 +35,4 @@ namespace NEA_CPU_Model
 
         }
     }
-
 }
