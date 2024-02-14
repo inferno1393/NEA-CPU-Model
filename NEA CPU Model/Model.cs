@@ -133,41 +133,110 @@ namespace NEA_CPU_Model
 
             RestoreColour(); // restores the last used colour
 
-            // creates the form components at run time
-            CreateForm();
+            CreateForm(); // creates the form components at run time
         }
 
         // adds the form components to the interface
         private void CreateForm()
         {
-            
+            // creates and adds each button in turn
+            // adds the execute button
+            Button executeBtn = new Button();
+            executeBtn.Size = new Size(100, 100);
+            executeBtn.Location = new Point(10, 550);
+            executeBtn.BackColor = Color.White;
+            executeBtn.Click += new EventHandler(executeBtn_Click);
+            executeBtn.Text = "Execute";
+            Controls.Add(executeBtn);
+
+            // adds the step button
+            Button stepBtn = new Button();
+            stepBtn.Size = new Size(100, 100);
+            stepBtn.Location = new Point(200, 550);
+            stepBtn.BackColor = Color.White;
+            stepBtn.Click += new EventHandler(stepBtn_Click);
+            stepBtn.Text = "Step";
+            Controls.Add(stepBtn);
+
+            // adds the reset button
+            Button resetBtn = new Button();
+            resetBtn.Size = new Size(100, 100);
+            resetBtn.Location = new Point(100, 650);
+            resetBtn.BackColor = Color.White;
+            resetBtn.Click += new EventHandler(resetBtn_Click);
+            resetBtn.Text = "Reset";
+            Controls.Add(resetBtn);
+
+            // adds the load instructions button
+            Button loadBtn = new Button();
+            loadBtn.Size = new Size(150, 100);
+            loadBtn.Location = new Point(10, 750);
+            loadBtn.BackColor = Color.White;
+            loadBtn.Click += new EventHandler(loadBtn_Click);
+            loadBtn.Text = "Load Instructions From File";
+            Controls.Add(loadBtn);
+
+            // adds the write instructions button
+            Button writeBtn = new Button();
+            writeBtn.Size = new Size(150, 100);
+            writeBtn.Location = new Point(200, 750);
+            writeBtn.BackColor = Color.White;
+            writeBtn.Click += new EventHandler(writeBtn_Click);
+            writeBtn.Text = "Write Instructions To File";
+            Controls.Add(writeBtn);
+
+            // adds the update colour button
+            Button updateColourBtn = new Button();
+            updateColourBtn.Size = new Size(182, 100);
+            updateColourBtn.Location = new Point(12, 950);
+            updateColourBtn.BackColor = Color.White;
+            updateColourBtn.Click += new EventHandler(updateColourBtn_Click);
+            updateColourBtn.Text = "Update Colour";
+            Controls.Add(updateColourBtn);
+
+            // adds the update RAM index button
+            Button updateRamBtn = new Button();
+            updateRamBtn.Size = new Size(150, 100);
+            updateRamBtn.Location = new Point(232, 950);
+            updateRamBtn.BackColor = Color.White;
+            updateRamBtn.Click += new EventHandler(updateRamBtn_Click);
+            updateRamBtn.Text = "Update RAM Index";
+            Controls.Add(updateRamBtn);
+
+            // adds the update register index button
+            Button updateRegisterBtn = new Button();
+            updateRegisterBtn.Size = new Size(150, 100);
+            updateRegisterBtn.Location = new Point(422, 950);
+            updateRegisterBtn.BackColor = Color.White;
+            updateRegisterBtn.Click += new EventHandler(updateRegisterBtn_Click);
+            updateRegisterBtn.Text = "Update Register Index";
+            Controls.Add(updateRegisterBtn);
+
+            //adds the update cache capacity button
+            Button updateCacheCapacityBtn = new Button();
+            updateCacheCapacityBtn.Size = new Size(150, 100);
+            updateCacheCapacityBtn.Location = new Point(617, 950);
+            updateCacheCapacityBtn.BackColor = Color.White;
+            updateCacheCapacityBtn.Click += new EventHandler(updateCacheCapacityBtn_Click);
+            updateCacheCapacityBtn.Text = "Update Cache Capacity";
+            Controls.Add(updateCacheCapacityBtn);
         }
 
         // parses the instructions and then executes them on appropriate button click
         private void executeBtn_Click(object sender, EventArgs e)
         {
-            executeBtn.Enabled = false; // disables the button to prevent spamming
-
             Process(true); // calls to execute with looping
-
-            executeBtn.Enabled = true; // renables the button ready for next use
         }
 
         // allows the user to step through the code instruction by instruction on appropriate button click
         private void stepBtn_Click(object sender, EventArgs e)
         {
-            stepBtn.Enabled = false; // disables the button to prevent spamming
-
             Process(false); // calls to execute without looping
-
-            stepBtn.Enabled = true; // renables the button ready for next use
         }
 
         // allows the user to load the last set of instructions from a text file on appropriate button click
         private void loadBtn_Click(object sender, EventArgs e)
         {
-            loadBtn.Enabled = false; // disables the button to prevent spamming
-
             InstructionsFileName = fileNameText.Text; // sets the filename to read from to the inputted file name
 
             List<string> instructions = ReadInstructionsFromFile(); // calls a method to load the instructions
@@ -180,29 +249,21 @@ namespace NEA_CPU_Model
                     instructionsTextBox.Text += Environment.NewLine; // adds a new line character to the end of each instruction
                 }
             }
-
-            loadBtn.Enabled = true; // renables the button ready for next use
         }
 
         private void writeBtn_Click(object sender, EventArgs e)
         {
-            writeBtn.Enabled = false; // disables the button to prevent spamming
-
             // creates the list of instructions and puts the values in the text box into it
             List<string> instructions = instructionsTextBox.Text.Split('\n').ToList<string>();
 
             InstructionsFileName = fileNameText.Text; // sets the filename to write to, to the inputted file name
 
             WriteInstructionsToFile(instructions);// writes the instructions into a textfile
-
-            writeBtn.Enabled = true; // renables the button ready for next use
         }
 
         // resets the system back to beginning to be empty on appropriate button click
         private void resetBtn_Click(object sender, EventArgs e)
         {
-            resetBtn.Enabled = false; // disables the button to prevent spamming
-
             RAM.Clear(); // calls a method to clear RAM
             processor.Clear(); // calls a method to clear registers and cache
 
@@ -227,15 +288,11 @@ namespace NEA_CPU_Model
 
             // resest the program counter to 0
             programCounterText.Text = 0.ToString();
-
-            resetBtn.Enabled = true; // renables the button ready for next use
         }
 
         // updates the background colours to the value in the colourBox menu on appropriate button click
         private void updateColourBtn_Click(object sender, EventArgs e)
         {
-            updateColourBtn.Enabled = false; // disables the button to prevent spamming
-
             // sets background colour to user input
             string text = colourBox.Text.ToLower(); // changes the case to be all lower to avoid being case sensitive
             if (colours.ContainsKey(text)) // checks colour is valid using a dictionary
@@ -251,15 +308,11 @@ namespace NEA_CPU_Model
             StreamWriter writer = new StreamWriter("Colours.txt");
             writer.WriteLine(text); // writes the colour inputted to the file
             writer.Close(); // closes the file to avoid errors
-
-            updateColourBtn.Enabled = true; // renables the button ready for next use
         }
 
         // updates RAM index on appropriate button click
         private void updateRamBtn_Click(object sender, EventArgs e)
         {
-            updateRamBtn.Enabled = false; // disables the button to prevent spamming
-
             // tries to convert the input into an integer for use
             bool converted = int.TryParse(ramIndexText.Text, out ramIndex);
             if (!converted) // was not successfully converted
@@ -275,15 +328,11 @@ namespace NEA_CPU_Model
                     ramAddress[i].Text = (ramIndex + i).ToString();
                 }
             }
-
-            updateRamBtn.Enabled = true; // renables the button ready for next use
         }
 
         // updates Register index on appropriate button click
         private void updateRegisterBtn_Click(object sender, EventArgs e)
         {
-            updateRegisterBtn.Enabled = false; // disables the button to prevent spamming
-
             // tries to convert the input into an integer for use
             bool converted = int.TryParse(registerIndexText.Text, out registerIndex);
             if (!converted) // not successfully converted
@@ -299,22 +348,16 @@ namespace NEA_CPU_Model
                     registerAddress[i].Text = (registerIndex + i).ToString();
                 }
             }
-
-            updateRegisterBtn.Enabled = true; // renables the button ready for next use
         }
 
         private void updateCacheCapacityBtn_Click(object sender, EventArgs e)
         {
-            updateCacheCapacityBtn.Enabled = false; // disables the button to prevent spamming
-
             // tries to convert the input into an integer for use
             bool converted = int.TryParse(cacheCapacity.Text, out Processor.cache.capacity);
             if (!converted)
             {
                 MessageBox.Show("Cache Capacity value invalid");
             }
-
-            updateCacheCapacityBtn.Enabled = true; // renables the button ready for next use
         }
 
         // creates the instructions from the textbox in the interface, parses and then executes them (if valid)

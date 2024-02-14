@@ -29,12 +29,9 @@
         private void InitializeComponent()
         {
             instructionsTextBox = new TextBox();
-            executeBtn = new Button();
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
-            stepBtn = new Button();
-            loadBtn = new Button();
             label4 = new Label();
             label5 = new Label();
             Data0 = new TextBox();
@@ -105,10 +102,6 @@
             registerIndexText = new TextBox();
             label11 = new Label();
             colourBox = new ComboBox();
-            updateColourBtn = new Button();
-            updateRamBtn = new Button();
-            updateRegisterBtn = new Button();
-            resetBtn = new Button();
             cacheAddress0 = new Label();
             cacheAddress1 = new Label();
             cacheAddress2 = new Label();
@@ -127,8 +120,6 @@
             CData5 = new TextBox();
             CData6 = new TextBox();
             CData7 = new TextBox();
-            updateCacheCapacityBtn = new Button();
-            writeBtn = new Button();
             label16 = new Label();
             fileNameText = new TextBox();
             SuspendLayout();
@@ -138,19 +129,9 @@
             instructionsTextBox.Location = new Point(12, 92);
             instructionsTextBox.Multiline = true;
             instructionsTextBox.Name = "instructionsTextBox";
-            instructionsTextBox.Size = new Size(269, 446);
+            instructionsTextBox.Size = new Size(610, 468);
             instructionsTextBox.TabIndex = 1;
             instructionsTextBox.Text = "Enter Instructions Here";
-            // 
-            // executeBtn
-            // 
-            executeBtn.Location = new Point(12, 554);
-            executeBtn.Name = "executeBtn";
-            executeBtn.Size = new Size(152, 76);
-            executeBtn.TabIndex = 2;
-            executeBtn.Text = "Execute";
-            executeBtn.UseVisualStyleBackColor = true;
-            executeBtn.Click += executeBtn_Click;
             // 
             // label1
             // 
@@ -181,26 +162,6 @@
             label3.Size = new Size(54, 25);
             label3.TabIndex = 5;
             label3.Text = "RAM";
-            // 
-            // stepBtn
-            // 
-            stepBtn.Location = new Point(185, 554);
-            stepBtn.Name = "stepBtn";
-            stepBtn.Size = new Size(147, 76);
-            stepBtn.TabIndex = 7;
-            stepBtn.Text = "Step";
-            stepBtn.UseVisualStyleBackColor = true;
-            stepBtn.Click += stepBtn_Click;
-            // 
-            // loadBtn
-            // 
-            loadBtn.Location = new Point(12, 728);
-            loadBtn.Name = "loadBtn";
-            loadBtn.Size = new Size(152, 91);
-            loadBtn.TabIndex = 8;
-            loadBtn.Text = "Load Instructions From File";
-            loadBtn.UseVisualStyleBackColor = true;
-            loadBtn.Click += loadBtn_Click;
             // 
             // label4
             // 
@@ -818,47 +779,6 @@
             colourBox.TabIndex = 92;
             colourBox.Text = "Select Colour";
             // 
-            // updateColourBtn
-            // 
-            updateColourBtn.Location = new Point(12, 962);
-            updateColourBtn.Name = "updateColourBtn";
-            updateColourBtn.Size = new Size(182, 75);
-            updateColourBtn.TabIndex = 93;
-            updateColourBtn.Text = "Update Colour";
-            updateColourBtn.UseVisualStyleBackColor = true;
-            updateColourBtn.Click += updateColourBtn_Click;
-            // 
-            // updateRamBtn
-            // 
-            updateRamBtn.Location = new Point(232, 959);
-            updateRamBtn.Name = "updateRamBtn";
-            updateRamBtn.Size = new Size(150, 78);
-            updateRamBtn.TabIndex = 94;
-            updateRamBtn.Text = "Update RAM Index";
-            updateRamBtn.UseVisualStyleBackColor = true;
-            updateRamBtn.Click += updateRamBtn_Click;
-            // 
-            // updateRegisterBtn
-            // 
-            updateRegisterBtn.Location = new Point(422, 959);
-            updateRegisterBtn.Name = "updateRegisterBtn";
-            updateRegisterBtn.Size = new Size(158, 75);
-            updateRegisterBtn.TabIndex = 95;
-            updateRegisterBtn.Text = "Update Register Index";
-            updateRegisterBtn.UseVisualStyleBackColor = true;
-            updateRegisterBtn.Click += updateRegisterBtn_Click;
-            // 
-            // resetBtn
-            // 
-            resetBtn.Location = new Point(111, 649);
-            resetBtn.Name = "resetBtn";
-            resetBtn.RightToLeft = RightToLeft.No;
-            resetBtn.Size = new Size(125, 73);
-            resetBtn.TabIndex = 96;
-            resetBtn.Text = "Reset";
-            resetBtn.UseVisualStyleBackColor = true;
-            resetBtn.Click += resetBtn_Click;
-            // 
             // cacheAddress0
             // 
             cacheAddress0.AutoSize = true;
@@ -1013,26 +933,6 @@
             CData7.Size = new Size(150, 31);
             CData7.TabIndex = 117;
             // 
-            // updateCacheCapacityBtn
-            // 
-            updateCacheCapacityBtn.Location = new Point(617, 959);
-            updateCacheCapacityBtn.Name = "updateCacheCapacityBtn";
-            updateCacheCapacityBtn.Size = new Size(150, 75);
-            updateCacheCapacityBtn.TabIndex = 118;
-            updateCacheCapacityBtn.Text = "Update Cache Capacity";
-            updateCacheCapacityBtn.UseVisualStyleBackColor = true;
-            updateCacheCapacityBtn.Click += updateCacheCapacityBtn_Click;
-            // 
-            // writeBtn
-            // 
-            writeBtn.Location = new Point(185, 728);
-            writeBtn.Name = "writeBtn";
-            writeBtn.Size = new Size(147, 91);
-            writeBtn.TabIndex = 119;
-            writeBtn.Text = "Write Instructions To File";
-            writeBtn.UseVisualStyleBackColor = true;
-            writeBtn.Click += writeBtn_Click;
-            // 
             // label16
             // 
             label16.AutoSize = true;
@@ -1058,8 +958,6 @@
             ClientSize = new Size(1898, 1144);
             Controls.Add(fileNameText);
             Controls.Add(label16);
-            Controls.Add(writeBtn);
-            Controls.Add(updateCacheCapacityBtn);
             Controls.Add(CData7);
             Controls.Add(CData6);
             Controls.Add(CData5);
@@ -1078,10 +976,6 @@
             Controls.Add(cacheAddress2);
             Controls.Add(cacheAddress1);
             Controls.Add(cacheAddress0);
-            Controls.Add(resetBtn);
-            Controls.Add(updateRegisterBtn);
-            Controls.Add(updateRamBtn);
-            Controls.Add(updateColourBtn);
             Controls.Add(colourBox);
             Controls.Add(label11);
             Controls.Add(registerIndexText);
@@ -1152,28 +1046,22 @@
             Controls.Add(Data0);
             Controls.Add(label5);
             Controls.Add(label4);
-            Controls.Add(loadBtn);
-            Controls.Add(stepBtn);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
-            Controls.Add(executeBtn);
             Controls.Add(instructionsTextBox);
             Name = "Model";
             Text = "Model";
-            this.Load += new System.EventHandler(this.ModelLoad);
+            Load += ModelLoad;
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-        private Button executeBtn;
         private TextBox instructionsTextBox;
         private Label label1;
         private Label label2;
         private Label label3;
-        private Button stepBtn;
-        private Button loadBtn;
         private Label label4;
         private Label label5;
         public TextBox Data0;
@@ -1249,10 +1137,6 @@
         private TextBox ramIndexText;
         private Label label11;
         private ComboBox colourBox;
-        private Button updateColourBtn;
-        private Button updateRamBtn;
-        private Button updateRegisterBtn;
-        private Button resetBtn;
         private Label cacheAddress0;
         private Label cacheAddress1;
         private Label cacheAddress2;
@@ -1274,8 +1158,6 @@
         public Label cacheAddress6;
         public Label cacheAddress7;
         public TextBox CData7;
-        private Button updateCacheCapacityBtn;
-        private Button writeBtn;
         private Label label16;
         private TextBox fileNameText;
     }
