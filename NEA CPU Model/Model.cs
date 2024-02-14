@@ -136,7 +136,7 @@ namespace NEA_CPU_Model
             CreateForm(); // creates the form components at run time
         }
 
-        // adds the form components to the interface
+        // adds the buttons to the form
         private void CreateForm()
         {
             // creates and adds each button in turn
