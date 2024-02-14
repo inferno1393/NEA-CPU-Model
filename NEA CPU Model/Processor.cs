@@ -105,8 +105,8 @@ namespace NEA_CPU_Model
         protected override void SplitInstruction(List<string> instructions, RAM RAM)
         {
             string instruction = instructions[programCounter]; // gets current instruction
-            programCounter++; // increments program counter for next cycle
-            cycleCounter++; // increments cycle counter to show how many instructions have been executed
+            programCounter++; // increment program counter for next cycle
+            cycleCounter++; // increment cycle counter to show how many instructions have been executed
 
             if (!instruction.Contains(':')) // checks if a colon is present the instruction is a label
             {
