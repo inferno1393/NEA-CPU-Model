@@ -53,9 +53,9 @@ namespace NEA_CPU_Model
         {
             if (memory.ContainsKey(address)) // checks if key is in dictionary
             {
-                return false;
+                return false; // address is not empty
             }
-            return true;
+            return true; // address is empty
         }
 
         // clears the current instance of memory
@@ -72,7 +72,7 @@ namespace NEA_CPU_Model
             {
                 Model.ramData[addr - Model.ramIndex].Text = data.ToString();
             }
-            // else address is not within range so do nothing
+            // else address is not within RAM index range so do nothing
         }
     }
 }
