@@ -126,6 +126,7 @@ namespace NEA_CPU_Model
             InitializeComponent();
         }
 
+        // called at runtime on form load
         public void ModelLoad(object sender, EventArgs e)
         {
             this.Size = Screen.PrimaryScreen.WorkingArea.Size; // matches the screen size to the resolution
@@ -136,6 +137,7 @@ namespace NEA_CPU_Model
             CreateForm();
         }
 
+        // adds the form components to the interface
         private void CreateForm()
         {
             
