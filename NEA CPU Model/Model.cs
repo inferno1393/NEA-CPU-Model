@@ -142,8 +142,8 @@ namespace NEA_CPU_Model
             // creates and adds each button in turn
             // adds the execute button
             Button executeBtn = new Button();
-            executeBtn.Size = new Size(100, 100);
-            executeBtn.Location = new Point(10, 550);
+            executeBtn.Size = new Size(180, 100);
+            executeBtn.Location = new Point(24, 570);
             executeBtn.BackColor = Color.White;
             executeBtn.Click += new EventHandler(executeBtn_Click);
             executeBtn.Text = "Execute";
@@ -151,8 +151,8 @@ namespace NEA_CPU_Model
 
             // adds the step button
             Button stepBtn = new Button();
-            stepBtn.Size = new Size(100, 100);
-            stepBtn.Location = new Point(200, 550);
+            stepBtn.Size = new Size(180, 100);
+            stepBtn.Location = new Point(224, 570);
             stepBtn.BackColor = Color.White;
             stepBtn.Click += new EventHandler(stepBtn_Click);
             stepBtn.Text = "Step";
@@ -160,8 +160,8 @@ namespace NEA_CPU_Model
 
             // adds the reset button
             Button resetBtn = new Button();
-            resetBtn.Size = new Size(100, 100);
-            resetBtn.Location = new Point(100, 650);
+            resetBtn.Size = new Size(180, 100);
+            resetBtn.Location = new Point(424, 570);
             resetBtn.BackColor = Color.White;
             resetBtn.Click += new EventHandler(resetBtn_Click);
             resetBtn.Text = "Reset";
