@@ -147,7 +147,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(905, 49);
+            label2.Location = new Point(918, 49);
             label2.Name = "label2";
             label2.Size = new Size(47, 25);
             label2.TabIndex = 4;
@@ -251,7 +251,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(740, 292);
+            label6.Location = new Point(771, 351);
             label6.Name = "label6";
             label6.Size = new Size(90, 25);
             label6.TabIndex = 27;
@@ -261,7 +261,7 @@
             // 
             label7.AutoSize = true;
             label7.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            label7.Location = new Point(710, 187);
+            label7.Location = new Point(711, 193);
             label7.Name = "label7";
             label7.Size = new Size(111, 25);
             label7.TabIndex = 28;
@@ -271,7 +271,7 @@
             // 
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            label8.Location = new Point(888, 190);
+            label8.Location = new Point(899, 193);
             label8.Name = "label8";
             label8.Size = new Size(43, 25);
             label8.TabIndex = 29;
@@ -291,7 +291,7 @@
             // 
             label12.AutoSize = true;
             label12.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label12.Location = new Point(1175, 389);
+            label12.Location = new Point(1180, 351);
             label12.Name = "label12";
             label12.Size = new Size(63, 25);
             label12.TabIndex = 33;
@@ -301,7 +301,7 @@
             // 
             label13.AutoSize = true;
             label13.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            label13.Location = new Point(1214, 298);
+            label13.Location = new Point(1207, 193);
             label13.Name = "label13";
             label13.Size = new Size(48, 25);
             label13.TabIndex = 34;
@@ -311,7 +311,7 @@
             // 
             label14.AutoSize = true;
             label14.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            label14.Location = new Point(1216, 193);
+            label14.Location = new Point(1214, 124);
             label14.Name = "label14";
             label14.Size = new Size(47, 25);
             label14.TabIndex = 35;
@@ -319,7 +319,7 @@
             // 
             // mbrText
             // 
-            mbrText.Location = new Point(1207, 236);
+            mbrText.Location = new Point(1207, 152);
             mbrText.Name = "mbrText";
             mbrText.ReadOnly = true;
             mbrText.Size = new Size(150, 31);
@@ -327,7 +327,7 @@
             // 
             // marText
             // 
-            marText.Location = new Point(1207, 334);
+            marText.Location = new Point(1207, 236);
             marText.Name = "marText";
             marText.ReadOnly = true;
             marText.Size = new Size(150, 31);
@@ -335,7 +335,7 @@
             // 
             // accumulatorText
             // 
-            accumulatorText.Location = new Point(689, 215);
+            accumulatorText.Location = new Point(689, 239);
             accumulatorText.Name = "accumulatorText";
             accumulatorText.ReadOnly = true;
             accumulatorText.Size = new Size(150, 31);
@@ -343,7 +343,7 @@
             // 
             // RData0
             // 
-            RData0.Location = new Point(753, 331);
+            RData0.Location = new Point(782, 393);
             RData0.Name = "RData0";
             RData0.ReadOnly = true;
             RData0.Size = new Size(150, 31);
@@ -351,7 +351,7 @@
             // 
             // RData1
             // 
-            RData1.Location = new Point(753, 386);
+            RData1.Location = new Point(782, 445);
             RData1.Name = "RData1";
             RData1.ReadOnly = true;
             RData1.Size = new Size(150, 31);
@@ -359,7 +359,7 @@
             // 
             // RData2
             // 
-            RData2.Location = new Point(753, 441);
+            RData2.Location = new Point(782, 500);
             RData2.Name = "RData2";
             RData2.ReadOnly = true;
             RData2.Size = new Size(150, 31);
@@ -367,7 +367,7 @@
             // 
             // RData3
             // 
-            RData3.Location = new Point(753, 501);
+            RData3.Location = new Point(782, 560);
             RData3.Name = "RData3";
             RData3.ReadOnly = true;
             RData3.Size = new Size(150, 31);
@@ -376,7 +376,7 @@
             // registerAddress0
             // 
             registerAddress0.AutoSize = true;
-            registerAddress0.Location = new Point(689, 337);
+            registerAddress0.Location = new Point(712, 396);
             registerAddress0.Name = "registerAddress0";
             registerAddress0.Size = new Size(22, 25);
             registerAddress0.TabIndex = 48;
@@ -385,7 +385,7 @@
             // registerAddress1
             // 
             registerAddress1.AutoSize = true;
-            registerAddress1.Location = new Point(689, 389);
+            registerAddress1.Location = new Point(712, 448);
             registerAddress1.Name = "registerAddress1";
             registerAddress1.RightToLeft = RightToLeft.No;
             registerAddress1.Size = new Size(22, 25);
@@ -395,7 +395,7 @@
             // registerAddress2
             // 
             registerAddress2.AutoSize = true;
-            registerAddress2.Location = new Point(689, 447);
+            registerAddress2.Location = new Point(712, 506);
             registerAddress2.Name = "registerAddress2";
             registerAddress2.Size = new Size(22, 25);
             registerAddress2.TabIndex = 50;
@@ -404,7 +404,7 @@
             // registerAddress3
             // 
             registerAddress3.AutoSize = true;
-            registerAddress3.Location = new Point(689, 507);
+            registerAddress3.Location = new Point(712, 563);
             registerAddress3.Name = "registerAddress3";
             registerAddress3.Size = new Size(22, 25);
             registerAddress3.TabIndex = 51;
@@ -484,7 +484,7 @@
             // 
             // programCounterText
             // 
-            programCounterText.Location = new Point(689, 124);
+            programCounterText.Location = new Point(689, 152);
             programCounterText.Name = "programCounterText";
             programCounterText.ReadOnly = true;
             programCounterText.Size = new Size(150, 31);
@@ -495,7 +495,7 @@
             // 
             label26.AutoSize = true;
             label26.Font = new Font("Segoe UI", 9F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            label26.Location = new Point(689, 82);
+            label26.Location = new Point(689, 124);
             label26.Name = "label26";
             label26.Size = new Size(147, 25);
             label26.TabIndex = 61;
@@ -522,7 +522,7 @@
             // registerAddress4
             // 
             registerAddress4.AutoSize = true;
-            registerAddress4.Location = new Point(689, 560);
+            registerAddress4.Location = new Point(712, 619);
             registerAddress4.Name = "registerAddress4";
             registerAddress4.Size = new Size(22, 25);
             registerAddress4.TabIndex = 62;
@@ -531,7 +531,7 @@
             // registerAddress5
             // 
             registerAddress5.AutoSize = true;
-            registerAddress5.Location = new Point(689, 605);
+            registerAddress5.Location = new Point(712, 664);
             registerAddress5.Name = "registerAddress5";
             registerAddress5.Size = new Size(22, 25);
             registerAddress5.TabIndex = 63;
@@ -540,7 +540,7 @@
             // registerAddress6
             // 
             registerAddress6.AutoSize = true;
-            registerAddress6.Location = new Point(689, 660);
+            registerAddress6.Location = new Point(712, 719);
             registerAddress6.Name = "registerAddress6";
             registerAddress6.Size = new Size(22, 25);
             registerAddress6.TabIndex = 64;
@@ -549,7 +549,7 @@
             // registerAddress7
             // 
             registerAddress7.AutoSize = true;
-            registerAddress7.Location = new Point(689, 711);
+            registerAddress7.Location = new Point(712, 767);
             registerAddress7.Name = "registerAddress7";
             registerAddress7.Size = new Size(22, 25);
             registerAddress7.TabIndex = 65;
@@ -557,7 +557,7 @@
             // 
             // RData4
             // 
-            RData4.Location = new Point(753, 554);
+            RData4.Location = new Point(782, 613);
             RData4.Name = "RData4";
             RData4.ReadOnly = true;
             RData4.Size = new Size(150, 31);
@@ -565,7 +565,7 @@
             // 
             // RData5
             // 
-            RData5.Location = new Point(753, 599);
+            RData5.Location = new Point(782, 658);
             RData5.Name = "RData5";
             RData5.ReadOnly = true;
             RData5.Size = new Size(150, 31);
@@ -573,7 +573,7 @@
             // 
             // RData6
             // 
-            RData6.Location = new Point(753, 654);
+            RData6.Location = new Point(782, 716);
             RData6.Name = "RData6";
             RData6.ReadOnly = true;
             RData6.Size = new Size(150, 31);
@@ -581,7 +581,7 @@
             // 
             // RData7
             // 
-            RData7.Location = new Point(753, 711);
+            RData7.Location = new Point(782, 764);
             RData7.Name = "RData7";
             RData7.ReadOnly = true;
             RData7.Size = new Size(150, 31);
@@ -782,7 +782,7 @@
             // cacheAddress0
             // 
             cacheAddress0.AutoSize = true;
-            cacheAddress0.Location = new Point(1116, 422);
+            cacheAddress0.Location = new Point(1123, 396);
             cacheAddress0.Name = "cacheAddress0";
             cacheAddress0.Size = new Size(40, 25);
             cacheAddress0.TabIndex = 97;
@@ -791,7 +791,7 @@
             // cacheAddress1
             // 
             cacheAddress1.AutoSize = true;
-            cacheAddress1.Location = new Point(1116, 478);
+            cacheAddress1.Location = new Point(1123, 448);
             cacheAddress1.Name = "cacheAddress1";
             cacheAddress1.Size = new Size(40, 25);
             cacheAddress1.TabIndex = 98;
@@ -800,7 +800,7 @@
             // cacheAddress2
             // 
             cacheAddress2.AutoSize = true;
-            cacheAddress2.Location = new Point(1116, 529);
+            cacheAddress2.Location = new Point(1123, 506);
             cacheAddress2.Name = "cacheAddress2";
             cacheAddress2.Size = new Size(40, 25);
             cacheAddress2.TabIndex = 99;
@@ -809,7 +809,7 @@
             // cacheAddress3
             // 
             cacheAddress3.AutoSize = true;
-            cacheAddress3.Location = new Point(1116, 581);
+            cacheAddress3.Location = new Point(1123, 563);
             cacheAddress3.Name = "cacheAddress3";
             cacheAddress3.Size = new Size(40, 25);
             cacheAddress3.TabIndex = 100;
@@ -817,7 +817,7 @@
             // 
             // CData0
             // 
-            CData0.Location = new Point(1207, 422);
+            CData0.Location = new Point(1214, 393);
             CData0.Name = "CData0";
             CData0.ReadOnly = true;
             CData0.Size = new Size(150, 31);
@@ -825,7 +825,7 @@
             // 
             // CData1
             // 
-            CData1.Location = new Point(1207, 478);
+            CData1.Location = new Point(1214, 442);
             CData1.Name = "CData1";
             CData1.ReadOnly = true;
             CData1.Size = new Size(150, 31);
@@ -833,7 +833,7 @@
             // 
             // CData2
             // 
-            CData2.Location = new Point(1207, 526);
+            CData2.Location = new Point(1214, 503);
             CData2.Name = "CData2";
             CData2.ReadOnly = true;
             CData2.Size = new Size(150, 31);
@@ -841,7 +841,7 @@
             // 
             // CData3
             // 
-            CData3.Location = new Point(1207, 578);
+            CData3.Location = new Point(1214, 557);
             CData3.Name = "CData3";
             CData3.ReadOnly = true;
             CData3.Size = new Size(150, 31);
@@ -868,7 +868,7 @@
             // cacheAddress4
             // 
             cacheAddress4.AutoSize = true;
-            cacheAddress4.Location = new Point(1116, 639);
+            cacheAddress4.Location = new Point(1123, 619);
             cacheAddress4.Name = "cacheAddress4";
             cacheAddress4.Size = new Size(40, 25);
             cacheAddress4.TabIndex = 110;
@@ -877,7 +877,7 @@
             // cacheAddress5
             // 
             cacheAddress5.AutoSize = true;
-            cacheAddress5.Location = new Point(1116, 683);
+            cacheAddress5.Location = new Point(1123, 664);
             cacheAddress5.Name = "cacheAddress5";
             cacheAddress5.Size = new Size(40, 25);
             cacheAddress5.TabIndex = 111;
@@ -886,7 +886,7 @@
             // cacheAddress6
             // 
             cacheAddress6.AutoSize = true;
-            cacheAddress6.Location = new Point(1116, 728);
+            cacheAddress6.Location = new Point(1123, 719);
             cacheAddress6.Name = "cacheAddress6";
             cacheAddress6.Size = new Size(40, 25);
             cacheAddress6.TabIndex = 112;
@@ -895,7 +895,7 @@
             // cacheAddress7
             // 
             cacheAddress7.AutoSize = true;
-            cacheAddress7.Location = new Point(1116, 779);
+            cacheAddress7.Location = new Point(1123, 770);
             cacheAddress7.Name = "cacheAddress7";
             cacheAddress7.Size = new Size(40, 25);
             cacheAddress7.TabIndex = 113;
@@ -903,7 +903,7 @@
             // 
             // CData4
             // 
-            CData4.Location = new Point(1207, 633);
+            CData4.Location = new Point(1214, 616);
             CData4.Name = "CData4";
             CData4.ReadOnly = true;
             CData4.Size = new Size(150, 31);
@@ -911,7 +911,7 @@
             // 
             // CData5
             // 
-            CData5.Location = new Point(1207, 677);
+            CData5.Location = new Point(1214, 661);
             CData5.Name = "CData5";
             CData5.ReadOnly = true;
             CData5.Size = new Size(150, 31);
@@ -919,7 +919,7 @@
             // 
             // CData6
             // 
-            CData6.Location = new Point(1207, 722);
+            CData6.Location = new Point(1215, 716);
             CData6.Name = "CData6";
             CData6.ReadOnly = true;
             CData6.Size = new Size(150, 31);
@@ -927,7 +927,7 @@
             // 
             // CData7
             // 
-            CData7.Location = new Point(1207, 773);
+            CData7.Location = new Point(1214, 764);
             CData7.Name = "CData7";
             CData7.ReadOnly = true;
             CData7.Size = new Size(150, 31);
