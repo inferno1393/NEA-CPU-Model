@@ -124,9 +124,21 @@ namespace NEA_CPU_Model
         public Model()
         {
             InitializeComponent();
-            this.Size = Screen.PrimaryScreen.WorkingArea.Size;
+        }
 
-            RestoreColour();
+        public void ModelLoad(object sender, EventArgs e)
+        {
+            this.Size = Screen.PrimaryScreen.WorkingArea.Size; // matches the screen size to the resolution
+
+            RestoreColour(); // restores the last used colour
+
+            // creates the form components at run time
+            CreateForm();
+        }
+
+        private void CreateForm()
+        {
+            
         }
 
         // parses the instructions and then executes them on appropriate button click

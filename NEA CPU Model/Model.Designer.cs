@@ -1161,6 +1161,7 @@
             Controls.Add(instructionsTextBox);
             Name = "Model";
             Text = "Model";
+            this.Load += new System.EventHandler(this.ModelLoad);
             ResumeLayout(false);
             PerformLayout();
         }
