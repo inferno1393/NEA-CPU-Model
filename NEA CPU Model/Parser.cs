@@ -51,7 +51,7 @@ namespace NEA_CPU_Model
         // returns a string showing the validity of the instructions
         public string ParseInstructions(List<string> instructions)
         {
-            int count = instructions.Count - 1; // initializes an iteration value that can be decremented to remove instructions to ignore
+            int count = instructions.Count; // initializes an iteration value that can be decremented to remove instructions to ignore
             // splits the instructions in the queue into Opcode and Operand
             for (int i = 0; i < instructions.Count; i++)
             {
@@ -83,10 +83,9 @@ namespace NEA_CPU_Model
                 }
             }
 
-            if(count > 0)
+            if (count > 0) // checks that an instruction has been entered (that is not a label)
             {
                 splitInstructions.Pop(); // pops off the operand of the HALT instruction
-
 
                 // checks last instruction is a HALT (since program must halt)
                 if (splitInstructions.Pop() != "HALT")
@@ -95,7 +94,7 @@ namespace NEA_CPU_Model
                 }
 
                 // checks instructions are valid
-                for (int i = count; i > 0; i--)
+                for (int i = count; i > 1; i--) // ends at 1 to avoid emptying the stack 
                 {
                     if (!CheckInstruction(splitInstructions.Pop(), splitInstructions.Pop()))
                     {
