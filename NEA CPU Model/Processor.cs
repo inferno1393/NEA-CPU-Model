@@ -133,8 +133,7 @@ namespace NEA_CPU_Model
                         if (!registers.ContainsKey(values[valuePosition]))
                         {
                             MessageBox.Show("Register address empty");
-                            repeat = false; // an error has occured so stop execution
-                        }
+                            repeat = false; // an error has occurred so stop execution
                     }
                     else // else the value in the operand is a RAM address
                     {
@@ -142,13 +141,13 @@ namespace NEA_CPU_Model
                         if (FetchData(values[valuePosition], RAM) == -1)
                         {
                             MessageBox.Show("RAM address empty");
-                            repeat = false; // an error has occured so stop execution
+                            repeat = false; // an error has occurred so stop execution
                         }
                     }
                 }
 
                 // checks for the opcodes that contain multiple operands
-                // checks that the second of the three operands (which is always a regiser) is not empty
+                // checks that the second of the three operands (which is always a register) is not empty
                 if (multipleOperandOpcodes.ContainsKey(opcode))
                 {
                     if (values[1].Contains('R')) // checks if the user has put in the register with a label
@@ -159,7 +158,7 @@ namespace NEA_CPU_Model
                     if (!registers.ContainsKey(values[1]))
                     {
                         MessageBox.Show("Register address empty");
-                        repeat = false; // an error has occured so stop execution
+                        repeat = false; // an error has occurred so stop execution
                     }
                 }
 
