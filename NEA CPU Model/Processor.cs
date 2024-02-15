@@ -134,6 +134,7 @@ namespace NEA_CPU_Model
                         {
                             MessageBox.Show("Register address empty");
                             repeat = false; // an error has occurred so stop execution
+                        }
                     }
                     else // else the value in the operand is a RAM address
                     {
@@ -166,7 +167,7 @@ namespace NEA_CPU_Model
                 Program.model.cirText.Text = opcode;
                 Program.model.programCounterText.Text = programCounter.ToString();
 
-                if (repeat) // checks an error has not occured
+                if (repeat) // checks an error has not occurred
                 {
                     // call point for the decoding of the instruction
                     DecodeInstruction(opcode, values, RAM, instructions);
