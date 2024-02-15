@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace NEA_CPU_Model
 {
@@ -17,7 +18,7 @@ namespace NEA_CPU_Model
         Dictionary<string, int> cacheMemory = new Dictionary<string, int>() { };
 
         // uses a dictionary to implement an associative array to tell which addresses have been in cache the longest
-        Dictionary<string, int> age = new Dictionary<string, int>() { };
+        Dictionary<string, int> timestamps = new Dictionary<string, int>() { };
 
         // attributes
         public int capacity = 8;
@@ -44,19 +45,19 @@ namespace NEA_CPU_Model
                 string addr = FindOldest();
 
                 // cache is full so remove the address that has been in cache the longest
-                age.Remove(addr);
+                timestamps.Remove(addr);
                 cacheMemory.Remove(addr);
             }
 
             if (IsAddressEmpty(address)) // checks if address is empty to avoid updating an existing key
             {
                 cacheMemory.Add(address, data); // address does not already exists so add the address
-                age.Add(address, Processor.cycleCounter); // adds the new address to the queue
+                timestamps.Add(address, Processor.cycleCounter); // adds the new address to the queue
             }
             else
             {
                 cacheMemory[address] = data; // address already exsits so update the address
-                age[address] = Processor.cycleCounter; // updates the age counter to reflect the update time
+                timestamps[address] = Processor.cycleCounter; // updates the age counter to reflect the update time
             }
             
 
@@ -70,8 +71,36 @@ namespace NEA_CPU_Model
         // returns the address of the oldest address in cache
         private string FindOldest()
         {
-            var sorted = age.OrderBy(addr => addr.Value); // sorts the timestamp dictionary
-            return sorted.First().Key; // returns the first value in the dictionary
+            // creates dictionaries containing the keys and values currently in cache
+            Dictionary<string, int>.KeyCollection keys = timestamps.Keys;
+            Dictionary<string, int>.ValueCollection values = timestamps.Values;
+
+            // creates a string array to hold the unsorted values
+            string[] unsortedValues = new string[values.Count];
+
+            int j = 0; // initializes an iteration value
+            foreach (var value in values) // adds the values to the string array
+            {
+                unsortedValues[j] = value.ToString();
+                j++;
+            }
+
+            // creates a string array and equals it to the sorted unSorted array
+            string[] sortedValues = SortArray(unsortedValues, 0, unsortedValues.Length - 1);
+
+
+            string address = string.Empty; // creates an empty string to store the matching address 
+
+            // carries out a linear search to find the matching address to the oldest timestamp value
+            foreach(var key in keys)
+            {
+                if (timestamps[key].ToString() == sortedValues.First())
+                {
+                    address = key; // matching address found
+                }
+            }
+
+            return address; // returns the address
         }
 
         // checks if the given address is empty
@@ -88,7 +117,7 @@ namespace NEA_CPU_Model
         public void Clear()
         {
             cacheMemory = new Dictionary<string, int>() { }; // resets the cache memory
-            age = new Dictionary<string, int>() { }; // resets the age queue
+            timestamps = new Dictionary<string, int>() { }; // resets the age queue
         }
 
         // orders the addresses in cache in ascending numerical order and the displays them to the interface
@@ -107,7 +136,7 @@ namespace NEA_CPU_Model
                 j++;
             }
 
-            var sortedKeys = SortArray(unSortedKeys, 0, unSortedKeys.Length - 1);
+            string[] sortedKeys = SortArray(unSortedKeys, 0, unSortedKeys.Length - 1);
 
             // updates interface to show the new order
             int i = 0; // sets an iteration value to 0
