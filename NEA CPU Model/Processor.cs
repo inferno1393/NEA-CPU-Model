@@ -167,8 +167,12 @@ namespace NEA_CPU_Model
                 Program.model.cirText.Text = opcode;
                 Program.model.programCounterText.Text = programCounter.ToString();
 
-                // call point for the decoding of the instruction
-                DecodeInstruction(opcode, values, RAM, instructions);
+                if (repeat) // checks an error has not occured
+                {
+                    // call point for the decoding of the instruction
+                    DecodeInstruction(opcode, values, RAM, instructions);
+                }
+
             }
         }
 
