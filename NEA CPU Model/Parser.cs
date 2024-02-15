@@ -83,26 +83,31 @@ namespace NEA_CPU_Model
                 }
             }
 
-            splitInstructions.Pop(); // pops off the operand of the HALT instruction
-
-
-            // checks last instruction is a HALT (since program must halt)
-            if (splitInstructions.Pop() != "HALT")
+            if(count > 0)
             {
-                return "Invalid, no HALT command";
-            }
+                splitInstructions.Pop(); // pops off the operand of the HALT instruction
 
-            // checks instructions are valid
-            for (int i = count; i > 0; i--)
-            {
-                if (!CheckInstruction(splitInstructions.Pop(), splitInstructions.Pop()))
+
+                // checks last instruction is a HALT (since program must halt)
+                if (splitInstructions.Pop() != "HALT")
                 {
-                    return $"Invalid, incorrect instruction at line {i}";
+                    return "Invalid, no HALT command";
                 }
+
+                // checks instructions are valid
+                for (int i = count; i > 0; i--)
+                {
+                    if (!CheckInstruction(splitInstructions.Pop(), splitInstructions.Pop()))
+                    {
+                        return $"Invalid, incorrect instruction at line {i}";
+                    }
+                }
+
+                // else instructions are valid
+                return "Valid";
             }
-            
-            // else instructions are valid
-            return "Valid";
+
+            return "Invalid, no instructions where entered";
         }
 
         static bool CheckInstruction(string Operand, string Opcode)
