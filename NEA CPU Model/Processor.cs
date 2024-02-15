@@ -255,7 +255,7 @@ namespace NEA_CPU_Model
                     repeat = false;
                     break;
 
-                default: // in case an empty instruction was detected, go to next instruction
+                default: // in case of an empty instruction or a label, go to next instruction
                     break;
             }
         }

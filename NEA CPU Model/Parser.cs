@@ -57,7 +57,7 @@ namespace NEA_CPU_Model
             {
                 string instruction = instructions[i];
 
-                if (instruction.Contains(':'))
+                if (instruction.Contains(':')) // checks if the current instruction is a label
                 {
                     // instruction is a label so should be added to labels array
                     string operand = instruction.Replace(":", "");
@@ -69,6 +69,11 @@ namespace NEA_CPU_Model
                     {
                         labels.Add(operand, i);
                     }
+                    count--;
+                }
+                else if(instruction == ""|| instruction == " ") // checks if the current instruction is blank
+                {
+                    // the instruction should be ignored
                     count--;
                 }
                 else // push the opcode and operand onto the stack
