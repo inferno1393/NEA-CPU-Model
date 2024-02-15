@@ -140,7 +140,7 @@ namespace NEA_CPU_Model
         // adds the buttons to the form
         private void CreateForm()
         {
-            // creates and adds each button in turn
+            // sets parameters for and adds each button in turn
             // adds the execute button
             Button executeBtn = new Button();
             executeBtn.Size = new Size(180, 100);
