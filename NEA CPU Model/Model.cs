@@ -316,10 +316,6 @@ namespace NEA_CPU_Model
         {
             // tries to convert the input into an integer for use
             bool converted = int.TryParse(ramIndexText.Text, out ramIndex);
-            if (!converted) // was not successfully converted
-            {
-                MessageBox.Show("RAM Start Index value invalid");
-            }
 
             // updates the RAM Addresses in the interface to update to the new indexes
             if (converted) // index was successfully converted so continue to update interface
@@ -329,6 +325,10 @@ namespace NEA_CPU_Model
                     ramAddress[i].Text = (ramIndex + i).ToString();
                 }
             }
+            else // not successfully converted
+            {
+                MessageBox.Show("RAM Start Index value invalid");
+            }
         }
 
         // updates Register index on appropriate button click
@@ -336,10 +336,6 @@ namespace NEA_CPU_Model
         {
             // tries to convert the input into an integer for use
             bool converted = int.TryParse(registerIndexText.Text, out registerIndex);
-            if (!converted) // not successfully converted
-            {
-                MessageBox.Show("Register Start Index value invalid");
-            }
 
             // updates the registers in the interface to update to the new indexes
             if (converted) // index was successfully converted so continue to update interface
@@ -348,6 +344,10 @@ namespace NEA_CPU_Model
                 {
                     registerAddress[i].Text = (registerIndex + i).ToString();
                 }
+            }
+            else // not successfully converted
+            {
+                MessageBox.Show("Register Start Index value invalid");
             }
         }
 
