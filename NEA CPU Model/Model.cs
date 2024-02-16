@@ -410,14 +410,21 @@ namespace NEA_CPU_Model
             List<string> instructions = new List<string>();
             string line = string.Empty;
 
-            StreamReader reader = new StreamReader(InstructionsFileName); // creates instance of streamreader for the given file
-
-            while (line != null) // while not reached the end of the file
+            if (File.Exists(InstructionsFileName))
             {
-                line = reader.ReadLine(); // reads each line in turn
-                instructions.Add(line); // adds the line to the list of instructions
+                StreamReader reader = new StreamReader(InstructionsFileName); // creates instance of streamreader for the given file
+
+                while (line != null) // while not reached the end of the file
+                {
+                    line = reader.ReadLine(); // reads each line in turn
+                    instructions.Add(line); // adds the line to the list of instructions
+                }
+                reader.Close(); // closes the file to avoid errors
             }
-            reader.Close(); // closes the file to avoid errors
+            else
+            {
+                MessageBox.Show("File Name not valid");
+            }
             return instructions; // returns the list of instructions
 
         }
