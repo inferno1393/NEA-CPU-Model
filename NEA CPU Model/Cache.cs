@@ -96,11 +96,11 @@ namespace NEA_CPU_Model
             {
                 if (timestamps[key].ToString() == sortedValues.First())
                 {
-                    address = key; // matching address found
+                    return key; // matching address found, so return it
                 }
             }
 
-            return address; // returns the address
+            return "No matching address found"; // returns an error for no address found
         }
 
         // checks if the given address is empty
