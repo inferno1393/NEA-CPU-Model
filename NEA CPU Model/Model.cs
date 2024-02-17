@@ -2,6 +2,8 @@ namespace NEA_CPU_Model
 {
     public partial class Model : Form
     {
+        // Interface Class, models the calculations for the user to see
+
         // dictionaries
         // creates dictionary of accepted colours
         private Dictionary<string, Color> colours = new Dictionary<string, Color>
@@ -140,10 +142,15 @@ namespace NEA_CPU_Model
         // adds the buttons to the form
         private void CreateForm()
         {
+            int xSize = 180;
+            int ySize = 100;
+            int xParam = 24;
+            int yParam = 70;
+            
             // sets parameters for and adds each button in turn
             // adds the execute button
             Button executeBtn = new Button();
-            executeBtn.Size = new Size(180, 100);
+            executeBtn.Size = new Size(xSize, ySize);
             executeBtn.Location = new Point(24, 570);
             executeBtn.BackColor = Color.White;
             executeBtn.Click += new EventHandler(executeBtn_Click);
@@ -152,7 +159,7 @@ namespace NEA_CPU_Model
 
             // adds the step button
             Button stepBtn = new Button();
-            stepBtn.Size = new Size(180, 100);
+            stepBtn.Size = new Size(xSize, ySize);
             stepBtn.Location = new Point(224, 570);
             stepBtn.BackColor = Color.White;
             stepBtn.Click += new EventHandler(stepBtn_Click);
@@ -161,7 +168,7 @@ namespace NEA_CPU_Model
 
             // adds the reset button
             Button resetBtn = new Button();
-            resetBtn.Size = new Size(180, 100);
+            resetBtn.Size = new Size(xSize, ySize);
             resetBtn.Location = new Point(424, 570);
             resetBtn.BackColor = Color.White;
             resetBtn.Click += new EventHandler(resetBtn_Click);
@@ -170,7 +177,7 @@ namespace NEA_CPU_Model
 
             // adds the load instructions button
             Button loadBtn = new Button();
-            loadBtn.Size = new Size(180, 100);
+            loadBtn.Size = new Size(xSize, ySize);
             loadBtn.Location = new Point(100, 700);
             loadBtn.BackColor = Color.White;
             loadBtn.Click += new EventHandler(loadBtn_Click);
@@ -179,7 +186,7 @@ namespace NEA_CPU_Model
 
             // adds the write instructions button
             Button writeBtn = new Button();
-            writeBtn.Size = new Size(180, 100);
+            writeBtn.Size = new Size(xSize, ySize);
             writeBtn.Location = new Point(330, 700);
             writeBtn.BackColor = Color.White;
             writeBtn.Click += new EventHandler(writeBtn_Click);
@@ -188,7 +195,7 @@ namespace NEA_CPU_Model
 
             // adds the update colour button
             Button updateColourBtn = new Button();
-            updateColourBtn.Size = new Size(182, 100);
+            updateColourBtn.Size = new Size(xSize + 2, ySize);
             updateColourBtn.Location = new Point(12, 950);
             updateColourBtn.BackColor = Color.White;
             updateColourBtn.Click += new EventHandler(updateColourBtn_Click);
@@ -197,7 +204,7 @@ namespace NEA_CPU_Model
 
             // adds the update RAM index button
             Button updateRamBtn = new Button();
-            updateRamBtn.Size = new Size(150, 100);
+            updateRamBtn.Size = new Size(xSize - 30, ySize);
             updateRamBtn.Location = new Point(232, 950);
             updateRamBtn.BackColor = Color.White;
             updateRamBtn.Click += new EventHandler(updateRamBtn_Click);
@@ -206,7 +213,7 @@ namespace NEA_CPU_Model
 
             // adds the update register index button
             Button updateRegisterBtn = new Button();
-            updateRegisterBtn.Size = new Size(150, 100);
+            updateRegisterBtn.Size = new Size(xSize - 30, ySize);
             updateRegisterBtn.Location = new Point(422, 950);
             updateRegisterBtn.BackColor = Color.White;
             updateRegisterBtn.Click += new EventHandler(updateRegisterBtn_Click);
@@ -215,7 +222,7 @@ namespace NEA_CPU_Model
 
             //adds the update cache capacity button
             Button updateCacheCapacityBtn = new Button();
-            updateCacheCapacityBtn.Size = new Size(150, 100);
+            updateCacheCapacityBtn.Size = new Size(xSize - 30, ySize);
             updateCacheCapacityBtn.Location = new Point(617, 950);
             updateCacheCapacityBtn.BackColor = Color.White;
             updateCacheCapacityBtn.Click += new EventHandler(updateCacheCapacityBtn_Click);
