@@ -73,7 +73,7 @@ namespace NEA_CPU_Model
         // then controls the CPU components in executing the instruction
         public override void FlowOfInstructions(List<string> instructions, RAM RAM, bool loop)
         {
-            repeat = true;
+            repeat = true; // sets a boolean variable that will be set to false if the end of the code or an error is found
             // code needs to execute all instructions at once
             if (loop)
             {
@@ -121,7 +121,8 @@ namespace NEA_CPU_Model
                 if (ValueOpcodes.ContainsKey(opcode))
                 {
                     int valuePosition = ValueOpcodes[opcode];
-                    if (values[valuePosition].Contains('#')) // if the value in the operand is a hard value
+
+                    if (values[valuePosition].Contains('#')) // if the value in the operand is a hardcoded value
                     {
                         values[valuePosition] = values[valuePosition].Replace("#", "");
                         valueFormat = "#";
@@ -175,7 +176,6 @@ namespace NEA_CPU_Model
 
             }
         }
-
 
         // decodes the instruction given and calls the appropriate subroutine to execute it
         protected override void DecodeInstruction(string opcode, string[] values, RAM RAM, List<string> instructions)
@@ -238,6 +238,7 @@ namespace NEA_CPU_Model
                 case "EOR":
                     EOR(values, RAM);
                     break;
+
                 case "MVN":
                     MVN(values, RAM);
                     break;
@@ -285,7 +286,6 @@ namespace NEA_CPU_Model
         // adds the value in the 3rd operand with the 2nd operand and stores it in the 1st operand
         private void ADD(string[] values, RAM RAM)
         {
-
             int calculationValue = findCalculationValue(values, 2, RAM); // fetches the value to process
             int result = registers[values[1]] + calculationValue; // calculates the result
 
@@ -445,7 +445,7 @@ namespace NEA_CPU_Model
             string result = string.Empty;
 
             // converts the input to binary as this is necessary to carry out bitwise operations
-            string operand = denToBin(value);
+            string operand = decToBin(value);
 
             for (int i = 0; i < operand.Length; i++)
             {
@@ -459,7 +459,7 @@ namespace NEA_CPU_Model
                 }
             }
 
-            return binToDen(result); // converts output to denary and returns to call point
+            return binToDec(result); // converts output to decimal and returns to call point
         }
 
         // does the Logical Shifting
@@ -486,34 +486,33 @@ namespace NEA_CPU_Model
         }
 
         // converts input to binary
-        private string denToBin(int value)
+        private string decToBin(int value)
         {
             string result = " ";
             result = findBinary(value).ToString(); // calls recursive convertor
             return result;
         }
 
-        // converts input to denary
-        private int binToDen(string value)
+        // converts input to decimal
+        private int binToDec(string value)
         {
             int result = 0;
             result = findDecimal(value); // calls recursive convertor
             return result;
         }
 
-        // finds the given binary number for a denary input using recursion
-        private int findBinary(int denaryNumber)
+        // finds the given binary number for a decimal input using recursion
+        private int findBinary(int decimalNumber)
         {
-            if (denaryNumber == 0) // if values is 0, return 0 (aka if the number has been reduced to 0, end)
+            if (decimalNumber == 0) // if values is 0, return 0 (aka if the number has been reduced to 0, end)
             {
                 return 0;
             }
             else // else add the value mod 2 to the recursive call to calculate the next digit
             {
-                return (denaryNumber % 2 + 10 * findBinary(denaryNumber / 2));
+                return (decimalNumber % 2 + 10 * findBinary(decimalNumber / 2));
             }
         }
-
 
         // finds the given decimal number for a binary input using recursion
         private int findDecimal(string binaryNumber, int i=0)
@@ -576,6 +575,7 @@ namespace NEA_CPU_Model
         private void UpdateInterface(string register, int data)
         {
             int reg = Convert.ToInt32(register);
+
             // if register is within the range of available registers
             if (reg >= Model.registerIndex && reg <= (Model.registerIndex + Model.registersData.Count()))
             {

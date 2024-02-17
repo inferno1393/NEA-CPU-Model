@@ -14,7 +14,7 @@ namespace NEA_CPU_Model
         {
             // is overriden by the child class
             // controls whether the code needs to execute all instructions or one instruction
-            // ~ based on loop and input from model as to if its execute or step button call
+            // based on loop and input from model as to if its execute or step button call
             // resets the program counter at end of execution
         }
 
@@ -31,7 +31,7 @@ namespace NEA_CPU_Model
         protected virtual void DecodeInstruction(string opcode, string[] values, RAM RAM, List<string> instructions)
         {
             // is overriden by the child class
-            // contains switch-case which calls the appropriate subroutine and gives it the data
+            // contains switch-case which calls the appropriate subroutine for the opcode and gives it the data
         }
     }
 }

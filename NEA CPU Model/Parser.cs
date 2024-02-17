@@ -60,6 +60,7 @@ namespace NEA_CPU_Model
                 if (instruction.Contains(':')) // checks if the current instruction is a label
                 {
                     // instruction is a label so should be added to labels array
+                    // it is added to labels array so branch instructions can send to the correct location
                     string operand = instruction.Replace(":", "");
                     if (labels.ContainsKey(operand))
                     {
@@ -71,7 +72,7 @@ namespace NEA_CPU_Model
                     }
                     count--;
                 }
-                else if(instruction == ""|| instruction == " ") // checks if the current instruction is blank
+                else if(instruction == "" || instruction == " ") // checks if the current instruction is blank
                 {
                     // the instruction should be ignored
                     count--;
@@ -187,6 +188,7 @@ namespace NEA_CPU_Model
         public static string GetOperand(string instruction)
         {
             string operand = string.Empty;
+
             // if the Opcode is HALT, the operand will be blank
             if (GetOpcode(instruction) == "HALT")
             {

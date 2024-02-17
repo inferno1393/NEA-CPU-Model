@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
 using System.Net;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
@@ -44,9 +45,12 @@ namespace NEA_CPU_Model
             {
                 string addr = FindOldest();
 
-                // cache is full so remove the address that has been in cache the longest
-                timestamps.Remove(addr);
-                cacheMemory.Remove(addr);
+                if(addr != "No matching address found") // checks that an address was found
+                {
+                    // cache is full so remove the address that has been in cache the longest
+                    timestamps.Remove(addr);
+                    cacheMemory.Remove(addr);
+                }
             }
 
             if (IsAddressEmpty(address)) // checks if address is empty to avoid updating an existing key
@@ -60,7 +64,6 @@ namespace NEA_CPU_Model
                 timestamps[address] = Processor.cycleCounter; // updates the age counter to reflect the update time
             }
             
-
             // updates specific purpose registers
             Program.model.marText.Text = address;
             Program.model.mbrText.Text = data.ToString();
@@ -69,6 +72,9 @@ namespace NEA_CPU_Model
         }
 
         // returns the address of the oldest address in cache
+        // by copying the timestamp values into an array and then sorting it
+        // the value now at the start of the array is the oldest timestamp
+        // and then searches the timestamp dictionary until if finds the address with that oldest timestamp, which is then returned
         private string FindOldest()
         {
             // creates dictionaries containing the keys and values currently in cache
@@ -76,23 +82,20 @@ namespace NEA_CPU_Model
             Dictionary<string, int>.ValueCollection values = timestamps.Values;
 
             // creates a string array to hold the unsorted values
-            string[] unsortedValues = new string[values.Count];
+            string[] unSortedValues = new string[values.Count];
 
             int j = 0; // initializes an iteration value
-            foreach (var value in values) // adds the values to the string array
+            foreach (var value in values) // adds the values to the unSorted string array
             {
-                unsortedValues[j] = value.ToString();
+                unSortedValues[j] = value.ToString();
                 j++;
             }
 
-            // creates a string array and equals it to the sorted unSorted array
-            string[] sortedValues = SortArray(unsortedValues, 0, unsortedValues.Length - 1);
-
-
-            string address = string.Empty; // creates an empty string to store the matching address 
+            // sorts the unSortedValues array and stores it into a new array
+            string[] sortedValues = SortArray(unSortedValues, 0, unSortedValues.Length - 1);
 
             // carries out a linear search to find the matching address to the oldest timestamp value
-            foreach(var key in keys)
+            foreach (var key in keys)
             {
                 if (timestamps[key].ToString() == sortedValues.First())
                 {
@@ -126,8 +129,7 @@ namespace NEA_CPU_Model
             // creates a dictionary containing the keys currently in cache
             Dictionary<string, int>.KeyCollection keys = cacheMemory.Keys;
 
-            // sorts keys into numerical order for visbility
-            //var sortedKeys = keys.OrderBy(key => Convert.ToInt32(key));
+            // creates an array to hold the unSorted keys
             string[] unSortedKeys = new string[keys.Count];
             int j = 0;
             foreach(var key in keys)
@@ -136,6 +138,7 @@ namespace NEA_CPU_Model
                 j++;
             }
 
+            // sorts keys into numerical order for visbility
             string[] sortedKeys = SortArray(unSortedKeys, 0, unSortedKeys.Length - 1);
 
             // updates interface to show the new order
@@ -143,7 +146,7 @@ namespace NEA_CPU_Model
 
             foreach (var key in sortedKeys)
             {
-                if (i <= capacity-1)
+                if (i <= capacity)
                 {
                     if (i < Model.cacheData.Count())
                     {
@@ -156,8 +159,11 @@ namespace NEA_CPU_Model
             }
         }
 
-        // recursively calls until the array is split into individual values
-        // and combines and sorts arrays until one combined, sorted array is returned to call point
+        // recursively calls until the array is split into arrays containing individual values
+        // leftArray contains the left side of the original array until that becomes individual values
+        // rightArray contains the right side of the original array until that becomes individual values
+        // left and right arrays are then combined in numerical order in turn as the recursion calls out
+        // until the final sorted list is left which is the returned to the original program
         private string[] SortArray(string[] unSortedArray, int leftValue, int rightValue)
         {
             if (leftValue < rightValue) // checks if the array has been split to individual values
