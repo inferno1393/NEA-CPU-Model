@@ -31,8 +31,8 @@ namespace NEA_CPU_Model
             { "ORR", 2},
             { "EOR", 2},
             { "MVN", 1},
-            { "LSL", 3},
-            { "LSR", 3},
+            { "LSL", 2},
+            { "LSR", 2},
         };
 
         // uses a dictionary to store the opcodes that access a register
@@ -415,7 +415,7 @@ namespace NEA_CPU_Model
         private void LSL(string[] values, RAM RAM)
         {
             int calculationValue = findCalculationValue(values, 2, RAM); // fetches the value to process
-            int result = LogicalShift(registers[values[1]], calculationValue, "/"); // calculates the result
+            int result = LogicalShift(registers[values[1]], calculationValue, "*"); // calculates the result
 
             registers[values[0]] = result; // stores the result in the appropriate register
 
@@ -429,7 +429,7 @@ namespace NEA_CPU_Model
         private void LSR(string[] values, RAM RAM)
         {
             int calculationValue = findCalculationValue(values, 2, RAM); // fetches the value to process
-            int result = LogicalShift(registers[values[1]], calculationValue, "*"); // calculates the result
+            int result = LogicalShift(registers[values[1]], calculationValue, "/"); // calculates the result
 
             registers[values[0]] = result; // stores the result in the appropriate register
 
@@ -449,11 +449,11 @@ namespace NEA_CPU_Model
 
             for (int i = 0; i < operand.Length; i++)
             {
-                if (operand[i] == 1) // if input is 1, output is 0
+                if (operand[i] == '1') // if input is 1, output is 0
                 {
                     result += '0';
                 }
-                else // else output is 0
+                else // else value is 0
                 {
                     result += '1';
                 }
