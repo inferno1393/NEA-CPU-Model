@@ -77,13 +77,14 @@ namespace NEA_CPU_Model
             // code needs to execute all instructions at once
             if (loop)
             {
-                // reset cycle values
-                programCounter = 0;
-                cycleCounter = 0;
                 while (programCounter < instructions.Count && repeat) // while not reached end of code/error not encountered
                 {
                     SplitInstruction(instructions, RAM); // call to process the instructions
                 }
+
+                // reset cycle values
+                programCounter = 0;
+                cycleCounter = 0;
             }
             // execute only the next instruction
             else
@@ -91,6 +92,13 @@ namespace NEA_CPU_Model
                 if(programCounter < instructions.Count && repeat) // if not reached end of code/error not encountered
                 {
                     SplitInstruction(instructions, RAM); // call to process the instructions
+
+                    if(programCounter == instructions.Count - 1)
+                    {
+                        // reset cycle values for next cycle
+                        programCounter = 0;
+                        cycleCounter = 0;
+                    }
                 }
                 else
                 {
