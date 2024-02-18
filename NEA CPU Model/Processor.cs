@@ -401,7 +401,7 @@ namespace NEA_CPU_Model
         // Bitwise not the value in the 2nd operand and stores it in the 1st operand
         private void MVN(string[] values, RAM RAM)
         {
-            int calculationValue = findCalculationValue(values, 2, RAM); // fetches the value to process
+            int calculationValue = findCalculationValue(values, 1, RAM); // fetches the value to process
             int result = NotLogic(calculationValue); // calculates the result
            
             registers[values[0]] = result; // stores the result in the appropriate register
