@@ -60,11 +60,8 @@ namespace NEA_CPU_Model
             }
             else
             {
-                MessageBox.Show($"Updating Address {address} from Timestamp {timestamps[address]} to Timestamp {Processor.cycleCounter}"); // TEST CASE
-
                 cacheMemory[address] = data; // address already exsits so update the address
                 timestamps[address] = Processor.cycleCounter; // updates the age counter to reflect the update time
-
             }
             
             // updates specific purpose registers
@@ -112,7 +109,7 @@ namespace NEA_CPU_Model
         // checks if the given address is empty
         protected override bool IsAddressEmpty(string address)
         {
-            if (cacheMemory.ContainsKey(address)) // checks if key is in dictionary
+            if (cacheMemory.ContainsKey(address)) // checks if key is in dictionary and returns accordingly
             {
                 return false; // the address is not empty
             }
