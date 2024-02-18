@@ -109,7 +109,6 @@ namespace NEA_CPU_Model
 
             return "Invalid, no instructions where entered";
         }
-
         static bool CheckInstruction(string Operand, string Opcode)
         {
             // if the Opcode is invalid, the instruction is invalid

@@ -167,7 +167,7 @@ namespace NEA_CPU_Model
 
                     if (!registers.ContainsKey(values[1]))
                     {
-                        MessageBox.Show($"Register address emptyat line {programCounter}");
+                        MessageBox.Show($"Register address empty at line {programCounter}");
                         repeat = false; // an error has occurred so stop execution
                     }
                 }
