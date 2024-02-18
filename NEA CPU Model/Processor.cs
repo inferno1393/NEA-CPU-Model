@@ -287,7 +287,7 @@ namespace NEA_CPU_Model
         // store the value in the 1st operand into the 2nd operand
         private void STR(string[] values, RAM RAM)
         {
-            int calculationValue = findCalculationValue(values, 0,RAM); // fetches the value to process
+            int calculationValue = findCalculationValue(values, 0, RAM); // fetches the value to process
             WriteData(values[1], calculationValue, RAM); // stores the data appropriately
         }
 
