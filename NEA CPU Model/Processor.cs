@@ -379,7 +379,6 @@ namespace NEA_CPU_Model
             UpdateInterface(values[0], registers[values[0]]);
             Program.model.accumulatorText.Text = result.ToString();
         }
-
         // Bitwise or the value in the 3rd operand with the 2nd operand and stores it in the 1st operand
         private void ORR(string[] values, RAM RAM)
         {
