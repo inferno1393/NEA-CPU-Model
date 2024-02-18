@@ -99,7 +99,7 @@ namespace NEA_CPU_Model
                 {
                     if (!CheckInstruction(splitInstructions.Pop(), splitInstructions.Pop()))
                     {
-                        return $"Invalid, incorrect instruction at line {i}";
+                        return $"Invalid, incorrect instruction at line {i - 1}";
                     }
                 }
 

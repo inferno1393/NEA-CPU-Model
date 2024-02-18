@@ -133,7 +133,7 @@ namespace NEA_CPU_Model
                         valueFormat = "R";
                         if (!registers.ContainsKey(values[valuePosition]))
                         {
-                            MessageBox.Show("Register address empty");
+                            MessageBox.Show($"Register address empty at line {programCounter}");
                             repeat = false; // an error has occurred so stop execution
                         }
                     }
@@ -142,7 +142,7 @@ namespace NEA_CPU_Model
                         valueFormat = "A";
                         if (FetchData(values[valuePosition], RAM) == -1)
                         {
-                            MessageBox.Show("RAM address empty");
+                            MessageBox.Show($"RAM address empty at line {programCounter}");
                             repeat = false; // an error has occurred so stop execution
                         }
                     }
@@ -159,7 +159,7 @@ namespace NEA_CPU_Model
 
                     if (!registers.ContainsKey(values[1]))
                     {
-                        MessageBox.Show("Register address empty");
+                        MessageBox.Show($"Register address emptyat line {programCounter}");
                         repeat = false; // an error has occurred so stop execution
                     }
                 }
