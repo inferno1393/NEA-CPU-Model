@@ -60,7 +60,7 @@ namespace NEA_CPU_Model
             }
             else
             {
-                MessageBox.Show($"Updating {address} from {timestamps[address]} to {Processor.cycleCounter}"); // TEST CASE
+                MessageBox.Show($"Updating Address {address} from Timestamp {timestamps[address]} to Timestamp {Processor.cycleCounter}"); // TEST CASE
 
                 cacheMemory[address] = data; // address already exsits so update the address
                 timestamps[address] = Processor.cycleCounter; // updates the age counter to reflect the update time
