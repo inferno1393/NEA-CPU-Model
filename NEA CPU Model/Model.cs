@@ -433,7 +433,6 @@ namespace NEA_CPU_Model
                 MessageBox.Show("File Name not valid");
             }
             return instructions; // returns the list of instructions
-
         }
 
         private void RestoreColour()
