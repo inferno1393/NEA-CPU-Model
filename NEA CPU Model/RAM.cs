@@ -12,12 +12,6 @@ namespace NEA_CPU_Model
         // uses a dictionary to implement an associative array to store the RAM values
         private Dictionary<string, int> memory = new Dictionary<string, int> { };
 
-        // constructor
-        public RAM()
-        {
-
-        }
-
         // returns the data of the address being accessed
         public override int ReturnData(string address)
         {
