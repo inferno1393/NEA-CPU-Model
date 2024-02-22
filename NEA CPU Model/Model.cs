@@ -113,8 +113,8 @@ namespace NEA_CPU_Model
         };
 
         // attributes
-        Processor processor = new Processor();
-        RAM RAM = new RAM();
+        private Processor processor = new Processor();
+        private RAM RAM = new RAM();
 
         // initializes indexes for ram and register addresses
         public static int ramIndex = 0;
