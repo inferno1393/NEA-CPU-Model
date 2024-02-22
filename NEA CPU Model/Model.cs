@@ -19,7 +19,7 @@ namespace NEA_CPU_Model
 
         // arrays
         // creates array of avaiable text boxes for registers
-        static public TextBox[] registersData =
+        public static TextBox[] registersData =
         {
             Program.model.RData0,
             Program.model.RData1,
@@ -32,7 +32,7 @@ namespace NEA_CPU_Model
         };
 
         // creates array of avaiable labels for registers
-        static private Label[] registerAddress =
+        private static Label[] registerAddress =
         {
             Program.model.registerAddress0,
             Program.model.registerAddress1,
@@ -45,7 +45,7 @@ namespace NEA_CPU_Model
         };
 
         // creates array of avaiable text boxes for RAM
-        static public TextBox[] ramData =
+        public static TextBox[] ramData =
         {
             Program.model.Data0,
             Program.model.Data1,
@@ -66,7 +66,7 @@ namespace NEA_CPU_Model
         };
 
         // creates array of avaiable labels for RAM
-        static private Label[] ramAddress =
+        private static Label[] ramAddress =
         {
             Program.model.ramAddress0,
             Program.model.ramAddress1,
@@ -87,7 +87,7 @@ namespace NEA_CPU_Model
         };
 
         // creates array of avaiable text boxes for cache
-        static public TextBox[] cacheData =
+        public static TextBox[] cacheData =
         {
             Program.model.CData0,
             Program.model.CData1,
@@ -100,7 +100,7 @@ namespace NEA_CPU_Model
         };
 
         // creates array of avaiable labels for cache
-        static public Label[] cacheAddress =
+        public static Label[] cacheAddress =
         {
             Program.model.cacheAddress0,
             Program.model.cacheAddress1,
@@ -117,8 +117,8 @@ namespace NEA_CPU_Model
         RAM RAM = new RAM();
 
         // initializes indexes for ram and register addresses
-        static public int ramIndex = 0;
-        static public int registerIndex = 0;
+        public static int ramIndex = 0;
+        public static int registerIndex = 0;
 
         private string ColourFileName = "Colours.txt";
         private string InstructionsFileName = "Instructions.txt";
