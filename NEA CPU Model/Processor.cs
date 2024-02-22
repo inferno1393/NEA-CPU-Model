@@ -63,12 +63,6 @@ namespace NEA_CPU_Model
         // string value to store format of any <value> operands
         private string valueFormat = string.Empty;
 
-        // constructor
-        public Processor()
-        {
-
-        }
-
         // splits the instructions into each instruction and then into opcode and operand
         // then controls the CPU components in executing the instruction
         public override void FlowOfInstructions(List<string> instructions, RAM RAM, bool loop)
