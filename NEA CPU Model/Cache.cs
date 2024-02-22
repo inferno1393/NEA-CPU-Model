@@ -16,10 +16,10 @@ namespace NEA_CPU_Model
     internal class Cache: AbstractMemory
     {
         // uses a dictionary to implement an associative array to store the cache values
-        Dictionary<string, int> cacheMemory = new Dictionary<string, int>() { };
+        private Dictionary<string, int> cacheMemory = new Dictionary<string, int>() { };
 
         // uses a dictionary to implement an associative array to tell which addresses have been in cache the longest
-        Dictionary<string, int> timestamps = new Dictionary<string, int>() { };
+        private Dictionary<string, int> timestamps = new Dictionary<string, int>() { };
 
         // attributes
         public int capacity = 8;
