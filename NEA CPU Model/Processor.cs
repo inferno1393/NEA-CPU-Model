@@ -347,7 +347,7 @@ namespace NEA_CPU_Model
         private void Branch(string[] values, RAM RAM, List<string> instructions, string condition)
         {
             // checks if the string stored by the last comparison met the given condition (or if it should always branch)
-            if (comparisonResult == condition || condition == "NA")
+            if (comparisonResult == condition || condition == "NA" || (condition == "NE" && comparisonResult != "EQ")) // checks when the condition is not equal as a GT/LT comparison result is still not equal
             {
                 if (Parser.labels.ContainsKey(values[0])) // checks the label exists
                 {
