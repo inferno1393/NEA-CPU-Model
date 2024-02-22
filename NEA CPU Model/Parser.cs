@@ -109,7 +109,7 @@ namespace NEA_CPU_Model
 
             return "Invalid, no instructions where entered";
         }
-        static bool CheckInstruction(string Operand, string Opcode)
+        private bool CheckInstruction(string Operand, string Opcode)
         {
             // if the Opcode is invalid, the instruction is invalid
             if (OpcodeFormat(Opcode) == "invalid")
@@ -132,7 +132,7 @@ namespace NEA_CPU_Model
         }
 
         // returns the format the Operand is in by counting the commas present
-        static string OperandFormat(string Operand)
+        private string OperandFormat(string Operand)
         {
             int count = 0;
 
@@ -168,7 +168,7 @@ namespace NEA_CPU_Model
         }
 
         // uses a dictionary to return the format the operand should be in
-        static string OpcodeFormat(string Opcode)
+        private string OpcodeFormat(string Opcode)
         {
             // if the Opcode is a valid key
             // return the matching value

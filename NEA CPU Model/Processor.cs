@@ -17,7 +17,7 @@ namespace NEA_CPU_Model
         private Dictionary<string, int> registers = new Dictionary<string, int> { };
 
         // creates an instance of the cache class
-        static public Cache cache = new Cache();
+        public static Cache cache = new Cache();
 
         // uses a dictionary to store the opcodes that can take <value>
         private Dictionary<string, int> ValueOpcodes = new Dictionary<string, int>
