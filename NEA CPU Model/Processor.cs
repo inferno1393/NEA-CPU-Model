@@ -466,10 +466,9 @@ namespace NEA_CPU_Model
         // does the Logical Shifting
         private int LogicalShift(int value, int shift, string Operator)
         {
-            int calculationValue = 0; // creates a temporary value to carry out the calculation on
+            int calculationValue = value; // creates a temporary value to carry out the calculation on and sets it to the inputted value
             if (Operator == "*") // if the call point is a left shift
             {
-                calculationValue = value;
                 for (int i = 0; i < shift; i++) // shifts the value a number of times equal to shift
                 {
                     calculationValue *= 2;
@@ -477,7 +476,6 @@ namespace NEA_CPU_Model
             }
             else // else the call point is a right shift
             {
-                calculationValue = value;
                 for (int i = 0; i < shift; i++) // shifts the value a number of times equal to shift
                 {
                     calculationValue /= 2;
