@@ -210,23 +210,23 @@ namespace NEA_CPU_Model
                     break;
 
                 case "B":
-                    Branch(values, RAM, instructions, "NA");
+                    Branch(values, RAM, "NA");
                     break;
 
                 case "B<EQ>":
-                    Branch(values, RAM, instructions, "EQ");
+                    Branch(values, RAM, "EQ");
                     break;
 
                 case "B<NE>":
-                    Branch(values, RAM, instructions, "NE");
+                    Branch(values, RAM, "NE");
                     break;
 
                 case "B<GT>":
-                    Branch(values, RAM, instructions, "GT");
+                    Branch(values, RAM, "GT");
                     break;
 
                 case "B<LT>":
-                    Branch(values, RAM, instructions, "LT");
+                    Branch(values, RAM, "LT");
                     break;
 
                 case "AND":
@@ -344,7 +344,7 @@ namespace NEA_CPU_Model
         }
 
         // branches to the label given by the operand if the given condition was met by the last comparison
-        private void Branch(string[] values, RAM RAM, List<string> instructions, string condition)
+        private void Branch(string[] values, RAM RAM, string condition)
         {
             // checks if the string stored by the last comparison met the given condition (or if it should always branch)
             if (comparisonResult == condition || condition == "NA" || (condition == "NE" && comparisonResult != "EQ")) // checks when the condition is not equal as a GT/LT comparison result is still not equal
