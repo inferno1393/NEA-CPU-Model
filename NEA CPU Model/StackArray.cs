@@ -55,13 +55,13 @@ namespace NEA_CPU_Model
         }
 
         // returns if the stack is empty
-        public bool Empty()
+        public bool IsEmpty()
         {
             return top == -1;
         }
 
         // returns if the stack is full
-        public bool Full()
+        public bool IsFull()
         {
             return (top + 1) == capacity;
         }
