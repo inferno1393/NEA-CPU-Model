@@ -397,7 +397,6 @@ namespace NEA_CPU_Model
             {
                 MessageBox.Show(parsingOutput);
             }
-
         }
 
         // writes the instructions to a textfile
