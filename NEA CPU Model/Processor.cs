@@ -416,7 +416,7 @@ namespace NEA_CPU_Model
         private void LSL(string[] values, RAM RAM)
         {
             int calculationValue = findCalculationValue(values, 2, RAM); // fetches the value to process
-            int result = LogicalShift(registers[values[1]], calculationValue, "*"); // calculates the result
+            int result = registers[values[1]] << calculationValue; // calculates the result
 
             registers[values[0]] = result; // stores the result in the appropriate register
 
@@ -430,7 +430,7 @@ namespace NEA_CPU_Model
         private void LSR(string[] values, RAM RAM)
         {
             int calculationValue = findCalculationValue(values, 2, RAM); // fetches the value to process
-            int result = LogicalShift(registers[values[1]], calculationValue, "/"); // calculates the result
+            int result = registers[values[1]] >> calculationValue; // calculates the result
 
             registers[values[0]] = result; // stores the result in the appropriate register
 
@@ -461,27 +461,6 @@ namespace NEA_CPU_Model
             }
 
             return binToDec(result); // converts output to decimal and returns to call point
-        }
-
-        // does the Logical Shifting
-        private int LogicalShift(int value, int shift, string Operator)
-        {
-            int calculationValue = value; // creates a temporary value to carry out the calculation on and sets it to the inputted value
-            if (Operator == "*") // if the call point is a left shift
-            {
-                for (int i = 0; i < shift; i++) // shifts the value a number of times equal to shift
-                {
-                    calculationValue *= 2;
-                }
-            }
-            else // else the call point is a right shift
-            {
-                for (int i = 0; i < shift; i++) // shifts the value a number of times equal to shift
-                {
-                    calculationValue /= 2;
-                }
-            }
-            return calculationValue; // returns the result
         }
 
         // converts input to binary
