@@ -153,7 +153,7 @@ namespace NEA_CPU_Model
             executeBtn.Size = new Size(xSize, ySize);
             executeBtn.Location = new Point(24, 570);
             executeBtn.BackColor = Color.White;
-            executeBtn.Click += new EventHandler(executeBtn_Click);
+            executeBtn.Click += new EventHandler(executeBtnClick);
             executeBtn.Text = "Execute";
             Controls.Add(executeBtn);
 
@@ -162,7 +162,7 @@ namespace NEA_CPU_Model
             stepBtn.Size = new Size(xSize, ySize);
             stepBtn.Location = new Point(224, 570);
             stepBtn.BackColor = Color.White;
-            stepBtn.Click += new EventHandler(stepBtn_Click);
+            stepBtn.Click += new EventHandler(stepBtnClick);
             stepBtn.Text = "Step";
             Controls.Add(stepBtn);
 
@@ -171,7 +171,7 @@ namespace NEA_CPU_Model
             resetBtn.Size = new Size(xSize, ySize);
             resetBtn.Location = new Point(424, 570);
             resetBtn.BackColor = Color.White;
-            resetBtn.Click += new EventHandler(resetBtn_Click);
+            resetBtn.Click += new EventHandler(resetBtnClick);
             resetBtn.Text = "Reset";
             Controls.Add(resetBtn);
 
@@ -180,7 +180,7 @@ namespace NEA_CPU_Model
             loadBtn.Size = new Size(xSize, ySize);
             loadBtn.Location = new Point(100, 700);
             loadBtn.BackColor = Color.White;
-            loadBtn.Click += new EventHandler(loadBtn_Click);
+            loadBtn.Click += new EventHandler(loadBtnClick);
             loadBtn.Text = "Load Instructions From File";
             Controls.Add(loadBtn);
 
@@ -189,7 +189,7 @@ namespace NEA_CPU_Model
             writeBtn.Size = new Size(xSize, ySize);
             writeBtn.Location = new Point(330, 700);
             writeBtn.BackColor = Color.White;
-            writeBtn.Click += new EventHandler(writeBtn_Click);
+            writeBtn.Click += new EventHandler(writeBtnClick);
             writeBtn.Text = "Write Instructions To File";
             Controls.Add(writeBtn);
 
@@ -198,7 +198,7 @@ namespace NEA_CPU_Model
             updateColourBtn.Size = new Size(xSize + 2, ySize);
             updateColourBtn.Location = new Point(12, 950);
             updateColourBtn.BackColor = Color.White;
-            updateColourBtn.Click += new EventHandler(updateColourBtn_Click);
+            updateColourBtn.Click += new EventHandler(updateColourBtnClick);
             updateColourBtn.Text = "Update Colour";
             Controls.Add(updateColourBtn);
 
@@ -207,7 +207,7 @@ namespace NEA_CPU_Model
             updateRamBtn.Size = new Size(xSize - 30, ySize);
             updateRamBtn.Location = new Point(232, 950);
             updateRamBtn.BackColor = Color.White;
-            updateRamBtn.Click += new EventHandler(updateRamBtn_Click);
+            updateRamBtn.Click += new EventHandler(updateRamBtnClick);
             updateRamBtn.Text = "Update RAM Index";
             Controls.Add(updateRamBtn);
 
@@ -216,7 +216,7 @@ namespace NEA_CPU_Model
             updateRegisterBtn.Size = new Size(xSize - 30, ySize);
             updateRegisterBtn.Location = new Point(422, 950);
             updateRegisterBtn.BackColor = Color.White;
-            updateRegisterBtn.Click += new EventHandler(updateRegisterBtn_Click);
+            updateRegisterBtn.Click += new EventHandler(updateRegisterBtnClick);
             updateRegisterBtn.Text = "Update Register Index";
             Controls.Add(updateRegisterBtn);
 
@@ -225,25 +225,25 @@ namespace NEA_CPU_Model
             updateCacheCapacityBtn.Size = new Size(xSize - 30, ySize);
             updateCacheCapacityBtn.Location = new Point(617, 950);
             updateCacheCapacityBtn.BackColor = Color.White;
-            updateCacheCapacityBtn.Click += new EventHandler(updateCacheCapacityBtn_Click);
+            updateCacheCapacityBtn.Click += new EventHandler(updateCacheCapacityBtnClick);
             updateCacheCapacityBtn.Text = "Update Cache Capacity";
             Controls.Add(updateCacheCapacityBtn);
         }
 
         // parses the instructions and then executes them on appropriate button click
-        private void executeBtn_Click(object sender, EventArgs e)
+        private void executeBtnClick(object sender, EventArgs e)
         {
             Process(true); // calls to execute with looping
         }
 
         // allows the user to step through the code instruction by instruction on appropriate button click
-        private void stepBtn_Click(object sender, EventArgs e)
+        private void stepBtnClick(object sender, EventArgs e)
         {
             Process(false); // calls to execute without looping
         }
 
         // allows the user to load the last set of instructions from a text file on appropriate button click
-        private void loadBtn_Click(object sender, EventArgs e)
+        private void loadBtnClick(object sender, EventArgs e)
         {
             InstructionsFileName = fileNameText.Text; // sets the filename to read from to the inputted file name
 
@@ -259,7 +259,7 @@ namespace NEA_CPU_Model
             }
         }
 
-        private void writeBtn_Click(object sender, EventArgs e)
+        private void writeBtnClick(object sender, EventArgs e)
         {
             // creates the list of instructions and puts the values in the text box into it
             List<string> instructions = instructionsTextBox.Text.Split('\n').ToList<string>();
@@ -270,7 +270,7 @@ namespace NEA_CPU_Model
         }
 
         // resets the system back to beginning to be empty on appropriate button click
-        private void resetBtn_Click(object sender, EventArgs e)
+        private void resetBtnClick(object sender, EventArgs e)
         {
             RAM.Clear(); // calls a method to clear RAM
             processor.Clear(); // calls a method to clear registers and cache
@@ -299,7 +299,7 @@ namespace NEA_CPU_Model
         }
 
         // updates the background colours to the value in the colourBox menu on appropriate button click
-        private void updateColourBtn_Click(object sender, EventArgs e)
+        private void updateColourBtnClick(object sender, EventArgs e)
         {
             // sets background colour to user input
             string text = colourBox.Text.ToLower(); // changes the case to be all lower to avoid being case sensitive
@@ -319,7 +319,7 @@ namespace NEA_CPU_Model
         }
 
         // updates RAM index on appropriate button click
-        private void updateRamBtn_Click(object sender, EventArgs e)
+        private void updateRamBtnClick(object sender, EventArgs e)
         {
             // tries to convert the input into an integer for use
             bool converted = int.TryParse(ramIndexText.Text, out ramIndex);
@@ -339,7 +339,7 @@ namespace NEA_CPU_Model
         }
 
         // updates Register index on appropriate button click
-        private void updateRegisterBtn_Click(object sender, EventArgs e)
+        private void updateRegisterBtnClick(object sender, EventArgs e)
         {
             // tries to convert the input into an integer for use
             bool converted = int.TryParse(registerIndexText.Text, out registerIndex);
@@ -358,7 +358,7 @@ namespace NEA_CPU_Model
             }
         }
 
-        private void updateCacheCapacityBtn_Click(object sender, EventArgs e)
+        private void updateCacheCapacityBtnClick(object sender, EventArgs e)
         {
             // tries to convert the input into an integer for use
             bool converted = int.TryParse(cacheCapacity.Text, out Processor.cache.capacity);
