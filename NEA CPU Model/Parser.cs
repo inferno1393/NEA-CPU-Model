@@ -107,7 +107,7 @@ namespace NEA_CPU_Model
                 return "Valid";
             }
 
-            return "Invalid, no instructions where entered";
+            return "Invalid, no instructions were entered";
         }
         private bool CheckInstruction(string Operand, string Opcode)
         {
