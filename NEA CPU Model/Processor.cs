@@ -269,7 +269,9 @@ namespace NEA_CPU_Model
             if (FetchData(values[1], RAM) != -1) // checks that the accessed address is not empty
             {
                 registers[values[0]] = FetchData(values[1], RAM); // sets the appropriate register to the value fetched from RAM
-                UpdateInterface(values[0], registers[values[0]]); // updates the interface accordingly
+
+                // updates the interface accordingly
+                UpdateInterface(values[0], registers[values[0]]);
             }
             else // address is empty, exit out
             {
@@ -282,6 +284,7 @@ namespace NEA_CPU_Model
         private void STR(string[] values, RAM RAM)
         {
             int calculationValue = findCalculationValue(values, 0, RAM); // fetches the value to process
+
             WriteData(values[1], calculationValue, RAM); // stores the data appropriately
         }
 
@@ -315,8 +318,11 @@ namespace NEA_CPU_Model
         private void MOV(string[] values, RAM RAM)
         {
             int calculationValue = findCalculationValue(values, 1, RAM); // fetches the value to process
+
             registers[values[0]] = calculationValue; // stores the value in the right register
-            UpdateInterface(values[0], calculationValue); // updates the interface to show the new register update
+
+            // updates the interface to show the new register update
+            UpdateInterface(values[0], calculationValue);
         }
 
         // compares the value in the 1st operand with the 2nd operand
@@ -329,10 +335,6 @@ namespace NEA_CPU_Model
             {
                 comparisonResult = "EQ";
             }
-            if (registers[values[0]] != comparisonValue)
-            {
-                comparisonResult = "NE";
-            }
             else if (registers[values[0]] > comparisonValue)
             {
                 comparisonResult = "GT";
@@ -340,6 +342,10 @@ namespace NEA_CPU_Model
             else if (registers[values[0]] < comparisonValue)
             {
                 comparisonResult = "LT";
+            }
+            else
+            {
+                comparisonResult = "NE";
             }
         }
 
