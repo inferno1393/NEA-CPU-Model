@@ -13,14 +13,14 @@ namespace NEA_CPU_Model
         {
             return 0; // blank return case
             // returns the data stored in the given address
-            // is overriden by the child class
+            // is overridden by the child class
         }
 
         // stores the data given in the given address
         public virtual void StoreData(string address, int data)
         {
             // stores the given data in the given address
-            // is overriden by the child class
+            // is overridden by the child class
         }
 
         // returns if an address is empty
@@ -28,7 +28,7 @@ namespace NEA_CPU_Model
         {
             return false; // blank return case
             // checks if the given address contains data
-            // is overriden by the child class
+            // is overridden by the child class
         }
     }
 }

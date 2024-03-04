@@ -270,7 +270,7 @@ namespace NEA_CPU_Model
 
             InstructionsFileName = fileNameText.Text; // sets the filename to write to, to the inputted file name
 
-            WriteInstructionsToFile(instructions);// writes the instructions into a textfile
+            WriteInstructionsToFile(instructions);// writes the instructions into a text file
         }
 
         // resets the system back to beginning to be empty on appropriate button click
@@ -403,18 +403,18 @@ namespace NEA_CPU_Model
             }
         }
 
-        // writes the instructions to a textfile
+        // writes the instructions to a text file
         private void WriteInstructionsToFile(List<string> instructions)
         {
             StreamWriter writer = new StreamWriter(InstructionsFileName); // creates instance of streamwriter for the given file
             for (int i = 0; i < instructions.Count; i++)
             {
-                writer.WriteLine(instructions[i]); // adds each instruction to the textfile in turn
+                writer.WriteLine(instructions[i]); // adds each instruction to the text file in turn
             }
             writer.Close(); // closes the file to avoid errors
         }
 
-        // reads the instructions from a textfile
+        // reads the instructions from a text file
         private List<string> ReadInstructionsFromFile()
         {
             List<string> instructions = new List<string>();
