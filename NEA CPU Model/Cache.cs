@@ -35,6 +35,9 @@ namespace NEA_CPU_Model
             Program.model.marText.Text = address;
             Program.model.mbrText.Text = cacheMemory[address].ToString();
 
+            // updates the timestamp of the accessed address
+            timestamps[address] = Processor.cycleCounter;
+
             return cacheMemory[address]; // returns data
         }
 
