@@ -73,7 +73,7 @@ namespace NEA_CPU_Model
             {
                 while (programCounter < instructions.Count && repeat) // while not reached end of code/error not encountered
                 {
-                    SplitInstruction(instructions, RAM); // call to process the instructions
+                    DecodeInstruction(instructions, RAM); // call to process the instructions
                 }
 
                 // reset cycle values
@@ -85,7 +85,7 @@ namespace NEA_CPU_Model
             {
                 if(programCounter < instructions.Count && repeat) // if not reached end of code/error not encountered
                 {
-                    SplitInstruction(instructions, RAM); // call to process the instructions
+                    DecodeInstruction(instructions, RAM); // call to process the instructions
 
                     if(programCounter == instructions.Count - 1)
                     {
@@ -104,7 +104,7 @@ namespace NEA_CPU_Model
         }
 
         // controls the program counter during execution and splits the instruction
-        protected override void SplitInstruction(List<string> instructions, RAM RAM)
+        protected override void DecodeInstruction(List<string> instructions, RAM RAM)
         {
             string instruction = instructions[programCounter]; // gets current instruction
             programCounter++; // increment program counter for next cycle
@@ -173,14 +173,14 @@ namespace NEA_CPU_Model
                 if (repeat) // checks an error has not occurred
                 {
                     // call point for the decoding of the instruction
-                    DecodeInstruction(opcode, values, RAM, instructions);
+                    ExecuteInstruction(opcode, values, RAM, instructions);
                 }
 
             }
         }
 
         // decodes the instruction given and calls the appropriate subroutine to execute it
-        protected override void DecodeInstruction(string opcode, string[] values, RAM RAM, List<string> instructions)
+        protected override void ExecuteInstruction(string opcode, string[] values, RAM RAM, List<string> instructions)
         {
             // calls the appropriate subroutine and passes in the necessary values
             switch (opcode)

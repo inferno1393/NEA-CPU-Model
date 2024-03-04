@@ -19,7 +19,7 @@ namespace NEA_CPU_Model
         }
 
         // controls the program counter during execution and splits the instruction
-        protected virtual void SplitInstruction(List<string> instructions, RAM RAM)
+        protected virtual void DecodeInstruction(List<string> instructions, RAM RAM)
         {
             // is overriden by the child class
             // updates program counter, program counter + cir on interface
@@ -28,7 +28,7 @@ namespace NEA_CPU_Model
         }
 
         // decodes the instruction given and calls the appropriate subroutine to execute it
-        protected virtual void DecodeInstruction(string opcode, string[] values, RAM RAM, List<string> instructions)
+        protected virtual void ExecuteInstruction(string opcode, string[] values, RAM RAM, List<string> instructions)
         {
             // is overriden by the child class
             // contains switch-case which calls the appropriate subroutine for the opcode and gives it the data
