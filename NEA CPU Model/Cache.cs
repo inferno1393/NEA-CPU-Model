@@ -63,7 +63,7 @@ namespace NEA_CPU_Model
             }
             else
             {
-                cacheMemory[address] = data; // address already exsits so update the address
+                cacheMemory[address] = data; // address already exists so update the address
                 timestamps[address] = Processor.cycleCounter; // updates the age counter to reflect the update time
             }
             
@@ -187,7 +187,7 @@ namespace NEA_CPU_Model
             string[] leftArray = new string[leftArrayLength]; // creates the left array
             string[] rightArray = new string[rightArrayLength]; // creates the right array
 
-            // intiailizes iteration values
+            // initializes iteration values
             int i = 0;
             int j = 0;
 
