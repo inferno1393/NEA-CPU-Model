@@ -120,8 +120,12 @@ namespace NEA_CPU_Model
         public static int ramIndex = 0;
         public static int registerIndex = 0;
 
+        // sets the filename to store the last used colour
         private string ColourFileName = "Colours.txt";
+
+        // sets the default filename to load/write instructions to (although this can be changed by the user in the interface)
         private string InstructionsFileName = "Instructions.txt";
+
 
         // constructor
         public Model()
