@@ -14,11 +14,6 @@ namespace NEA_CPU_Model
         private int top;
         public int Count { get { return top + 1; } }
 
-        // constructor
-        public StackArray() : this(capacity: 100)
-        {
-        }
-
         // sets attributes on creation
         public StackArray(int capacity)
         {

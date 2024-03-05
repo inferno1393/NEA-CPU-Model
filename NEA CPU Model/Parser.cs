@@ -13,7 +13,7 @@ namespace NEA_CPU_Model
     public class Parser
     {
         // Attributes
-        private StackArray<string> splitInstructions = new StackArray<string>();
+        private StackArray<string> splitInstructions;
         private List<string> instructions;
 
         // uses a dictionary to implement an associative array to store the location of labels
@@ -43,9 +43,10 @@ namespace NEA_CPU_Model
         };
 
         // constructor
-        public Parser(List<string> instructions)
+        public Parser(List<string> instructions, int size)
         {
             this.instructions = instructions;
+            this.splitInstructions = new StackArray<string>(size);
         }
 
         // returns a string showing the validity of the instructions
