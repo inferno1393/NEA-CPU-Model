@@ -87,7 +87,7 @@ namespace NEA_CPU_Model
                 {
                     DecodeInstruction(instructions, RAM); // call to process the instructions
 
-                    if(programCounter == instructions.Count - 1)
+                    if(programCounter == instructions.Count)
                     {
                         // reset cycle values for next cycle
                         programCounter = 0;
