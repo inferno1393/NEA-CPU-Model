@@ -54,7 +54,7 @@ namespace NEA_CPU_Model
         // controls which instruction is executed
         private int programCounter = 0;
 
-        // controls if the end of the program has been met or if an error has occured
+        // controls if the end of the program has been met or if an error has occurred
         private bool repeat = true;
 
         // string value to store result of comparisons for branching

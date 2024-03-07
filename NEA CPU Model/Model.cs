@@ -18,7 +18,7 @@ namespace NEA_CPU_Model
         };
 
         // arrays
-        // creates array of avaiable text boxes for registers
+        // creates array of available text boxes for registers
         public static TextBox[] registersData =
         {
             Program.model.RData0,
@@ -31,7 +31,7 @@ namespace NEA_CPU_Model
             Program.model.RData7,
         };
 
-        // creates array of avaiable labels for registers
+        // creates array of available labels for registers
         private static Label[] registerAddress =
         {
             Program.model.registerAddress0,
@@ -44,7 +44,7 @@ namespace NEA_CPU_Model
             Program.model.registerAddress7,
         };
 
-        // creates array of avaiable text boxes for RAM
+        // creates array of available text boxes for RAM
         public static TextBox[] ramData =
         {
             Program.model.Data0,
@@ -65,7 +65,7 @@ namespace NEA_CPU_Model
             Program.model.Data15,
         };
 
-        // creates array of avaiable labels for RAM
+        // creates array of available labels for RAM
         private static Label[] ramAddress =
         {
             Program.model.ramAddress0,
@@ -86,7 +86,7 @@ namespace NEA_CPU_Model
             Program.model.ramAddress15,
         };
 
-        // creates array of avaiable text boxes for cache
+        // creates array of available text boxes for cache
         public static TextBox[] cacheData =
         {
             Program.model.CData0,
@@ -99,7 +99,7 @@ namespace NEA_CPU_Model
             Program.model.CData7,
         };
 
-        // creates array of avaiable labels for cache
+        // creates array of available labels for cache
         public static Label[] cacheAddress =
         {
             Program.model.cacheAddress0,
@@ -228,7 +228,7 @@ namespace NEA_CPU_Model
             updateRegisterBtn.Text = "Update Register Index";
             Controls.Add(updateRegisterBtn);
 
-            //adds the update cache capacity button
+            // adds the update cache capacity button
             Button updateCacheCapacityBtn = new Button();
             updateCacheCapacityBtn.Size = new Size(xSize - 30, ySize);
             updateCacheCapacityBtn.Location = new Point(617, extraRowYPoint);

@@ -22,7 +22,7 @@ namespace NEA_CPU_Model
         protected virtual void DecodeInstruction(List<string> instructions, RAM RAM)
         {
             // is overridden by the child class
-            // updates program counter, program counter + cir on interface
+            // updates program counter, program counter + CIR on interface
             // splits the instruction into opcode and operand (and then into operands)
             // then calls decode to run the instruction
         }

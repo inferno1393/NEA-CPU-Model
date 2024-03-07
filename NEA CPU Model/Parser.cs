@@ -141,7 +141,7 @@ namespace NEA_CPU_Model
         {
             int count = 0;
 
-            // counts commas in the string
+            // counts commas in the Operand string
             for (int i = 0; i < Operand.Length; i++)
             {
                 if (Operand[i] == ',')
