@@ -370,6 +370,7 @@ namespace NEA_CPU_Model
         {
             // tries to convert the input into an integer for use
             bool converted = int.TryParse(cacheCapacity.Text, out Processor.cache.capacity);
+
             if (!converted)
             {
                 MessageBox.Show("Cache Capacity value invalid");
