@@ -124,7 +124,7 @@ namespace NEA_CPU_Model
                 {
                     int valuePosition = ValueOpcodes[opcode];
 
-                    if (values[valuePosition].Contains('#')) // if the value in the operand is a hardcoded value
+                    if (values[valuePosition].Contains('#')) // if the value in the operand is a hard-coded value
                     {
                         values[valuePosition] = values[valuePosition].Replace("#", "");
                         valueFormat = "#";
@@ -516,7 +516,7 @@ namespace NEA_CPU_Model
         private int findCalculationValue(string[] values, int position, RAM RAM)
         {
             int calculationValue = 0;
-            if(valueFormat == "#") // returns if the value is a hard value
+            if(valueFormat == "#") // returns if the value is a hard-coded value
             {
                 calculationValue = Convert.ToInt32(values[position]);
             }
