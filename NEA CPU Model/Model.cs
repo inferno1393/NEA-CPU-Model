@@ -257,7 +257,7 @@ namespace NEA_CPU_Model
 
             List<string> instructions = ReadInstructionsFromFile(); // calls a method to load the instructions
 
-            for (int i = 0; i < instructions.Count; i++) // updates the instructions textbox to show the loaded instructions
+            for (int i = 0; i < instructions.Count; i++) // updates the instructions text box to show the loaded instructions
             {
                 instructionsTextBox.Text += instructions[i];
                 if (i < instructions.Count - 2)
@@ -377,7 +377,7 @@ namespace NEA_CPU_Model
             }
         }
 
-        // creates the instructions from the textbox in the interface, parses and then executes them (if valid)
+        // creates the instructions from the text box in the interface, parses and then executes them (if valid)
         private void Process(bool loop)
         {
             // creates the list of instructions and puts the values in the text box into it
