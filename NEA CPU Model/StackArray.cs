@@ -29,7 +29,7 @@ namespace NEA_CPU_Model
             arrayStack[top] = s;
         }
 
-        // remove a value from the stack
+        // removes a value from the stack
         public T Pop()
         {
             T r = arrayStack[top];

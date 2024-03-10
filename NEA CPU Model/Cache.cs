@@ -58,7 +58,7 @@ namespace NEA_CPU_Model
 
             if (IsAddressEmpty(address)) // checks if address is empty to avoid updating an existing key
             {
-                cacheMemory.Add(address, data); // address does not already exists so add the address
+                cacheMemory.Add(address, data); // address does not already exist so add the address
                 timestamps.Add(address, Processor.cycleCounter); // adds the new address to the queue
             }
             else
@@ -126,7 +126,7 @@ namespace NEA_CPU_Model
             timestamps = new Dictionary<string, int>() { }; // resets the age queue
         }
 
-        // orders the addresses in cache in ascending numerical order and the displays them to the interface
+        // orders the addresses in cache in ascending numerical order and then displays them to the interface
         private void UpdateInterface()
         {
             // creates a dictionary containing the keys currently in cache
@@ -203,7 +203,7 @@ namespace NEA_CPU_Model
                 rightArray[j] = unSortedArray[middleValue + 1 + j];
             }
 
-            // reses the iteration values
+            // resets the iteration values
             i = 0;
             j = 0;
 

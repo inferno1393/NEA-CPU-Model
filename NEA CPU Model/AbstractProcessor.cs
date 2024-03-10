@@ -14,7 +14,7 @@ namespace NEA_CPU_Model
         {
             // is overridden by the child class
             // controls whether the code needs to execute all instructions or one instruction
-            // based on loop and input from model as to if its execute or step button call
+            // uses loop to decide whether to all instructions or only the next one
             // resets the program counter at end of execution
         }
 

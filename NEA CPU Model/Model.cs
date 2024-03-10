@@ -272,9 +272,9 @@ namespace NEA_CPU_Model
             // creates the list of instructions and puts the values in the text box into it
             List<string> instructions = instructionsTextBox.Text.Split('\n').ToList<string>();
 
-            InstructionsFileName = fileNameText.Text; // sets the filename to write to, to the inputted file name
+            InstructionsFileName = fileNameText.Text; // sets the filename to write to to the inputted file name
 
-            WriteInstructionsToFile(instructions);// writes the instructions into a text file
+            WriteInstructionsToFile(instructions); // writes the instructions into a text file
         }
 
         // resets the system back to beginning to be empty on appropriate button click

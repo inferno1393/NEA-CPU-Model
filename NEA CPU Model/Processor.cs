@@ -328,7 +328,7 @@ namespace NEA_CPU_Model
         // compares the value in the 1st operand with the 2nd operand
         private void CMP(string[] values, RAM RAM)
         {
-            int comparisonValue = findCalculationValue(values, 1, RAM); // fetches the value to compare too
+            int comparisonValue = findCalculationValue(values, 1, RAM); // fetches the value to compare to
 
             // records the result of the comparison in the appropriate variable
             if (registers[values[0]] == comparisonValue)
